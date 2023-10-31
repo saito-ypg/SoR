@@ -6,7 +6,8 @@ class Player : public GameObject
 {
     int hModel_;
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
-    XMVECTOR GetMouseTargetPos(XMVECTOR mouse);
+    XMVECTOR GetMouseTargetPos(XMFLOAT3 mouse);
+    
 public:
     //コンストラクタ
     Player(GameObject* parent);
