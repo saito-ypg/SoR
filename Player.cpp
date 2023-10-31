@@ -1,5 +1,6 @@
 #include "Player.h"
 #include"Engine/Model.h"
+#include"Engine/Input.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -22,6 +23,10 @@ void Player::Initialize()
 //更新
 void Player::Update()
 {
+    if (Input::IsMouseButton(1))
+    {
+        GetMouseTargetPos(Input::GetMousePosition());
+    }
 }
 
 //描画
@@ -34,4 +39,8 @@ void Player::Draw()
 //開放
 void Player::Release()
 {
+}
+XMVECTOR Player::GetMouseTargetPos(XMFLOAT3 mouse)
+{
+    return;
 }

@@ -108,10 +108,6 @@ void GameObject::Collision(GameObject* pTarget)
 	{
 		return;
 	}
-	////‹…“¯Žm
-	//XMVECTOR vTarget = XMLoadFloat3(&pTarget->transform_.position_);
-	//XMVECTOR vOwn = XMLoadFloat3(&transform_.position_);
-	//if (this->pCollider_->GetRadius() + pTarget->pCollider_->GetRadius() >= XMVectorGetX(XMVector3Length(vTarget - vOwn)))
 	float dist =
 		  (transform_.position_.x - pTarget->transform_.position_.x) * (transform_.position_.x - pTarget->transform_.position_.x)
 		+ (transform_.position_.y - pTarget->transform_.position_.y) * (transform_.position_.y - pTarget->transform_.position_.y)
