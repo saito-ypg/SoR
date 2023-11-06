@@ -1,13 +1,18 @@
 #pragma once
 #include "Engine/GameObject.h"
-
+constexpr float MOVE_VELOCITY = 2.0f/60;
 //◆◆◆を管理するクラス
 class Player : public GameObject
 {
     int hModel_;
+    //移動方向の単位ベクトルを格納
+    XMVECTOR moveDirection_;
+    //移動にかかる時間を入れる
+    float moveTime_;
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
     XMVECTOR GetMouseTargetPos(XMFLOAT3 mouse);
     
+    void Move(XMVECTOR target_);
 public:
     //コンストラクタ
     Player(GameObject* parent);

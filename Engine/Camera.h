@@ -32,4 +32,7 @@ namespace Camera
 
 	//プロジェクション行列を取得
 	XMMATRIX GetProjectionMatrix();
+
+	//view,proj,vp3つの逆行列を合わせたものを取得
+	XMMATRIX GetInverseMatrix();
 };	

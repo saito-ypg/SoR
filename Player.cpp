@@ -1,7 +1,8 @@
 #include "Player.h"
+#include"Ground.h"
 #include"Engine/Model.h"
 #include"Engine/Input.h"
-
+#include"Engine/Camera.h"
 //コンストラクタ
 Player::Player(GameObject* parent)
     :GameObject(parent, "Player"),hModel_(-1)
@@ -25,7 +26,8 @@ void Player::Update()
 {
     if (Input::IsMouseButton(1))
     {
-        GetMouseTargetPos(Input::GetMousePosition());
+        XMVECTOR target= GetMouseTargetPos(Input::GetMousePosition());
+        Move(target);
     }
 }
 
@@ -42,5 +44,37 @@ void Player::Release()
 }
 XMVECTOR Player::GetMouseTargetPos(XMFLOAT3 mouse)
 {
-    return;
+    XMMATRIX matInv = Camera::GetInverseMatrix();
+    XMFLOAT3 front = mouse, back = mouse;
+    back.z = 1.0f;
+    XMVECTOR vFront = XMVector3TransformCoord(XMLoadFloat3(&front), matInv);
+    XMVECTOR vBack = XMVector3TransformCoord(XMLoadFloat3(&back), matInv);
+    Ground* pGround = (Ground*)FindObject("Ground");
+    int hG = pGround->GetGloundHandle();
+    RayCastData data;
+    XMStoreFloat4(&data.start, vFront);
+    XMStoreFloat4(&data.dir,vBack - vFront);
+    //Model::SetTransform(hG, transform_);
+    Model::RayCast(hG, data);
+    if (data.hit)
+    {
+        XMVECTOR vpos = XMLoadFloat4(&data.dir);
+        vpos *= data.dist;
+        XMVECTOR vstart = XMLoadFloat4(&data.start);
+        return vstart + vpos;
+
+    }
+}
+
+void Player::Move(XMVECTOR target_)
+{
+    //移動情報の計算
+    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
+    moveDirection_ = XMVector3Normalize(vPos + target_);
+    float length =XMVectorGetX(XMVector3Length(target_ - vPos));
+    moveTime_ = length / MOVE_VELOCITY;
+    
+    //移動方向を向く
+    XMVECTOR vflont = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
+    XMVector3Dot(moveDirection_, vflont);
 }

@@ -67,3 +67,18 @@ XMMATRIX Camera::GetProjectionMatrix()
 {
 	return projMatrix_;
 }
+
+XMMATRIX Camera::GetInverseMatrix()
+{
+	float w = (float)(Direct3D::scrWidth_ / 2.0f);
+	float h = (float)(Direct3D::scrHeight_ / 2.0f);
+	XMMATRIX vp =
+	{
+	   w,0,0,0,
+	   0,-h,0,0,
+	   0,0,1,0,
+	   w,h,0,1
+	};
+
+	return XMMatrixInverse(nullptr,vp)*XMMatrixInverse(nullptr,projMatrix_)*XMMatrixInverse(nullptr,viewMatrix_);
+}

@@ -35,3 +35,8 @@ void Ground::Draw()
 void Ground::Release()
 {
 }
+
+int Ground::GetGloundHandle()
+{
+    return hModel_;
+}
