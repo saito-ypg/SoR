@@ -5,8 +5,10 @@
 #include"Engine/Camera.h"
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameObject(parent, "Player"),hModel_(-1)
+    :GameObject(parent, "Player"), hModel_(-1), moveTime_(0)
 {
+    moveDirection_ = XMVectorZero();
+    vMove_ = XMVectorZero();
 }
 
 //デストラクタ
@@ -27,8 +29,30 @@ void Player::Update()
     if (Input::IsMouseButton(1))
     {
         XMVECTOR target= GetMouseTargetPos(Input::GetMousePosition());
-        Move(target);
+        if (XMComparisonAllTrue(XMVector3EqualR(target, XMVectorSplatQNaN())))
+        {
+            Move(target);
+        }
     }
+    //各入力
+
+    if (moveTime_ > 0)
+    {
+        vMove_ = moveDirection_ * MOVE_VELOCITY;
+        if (moveTime_ < 1)
+        {
+            XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
+            vpos += vMove_*moveTime_;
+            moveTime_ = 0;
+        }
+        else
+        {
+            XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
+            vpos += vMove_;
+            moveTime_--;
+        }
+    }
+
 }
 
 //描画
@@ -54,7 +78,7 @@ XMVECTOR Player::GetMouseTargetPos(XMFLOAT3 mouse)
     RayCastData data;
     XMStoreFloat4(&data.start, vFront);
     XMStoreFloat4(&data.dir,vBack - vFront);
-    //Model::SetTransform(hG, transform_);
+    Model::SetTransform(hG, transform_);
     Model::RayCast(hG, data);
     if (data.hit)
     {
@@ -64,6 +88,7 @@ XMVECTOR Player::GetMouseTargetPos(XMFLOAT3 mouse)
         return vstart + vpos;
 
     }
+  return XMVectorSplatQNaN();
 }
 
 void Player::Move(XMVECTOR target_)
@@ -75,6 +100,10 @@ void Player::Move(XMVECTOR target_)
     moveTime_ = length / MOVE_VELOCITY;
     
     //移動方向を向く
-    XMVECTOR vflont = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
-    XMVector3Dot(moveDirection_, vflont);
+    XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
+    float dot=XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
+    float angle = acos(dot);
+    XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
+    if (XMVectorGetY(vCross) < 0) { angle *= -1; }
+    transform_.rotate_.y = XMConvertToDegrees(angle);
 }

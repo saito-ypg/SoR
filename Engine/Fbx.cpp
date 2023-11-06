@@ -160,7 +160,7 @@ void Fbx::RayCast(RayCastData& rayData)
 	{
 		for (int poly = 0; poly < indexCount_[material]/3; poly++)
 		{
-			XMVECTOR v0 =pVertices_[ppIndex_[material][poly*3]].position;
+			XMVECTOR v0 = pVertices_[ppIndex_[material][poly * 3]].position;
 			XMVECTOR v1 = pVertices_[ppIndex_[material][poly * 3+1]].position;
 			XMVECTOR v2 = pVertices_[ppIndex_[material][poly * 3+2]].position;
 			XMVECTOR start =XMLoadFloat4( &rayData.start);

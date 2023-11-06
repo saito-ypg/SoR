@@ -88,6 +88,6 @@ void Model::RayCast(int hModel, RayCastData& raydata)
 
 	XMStoreFloat4(&raydata.dir, vPass);
 
-	//XMStoreFloat4(&raydata.dir, XMVector4Normalize(XMLoadFloat4(&raydata.dir)));//単位ベクトルにしないとエラーが出る?
+	XMStoreFloat4(&raydata.dir, XMVector4Normalize(XMLoadFloat4(&raydata.dir)));//単位ベクトルにしないとエラーが出る?
 	modelList_.at(hModel)->pFbx_->RayCast(raydata);
 }

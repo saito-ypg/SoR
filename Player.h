@@ -7,7 +7,9 @@ class Player : public GameObject
     int hModel_;
     //移動方向の単位ベクトルを格納
     XMVECTOR moveDirection_;
-    //移動にかかる時間を入れる
+    //移動ベクトル
+    XMVECTOR vMove_;
+    //移動にかかるフレーム数を入れる。移動中断したら0に
     float moveTime_;
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
     XMVECTOR GetMouseTargetPos(XMFLOAT3 mouse);
