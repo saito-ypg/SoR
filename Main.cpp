@@ -167,6 +167,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);  //プログラム終了
 		return 0;
+	case WM_MOUSEMOVE:
+		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
+		return 0;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);//どのケースにも当てはまらない場合、デフォルトの動きをする
 

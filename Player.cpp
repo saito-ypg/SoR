@@ -28,27 +28,28 @@ void Player::Update()
 {
     if (Input::IsMouseButton(1))
     {
-        XMVECTOR target= GetMouseTargetPos(Input::GetMousePosition());
-        if (XMComparisonAllTrue(XMVector3EqualR(target, XMVectorSplatQNaN())))
-        {
-            Move(target);
-        }
+        XMFLOAT3 mousepos= Input::GetMousePosition();
+        XMVECTOR target= GetMouseTargetPos(XMFLOAT3{mousepos.x,mousepos.y,0});
+        Move(target);
+   
     }
     //Še“ü—Í
 
     if (moveTime_ > 0)
     {
-        vMove_ = moveDirection_ * MOVE_VELOCITY;
+       // vMove_ = moveDirection_ * MOVE_VELOCITY;
         if (moveTime_ < 1)
         {
             XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-            vpos += vMove_*moveTime_;
+            vpos += moveDirection_ * MOVE_VELOCITY *moveTime_;
+            XMStoreFloat3(&transform_.position_, vpos);
             moveTime_ = 0;
         }
         else
         {
             XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-            vpos += vMove_;
+            vpos += moveDirection_ * MOVE_VELOCITY;
+            XMStoreFloat3(&transform_.position_, vpos);
             moveTime_--;
         }
     }
@@ -99,11 +100,11 @@ void Player::Move(XMVECTOR target_)
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
     moveTime_ = length / MOVE_VELOCITY;
     
-    //ˆÚ“®•ûŒü‚ðŒü‚­
-    XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
-    float dot=XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
-    float angle = acos(dot);
-    XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
-    if (XMVectorGetY(vCross) < 0) { angle *= -1; }
-    transform_.rotate_.y = XMConvertToDegrees(angle);
+    ////ˆÚ“®•ûŒü‚ðŒü‚­
+    //XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
+    //float dot=XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
+    //float angle = acos(dot);
+    //XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
+    //if (XMVectorGetY(vCross) < 0) { angle *= -1; }
+    //transform_.rotate_.y = XMConvertToDegrees(angle);
 }
