@@ -39,8 +39,8 @@ void Player::Update()
 
     if (moveTime_ > 0)
     {
-       // vMove_ = moveDirection_ * MOVE_VELOCITY;
-        /*if (moveTime_ < 1)
+        vMove_ = moveDirection_ * MOVE_VELOCITY;
+        if (moveTime_ < 1)
         {
             XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
             vpos += moveDirection_ * MOVE_VELOCITY *moveTime_;
@@ -48,12 +48,12 @@ void Player::Update()
             moveTime_ = 0;
         }
         else
-        {*/
+        {
             XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
             vpos += moveDirection_ * MOVE_VELOCITY;
             XMStoreFloat3(&transform_.position_, vpos);
             moveTime_--;
-        /*}*/
+        }
     }
 
 }

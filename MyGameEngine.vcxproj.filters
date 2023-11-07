@@ -25,6 +25,9 @@
     <Filter Include="Scenes\PlayScene\Objects">
       <UniqueIdentifier>{f8e27072-fcb5-4281-ace1-360516f727b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\PlayScene\Objects\Charactors">
+      <UniqueIdentifier>{5cc852b2-dddf-42cd-b75b-c070fa9330a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
