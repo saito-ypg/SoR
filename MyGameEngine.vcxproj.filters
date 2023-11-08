@@ -78,11 +78,14 @@
     <ClInclude Include="PlayScene.h">
       <Filter>Scenes\PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Scenes\PlayScene\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Scenes\PlayScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameActor.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,11 +144,14 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>Scenes\PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Scenes\PlayScene\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Scenes\PlayScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameActor.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

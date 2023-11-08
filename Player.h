@@ -12,9 +12,9 @@ class Player : public GameObject
     //移動にかかるフレーム数を入れる。移動中断したら0に
     float moveTime_;
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
-    XMVECTOR GetMouseTargetPos(XMFLOAT3 mouse);
+    XMVECTOR getMouseTargetPos(XMFLOAT3 mouse);
     
-    void Move(XMVECTOR target_);
+    void move(XMVECTOR target_);
 public:
     //コンストラクタ
     Player(GameObject* parent);

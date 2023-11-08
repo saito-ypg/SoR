@@ -29,13 +29,14 @@ void Player::Update()
     if (Input::IsMouseButton(1))
     {
         XMFLOAT3 mousepos= Input::GetMousePosition();
-        std::string resStr = std::to_string(mousepos.x) + "," + std::to_string(mousepos.y) + "\n";
-        OutputDebugString(resStr.c_str());
-        XMVECTOR target= GetMouseTargetPos(XMFLOAT3{mousepos.x,mousepos.y,0});
-        Move(target);
+        //std::string resStr = std::to_string(mousepos.x) + "," + std::to_string(mousepos.y) + "\n";
+        //OutputDebugString(resStr.c_str());
+        XMVECTOR target= getMouseTargetPos(XMFLOAT3{mousepos.x,mousepos.y,0});
+        move(target);
    
     }
     //äeì¸óÕ
+    if(Input::IsKey)
 
     if (moveTime_ > 0)
     {
@@ -69,7 +70,7 @@ void Player::Draw()
 void Player::Release()
 {
 }
-XMVECTOR Player::GetMouseTargetPos(XMFLOAT3 mouse)
+XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)
 {
     XMMATRIX matInv = Camera::GetInverseMatrix();
     XMFLOAT3 front = mouse, back = mouse;
@@ -93,7 +94,7 @@ XMVECTOR Player::GetMouseTargetPos(XMFLOAT3 mouse)
   return XMVectorSplatQNaN();
 }
 
-void Player::Move(XMVECTOR target_)
+void Player::move(XMVECTOR target_)
 {
     //à⁄ìÆèÓïÒÇÃåvéZ
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
