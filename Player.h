@@ -1,7 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
-constexpr float MOVE_VELOCITY = 10.0f/60;
-//ŸŸŸ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+constexpr float MOVE_VELOCITY = 10.0f /60;
 class Player : public GameObject
 {
     int hModel_;

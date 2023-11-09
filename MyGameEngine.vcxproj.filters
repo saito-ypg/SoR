@@ -28,6 +28,12 @@
     <Filter Include="Scenes\PlayScene\Objects\Charactors">
       <UniqueIdentifier>{5cc852b2-dddf-42cd-b75b-c070fa9330a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\PlayScene\Objects\Charactors\Player">
+      <UniqueIdentifier>{986e98a9-d7eb-4fae-8819-5a29e6b20ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\PlayScene\Objects\Charactors\Enemy">
+      <UniqueIdentifier>{e31dad23-6e7e-46d5-848a-ed0f9def1ab6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -85,7 +91,7 @@
       <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +157,7 @@
       <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
