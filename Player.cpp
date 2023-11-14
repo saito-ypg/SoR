@@ -6,8 +6,9 @@
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameObject(parent, "Player"), hModel_(-1), moveTime_(0)
+    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
+    status_ = { 200,5 };
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
@@ -27,6 +28,10 @@ void Player::Initialize()
 //更新
 void Player::Update()
 {
+    if (Input::IsKeyDown(DIK_1))
+        SetVelocity(1.0f);
+    if (Input::IsKeyDown(DIK_2))
+		SetVelocity(2.0f);
     if (Input::IsMouseButton(1))
     {
         XMFLOAT3 mousepos= Input::GetMousePosition();
@@ -43,20 +48,20 @@ void Player::Update()
 
     if (moveTime_ > 0)
     {
-        vMove_ = moveDirection_ * MOVE_VELOCITY;
+        vMove_ = moveDirection_ * MOVE_VELOCITY*GetVelocity();
         if (moveTime_ < 1)
         {
             XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-            vpos += moveDirection_ * MOVE_VELOCITY *moveTime_;
+            vpos += vMove_*moveTime_;
             XMStoreFloat3(&transform_.position_, vpos);
             moveTime_ = 0;
         }
         else
         {
             XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-            vpos += moveDirection_ * MOVE_VELOCITY;
+            vpos +=vMove_;
             XMStoreFloat3(&transform_.position_, vpos);
-            moveTime_--;
+            moveTime_-=GetVelocity();
         }
     }
 
@@ -95,7 +100,7 @@ XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)
         XMVECTOR vstart = XMLoadFloat4(&data.start);
         return (vstart + vpos);
     }
-  return NotHitV;
+    return NotHitV;
 }
 
 void Player::move(XMVECTOR target_)

@@ -1,7 +1,8 @@
 #pragma once
-#include "Engine/GameObject.h"
+//#include "Engine/GameObject.h"
+#include"GameActor.h"
 constexpr float MOVE_VELOCITY = 10.0f /60;
-class Player : public GameObject
+class Player : public GameActor
 {
     int hModel_;
     //移動方向の単位ベクトルを格納

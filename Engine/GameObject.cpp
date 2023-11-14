@@ -1,12 +1,15 @@
 #include "GameObject.h"
 #include"global.h"
 #include"SphereCollider.h"
-GameObject::GameObject() :pParent_(nullptr),IsDead(false),pCollider_(nullptr), objectName_("")
+
+GameObject::GameObject() :pParent_(nullptr),IsDead(false),pCollider_(nullptr), objectName_(""),deltatime_(0),VelocityCoefficient(1.0f),parentVelocityCoefficient(1.0f)
 {
 }
 
-GameObject::GameObject(GameObject* parent, const std::string& name) :pParent_(parent), objectName_(name), IsDead(false), pCollider_(nullptr)
+GameObject::GameObject(GameObject* parent, const std::string& name) :GameObject()
 {
+	pParent_ = parent;
+	objectName_ = name;
 	if (parent)
 		transform_.pParent_ = &parent->transform_;
 }
@@ -17,10 +20,13 @@ GameObject::~GameObject()
 
 void GameObject::UpdateSub()
 {
+	
 	this->Update();
 
 	for (auto it = childList_.begin(), end = childList_.end(); it != end;)
 	{
+		(*it)->parentVelocityCoefficient = parentVelocityCoefficient * VelocityCoefficient;
+		(*it)->deltatime_ = this->deltatime_;//子クラスにdelta伝える？これいる？
 		(*it)->UpdateSub();
 	
 		if ((*it)->IsDead)

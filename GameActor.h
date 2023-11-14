@@ -1,12 +1,12 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include "ActorInfo.h"
+
 class GameActor :
     public GameObject{
 protected:
-    float hitCircleRange;
-    float hp_;
+    ActorInfo status_;
 public:
     GameActor(GameObject* parent, const std::string& name); 
-    void SetHitRange(float range);
 };
 

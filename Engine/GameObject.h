@@ -7,12 +7,18 @@ class SphereCollider;
 using std::string;
 class GameObject
 {
+private:
+	float deltatime_;//前回更新からの秒数 
+	float VelocityCoefficient;//このゲームオブジェクトとその子供の更新速度
+	float parentVelocityCoefficient;//親のゲームオブジェクトの更新速度
 protected:
 	std::list<GameObject*> childList_;
 	Transform transform_;
 	GameObject* pParent_;
 	std::string	objectName_;
 	SphereCollider* pCollider_;
+	
+	
 public:
 	GameObject();
 	GameObject(GameObject* parent, const string& name);
@@ -57,6 +63,8 @@ public:
 
 
 	//アクセス関数
+	float GetDeltaTime()const { return deltatime_; }
+	float GetVelocity()const { return parentVelocityCoefficient * VelocityCoefficient; }
 	GameObject* GetParent() const{ return pParent_; }
 	XMFLOAT3 GetPosition() const { return transform_.position_; }
 	XMFLOAT3 GetRotate() const { return transform_.rotate_; }
@@ -64,6 +72,7 @@ public:
 	XMFLOAT3 GetWorldPosition()const { return Transform::Float3Add(GetParent()->transform_.position_, transform_.position_); }
 	XMFLOAT3 GetWorldRotate() const { return Transform::Float3Add(GetParent()->transform_.rotate_, transform_.rotate_); }
 	XMFLOAT3 GetWorldScale() const { return Transform::Float3Add(GetParent()->transform_.scale_, transform_.scale_); }
+	void SetVelocity(float v) { VelocityCoefficient = v; }
 	void SetPosition(XMFLOAT3 position) { transform_.position_ = position; }
 	void SetPosition(float x, float y, float z) { SetPosition(XMFLOAT3(x, y, z)); }
 	void SetRotate(XMFLOAT3 rotate) { transform_.rotate_ = rotate; }
