@@ -3,6 +3,7 @@
 #include"Engine/Model.h"
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
+constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 //コンストラクタ
 Player::Player(GameObject* parent)
     :GameObject(parent, "Player"), hModel_(-1), moveTime_(0)
@@ -31,8 +32,10 @@ void Player::Update()
         XMFLOAT3 mousepos= Input::GetMousePosition();
         //std::string resStr = std::to_string(mousepos.x) + "," + std::to_string(mousepos.y) + "\n";
         //OutputDebugString(resStr.c_str());
+     
         XMVECTOR target= getMouseTargetPos(XMFLOAT3{mousepos.x,mousepos.y,0});
-        move(target);
+        if(XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV)))
+            move(target);
    
     }
     //各入力
@@ -70,6 +73,7 @@ void Player::Draw()
 void Player::Release()
 {
 }
+
 XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)
 {
     XMMATRIX matInv = Camera::GetInverseMatrix();
@@ -91,7 +95,7 @@ XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)
         XMVECTOR vstart = XMLoadFloat4(&data.start);
         return (vstart + vpos);
     }
-  return XMVectorSplatQNaN();
+  return NotHitV;
 }
 
 void Player::move(XMVECTOR target_)
