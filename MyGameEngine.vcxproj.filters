@@ -98,6 +98,9 @@
     <ClInclude Include="ActorInfo.h">
       <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Image.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

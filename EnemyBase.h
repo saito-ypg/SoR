@@ -7,13 +7,13 @@ private:
 
 
 public:
-	EnemyBase(GameObject* parent, string);
+	EnemyBase(GameObject* parent);
 	virtual ~EnemyBase();
 	
-	void Initialize() override;
-	void Update() override;
-	void Draw() override;
-	void Release() override;
+	virtual void Initialize() override;
+	virtual void Update() override;
+	virtual void Draw() override;
+	virtual	void Release() override;
 	
 };
 
