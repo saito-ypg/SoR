@@ -4,6 +4,9 @@
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
+bool nearlyZero(float f) {//ほぼ0であるといえるならtrue
+    return (int)(f * 100000) == 0;
+}
 //コンストラクタ
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
@@ -32,6 +35,12 @@ void Player::Update()
         SetVelocity(1.0f);
     if (Input::IsKeyDown(DIK_2))
 		SetVelocity(2.0f);
+    if (Input::IsKeyDown(DIK_0))
+        SetVelocity(0.0f);
+
+    if (nearlyZero(GetMyVelocity()))//更新速度がほぼほぼ0ならあとの処理飛ばす
+        return;
+
     if (Input::IsMouseButton(1))
     {
         XMFLOAT3 mousepos= Input::GetMousePosition();

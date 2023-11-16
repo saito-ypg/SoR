@@ -64,6 +64,7 @@ public:
 
 	//アクセス関数
 	float GetDeltaTime()const { return deltatime_; }
+	float GetMyVelocity() const { return VelocityCoefficient; }
 	float GetVelocity()const { return parentVelocityCoefficient * VelocityCoefficient; }
 	GameObject* GetParent() const{ return pParent_; }
 	XMFLOAT3 GetPosition() const { return transform_.position_; }
