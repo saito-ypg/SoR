@@ -167,6 +167,9 @@
     <ClCompile Include="ActorInfo.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Image.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -14,13 +14,15 @@ class Player : public GameActor
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
     XMVECTOR getMouseTargetPos(XMFLOAT3 mouse);
     
-    void move(XMVECTOR target_);
+    void calculateForMove(XMVECTOR target_);
+
+    void move();
 public:
     //コンストラクタ
     Player(GameObject* parent);
 
     //デストラクタ
-    ~Player();
+    virtual ~Player();
 
     //初期化
     void Initialize() override;
