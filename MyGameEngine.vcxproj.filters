@@ -36,6 +36,9 @@
     <Filter Include="Scenes\PlayScene\Objects\Charactors\Enemy">
       <UniqueIdentifier>{e31dad23-6e7e-46d5-848a-ed0f9def1ab6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\PlayScene\Objects\Charactors\Collisions">
+      <UniqueIdentifier>{231d0e07-16d5-4453-b7ad-15554b7d252f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -106,6 +109,13 @@
     </ClInclude>
     <ClInclude Include="EnemyList.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderBase.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,8 +198,19 @@
     <ClCompile Include="EnemyList.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderBase.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SoR.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

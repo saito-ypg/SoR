@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActorInfo.cpp" />
+    <ClCompile Include="ColliderBase.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Decoy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyList.cpp" />
@@ -47,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorInfo.h" />
+    <ClInclude Include="ColliderBase.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Decoy.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -67,6 +71,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="EnemyList.h" />
   </ItemGroup>
@@ -94,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SoR.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
