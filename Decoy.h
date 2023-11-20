@@ -1,6 +1,6 @@
 #pragma once
 #include "EnemyBase.h"
-class Decoy :
+class Decoy:
     public EnemyBase
 {
 private:
