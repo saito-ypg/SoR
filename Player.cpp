@@ -51,7 +51,7 @@ void Player::Update()
     }
     //Še“ü—Í
     if(Input::IsMouseButton(0))
-        
+    { }
     if (moveTime_ > 0)
     {
         move();

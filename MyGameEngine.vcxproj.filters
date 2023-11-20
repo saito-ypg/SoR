@@ -101,6 +101,12 @@
     <ClInclude Include="EnemyBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Decoy.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyList.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -174,6 +180,12 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBase.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Decoy.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyList.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

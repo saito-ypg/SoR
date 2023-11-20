@@ -1,5 +1,6 @@
 #pragma once
 #include<DirectXMath.h>
+#define DIRECTINPUT_VERSION     0x0800
 #include <dInput.h>
 using namespace DirectX;
 #pragma comment(lib, "dxguid.lib")
