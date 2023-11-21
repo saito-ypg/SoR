@@ -10,7 +10,7 @@ public:
     ~Decoy();
 
     void Initialize() override;
-    void Update() override;
+    void ActorUpdate() override;
     void Draw() override;
     void Release() override;
 };

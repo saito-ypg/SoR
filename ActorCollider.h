@@ -11,10 +11,7 @@ protected:
 public:
 	Transform offset_;//所属オブジェクトからのオフセット、なければALL0
 	ActorCollider();
-	virtual ~ActorCollider();
-	void Initialize();
-	void Update();
+	~ActorCollider();
 
-	void Release();
 };
 

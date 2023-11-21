@@ -11,7 +11,7 @@ bool nearlyZero(float f) {//‚Ù‚Ú0‚Å‚ ‚é‚Æ‚¢‚¦‚é‚È‚çtrue
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
-    status_ = { 200,5 };
+    status_ = { 200,1.1 };
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }

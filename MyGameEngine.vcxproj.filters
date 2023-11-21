@@ -114,7 +114,7 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderBase.h">
+    <ClInclude Include="ActorCollider.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
   </ItemGroup>
@@ -201,7 +201,7 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="ColliderBase.cpp">
+    <ClCompile Include="ActorCollider.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
   </ItemGroup>
