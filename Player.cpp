@@ -29,7 +29,7 @@ void Player::Initialize()
 }
 
 //更新
-void Player::Update()
+void Player::ActorUpdate()
 {
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))

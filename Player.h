@@ -27,8 +27,8 @@ public:
     //初期化
     void Initialize() override;
 
-    //更新
-    void Update() override;
+    //個別更新
+    void ActorUpdate() override;
 
     //描画
     void Draw() override;

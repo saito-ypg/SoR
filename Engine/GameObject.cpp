@@ -26,7 +26,7 @@ void GameObject::UpdateSub()
 	for (auto it = childList_.begin(), end = childList_.end(); it != end;)
 	{
 		(*it)->parentVelocityCoefficient = parentVelocityCoefficient * VelocityCoefficient;
-		(*it)->deltatime_ = this->deltatime_;//子クラスにdelta伝える？これいる？
+		(*it)->deltatime_ = this->deltatime_;//子クラスにdelta伝える？グローバルでやればいい？
 		(*it)->UpdateSub();
 	
 		if ((*it)->IsDead)
