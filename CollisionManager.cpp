@@ -6,7 +6,7 @@ ActorCollider* CollisionManager::AddPlayerCollision(GameActor* newActor)
 {
 	ActorCollider* ac = new ActorCollider;
 	playersCampCollision.emplace(ac, newActor);
-	newActor.
+	newActor->GameActor::
 }
 
 ActorCollider* CollisionManager::AddEnemyCollision(GameActor* newActor)

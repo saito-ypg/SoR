@@ -3,7 +3,7 @@
 #include<list>
 #include "Transform.h"
 
-class SphereCollider;
+//class SphereCollider;
 using std::string;
 class GameObject
 {
@@ -16,7 +16,7 @@ protected:
 	Transform transform_;
 	GameObject* pParent_;
 	std::string	objectName_;
-	SphereCollider* pCollider_;
+	//SphereCollider* pCollider_;
 	
 	
 public:
@@ -85,29 +85,29 @@ public:
 	void SetScale(float x, float y, float z) { SetScale(XMFLOAT3(x, y, z)); }
 
 
-	//当たり判定関連 
-	
-	/// <summary>
-	/// GameObjectに当たり判定を追加
-	/// </summary>
-	/// <param name="pCollider">追加するCollider</param>
-	void AddCollider(SphereCollider* pCollider);
-	/// <summary>
-	/// 自身のColliderと対象とが衝突しているかどうか検知
-	/// </summary>
-	/// <param name="pTarget">対象オブジェクト</param>
-	void Collision(GameObject* pTarget);
-	/// <summary>
-	/// 全てのコライダーと判定する
-	/// </summary>
-	/// <param name="pTarget">対象オブジェクト</param>
-	void RoundRobin(GameObject* pTarget);
+	////当たり判定関連 
+	//
+	///// <summary>
+	///// GameObjectに当たり判定を追加
+	///// </summary>
+	///// <param name="pCollider">追加するCollider</param>
+	//void AddCollider(SphereCollider* pCollider);
+	///// <summary>
+	///// 自身のColliderと対象とが衝突しているかどうか検知
+	///// </summary>
+	///// <param name="pTarget">対象オブジェクト</param>
+	//void Collision(GameObject* pTarget);
+	///// <summary>
+	///// 全てのコライダーと判定する
+	///// </summary>
+	///// <param name="pTarget">対象オブジェクト</param>
+	//void RoundRobin(GameObject* pTarget);
 
-	/// <summary>
+	/*/// <summary>
 	/// Collitionで引っかかったら行う処理
 	/// </summary>
 	/// <param name="pTarget"></param>
-	virtual void OnCollision(GameObject* pTarget) {};
+	virtual void OnCollision(GameObject* pTarget) {};*/
 
 	//実体化のテンプレート
 	template <class T>

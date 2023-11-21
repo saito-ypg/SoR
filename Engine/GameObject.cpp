@@ -1,8 +1,8 @@
 #include "GameObject.h"
 #include"global.h"
-#include"SphereCollider.h"
+//#include"SphereCollider.h"
 
-GameObject::GameObject() :pParent_(nullptr),IsDead(false),pCollider_(nullptr), objectName_(""),deltatime_(0),VelocityCoefficient(1.0f),parentVelocityCoefficient(1.0f)
+GameObject::GameObject() :pParent_(nullptr),IsDead(false)/*,pCollider_(nullptr)*/, objectName_(""),deltatime_(0),VelocityCoefficient(1.0f),parentVelocityCoefficient(1.0f)
 {
 }
 
@@ -40,7 +40,7 @@ void GameObject::UpdateSub()
 			it++;
 		}
 	}
-	RoundRobin(GetRootJob());
+	//RoundRobin(GetRootJob());
 }
 
 void GameObject::DrawSub()
@@ -103,39 +103,39 @@ GameObject* GameObject::FindObject(string _objName)
 	return GetRootJob()->FindChildObject(_objName);
 }
 
-void GameObject::AddCollider(SphereCollider* pCollider)
-{
-	this->pCollider_ = pCollider;
-}
+//void GameObject::AddCollider(SphereCollider* pCollider)
+//{
+//	this->pCollider_ = pCollider;
+//}
+//
+//void GameObject::Collision(GameObject* pTarget)
+//{//Targetにコライダーがあるかと自分が対象になってないかのチェック、なってたら抜ける
+//	if (pTarget->pCollider_ == nullptr || pTarget == this)
+//	{
+//		return;
+//	}
+//	float dist =
+//		  (transform_.position_.x - pTarget->transform_.position_.x) * (transform_.position_.x - pTarget->transform_.position_.x)
+//		+ (transform_.position_.y - pTarget->transform_.position_.y) * (transform_.position_.y - pTarget->transform_.position_.y)
+//		+ (transform_.position_.z - pTarget->transform_.position_.z) * (transform_.position_.z - pTarget->transform_.position_.z);
+//	float rDist = (pCollider_->GetRadius() + pTarget->pCollider_->GetRadius()) * (pCollider_->GetRadius() + pTarget->pCollider_->GetRadius());
+//	if(dist<=rDist)
+//	{
+//		OnCollision(pTarget);
+//	}
+//}
 
-void GameObject::Collision(GameObject* pTarget)
-{//Targetにコライダーがあるかと自分が対象になってないかのチェック、なってたら抜ける
-	if (pTarget->pCollider_ == nullptr || pTarget == this)
-	{
-		return;
-	}
-	float dist =
-		  (transform_.position_.x - pTarget->transform_.position_.x) * (transform_.position_.x - pTarget->transform_.position_.x)
-		+ (transform_.position_.y - pTarget->transform_.position_.y) * (transform_.position_.y - pTarget->transform_.position_.y)
-		+ (transform_.position_.z - pTarget->transform_.position_.z) * (transform_.position_.z - pTarget->transform_.position_.z);
-	float rDist = (pCollider_->GetRadius() + pTarget->pCollider_->GetRadius()) * (pCollider_->GetRadius() + pTarget->pCollider_->GetRadius());
-	if(dist<=rDist)
-	{
-		OnCollision(pTarget);
-	}
-}
-
-void GameObject::RoundRobin(GameObject* pTarget)
-{
-	if (pCollider_ == nullptr)
-	{
-		return;
-	}
-	if (pTarget->pCollider_ != nullptr)
-		Collision(pTarget);
-	for (const auto& itr : pTarget->childList_)
-	{
-		RoundRobin(itr);
-	}
-}
+//void GameObject::RoundRobin(GameObject* pTarget)
+//{
+//	if (pCollider_ == nullptr)
+//	{
+//		return;
+//	}
+//	if (pTarget->pCollider_ != nullptr)
+//		Collision(pTarget);
+//	for (const auto& itr : pTarget->childList_)
+//	{
+//		RoundRobin(itr);
+//	}
+//}
 
