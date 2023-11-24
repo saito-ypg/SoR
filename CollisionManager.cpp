@@ -2,23 +2,22 @@
 #include"GameActor.h"
 
 
-ActorCollider* CollisionManager::AddPlayerCollision(GameActor* newActor)
+ActorCollider* CollisionManager::AddPlayerCamp(GameActor* newActor)
 {
-	ActorCollider* ac = new ActorCollider;
-	playersCampCollision.emplace(ac, newActor);
-	newActor->GameActor::
+	ActorCollider* ac = new ActorCollider;	
+	playersCampCollision.emplace(newActor, ac);
 }
 
-ActorCollider* CollisionManager::AddEnemyCollision(GameActor* newActor)
+ActorCollider* CollisionManager::AddEnemyCamp(GameActor* newActor)
 {
 	return nullptr;
 }
 
-auto CollisionManager::HitTestPlayer()
+auto CollisionManager::HitTestByPlayer()
 {
 }
 
-auto CollisionManager::HitTestEnemy()
+auto CollisionManager::HitTestByEnemy()
 {
 }
 

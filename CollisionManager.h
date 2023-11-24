@@ -5,15 +5,18 @@
 class GameActor;
 namespace CollisionManager
 {
-	std::map<ActorCollider*, GameActor*> enemiesCampCollision;
-	std::map<ActorCollider*, GameActor*> playersCampCollision;
+	std::map<GameActor* ,ActorCollider*> enemiesCampCollision;
+	std::map<GameActor* ,ActorCollider*> playersCampCollision;
 	
 	//プレイヤー陣営の当たり判定リストに追加する。
-	[[nodiscard]] ActorCollider* AddPlayerCollision(GameActor* newActor);
+	[[nodiscard]] ActorCollider* AddPlayerCamp(GameActor* newActor);
+
 	//敵陣営の当たり判定リストに追加する。
-	[[nodiscard]] ActorCollider* AddEnemyCollision(GameActor* newActor);
-	auto HitTestPlayer(/*攻撃側当たり判定クラス*/);//リスト全部見て当たってるものを返すor別メンバに入れとく。各形状でオーバーロード
-	auto HitTestEnemy();
+	[[nodiscard]] ActorCollider* AddEnemyCamp(GameActor* newActor);
+	//プレイヤーの攻撃に当たっている敵を、返すor別メンバに入れとく。各形状でオーバーロード
+	auto HitTestByPlayer(/*攻撃側当たり判定クラス*/);
+	//敵の攻撃に当たっているプレイヤーもしくは...
+	auto HitTestByEnemy();
 
 	void RemoveEnemyCamp(GameActor*);
 	void RemovePlayerCamp(GameActor*);

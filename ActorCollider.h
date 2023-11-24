@@ -1,15 +1,14 @@
 #pragma once
-#include"Engine/Transform.h"
-
-
+#include<DirectXMath.h>
+using namespace DirectX;
 class ActorCollider //キャラ毎の当たり判定の大きさ
 {	
 private:
 	
 protected:
-	Transform transform_;//所属オブジェクトの値をそのまま持っとく。更新は…どうしよう
+	XMFLOAT3 position_;//所属オブジェクトの値をそのまま持っとく。更新は…どうしよう
 public:
-	Transform offset_;//所属オブジェクトからのオフセット、なければALL0
+	XMFLOAT3 offset_;//所属オブジェクトからのオフセット、なければALL0
 	ActorCollider();
 	~ActorCollider();
 
