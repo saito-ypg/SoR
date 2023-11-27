@@ -4,7 +4,7 @@
 #include<map>
 class GameActor;
 //プレイヤー陣営/敵陣営
-enum CAMPS{PLAYER,ENEMY};
+enum CAMPS{PLAYER,ENEMY,NUM};
 
 //全てのアクタの当たり判定を管理・判定する名前空間。クラスのほうがいい？
 namespace CollisionManager

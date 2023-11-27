@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ActorInfo.cpp" />
     <ClCompile Include="ActorCollider.cpp" />
+    <ClCompile Include="AttackRangeBase.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Decoy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
@@ -50,6 +51,7 @@
   <ItemGroup>
     <ClInclude Include="ActorInfo.h" />
     <ClInclude Include="ActorCollider.h" />
+    <ClInclude Include="AttackRangeBase.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Decoy.h" />
     <ClInclude Include="EnemyBase.h" />

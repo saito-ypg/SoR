@@ -25,3 +25,18 @@ void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 	delete	campMap.at(actor);
 	campMap.erase(actor);
 }
+
+void CollisionManager::Release()
+{
+	for (auto it : CollisionList)
+	{
+		for (auto itin : it)
+		{
+			delete itin.second;
+		}
+		it.clear();
+	}
+	CollisionList.clear();
+
+	
+}
