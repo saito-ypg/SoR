@@ -10,3 +10,8 @@ void GameActor::Update()
 	
 	ActorUpdate();
 }
+
+Transform* GameActor::GetTransformRef()
+{
+	return &transform_;
+}

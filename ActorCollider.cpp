@@ -1,6 +1,6 @@
 #include "ActorCollider.h"
 
-ActorCollider::ActorCollider()
+ActorCollider::ActorCollider():position_(nullptr)
 {
 }
 

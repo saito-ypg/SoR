@@ -1,30 +1,27 @@
 #include "CollisionManager.h"
 #include"GameActor.h"
 
-
-ActorCollider* CollisionManager::AddPlayerCamp(GameActor* newActor)
+ActorCollider* CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 {
-	ActorCollider* ac = new ActorCollider;	
-	playersCampCollision.emplace(newActor, ac);
+	ActorCollider* ac = new ActorCollider;
+	CollisionList.at(camp).emplace(newActor, ac);
+	ac->position_ = &newActor->GetTransformRef()->position_;
+
 }
 
-ActorCollider* CollisionManager::AddEnemyCamp(GameActor* newActor)
+
+auto CollisionManager::HitTestBy()
 {
-	return nullptr;
+
 }
 
-auto CollisionManager::HitTestByPlayer()
+void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 {
-}
-
-auto CollisionManager::HitTestByEnemy()
-{
-}
-
-void CollisionManager::RemoveEnemyCamp(GameActor*)
-{
-}
-
-void CollisionManager::RemovePlayerCamp(GameActor*)
-{
+	auto& campMap = CollisionList.at(camp);
+	if (campMap.find(actor) == campMap.end())//ÇªÇ‡ÇªÇ‡ë∂ç›ÇµÇ»Ç©Ç¡ÇΩÇÁâΩÇ‡ÇµÇ»Ç¢ÅHãtêwâcÇ≈Ç‚ÇÈÅH
+	{
+		return;
+	}
+	delete	campMap.at(actor);
+	campMap.erase(actor);
 }
