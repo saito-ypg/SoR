@@ -8,10 +8,7 @@ enum CAMPS{PLAYER,ENEMY};
 
 //全てのアクタの当たり判定を管理・判定する名前空間。クラスのほうがいい？
 namespace CollisionManager
-{//
-	/*std::map<GameActor* ,ActorCollider*> enemiesCampCollision;
-	std::map<GameActor* ,ActorCollider*> playersCampCollision;*/
-
+{	
 	//各陣営の当たり判定
 	std::vector<std::map<GameActor*, ActorCollider*>>CollisionList;
 
@@ -24,14 +21,13 @@ namespace CollisionManager
 	[[nodiscard]] ActorCollider* AddCamp(GameActor* newActor,CAMPS camp);
 	//プレイヤーの攻撃に当たっている敵を、返すor別メンバに入れとく。各形状でオーバーロード
 	auto HitTestBy(/*攻撃側当たり判定クラス*/);
-	//敵の攻撃に当たっているプレイヤーもしくは...
-	auto HitTestByEnemy();
-
-	//敵陣営のリストから削除する。倒されたときに呼ぶ
-	void RemoveEnemyCamp(GameActor*actor);
-
-	//味方陣営のリストから削除する。倒されたときに呼ぶ
-	void RemovePlayerCamp(GameActor*actor);
+	
+	/// <summary>
+	///陣営リストから削除する。倒された際に呼ぶ 
+	/// </summary>
+	/// <param name="actor">削除したいアクタ</param>
+	/// <param name="camp">所属陣営</param>
+	void RemoveCamp(GameActor*actor,CAMPS camp);
 
 	/// <summary>
 	/// 攻撃を受けたことを通知し、各actorのTakeAttackedを呼ぶ
