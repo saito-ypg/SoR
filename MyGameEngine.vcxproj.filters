@@ -117,7 +117,7 @@
     <ClInclude Include="ActorCollider.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="AttackRangeBase.h" />
+    <ClInclude Include="AttackRange.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -205,7 +205,7 @@
     <ClCompile Include="ActorCollider.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="AttackRangeBase.cpp" />
+    <ClCompile Include="AttackRange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
