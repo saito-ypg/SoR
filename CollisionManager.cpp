@@ -1,7 +1,19 @@
 #include "CollisionManager.h"
 #include"GameActor.h"
+//Šew‰c‚Ì“–‚½‚è”»’è
+namespace {
+	std::vector<std::map<GameActor*, ActorCollider*>>CollisionList;
+	
+	/// <summary>
+	/// UŒ‚‚ğó‚¯‚½‚±‚Æ‚ğ’Ê’m‚µAŠeactor‚ÌTakeAttacked‚ğŒÄ‚Ô
+	/// </summary>
+	void NotifyReceivedAttack()
+	{
 
-ActorCollider* CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
+	}
+}
+
+void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 {
 	ActorCollider* ac = new ActorCollider;
 	CollisionList.at(camp).emplace(newActor, ac);
@@ -9,11 +21,24 @@ ActorCollider* CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 
 }
 
-
-auto CollisionManager::HitTestBy()
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 {
-
+	for (auto i : CollisionList.at((camp + 1) % NUM))
+	{
+		XMVECTOR p = XMLoadFloat3(i.second->position_);
+		i.
+	}
 }
+
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
+{
+}
+
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSctor sector)
+{
+}
+
+
 
 void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 {
@@ -25,6 +50,7 @@ void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 	delete	campMap.at(actor);
 	campMap.erase(actor);
 }
+
 
 void CollisionManager::Release()
 {
