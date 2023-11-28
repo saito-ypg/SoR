@@ -2,7 +2,7 @@
 #include"GameActor.h"
 //各陣営の当たり判定
 namespace {
-	std::vector<std::map<GameActor*, ActorCollider*>>CollisionList;
+	std::vector<std::map<const GameActor*,const ActorCollider*>>CollisionList;
 	
 	/// <summary>
 	/// 攻撃を受けたことを通知し、各actorのTakeAttackedを呼ぶ
