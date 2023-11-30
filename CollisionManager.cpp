@@ -1,8 +1,11 @@
 #include "CollisionManager.h"
 #include"GameActor.h"
+#include<map>
+#include<vector>
+#include<unordered_map>
 //äeêwâcÇÃìñÇΩÇËîªíË
 namespace {
-	std::vector<std::map<const GameActor*,const ActorCollider*>>CollisionList;
+	std::vector<std::unordered_map<const GameActor*,const ActorCollider*>>CollisionList;
 	
 	/// <summary>
 	/// çUåÇÇéÛÇØÇΩÇ±Ç∆Çí ímÇµÅAäeactorÇÃTakeAttackedÇåƒÇ‘
@@ -23,11 +26,22 @@ void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 {
-	for (auto i : CollisionList.at((camp + 1) % NUM))
+	for (const auto& [actor,collider] : CollisionList.at((camp + 1) % NUM))
 	{
-		XMVECTOR p = XMLoadFloat3(i.second->position_);
-		i.
+		XMVECTOR circlePos = XMLoadFloat3(&circle.position_);
+		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
+		float cLength = XMVectorGetX(XMVector3Length(circlePos));
+		float aLength = XMVectorGetX(XMVector3Length(ActorPos));
+		if (XMVectorGetX(XMVector3Length(circlePos - ActorPos)) < cLength + aLength)
+		{
+			int a = 0;
+			actor->TakeAttacked();
+		
+		}
 	}
+	auto c = CollisionList.at(camp + 1);
+	auto p = c.begin()->first;
+	
 }
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)

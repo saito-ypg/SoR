@@ -1,7 +1,5 @@
 #pragma once
-#include<vector>
 #include"ActorCollider.h"
-#include<map>
 #include"AttackRange.h"
 class GameActor;
 //ƒvƒŒƒCƒ„[w‰c/“Gw‰c
