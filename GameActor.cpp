@@ -1,5 +1,4 @@
 #include "GameActor.h"
-#include"CollisionManager.h"
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
@@ -20,7 +19,7 @@ void GameActor::ActorUpdate()
 {
 }
 
-void GameActor::TakeAttacked()
+void GameActor::TakeAttacked() const
 {
 }
 

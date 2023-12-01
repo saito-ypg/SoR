@@ -20,9 +20,11 @@ namespace CollisionManager
 	/// <summary>
 	/// çUåÇÇ…ìñÇΩÇ¡ÇƒÇ¢ÇÈÇ©îªíËÇ∑ÇÈ
 	/// </summary>
-	/// <param name="camp"></param>
+	/// <param name="camp">êwâc</param>
 	/// <param name="circle"></param>
 	void HitTestBy(CAMPS camp,AttackRangeCircle circle);
+	/// <param name="camp"></param>
+	/// <param name="quad"></param>
 	void HitTestBy(CAMPS camp, AttackRangeQuad quad);
 	void HitTestBy(CAMPS camp, AttackRangeCirculerSctor sector);
 

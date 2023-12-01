@@ -2,6 +2,7 @@
 
 Decoy::Decoy(GameObject* parent) :EnemyBase(parent)
 {
+	status_ = { 1,1.1 };
 }
 
 Decoy::~Decoy()

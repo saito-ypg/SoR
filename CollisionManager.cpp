@@ -18,9 +18,9 @@ namespace {
 
 void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 {
-	ActorCollider* ac = new ActorCollider;
+	ActorCollider* ac = new ActorCollider(&newActor->GetTransformRef()->position_);
 	CollisionList.at(camp).emplace(newActor, ac);
-	ac->position_ = &newActor->GetTransformRef()->position_;
+	//ac->position_ =;
 
 }
 
@@ -36,7 +36,6 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 		{
 			int a = 0;
 			actor->TakeAttacked();
-		
 		}
 	}
 	auto c = CollisionList.at(camp + 1);

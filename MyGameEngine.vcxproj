@@ -111,7 +111,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{43EC6C92-CAFA-4B8D-82ED-C5DFBA9F21D0}</ProjectGuid>
+    <ProjectGuid>{18ED6DF9-8EC1-4C41-BB1D-2802862BDE60}</ProjectGuid>
     <RootNamespace>MyGameEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>SoR</ProjectName>

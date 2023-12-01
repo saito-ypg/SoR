@@ -3,6 +3,7 @@
 #include"Engine/Model.h"
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
+#include"CollisionManager.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 bool nearlyZero(float f) {//‚Ù‚Ú0‚Å‚ ‚é‚Æ‚¢‚¦‚é‚È‚çtrue
     return (int)(f * 100000) == 0;
@@ -12,6 +13,7 @@ Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
     status_ = { 200,1.1 };
+    CollisionManager::AddCamp(this, PLAYER);
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
@@ -42,6 +44,11 @@ void Player::ActorUpdate()
 
     if (nearlyZero(GetMyVelocity()))//XV‘¬“x‚ª‚Ù‚Ú‚Ù‚Ú0‚È‚ç‚ ‚Æ‚Ìˆ—”ò‚Î‚·
         return;
+
+    if (Input::IsKeyDown(DIK_SPACE))
+    {
+        CollisionManager::HitTestBy(PLAYER)
+    }
 
     if (Input::IsMouseButton(1))
     {
