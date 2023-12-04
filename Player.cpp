@@ -3,17 +3,16 @@
 #include"Engine/Model.h"
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
-#include"CollisionManager.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue
-    return (int)(f * 100000) == 0;
+    return (int)(f * 10000) == 0;
 }
 //コンストラクタ
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
     status_ = { 200,1.1 };
-    CollisionManager::AddCamp(this, PLAYER);
+    AddCamp();
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
@@ -47,7 +46,9 @@ void Player::ActorUpdate()
 
     if (Input::IsKeyDown(DIK_SPACE))
     {
-        CollisionManager::HitTestBy(PLAYER)
+        AttackRangeCircle testcircle(transform_.position_);
+        testcircle.radius_ = status_.hitCircleRange_;
+        CollisionManager::HitTestBy(PLAYER, testcircle);
     }
 
     if (Input::IsMouseButton(1))
@@ -83,6 +84,11 @@ void Player::move()
         XMStoreFloat3(&transform_.position_, vpos);
         moveTime_ -= GetVelocity();
     }
+}
+
+void Player::AddCamp()
+{
+    AddColliderCamp((GameActor*)this, PLAYER);
 }
 
 //描画

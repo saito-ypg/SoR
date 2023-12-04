@@ -34,7 +34,6 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 		float aLength = XMVectorGetX(XMVector3Length(ActorPos));
 		if (XMVectorGetX(XMVector3Length(circlePos - ActorPos)) < cLength + aLength)
 		{
-			int a = 0;
 			actor->TakeAttacked();
 		}
 	}

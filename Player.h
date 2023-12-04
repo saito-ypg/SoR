@@ -3,7 +3,7 @@
 #include"GameActor.h"
 constexpr float MOVE_VELOCITY = 10.0f /60;
 class Player : public GameActor
-{
+{//Pimplとかいう概念、よさそう
     int hModel_;
     //移動方向の単位ベクトルを格納
     XMVECTOR moveDirection_;
@@ -17,6 +17,8 @@ class Player : public GameActor
     void calculateForMove(XMVECTOR target_);
 
     void move();
+protected:
+    void AddCamp()override;
 public:
     //コンストラクタ
     Player(GameObject* parent);

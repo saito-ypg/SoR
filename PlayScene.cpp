@@ -4,7 +4,7 @@
 #include"Engine/Camera.h"
 #include"Engine/Input.h"
 #include"Engine/SceneManager.h"
-
+#include"Decoy.h"
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
 	: GameObject(parent, "PlayScene")
@@ -17,6 +17,7 @@ void PlayScene::Initialize()
 
 	Instantiate<Player>(this);
 	Instantiate<Ground>(this);
+	Instantiate<Decoy>(this);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
 	Camera::SetPosition(XMFLOAT3{ 0, 30, -20.0f });
 }
