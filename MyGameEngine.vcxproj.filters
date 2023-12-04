@@ -118,6 +118,9 @@
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
     <ClInclude Include="AttackRange.h" />
+    <ClInclude Include="Engine\Debug.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -206,6 +209,9 @@
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
     <ClCompile Include="AttackRange.cpp" />
+    <ClCompile Include="Engine\Debug.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

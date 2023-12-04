@@ -3,9 +3,10 @@
 #include<map>
 #include<vector>
 #include<unordered_map>
+#include"Engine/Debug.h"
 //äeêwâcÇÃìñÇΩÇËîªíË
 namespace {
-	std::vector<std::unordered_map<const GameActor*,const ActorCollider*>>CollisionList;
+	std::vector<std::unordered_map<const GameActor*, const ActorCollider*>>CollisionList(CAMPS::NUM);
 	
 	/// <summary>
 	/// çUåÇÇéÛÇØÇΩÇ±Ç∆Çí ímÇµÅAäeactorÇÃTakeAttackedÇåƒÇ‘
@@ -20,7 +21,6 @@ void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 {
 	ActorCollider* ac = new ActorCollider(&newActor->GetTransformRef()->position_);
 	CollisionList.at(camp).emplace(newActor, ac);
-	//ac->position_ =;
 
 }
 
@@ -30,15 +30,16 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 	{
 		XMVECTOR circlePos = XMLoadFloat3(&circle.position_);
 		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
-		float cLength = XMVectorGetX(XMVector3Length(circlePos));
-		float aLength = XMVectorGetX(XMVector3Length(ActorPos));
-		if (XMVectorGetX(XMVector3Length(circlePos - ActorPos)) < cLength + aLength)
+		/*float cLength = XMVectorGetX(XMVector3Length(circlePos));
+		float aLength = XMVectorGetX(XMVector3Length(ActorPos));*/
+		if (XMVectorGetX(XMVector3Length(XMVectorAbs(circlePos - ActorPos))) < circle.radius_ + actor->GetRadius())
 		{
-			actor->TakeAttacked();
+			//			actor->TakeAttacked();
+			Debug::Log("Ç†ÇΩÇ¡ÇƒÇÈÇÊ", true);
 		}
+		else Debug::Log("Ç†ÇΩÇ¡ÇƒÇ»Ç¢ÇÊ", true);
 	}
-	auto c = CollisionList.at(camp + 1);
-	auto p = c.begin()->first;
+
 	
 }
 

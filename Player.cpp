@@ -11,8 +11,7 @@ bool nearlyZero(float f) {//‚Ù‚Ú0‚Å‚ ‚é‚Æ‚¢‚¦‚é‚È‚çtrue
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
-    status_ = { 200,1.1 };
-    AddCamp();
+
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
@@ -27,6 +26,8 @@ void Player::Initialize()
 {
     hModel_ = Model::Load("Assets/psample.fbx");
     assert(hModel_ >= 0);
+    status_ = { 200,1.1 };
+    AddCamp();
 }
 
 //XV
