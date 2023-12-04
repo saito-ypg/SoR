@@ -4,6 +4,7 @@
 #include<vector>
 #include<unordered_map>
 #include"Engine/Debug.h"
+#include<cmath>
 //äeêwâcÇÃìñÇΩÇËîªíË
 namespace {
 	std::vector<std::unordered_map<const GameActor*, const ActorCollider*>>CollisionList(CAMPS::NUM);
@@ -30,11 +31,9 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 	{
 		XMVECTOR circlePos = XMLoadFloat3(&circle.position_);
 		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
-		/*float cLength = XMVectorGetX(XMVector3Length(circlePos));
-		float aLength = XMVectorGetX(XMVector3Length(ActorPos));*/
 		if (XMVectorGetX(XMVector3Length(XMVectorAbs(circlePos - ActorPos))) < circle.radius_ + actor->GetRadius())
 		{
-			//			actor->TakeAttacked();
+			actor->TakeAttacked();
 			Debug::Log("Ç†ÇΩÇ¡ÇƒÇÈÇÊ", true);
 		}
 		else Debug::Log("Ç†ÇΩÇ¡ÇƒÇ»Ç¢ÇÊ", true);
@@ -45,6 +44,32 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 {
+	for (const auto& [actor, collider] : CollisionList.at((camp + 1) % NUM))
+	{
+
+		XMMATRIX matRotY = XMMatrixRotationY(-quad.rotate_);//âÒì]ÇµÇƒÇÈéläpÇÅAâÒì]ÇÃï™ÇæÇØñﬂÇ∑çsóÒ
+		XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, 0, -quad.position_.z);//å¥ì_Ç…Ç∏ÇÁÇ∑çsóÒ
+
+		XMVECTOR circlePos = XMLoadFloat3(&quad.position_);
+		XMVector3TransformCoord(circlePos, matMove * matRotY);//éläpÇå¥ì_Ç…Ç∏ÇÁÇµÇƒÇ©ÇÁâÒì]
+		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
+		XMVector3TransformCoord(ActorPos, matMove * matRotY);//â~ÇÃà íuÇ‡Ç∏ÇÁÇ∑
+		XMFLOAT3 f3Circle, f3Actor;
+		XMStoreFloat3(&f3Circle, circlePos);
+		XMStoreFloat3(&f3Actor, ActorPos);
+		using std::max;
+		using std::min;
+		float x = max(box.minX, Math.min(sphere.x, box.maxX));
+		float y = Math.max(box.minY, Math.min(sphere.y, box.maxY));
+		float z = Math.max(box.minZ, Math.min(sphere.z, box.maxZ));
+
+		if ()
+		{
+		
+			Debug::Log("Ç†ÇΩÇ¡ÇƒÇÈÇÊ", true);
+		}
+		else Debug::Log("Ç†ÇΩÇ¡ÇƒÇ»Ç¢ÇÊ", true);
+	}
 }
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
