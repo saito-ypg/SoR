@@ -26,7 +26,7 @@ namespace CollisionManager
 	/// <param name="camp"></param>
 	/// <param name="quad"></param>
 	void HitTestBy(CAMPS camp, AttackRangeQuad quad);
-	void HitTestBy(CAMPS camp, AttackRangeCirculerSctor sector);
+	void HitTestBy(CAMPS camp, AttackRangeCirculerSector sector);
 
 	
 	/// <summary>

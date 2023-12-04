@@ -47,7 +47,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 {
 }
 
-void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSctor sector)
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 {
 }
 

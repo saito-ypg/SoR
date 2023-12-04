@@ -22,11 +22,11 @@ struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 	float rotate_;//y軸回転
 	AttackRangeQuad(XMFLOAT3 pos);
 };
-struct AttackRangeCirculerSctor :public AttackRangeBase//扇型攻撃範囲データ
+struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 {
 	float radius_;//半径
 	float centerAngle_;//中心角,degree or radianどっち？今のところdeg
 	float rotate_;//中心角の二等分線の回転,y軸
-	AttackRangeCirculerSctor(XMFLOAT3 pos);
+	AttackRangeCirculerSector(XMFLOAT3 pos);
 };
 

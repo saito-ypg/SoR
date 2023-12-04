@@ -16,7 +16,7 @@ AttackRangeQuad::AttackRangeQuad(XMFLOAT3 pos) :AttackRangeBase(pos)
 	rotate_ = -1;
 }
 
-AttackRangeCirculerSctor::AttackRangeCirculerSctor(XMFLOAT3 pos) :AttackRangeBase(pos)
+AttackRangeCirculerSector::AttackRangeCirculerSector(XMFLOAT3 pos) :AttackRangeBase(pos)
 {
 	radius_ = -1;
 	centerAngle_ = -1;
