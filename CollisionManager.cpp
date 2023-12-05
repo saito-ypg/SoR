@@ -37,7 +37,8 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 		XMVECTOR ActorPos = XMLoadFloat3(&a);
 		if (XMVectorGetX(XMVector3Length(XMVectorAbs(circlePos - ActorPos))) < circle.radius_ + actor->GetRadius())
 		{
-			actor->TakeAttacked();
+
+			const_cast<GameActor*>(actor)->TakeAttacked();
 			Debug::Log("‚ ‚½‚Á‚Ä‚é‚æ", true);
 		}
 		else Debug::Log("‚ ‚½‚Á‚Ä‚È‚¢‚æ", true);
