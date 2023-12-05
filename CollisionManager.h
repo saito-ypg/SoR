@@ -6,6 +6,7 @@ class GameActor;
 enum CAMPS{PLAYER,ENEMY,NUM};
 
 //全てのアクタの当たり判定を管理・判定する名前空間。クラスのほうがいい？
+//当たり判定の際、高さ(=y軸）は考慮しない
 namespace CollisionManager
 {	
 

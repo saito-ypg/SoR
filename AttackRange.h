@@ -17,8 +17,8 @@ struct AttackRangeCircle		:public AttackRangeBase//円形の攻撃範囲データ
 };
 struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 {
-	float width_;//幅
-	float length_;//奥行き
+	float width_;//中央からの幅、実際は倍。奥(Z+方向)が正面とした時のX軸成分がwidth,
+	float length_;//中央からの奥行き、実際は倍。奥(Z+方向)が正面とした時のZ軸成分がwidth,
 	float rotate_;//y軸回転
 	AttackRangeQuad(XMFLOAT3 pos);
 };

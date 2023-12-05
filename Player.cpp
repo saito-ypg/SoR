@@ -47,9 +47,17 @@ void Player::ActorUpdate()
 
     if (Input::IsKeyDown(DIK_SPACE))
     {
-        AttackRangeCircle testcircle(transform_.position_);
-        testcircle.radius_ = status_.hitCircleRange_;
-        CollisionManager::HitTestBy(PLAYER, testcircle);
+        AttackRangeQuad testQuad(transform_.position_);
+        testQuad.length_ = 1;
+        testQuad.width_ = 1;
+        testQuad.rotate_ =0;
+        CollisionManager::HitTestBy(PLAYER, testQuad);
+    }
+    if (Input::IsKeyDown(DIK_LALT))
+    {
+        AttackRangeCircle testCircle(transform_.position_);
+        testCircle.radius_ = 1;
+        CollisionManager::HitTestBy(PLAYER, testCircle);
     }
 
     if (Input::IsMouseButton(1))

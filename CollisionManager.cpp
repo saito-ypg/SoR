@@ -29,8 +29,12 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 {
 	for (const auto& [actor,collider] : CollisionList.at((camp + 1) % NUM))
 	{
-		XMVECTOR circlePos = XMLoadFloat3(&circle.position_);
-		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
+		XMFLOAT3 c = circle.position_;
+		c.y = 0;
+		XMVECTOR circlePos = XMLoadFloat3(&c);
+		XMFLOAT3 a = *collider->position_;
+		a.y = 0;
+		XMVECTOR ActorPos = XMLoadFloat3(&a);
 		if (XMVectorGetX(XMVector3Length(XMVectorAbs(circlePos - ActorPos))) < circle.radius_ + actor->GetRadius())
 		{
 			actor->TakeAttacked();
@@ -46,26 +50,28 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 {
 	for (const auto& [actor, collider] : CollisionList.at((camp + 1) % NUM))
 	{
-
-		XMMATRIX matRotY = XMMatrixRotationY(-quad.rotate_);//回転してる四角を、回転の分だけ戻す行列
+		//const_cast<GameActor*>(actor);//暫定的にconst外し。mapやめるかメンバvolatileにするか？
+		XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(-quad.rotate_));//回転してる四角を、回転の分だけ戻す行列
 		XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, 0, -quad.position_.z);//原点にずらす行列
 
-		XMVECTOR circlePos = XMLoadFloat3(&quad.position_);
-		XMVector3TransformCoord(circlePos, matMove * matRotY);//四角を原点にずらしてから回転
+		XMVECTOR quadPos = XMLoadFloat3(&quad.position_);
+		quadPos=XMVector3TransformCoord(quadPos, matMove * matRotY);//四角を原点にずらしてから回転
 		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
-		XMVector3TransformCoord(ActorPos, matMove * matRotY);//円の位置もずらす
-		XMFLOAT3 f3Circle, f3Actor;
-		XMStoreFloat3(&f3Circle, circlePos);
+		ActorPos=XMVector3TransformCoord(ActorPos, matMove * matRotY);//円の位置もずらす
+		XMFLOAT3 f3Quad, f3Actor;
+		XMStoreFloat3(&f3Quad, quadPos);
 		XMStoreFloat3(&f3Actor, ActorPos);
 		using std::max;
 		using std::min;
-		float x = max(box.minX, Math.min(sphere.x, box.maxX));
-		float y = Math.max(box.minY, Math.min(sphere.y, box.maxY));
-		float z = Math.max(box.minZ, Math.min(sphere.z, box.maxZ));
-
-		if ()
+		using std::pow;
+		XMFLOAT3 compare = {//当たり判定の四角の外周で、円の中心に最も近い地点を導出
+		 {max(f3Quad.x- quad.width_,min(f3Actor.x, f3Quad.x+quad.width_))} 
+		,0//Yは判定いらない
+		,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }
+		};
+		float dist =sqrt( pow((compare.x *f3Actor.x),2) + pow((compare.z * f3Actor.z),2));
+		if (dist <actor->GetRadius()*2)//Line63～ここまでネット記事参考。ロジック理解しきれてない。
 		{
-		
 			Debug::Log("あたってるよ", true);
 		}
 		else Debug::Log("あたってないよ", true);

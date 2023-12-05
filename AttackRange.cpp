@@ -13,13 +13,13 @@ AttackRangeQuad::AttackRangeQuad(XMFLOAT3 pos) :AttackRangeBase(pos)
 {
 	width_ = -1;
 	length_ = -1;
-	rotate_ = -1;
+	rotate_ = 0;
 }
 
 AttackRangeCirculerSector::AttackRangeCirculerSector(XMFLOAT3 pos) :AttackRangeBase(pos)
 {
 	radius_ = -1;
 	centerAngle_ = -1;
-	rotate_ = -1;
+	rotate_ = 0;
 }
 
