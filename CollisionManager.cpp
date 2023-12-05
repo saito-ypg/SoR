@@ -81,6 +81,31 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 {
+	for (const auto& [actor, collider] : CollisionList.at((camp + 1) % NUM))
+	{
+		XMFLOAT3 c = sector.position_;
+		c.y = 0;
+		XMVECTOR sectorPos = XMLoadFloat3(&c);
+		XMFLOAT3 a = *collider->position_;
+		a.y = 0;
+		XMVECTOR ActorPos = XMLoadFloat3(&a);
+		if (XMVectorGetX(XMVector3Length(XMVectorAbs(sectorPos - ActorPos))) < sector.radius_ + actor->GetRadius())//まずは円と同じ
+		{
+			//扇型で判定してみる
+			//三角関数？
+			//角度比較の時はそのままやらずに…
+			//中心点見て範囲外だったら、扇の中心点から円までのベクトル取って、その長さで扇の端のベクトルをクランプ…
+			XMMATRIX angle = XMMatrixRotationY(sector.centerAngle_);
+			XMMATRIX rot = XMMatrixRotationY(sector.rotate_);
+			XMVECTOR Front{ 0,0,1,0 };
+
+
+
+			const_cast<GameActor*>(actor)->TakeAttacked();
+			Debug::Log("あたってるよ", true);
+		}
+		else Debug::Log("あたってないよ", true);
+	}
 }
 
 
@@ -88,7 +113,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 {
 	auto& campMap = CollisionList.at(camp);
-	if (campMap.find(actor) == campMap.end())//そもそも存在しなかったら何もしない？逆陣営でやる？
+	if (campMap.find(actor) == campMap.end())//そもそも存在しなかったら何もしない？
 	{
 		return;
 	}

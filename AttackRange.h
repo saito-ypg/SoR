@@ -25,7 +25,7 @@ struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 {
 	float radius_;//半径
-	float centerAngle_;//中心角,degree or radianどっち？今のところdeg
+	float centerAngle_;//片側の開き具合、degで入力
 	float rotate_;//中心角の二等分線の回転,y軸
 	AttackRangeCirculerSector(XMFLOAT3 pos);
 };

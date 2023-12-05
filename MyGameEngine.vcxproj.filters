@@ -117,9 +117,11 @@
     <ClInclude Include="ActorCollider.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="AttackRange.h" />
     <ClInclude Include="Engine\Debug.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackRange.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +210,11 @@
     <ClCompile Include="ActorCollider.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="AttackRange.cpp" />
     <ClCompile Include="Engine\Debug.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackRange.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
