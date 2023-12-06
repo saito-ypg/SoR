@@ -3,7 +3,7 @@
 Decoy::Decoy(GameObject* parent) :EnemyBase(parent)
 {
 	status_ = ActorInfo{ 1,1.1 };
-	transform_.position_ = { 0,10,0 };
+	transform_.position_ = { 0,0,0 };
 	AddCamp();
 }
 

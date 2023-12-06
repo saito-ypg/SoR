@@ -53,7 +53,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 	{
 		//const_cast<GameActor*>(actor);//暫定的にconst外し。mapやめるかメンバvolatileにするか？
 		XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(-quad.rotate_));//回転してる四角を、回転の分だけ戻す行列
-		XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, 0, -quad.position_.z);//原点にずらす行列
+		XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, -quad.position_.y, -quad.position_.z);//原点にずらす行列
 
 		XMVECTOR quadPos = XMLoadFloat3(&quad.position_);
 		quadPos=XMVector3TransformCoord(quadPos, matMove * matRotY);//四角を原点にずらしてから回転
@@ -65,13 +65,13 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 		using std::max;
 		using std::min;
 		using std::pow;
-		XMFLOAT3 compare = {//当たり判定の四角の外周で、円の中心に最も近い地点を導出
-		 {max(f3Quad.x- quad.width_,min(f3Actor.x, f3Quad.x+quad.width_))} 
-		,0//Yは判定いらない
-		,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }
-		};
+		XMFLOAT3 compare = {//当たり判定の四角の外周で、円の中心に最も近い地点を求める
+			{max(f3Quad.x- quad.width_,min(f3Actor.x, f3Quad.x+quad.width_))} 
+			,0//Yは判定いらない
+			,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }};
+
 		float dist =sqrt( pow((compare.x *f3Actor.x),2) + pow((compare.z * f3Actor.z),2));
-		if (dist <actor->GetRadius()*2)//Line63～ここまでネット記事参考。ロジック理解しきれてない。
+		if (dist <actor->GetRadius()*2)//ここ*2じゃないといけないのはなんか間違ってそう。計算方法はネット参照
 		{
 			Debug::Log("あたってるよ", true);
 		}
@@ -94,10 +94,13 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 			//扇型で判定してみる
 			//三角関数？
 			//角度比較の時はそのままやらずに…
-			//中心点見て範囲外だったら、扇の中心点から円までのベクトル取って、その長さで扇の端のベクトルをクランプ…
-			XMMATRIX angle = XMMatrixRotationY(sector.centerAngle_);
+			//中心点見て範囲外だったら、扇の中心点から円までのベクトル取って、その長さで扇のｆｆxff端のベクトルをクランプ…
+			XMMATRIX angle = XMMatrixRotationY(sector.centerAngle_);//開き具合
 			XMMATRIX rot = XMMatrixRotationY(sector.rotate_);
 			XMVECTOR Front{ 0,0,1,0 };
+			Front = XMVector3TransformCoord(Front, rot);//ここで扇形の回転具合
+			//角度→(a・b)/|a||b|
+
 
 
 
