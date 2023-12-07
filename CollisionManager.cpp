@@ -25,7 +25,7 @@ void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 
 }
 
-void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)//この辺ループ最適化足りないよね
 {
 	for (const auto& [actor,collider] : CollisionList.at((camp + 1) % NUM))
 	{
@@ -39,12 +39,9 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)
 		{
 
 			const_cast<GameActor*>(actor)->TakeAttacked();
-			Debug::Log("あたってるよ", true);
+			Debug::Log("〇あたってるよ", true);
 		}
-		else Debug::Log("あたってないよ", true);
 	}
-
-	
 }
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
@@ -73,9 +70,8 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 		float dist =sqrt( pow((compare.x *f3Actor.x),2) + pow((compare.z * f3Actor.z),2));
 		if (dist <actor->GetRadius()*2)//ここ*2じゃないといけないのはなんか間違ってそう。計算方法はネット参照
 		{
-			Debug::Log("あたってるよ", true);
+			Debug::Log("□あたってるよ", true);
 		}
-		else Debug::Log("あたってないよ", true);
 	}
 }
 
@@ -91,23 +87,34 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 		XMVECTOR ActorPos = XMLoadFloat3(&a);
 		if (XMVectorGetX(XMVector3Length(XMVectorAbs(sectorPos - ActorPos))) < sector.radius_ + actor->GetRadius())//まずは円と同じ
 		{
-			//扇型で判定してみる
-			//三角関数？
-			//角度比較の時はそのままやらずに…
-			//中心点見て範囲外だったら、扇の中心点から円までのベクトル取って、その長さで扇のｆｆxff端のベクトルをクランプ…
-			XMMATRIX angle = XMMatrixRotationY(sector.centerAngle_);//開き具合
-			XMMATRIX rot = XMMatrixRotationY(sector.rotate_);
-			XMVECTOR Front{ 0,0,1,0 };
-			Front = XMVector3TransformCoord(Front, rot);//ここで扇形の回転具合
-			//角度→(a・b)/|a||b|
-
-
-
-
-			const_cast<GameActor*>(actor)->TakeAttacked();
-			Debug::Log("あたってるよ", true);
+			continue;
 		}
-		else Debug::Log("あたってないよ", true);
+		//扇型で判定してみる
+		//三角関数？
+		//角度比較の時はそのままやらずに…
+		//中心点見て範囲外だったら、扇の中心点から円までのベクトル取って、その長さで扇の端のベクトルをクランプ…
+		float radAngle = XMConvertToRadians(sector.centerAngle_);//開き具合radian
+		float radRot = XMConvertToRadians(sector.rotate_);//扇の回転radian
+		XMMATRIX rotM = XMMatrixRotationY(radRot);
+		XMVECTOR Front{ 0,0,1,0 };
+		XMVECTOR rotFront = XMVector3TransformCoord(Front, rotM);//ここで扇形の回転具合
+		//角度→(a・b)/|a||b|
+		XMVECTOR sectorToActor = ActorPos - sectorPos;
+		float deviation = XMVectorGetX(XMVector3AngleBetweenVectors(rotFront, sectorToActor));//ここで扇のどの辺にいるか角度が出せるはず
+		if (std::abs(deviation)> radAngle)//中心が扇の外なら
+		{//追加で検証
+			XMMATRIX angleM = XMMatrixRotationY(radAngle);//開き具合
+			float close=//両端を見て近いほうのrad
+				std::min(std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront,angleM) , sectorToActor)))//片方の端
+						, std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr,angleM)), sectorToActor))));//もう片方の端。回転の逆行列
+			if(std::sin(close) >sector.radius_)//それでもないなら
+			{
+				continue;
+			}
+		}
+		
+		Debug::Log("あたってるよ", true);
+		//const_cast<GameActor*>actor->TakeAttacked();
 	}
 }
 
