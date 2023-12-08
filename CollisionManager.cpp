@@ -27,11 +27,11 @@ void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)//この辺ループ最適化足りないよね
 {
+	XMFLOAT3 c = circle.position_;
+	c.y = 0;
+	XMVECTOR circlePos = XMLoadFloat3(&c);
 	for (const auto& [actor,collider] : CollisionList.at((camp + 1) % NUM))
 	{
-		XMFLOAT3 c = circle.position_;
-		c.y = 0;
-		XMVECTOR circlePos = XMLoadFloat3(&c);
 		XMFLOAT3 a = *collider->position_;
 		a.y = 0;
 		XMVECTOR ActorPos = XMLoadFloat3(&a);
@@ -46,18 +46,18 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)//この辺ル
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 {
+
+	XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(-quad.rotate_));//回転してる四角を、回転の分だけ戻す行列
+	XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, -quad.position_.y, -quad.position_.z);//原点にずらす行列
+	XMVECTOR quadPos = XMLoadFloat3(&quad.position_);
+	quadPos = XMVector3TransformCoord(quadPos, matMove * matRotY);//四角を原点にずらしてから回転
+	XMFLOAT3 f3Quad;
+	XMStoreFloat3(&f3Quad, quadPos);
 	for (const auto& [actor, collider] : CollisionList.at((camp + 1) % NUM))
 	{
-		//const_cast<GameActor*>(actor);//暫定的にconst外し。mapやめるかメンバvolatileにするか？
-		XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(-quad.rotate_));//回転してる四角を、回転の分だけ戻す行列
-		XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, -quad.position_.y, -quad.position_.z);//原点にずらす行列
-
-		XMVECTOR quadPos = XMLoadFloat3(&quad.position_);
-		quadPos=XMVector3TransformCoord(quadPos, matMove * matRotY);//四角を原点にずらしてから回転
 		XMVECTOR ActorPos = XMLoadFloat3(collider->position_);
 		ActorPos=XMVector3TransformCoord(ActorPos, matMove * matRotY);//円の位置もずらす
-		XMFLOAT3 f3Quad, f3Actor;
-		XMStoreFloat3(&f3Quad, quadPos);
+		XMFLOAT3 f3Actor;
 		XMStoreFloat3(&f3Actor, ActorPos);
 		using std::max;
 		using std::min;
@@ -67,9 +67,11 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 			,0//Yは判定いらない
 			,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }};
 
-		float dist =sqrt( pow((compare.x *f3Actor.x),2) + pow((compare.z * f3Actor.z),2));
-		if (dist <actor->GetRadius()*2)//ここ*2じゃないといけないのはなんか間違ってそう。計算方法はネット参照
+		float dist = sqrt(pow(compare.x - f3Actor.x, 2) + pow(compare.z - f3Actor.z, 2));
+		float r = pow(actor->GetRadius(), 2);
+		if (dist <r)//ここ*2じゃないといけないのはなんか間違ってそう。計算方法はネット参照
 		{
+			//const_cast<GameActor*>(actor);//暫定的にconst外し。mapやめるかメンバvolatileにするか？	
 			Debug::Log("□あたってるよ", true);
 		}
 	}
@@ -104,15 +106,15 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 		if (std::abs(deviation)> radAngle)//中心が扇の外なら
 		{//追加で検証
 			XMMATRIX angleM = XMMatrixRotationY(radAngle);//開き具合
-			float close=//両端を見て近いほうのrad
+			float close=//両端を見て近いほうのrad、扇型大きいとき怪しい
 				std::min(std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront,angleM) , sectorToActor)))//片方の端
 						, std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr,angleM)), sectorToActor))));//もう片方の端。回転の逆行列
-			if(std::sin(close) >sector.radius_)//それでもないなら
-			{
+			if(XMVectorGetX(XMVector3Length( sectorToActor*std::sin(close) ))>sector.radius_)//それでも外にいるなら
+			{//外す
 				continue;
 			}
 		}
-		
+		//continueを踏まなかったらここに来るはず
 		Debug::Log("あたってるよ", true);
 		//const_cast<GameActor*>actor->TakeAttacked();
 	}

@@ -45,19 +45,27 @@ void Player::ActorUpdate()
     if (nearlyZero(GetMyVelocity()))//çXêVë¨ìxÇ™ÇŸÇ⁄ÇŸÇ⁄0Ç»ÇÁÇ†Ç∆ÇÃèàóùîÚÇŒÇ∑
         return;
 
-    if (Input::IsKeyDown(DIK_SPACE))
+    if (Input::IsKeyDown(DIK_Z))
     {
         AttackRangeQuad testQuad(transform_.position_);
-        testQuad.length_ = 1;
-        testQuad.width_ = 1;
+        testQuad.length_ = 2;
+        testQuad.width_ = 2;
         testQuad.rotate_ =0;
         CollisionManager::HitTestBy(PLAYER, testQuad);
     }
-    if (Input::IsKeyDown(DIK_LALT))
+    if (Input::IsKeyDown(DIK_X))
     {
         AttackRangeCircle testCircle(transform_.position_);
-        testCircle.radius_ = 1;
+        testCircle.radius_ = 2;
         CollisionManager::HitTestBy(PLAYER, testCircle);
+    }
+    if (Input::IsKeyDown(DIK_C))
+    {
+        AttackRangeCirculerSector testSector(transform_.position_);
+        testSector.radius_ = 1;
+        testSector.rotate_ = transform_.rotate_.y;
+        testSector.centerAngle_ = 45;
+        CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
     if (Input::IsMouseButton(1))
