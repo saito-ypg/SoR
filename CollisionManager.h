@@ -19,15 +19,25 @@ namespace CollisionManager
 	void AddCamp(GameActor* newActor,CAMPS camp);
 
 	/// <summary>
-	/// UŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è‚·‚é
+	/// ‰~Œ`‚ÌUŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è‚·‚é
 	/// </summary>
-	/// <param name="camp">w‰c</param>
-	/// <param name="circle"></param>
-	void HitTestBy(CAMPS camp,AttackRangeCircle circle);
-	/// <param name="camp"></param>
-	/// <param name="quad"></param>
-	void HitTestBy(CAMPS camp, AttackRangeQuad quad);
-	void HitTestBy(CAMPS camp, AttackRangeCirculerSector sector);
+	/// <param name="camp">UŒ‚Òw‰c</param>
+	/// <param name="circle">‰~Œ`UŒ‚ƒGƒŠƒA</param>
+	void HitTestBy(CAMPS camp,AttackRangeCircle& circle);
+
+	/// <summary>
+	/// ‹éŒ`‚ÌUŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è
+	/// </summary>
+	/// <param name="camp">UŒ‚Òw‰c</param>
+	/// <param name="quad">‹éŒ`UŒ‚ƒGƒŠƒA</param>
+	void HitTestBy(CAMPS camp, AttackRangeQuad& quad);
+
+	/// <summary>
+	/// îŒ`‚ÌUŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è
+	/// </summary>
+	/// <param name="camp">UŒ‚Òw‰c</param>
+	/// <param name="quad">îŒ`UŒ‚ƒGƒŠƒA</param>
+	void HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector);
 
 	
 	/// <summary>

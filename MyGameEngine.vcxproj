@@ -45,11 +45,13 @@
     <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ModeratorProgress.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\direct2Dtest\Engine\ModeratorProgress.h" />
     <ClInclude Include="ActorInfo.h" />
     <ClInclude Include="ActorCollider.h" />
     <ClInclude Include="AttackRange.h" />

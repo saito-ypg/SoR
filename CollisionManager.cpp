@@ -10,11 +10,11 @@ namespace {
 	std::vector<std::unordered_map<const GameActor*, const ActorCollider*>>CollisionList(CAMPS::NUM);
 	
 	/// <summary>
-	/// 攻撃を受けたことを通知し、各actorのTakeAttackedを呼ぶ
+	/// 攻撃が当たった際に呼ばれる。
 	/// </summary>
-	void NotifyReceivedAttack()
+	void UnderAttack(const GameActor* a)
 	{
-
+		const_cast<GameActor*>(a)->TakeAttacked();
 	}
 }
 
@@ -25,7 +25,7 @@ void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 
 }
 
-void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)//この辺ループ最適化足りないよね
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle &circle)//この辺ループ最適化足りないよね
 {
 	XMFLOAT3 c = circle.position_;
 	c.y = 0;
@@ -37,14 +37,13 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle circle)//この辺ル
 		XMVECTOR ActorPos = XMLoadFloat3(&a);
 		if (XMVectorGetX(XMVector3Length(XMVectorAbs(circlePos - ActorPos))) < circle.radius_ + actor->GetRadius())
 		{
-
-			const_cast<GameActor*>(actor)->TakeAttacked();
+			UnderAttack(actor);
 			Debug::Log("〇あたってるよ", true);
 		}
 	}
 }
 
-void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 {
 
 	XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(-quad.rotate_));//回転してる四角を、回転の分だけ戻す行列
@@ -71,13 +70,13 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad quad)
 		float r = pow(actor->GetRadius(), 2);
 		if (dist <r)//ここ*2じゃないといけないのはなんか間違ってそう。計算方法はネット参照
 		{
-			//const_cast<GameActor*>(actor);//暫定的にconst外し。mapやめるかメンバvolatileにするか？	
+			UnderAttack(actor);
 			Debug::Log("□あたってるよ", true);
 		}
 	}
 }
 
-void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 {
 	for (const auto& [actor, collider] : CollisionList.at((camp + 1) % NUM))
 	{
@@ -115,6 +114,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector sector)
 			}
 		}
 		//continueを踏まなかったらここに来るはず
+		UnderAttack(actor);
 		Debug::Log("あたってるよ", true);
 		//const_cast<GameActor*>actor->TakeAttacked();
 	}

@@ -123,6 +123,7 @@
     <ClInclude Include="AttackRange.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
+    <ClInclude Include="..\direct2Dtest\Engine\ModeratorProgress.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -216,6 +217,7 @@
     <ClCompile Include="AttackRange.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
+    <ClCompile Include="ModeratorProgress.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
