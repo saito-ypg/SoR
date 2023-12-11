@@ -14,7 +14,7 @@ namespace {
 	/// </summary>
 	void UnderAttack(const GameActor* a)
 	{
-		const_cast<GameActor*>(a)->TakeAttacked();
+		const_cast<GameActor*>(a)->TakeAttacked();//暫定的にconstキャスト。
 	}
 }
 
