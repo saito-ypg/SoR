@@ -56,7 +56,7 @@ void Player::ActorUpdate()
     if (Input::IsKeyDown(DIK_X))
     {
         AttackRangeCircle testCircle(transform_.position_);
-        testCircle.radius_ = 2;
+        testCircle.radius_ = 1;
         CollisionManager::HitTestBy(PLAYER, testCircle);
     }
     if (Input::IsKeyDown(DIK_C))

@@ -25,7 +25,7 @@ public:
     void Update() override final;//info関連の更新はすべてのキャラでやるので、個別の更新はActorUpdateに分離すること
     virtual void ActorUpdate()=0;//継承先で実装
 
-    void TakeAttacked() const;//オーバーライドするか未定
+    void TakeAttacked();//オーバーライドするか未定
     Transform* GetTransformRef();
 };
 

@@ -39,6 +39,12 @@
     <Filter Include="Scenes\PlayScene\Objects\Charactors\Collisions">
       <UniqueIdentifier>{231d0e07-16d5-4453-b7ad-15554b7d252f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\other">
+      <UniqueIdentifier>{e47e568f-6f57-4d88-ba74-ff7855651579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\PlayScene\Objects\Charactors\base&amp;mechanics">
+      <UniqueIdentifier>{0601a09d-a4d8-474d-96b9-e49379275427}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -83,23 +89,14 @@
     <ClInclude Include="Engine\Image.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="PlayScene.h">
       <Filter>Scenes\PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Scenes\PlayScene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="GameActor.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorInfo.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
@@ -123,7 +120,18 @@
     <ClInclude Include="AttackRange.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="..\direct2Dtest\Engine\ModeratorProgress.h" />
+    <ClInclude Include="ModeratorProgress.h">
+      <Filter>Scenes\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Scenes\other</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorInfo.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameActor.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -175,23 +183,14 @@
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>Scenes\PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Scenes\PlayScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="GameActor.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorInfo.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Image.cpp">
       <Filter>Engine</Filter>
@@ -217,7 +216,18 @@
     <ClCompile Include="AttackRange.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="ModeratorProgress.cpp" />
+    <ClCompile Include="ModeratorProgress.cpp">
+      <Filter>Scenes\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Scenes\other</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorInfo.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameActor.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

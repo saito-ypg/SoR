@@ -78,15 +78,16 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 {
+	XMFLOAT3 s = sector.position_;
+	s.y = 0;
+	XMVECTOR sectorPos = XMLoadFloat3(&s);
 	for (const auto& [actor, collider] : CollisionList.at((camp + 1) % NUM))
 	{
-		XMFLOAT3 c = sector.position_;
-		c.y = 0;
-		XMVECTOR sectorPos = XMLoadFloat3(&c);
+		
 		XMFLOAT3 a = *collider->position_;
 		a.y = 0;
 		XMVECTOR ActorPos = XMLoadFloat3(&a);
-		if (XMVectorGetX(XMVector3Length(XMVectorAbs(sectorPos - ActorPos))) < sector.radius_ + actor->GetRadius())//‚Ü‚¸‚Í‰~‚Æ“¯‚¶
+		if (XMVectorGetX(XMVector3Length(XMVectorAbs(sectorPos - ActorPos))) > sector.radius_ + actor->GetRadius())//‚Ü‚¸‚Í‰~‚Æ“¯‚¶
 		{
 			continue;
 		}

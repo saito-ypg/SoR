@@ -51,7 +51,6 @@
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\direct2Dtest\Engine\ModeratorProgress.h" />
     <ClInclude Include="ActorInfo.h" />
     <ClInclude Include="ActorCollider.h" />
     <ClInclude Include="AttackRange.h" />
@@ -75,6 +74,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="GameActor.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="ModeratorProgress.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="resource.h" />

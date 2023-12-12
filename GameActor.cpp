@@ -32,7 +32,7 @@ void GameActor::ActorUpdate()
 {
 }
 
-void GameActor::TakeAttacked() const
+void GameActor::TakeAttacked()
 {
 }
 
