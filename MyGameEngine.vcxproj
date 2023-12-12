@@ -23,6 +23,7 @@
     <ClCompile Include="ActorCollider.cpp" />
     <ClCompile Include="AttackRange.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="DamageData.cpp" />
     <ClCompile Include="Decoy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyList.cpp" />
@@ -48,6 +49,7 @@
     <ClCompile Include="ModeratorProgress.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="SkillBase.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +57,7 @@
     <ClInclude Include="ActorCollider.h" />
     <ClInclude Include="AttackRange.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="DamageData.h" />
     <ClInclude Include="Decoy.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -78,6 +81,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SkillBase.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="EnemyList.h" />
   </ItemGroup>
