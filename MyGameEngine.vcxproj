@@ -23,7 +23,6 @@
     <ClCompile Include="ActorCollider.cpp" />
     <ClCompile Include="AttackRange.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="DamageData.cpp" />
     <ClCompile Include="Decoy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyList.cpp" />

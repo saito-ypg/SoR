@@ -45,9 +45,6 @@
     <Filter Include="Scenes\PlayScene\Objects\Charactors\base&amp;mechanics">
       <UniqueIdentifier>{0601a09d-a4d8-474d-96b9-e49379275427}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Charactors\Player\Skill">
-      <UniqueIdentifier>{65756441-2e48-4ed8-b163-20819481a228}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -135,10 +132,10 @@
     <ClInclude Include="GameActor.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClInclude>
-    <ClInclude Include="SkillBase.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player\Skill</Filter>
+    <ClInclude Include="SkillBase.h" />
+    <ClInclude Include="DamageData.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClInclude>
-    <ClInclude Include="DamageData.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -235,10 +232,7 @@
     <ClCompile Include="GameActor.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClCompile>
-    <ClCompile Include="SkillBase.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="DamageData.cpp" />
+    <ClCompile Include="SkillBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
