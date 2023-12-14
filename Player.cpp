@@ -68,14 +68,14 @@ void Player::ActorUpdate()
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
-    if (Input::IsMouseButton(1))
+    if (Input::IsMouseButton(1))//ˆÚ“®
     {
         XMVECTOR target= getMouseTargetPos(Input::GetMousePosition());
         if(XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV)))
             calculateForMove(target);
     }
     //Še“ü—Í
-    if(Input::IsMouseButton(0))
+    if(Input::IsMouseButton(0))//’ÊíUŒ‚
     { }
     if (moveTime_ > 0)
     {
@@ -150,6 +150,8 @@ void Player::calculateForMove(XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     moveDirection_ = XMVector3Normalize(target_-vPos);
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
+    if (nearlyZero(length*10))
+        return;
     moveTime_ = length / MOVE_VELOCITY;
     
     //ˆÚ“®•ûŒü‚ðŒü‚­
