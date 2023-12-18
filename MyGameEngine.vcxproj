@@ -45,7 +45,7 @@
     <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ModeratorcSequence.cpp" />
+    <ClCompile Include="ModeratorSequence.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="SkillBase.cpp" />

@@ -220,7 +220,7 @@
     <ClCompile Include="AttackRange.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="ModeratorcSequence.cpp">
+    <ClCompile Include="ModeratorSequence.cpp">
       <Filter>Scenes\PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
