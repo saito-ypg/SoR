@@ -120,7 +120,7 @@
     <ClInclude Include="AttackRange.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="ModeratorProgress.h">
+    <ClInclude Include="ModeratorSequence.h">
       <Filter>Scenes\PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
@@ -220,7 +220,7 @@
     <ClCompile Include="AttackRange.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="ModeratorProgress.cpp">
+    <ClCompile Include="ModeratorcSequence.cpp">
       <Filter>Scenes\PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">

@@ -49,7 +49,7 @@ namespace CollisionManager
 
 
 
-	//void Update();//©‚¢‚éH
+	//void Update();//©‚¢‚ç‚È‚¢‹C‚ª‚·‚é
 	void Release();//‰ğ•úˆ—
 }
 

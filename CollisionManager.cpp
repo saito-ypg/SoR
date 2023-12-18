@@ -25,7 +25,7 @@ void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 
 }
 
-void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle &circle)//この辺ループ最適化足りないよね
+void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle &circle)
 {
 	XMFLOAT3 c = circle.position_;
 	c.y = 0;
@@ -67,8 +67,8 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 			,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }};
 
 		float dist = sqrt(pow(compare.x - f3Actor.x, 2) + pow(compare.z - f3Actor.z, 2));
-		float r = pow(actor->GetRadius(), 2);
-		if (dist <r)//ここ*2じゃないといけないのはなんか間違ってそう。計算方法はネット参照
+		float r = pow(actor->GetRadius(), 2);//此処と上の行不安アル
+		if (dist <r)
 		{
 			UnderAttack(actor);
 			Debug::Log("□あたってるよ", true);
@@ -106,9 +106,9 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 		if (std::abs(deviation)> radAngle)//中心が扇の外なら
 		{//追加で検証
 			XMMATRIX angleM = XMMatrixRotationY(radAngle);//開き具合
-			float close=//両端を見て近いほうのrad、扇型大きいとき怪しい
-				std::min(std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront,angleM) , sectorToActor)))//片方の端
-						, std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr,angleM)), sectorToActor))));//もう片方の端。回転の逆行列
+			float close=std::min//両端を見て近いほうのrad、扇型大きいとき怪しい
+				(std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront,angleM) , sectorToActor)))//片方の端
+				,std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr,angleM)), sectorToActor))));//もう片方の端。回転の逆行列
 			if(XMVectorGetX(XMVector3Length( sectorToActor*std::sin(close) ))>sector.radius_)//それでも外にいるなら
 			{//外す
 				continue;

@@ -1,1 +1,0 @@
-#include "ModeratorProgress.h"

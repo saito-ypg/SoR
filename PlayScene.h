@@ -10,6 +10,7 @@ public:
 	//引数：parent  親オブジェクト（SceneManager）
 	PlayScene(GameObject* parent);
 
+	virtual ~PlayScene();
 	//初期化
 	void Initialize() override;
 

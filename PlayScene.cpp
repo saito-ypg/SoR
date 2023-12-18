@@ -4,10 +4,15 @@
 #include"Engine/Camera.h"
 #include"Engine/Input.h"
 #include"Engine/SceneManager.h"
+#include"CollisionManager.h"
 #include"Decoy.h"
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
 	: GameObject(parent, "PlayScene")
+{
+}
+
+PlayScene::~PlayScene()
 {
 }
 
@@ -35,4 +40,5 @@ void PlayScene::Draw()
 //開放
 void PlayScene::Release()
 {
+	CollisionManager::Release();
 }
