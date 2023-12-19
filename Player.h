@@ -1,6 +1,7 @@
 #pragma once
 //#include "Engine/GameObject.h"
 #include"GameActor.h"
+#include"SkillBase.h"
 constexpr float MOVE_VELOCITY = 10.0f /60;
 class Player : public GameActor
 {//PimplÇ∆Ç©Ç¢Ç§äTîOÅAÇÊÇ≥ÇªÇ§

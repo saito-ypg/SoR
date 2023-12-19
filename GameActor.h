@@ -3,7 +3,7 @@
 #include "Engine/GameObject.h"
 #include "ActorInfo.h"
 #include"CollisionManager.h"
-
+#include"DamageData.h"
 class ActorCollider;
 class GameActor :public GameObject{
 protected:

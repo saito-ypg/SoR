@@ -132,8 +132,10 @@
     <ClInclude Include="GameActor.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClInclude>
-    <ClInclude Include="SkillBase.h" />
     <ClInclude Include="DamageData.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -232,7 +234,9 @@
     <ClCompile Include="GameActor.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClCompile>
-    <ClCompile Include="SkillBase.cpp" />
+    <ClCompile Include="SkillBase.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
