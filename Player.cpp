@@ -26,8 +26,10 @@ void Player::Initialize()
 {
     hModel_ = Model::Load("Assets/psample.fbx");
     assert(hModel_ >= 0);
-    status_ = { 200,1.1 };
+    status_.maxHp_ = 200;
+    status_.hitCircleRange_ = 1.1f;
     AddCamp();
+
 }
 
 //çXêV
@@ -150,14 +152,14 @@ void Player::calculateForMove(XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     moveDirection_ = XMVector3Normalize(target_-vPos);
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-    if (nearlyZero(length*10))
-        return;
+   /* if (nearlyZero(length*10))
+        return;*/
     moveTime_ = length / MOVE_VELOCITY;
     
     //à⁄ìÆï˚å¸Çå¸Ç≠
     XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
     float dot=XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
-    float angle = acos(dot);
+    float angle = (float)acos(dot);
     XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
     if (XMVectorGetY(vCross) < 0) { angle *= -1; }
     transform_.rotate_.y = XMConvertToDegrees(angle);
