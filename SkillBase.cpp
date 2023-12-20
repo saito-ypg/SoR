@@ -1,6 +1,6 @@
 #include "SkillBase.h"
 
-void SkillBase::update()
+virtual void SkillBase::update()
 {
 }
 

@@ -3,6 +3,15 @@
 #include"AttackRange.h"
 #include"DamageData.h"
 //プレイヤー用スキルの元
+enum sequenceStep
+{
+	
+
+};
+struct flags//必要に応じてビットフラグ
+{
+
+};
 class SkillBase
 {
 public:
@@ -14,7 +23,7 @@ public:
 	float coolDown_;//クールタイム残り時間
 
 	//ビリヤードの時のstartみたいにシーケンス入れたい。それに応じて攻撃出したり動かしたり
-
+	std::vector<float>sequence;
 
 	SkillBase(float CT,float CD):defaultCastTime_(CT),defaultCoolDown_(CD){}
 	virtual void update();//スキル時間、CD時間等の更新と持続的な判定
