@@ -138,6 +138,12 @@
     <ClInclude Include="SkillBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerSkillsInclude.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="testSkill.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -236,6 +242,9 @@
     </ClCompile>
     <ClCompile Include="SkillBase.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="testSkill.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

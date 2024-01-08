@@ -15,6 +15,7 @@ protected:
     virtual void AddCamp()=0;//継承用
 
     //void LoadModel(string filename);//モデルを読み込み、hModels_に追加。読み込めたらtrue
+    
     void SimpleDraw();//簡易的にモデルを描画する。
 
 

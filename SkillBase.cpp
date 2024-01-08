@@ -1,9 +1,28 @@
 #include "SkillBase.h"
 
-void SkillBase::update()
+
+SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f)
 {
+}
+SkillBase::SkillBase(float CT, float CD) :SkillBase()
+{
+	defaultCastTime_ = CT;
+	defaultCoolDown_ = CD;
 }
 
-void SkillBase::action()
-{
+void SkillBase::Update()
+{//‰¼
+	if (castTime_ > 0)
+		castTime_--;
+	else
+		coolDown_--;
 }
+
+void SkillBase::Activate()
+{
+	if (coolDown_ > 0)
+		return;
+	
+	this->action();
+}
+

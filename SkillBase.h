@@ -3,25 +3,36 @@
 #include"AttackRange.h"
 #include"DamageData.h"
 
+
+
 //プレイヤー用スキルの元
 class SkillBase
 {
-public:
+private:
 
-	float steptime;//各ステップ
+protected:
+	enum AREATYPE {
+		CIRCLE, QUAD, SECTOR,NONE
+	} areatype_=NONE;//攻撃エリア。要初期化
+	//float steptime;//各ステップ
+	//std::vector<float>sequence;//各ステップにかかる時間入れとく
+
+	//ビリヤードの時のstartみたいにシーケンス入れたい。それに応じて攻撃出したり動かしたり
+	virtual void action() = 0;//スキル発動した時の動作と処理の実装
 public:
 	struct DamageData damageData_;
 
-	const float defaultCastTime_;//スキル使用にかかる総時間
-	float castTime_;//スキル使用時間
-	const float defaultCoolDown_;//スキルの再使用までの時間
+	float defaultCastTime_;//スキル使用にかかる総時間
+	float castTime_;//スキル使用にかかる時間
+	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
 
-	//ビリヤードの時のstartみたいにシーケンス入れたい。それに応じて攻撃出したり動かしたり
-	std::vector<float>sequence;//各ステップにかかる時間入れとく
-	SkillBase(float CT, float CD) :defaultCastTime_(CT), defaultCoolDown_(CD), castTime_(0.0f), coolDown_(0.0f) {}
-	virtual void update();//スキル時間、CD時間等の更新と持続的な判定
-	virtual void action() = 0;//スキル発動した時の動きとかを実装
+	SkillBase();
+	SkillBase(float CT, float CD);
+
+	virtual void Update();//スキル時間、CD時間等の更新と持続的な判定
+	void Activate();//スキル発動（ボタン押したとき）
+
 
 };
 

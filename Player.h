@@ -1,7 +1,7 @@
 #pragma once
 //#include "Engine/GameObject.h"
 #include"GameActor.h"
-#include"SkillBase.h"
+#include"PlayerSkillsInclude.h"
 constexpr float MOVE_VELOCITY = 10.0f /60;
 class Player : public GameActor
 {//Pimplとかいう概念、よさそう
@@ -12,14 +12,23 @@ class Player : public GameActor
     XMVECTOR vMove_;
     //移動にかかるフレーム数を入れる。移動中断したら0に
     float moveTime_;
+
+    //スキル登録
+    std::vector<SkillBase*>skills{ 4 };
+
+
+
+
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
     XMVECTOR getMouseTargetPos(XMFLOAT3 mouse);
     
     void calculateForMove(XMVECTOR target_);
 
     void move();
-protected:
+    
     void AddCamp()override;
+protected:
+
 public:
     //コンストラクタ
     Player(GameObject* parent);

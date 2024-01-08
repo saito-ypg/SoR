@@ -30,6 +30,8 @@ void Player::Initialize()
     status_.hitCircleRange_ = 1.1f;
     AddCamp();
 
+
+    skills.at(0) = (SkillBase*)new testSkill;
 }
 
 //XV
@@ -69,6 +71,10 @@ void Player::ActorUpdate()
         testSector.centerAngle_ = 45;
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
+
+
+
+    if()
 
     if (Input::IsMouseButton(1))//ˆÚ“®
     {

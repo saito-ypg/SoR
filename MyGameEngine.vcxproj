@@ -50,6 +50,7 @@
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="SkillBase.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="testSkill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorInfo.h" />
@@ -78,11 +79,13 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="ModeratorSequence.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerSkillsInclude.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SkillBase.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="EnemyList.h" />
+    <ClInclude Include="testSkill.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2D.hlsl">
