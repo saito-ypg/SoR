@@ -56,7 +56,7 @@ void Player::ActorUpdate()
         testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
         testQuad.width_ = 5;
-        testQuad.rotate_ =45;
+        testQuad.rotate_ =transform_.rotate_.y+45;
         CollisionManager::HitTestBy(PLAYER, testQuad);
     }
     if (Input::IsKeyDown(DIK_X))
