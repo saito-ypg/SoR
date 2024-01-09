@@ -38,7 +38,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle &circle)
 		if (XMVectorGetX(XMVector3Length(XMVectorAbs(circlePos - ActorPos))) < circle.radius_ + actor->GetRadius())
 		{
 			UnderAttack(actor);
-			Debug::Log("ÅZÇ†ÇΩÇ¡ÇƒÇÈÇÊ", true);
+			Debug::Log("ÅZÇ†ÇΩÇ¡ÇΩ", true);
 		}
 	}
 }
@@ -71,7 +71,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 		if (dist <r)
 		{
 			UnderAttack(actor);
-			Debug::Log("Å†Ç†ÇΩÇ¡ÇƒÇÈÇÊ", true);
+			Debug::Log("Å†Ç†ÇΩÇ¡ÇΩ", true);
 		}
 	}
 }
@@ -112,7 +112,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 		}
 		//continueÇì•Ç‹Ç»Ç©Ç¡ÇΩÇÁÇ±Ç±Ç…óàÇÈÇÕÇ∏
 		UnderAttack(actor);
-		Debug::Log("Ç†ÇΩÇ¡ÇƒÇÈÇÊ", true);
+		Debug::Log("êÓÇ†ÇΩÇ¡ÇΩ", true);
 	}
 }
 
