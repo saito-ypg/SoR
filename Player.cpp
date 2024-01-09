@@ -44,11 +44,13 @@ void Player::ActorUpdate()
             SetVelocity(2.0f);
         if (Input::IsKeyDown(DIK_0))
             SetVelocity(0.0f);
+        if (nearlyZero(GetMyVelocity()))//更新速度がほぼほぼ0ならあとの処理飛ばす
+            return;
     }
 
-    if (nearlyZero(GetMyVelocity()))//更新速度がほぼほぼ0ならあとの処理飛ばす
-        return;
+  
 
+    //当たり判定テスト用
     if (Input::IsKeyDown(DIK_Z))
     {
         AttackRangeQuad testQuad(transform_.position_);
@@ -74,7 +76,7 @@ void Player::ActorUpdate()
 
 
 
-    if()
+    
 
     if (Input::IsMouseButton(1))//移動
     {
@@ -119,6 +121,7 @@ void Player::AddCamp()
 //描画
 void Player::Draw()
 {
+    DrawCollision();
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
 }

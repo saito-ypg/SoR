@@ -117,7 +117,6 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 		//continue‚ð“¥‚Ü‚È‚©‚Á‚½‚ç‚±‚±‚É—ˆ‚é‚Í‚¸
 		UnderAttack(actor);
 		Debug::Log("‚ ‚½‚Á‚Ä‚é‚æ", true);
-		//const_cast<GameActor*>actor->TakeAttacked();
 	}
 }
 

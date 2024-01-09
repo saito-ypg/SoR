@@ -249,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Assets\CircleArea.fbx" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SoR.rc">

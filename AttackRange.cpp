@@ -1,6 +1,5 @@
 #include "AttackRange.h"
-
-AttackRangeBase::AttackRangeBase(XMFLOAT3 pos):position_(pos)
+AttackRangeBase::AttackRangeBase(XMFLOAT3 pos):position_(pos),areatype_(NONE),a_(-1),b_(-1),c_(0)
 {
 }
 

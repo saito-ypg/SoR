@@ -11,9 +11,7 @@ class SkillBase
 private:
 
 protected:
-	enum AREATYPE {
-		CIRCLE, QUAD, SECTOR,NONE
-	} areatype_=NONE;//攻撃エリア。要初期化
+	
 	//float steptime;//各ステップ
 	//std::vector<float>sequence;//各ステップにかかる時間入れとく
 

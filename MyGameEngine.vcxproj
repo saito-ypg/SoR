@@ -110,6 +110,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\CircleArea.fbx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

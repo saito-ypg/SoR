@@ -6,6 +6,8 @@
 #include"DamageData.h"
 class ActorCollider;
 class GameActor :public GameObject{
+private:
+    
 protected:
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
@@ -16,8 +18,11 @@ protected:
 
     //void LoadModel(string filename);//モデルを読み込み、hModels_に追加。読み込めたらtrue
     
-    void SimpleDraw();//簡易的にモデルを描画する。
-
+    void SimpleDraw();//簡易的にモデルを描画する。draw内で呼ぶ
+    void DrawCollision();//テスト用、当たり判定を描画。draw内で呼ぶ
+    int hCircle_;
+    int hQuad_;
+    int hSector_;
 
 public:
     float GetRadius()const{return status_.hitCircleRange_;}
