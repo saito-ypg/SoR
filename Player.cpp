@@ -56,7 +56,7 @@ void Player::ActorUpdate()
         testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
         testQuad.width_ = 5;
-        testQuad.rotate_ =0;
+        testQuad.rotate_ =45;
         CollisionManager::HitTestBy(PLAYER, testQuad);
     }
     if (Input::IsKeyDown(DIK_X))
@@ -68,7 +68,7 @@ void Player::ActorUpdate()
     if (Input::IsKeyDown(DIK_C))
     {
         testSector.position_=transform_.position_;
-        testSector.radius_ = 1;
+        testSector.radius_ = 2;
         testSector.rotate_ = transform_.rotate_.y;
         testSector.centerAngle_ = 45;
         CollisionManager::HitTestBy(PLAYER, testSector);
@@ -92,6 +92,13 @@ void Player::ActorUpdate()
         move();
     }
 
+
+
+    for (auto itr : skills)
+    {
+        if(itr != nullptr)
+            itr->Update();
+    }
 }
 
 void Player::move()
@@ -129,6 +136,7 @@ void Player::ActorDraw()
         q.position_ = testQuad.position_;
         q.scale_.x = testQuad.width_;
         q.scale_.z = testQuad.length_;
+        q.rotate_.y = testQuad.rotate_;
         Model::SetTransform(hQuad_,q );
         Model::Draw(hQuad_);
     }
@@ -143,6 +151,11 @@ void Player::ActorDraw()
     }
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
+    for (auto itr : skills)
+    {
+        if (itr != nullptr)
+            itr->Draw();
+    }
 }
 
 //ŠJ•ú

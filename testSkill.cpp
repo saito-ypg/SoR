@@ -15,3 +15,7 @@ void testSkill::Update()
 void testSkill::action()
 {
 }
+
+void testSkill::Draw()
+{
+}

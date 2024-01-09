@@ -91,12 +91,8 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 		{
 			continue;
 		}
-		//扇型で判定してみる
-		//三角関数？
-		//角度比較の時はそのままやらずに…
-		//中心点見て範囲外だったら、扇の中心点から円までのベクトル取って、その長さで扇の端のベクトルをクランプ…
-		float radAngle = XMConvertToRadians(sector.centerAngle_);//開き具合radian
-		float radRot = XMConvertToRadians(sector.rotate_);//扇の回転radian
+		float radAngle = XMConvertToRadians(sector.centerAngle_);//開き具合
+		float radRot = XMConvertToRadians(sector.rotate_);//扇の回転
 		XMMATRIX rotM = XMMatrixRotationY(radRot);
 		XMVECTOR Front{ 0,0,1,0 };
 		XMVECTOR rotFront = XMVector3TransformCoord(Front, rotM);//ここで扇形の回転具合

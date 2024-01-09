@@ -81,7 +81,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerSkillsInclude.h" />
     <ClInclude Include="PlayScene.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SkillBase.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="EnemyList.h" />
@@ -110,11 +109,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\CircleArea.fbx" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="SoR.rc" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />

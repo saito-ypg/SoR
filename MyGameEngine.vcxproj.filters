@@ -107,7 +107,6 @@
     <ClInclude Include="EnemyList.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="CollisionManager.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
@@ -135,13 +134,13 @@
     <ClInclude Include="DamageData.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClInclude>
-    <ClInclude Include="SkillBase.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerSkillsInclude.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClInclude>
     <ClInclude Include="testSkill.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClInclude>
   </ItemGroup>
@@ -240,21 +239,15 @@
     <ClCompile Include="GameActor.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
     </ClCompile>
-    <ClCompile Include="SkillBase.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClCompile>
     <ClCompile Include="testSkill.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillBase.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Assets\CircleArea.fbx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="SoR.rc">
-      <Filter>リソース ファイル</Filter>
-    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />

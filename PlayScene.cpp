@@ -24,7 +24,7 @@ void PlayScene::Initialize()
 	Instantiate<Ground>(this);
 	Instantiate<Decoy>(this);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
-	Camera::SetPosition(XMFLOAT3{ 0, 30, -20.0f });
+	Camera::SetPosition(XMFLOAT3{ 0, 15, -10.0f });
 }
 
 //çXêV

@@ -5,7 +5,7 @@
 
 
 
-//プレイヤー用スキルの元
+//プレイヤー用スキルの基礎クラス
 class SkillBase
 {
 private:
@@ -14,8 +14,8 @@ protected:
 	
 	//float steptime;//各ステップ
 	//std::vector<float>sequence;//各ステップにかかる時間入れとく
-
 	//ビリヤードの時のstartみたいにシーケンス入れたい。それに応じて攻撃出したり動かしたり
+
 	virtual void action() = 0;//スキル発動した時の動作と処理の実装
 public:
 	struct DamageData damageData_;
@@ -30,7 +30,7 @@ public:
 
 	virtual void Update();//スキル時間、CD時間等の更新と持続的な判定
 	void Activate();//スキル発動（ボタン押したとき）
-
+	virtual void Draw()=0;//スキルエフェクトなど描画
 
 };
 
