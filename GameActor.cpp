@@ -25,9 +25,16 @@ void GameActor::Update()
 
 }
 
-void GameActor::ActorUpdate()
+void GameActor::Draw()
 {
+	//‚È‚ñ‚©‚â‚é
+
+	ActorDraw();
 }
+
+//void GameActor::ActorUpdate()
+//{
+//}
 
 void GameActor::TakeAttacked()
 {

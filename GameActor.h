@@ -30,7 +30,8 @@ public:
     virtual ~GameActor();
     void Update() override final;//info関連の更新はすべてのキャラでやるので、個別の更新はActorUpdateに分離すること
     virtual void ActorUpdate()=0;//継承先で実装
-
+    void Draw() override final;//個別の描画はActorDrawに分離すること
+    virtual void ActorDraw() = 0;
     void TakeAttacked();//オーバーライドするか未定
     Transform* GetTransformRef();
 };

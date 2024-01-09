@@ -53,21 +53,21 @@ void Player::ActorUpdate()
     //当たり判定テスト用
     if (Input::IsKeyDown(DIK_Z))
     {
-        AttackRangeQuad testQuad(transform_.position_);
+        testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
-        testQuad.width_ = 2;
+        testQuad.width_ = 5;
         testQuad.rotate_ =0;
         CollisionManager::HitTestBy(PLAYER, testQuad);
     }
     if (Input::IsKeyDown(DIK_X))
     {
-        AttackRangeCircle testCircle(transform_.position_);
-        testCircle.radius_ = 1;
+        testCircle.position_=transform_.position_;
+        testCircle.radius_ = 2.2;
         CollisionManager::HitTestBy(PLAYER, testCircle);
     }
     if (Input::IsKeyDown(DIK_C))
     {
-        AttackRangeCirculerSector testSector(transform_.position_);
+        testSector.position_=transform_.position_;
         testSector.radius_ = 1;
         testSector.rotate_ = transform_.rotate_.y;
         testSector.centerAngle_ = 45;
@@ -119,9 +119,28 @@ void Player::AddCamp()
 }
 
 //描画
-void Player::Draw()
+void Player::ActorDraw()
 {
     DrawCollision();
+
+    if (Input::IsKey(DIK_Z))
+    {
+        Transform q;
+        q.position_ = testQuad.position_;
+        q.scale_.x = testQuad.width_;
+        q.scale_.z = testQuad.length_;
+        Model::SetTransform(hQuad_,q );
+        Model::Draw(hQuad_);
+    }
+    if (Input::IsKey(DIK_X))
+    {
+        Transform c;
+        c.position_ = testCircle.position_;
+        c.scale_.x = testCircle.radius_;
+        c.scale_.z = testCircle.radius_;
+        Model::SetTransform(hCircle_, c);
+        Model::Draw(hCircle_);
+    }
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
 }

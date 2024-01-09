@@ -27,6 +27,11 @@ class Player : public GameActor
     void move();
     
     void AddCamp()override;
+
+    //test
+    AttackRangeQuad testQuad;
+    AttackRangeCircle testCircle;
+    AttackRangeCirculerSector testSector;
 protected:
 
 public:
@@ -43,7 +48,7 @@ public:
     void ActorUpdate() override;
 
     //•`‰æ
-    void Draw() override;
+    void ActorDraw() override;
 
     //ŠJ•ú
     void Release() override;

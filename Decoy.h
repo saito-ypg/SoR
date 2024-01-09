@@ -11,7 +11,7 @@ public:
 
     void Initialize() override;
     void ActorUpdate() override;
-    void Draw() override;
+    void ActorDraw() override;
     void Release() override;
 };
 

@@ -20,7 +20,7 @@ void Decoy::ActorUpdate()
 {
 }
 
-void Decoy::Draw()
+void Decoy::ActorDraw()
 {
 	DrawCollision();
 	SimpleDraw();
