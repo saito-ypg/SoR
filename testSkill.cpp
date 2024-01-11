@@ -1,6 +1,6 @@
 #include "testSkill.h"
 
-testSkill::testSkill()
+testSkill::testSkill():SkillBase(3.5f,5.0f)
 {
 }
 

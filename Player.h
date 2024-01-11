@@ -13,11 +13,9 @@ class Player : public GameActor
     //移動にかかるフレーム数を入れる。移動中断したら0に
     float moveTime_;
 
-    //スキル登録
+ //スキル登録
     std::vector<SkillBase*>skills{ 4 };
-
-
-
+    void ActivateSkill(int number);
 
     //入れたベクトルをスクリーン座標からワールド座標に変換して返す
     XMVECTOR getMouseTargetPos(XMFLOAT3 mouse);

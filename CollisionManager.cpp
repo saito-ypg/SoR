@@ -77,7 +77,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 }
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
-{
+{//Œ‡Š×‚ª‚ ‚é!!!‹tŒü‚¢‚Ä‚Ä‚à“–‚½‚é
 	XMFLOAT3 s = sector.position_;
 	s.y = 0;
 	XMVECTOR sectorPos = XMLoadFloat3(&s);
@@ -132,9 +132,9 @@ void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 
 void CollisionManager::Release()
 {
-	for (auto it : CollisionList)
+	for (auto& it : CollisionList)
 	{
-		for (auto itin : it)
+		for (auto& itin : it)
 		{
 			delete itin.second;
 		}

@@ -18,11 +18,12 @@ void SkillBase::Update()
 		coolDown_--;
 }
 
-void SkillBase::Activate()
+void SkillBase::Activate(Transform tr)
 {
 	if (coolDown_ > 0)
 		return;
-	
+	//”­“®‚Å‚«‚éó‘Ô‚È‚ç
+	transform_ = tr;
 	this->action();
 }
 

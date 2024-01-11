@@ -31,7 +31,7 @@ void Player::Initialize()
     AddCamp();
 
 
-    skills.at(0) = (SkillBase*)new testSkill;
+    skills.at(0) = dynamic_cast<SkillBase*>(new testSkill);
 }
 
 //更新
@@ -87,6 +87,10 @@ void Player::ActorUpdate()
     //各入力
     if(Input::IsMouseButton(0))//通常攻撃
     { }
+    else if (Input::IsKeyDown(DIK_Q))
+    {
+        ActivateSkill(0);
+    }
     if (moveTime_ > 0)
     {
         move();
@@ -94,7 +98,7 @@ void Player::ActorUpdate()
 
 
 
-    for (auto itr : skills)
+    for (auto itr : skills)//skillアップデート
     {
         if(itr != nullptr)
             itr->Update();
@@ -161,6 +165,16 @@ void Player::ActorDraw()
 //開放
 void Player::Release()
 {
+    for (auto itr : skills)
+    {
+        SAFE_DELETE(itr);
+    }
+}
+
+void Player::ActivateSkill(int number)
+{
+    if (number > 0 && number < skills.size())
+        skills.at(number)->Activate(transform_);
 }
 
 XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)

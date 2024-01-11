@@ -9,7 +9,12 @@ enum CAMPS{PLAYER,ENEMY,NUM};
 //当たり判定の際、高さ(=y軸）は考慮しない
 namespace CollisionManager
 {	
-
+	/// <summary>
+	/// シーンのアップデートでこれも呼ぶ
+	/// 当たり判定が持続する間判定し続けるとか
+	/// </summary>
+	void Update();
+	
 	/// <summary>
 	/// 当たり判定リストに追加
 	/// </summary>
