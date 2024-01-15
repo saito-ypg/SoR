@@ -23,17 +23,17 @@ protected:
 	float castTime_;//スキル使用にあたり動けない時間
 	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
-
+	bool isInOperation;
 public:
 	struct DamageData damageData_;
-	bool isInOperation;
+
 	SkillBase();
 	SkillBase(float CT, float CD);//秒単位指定
 
 	virtual void Update();//スキル時間、CD時間等の更新と持続的な判定
 	void Activate(Transform tr);//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
-	bool CamMove() { return castTime_ < 0;  }
+	bool CanMove() { return castTime_ < 0;  }
 
 	static float Sec(float flames) {return flames / 60;}//フレームから秒を出す
 	static float flame(float seconds) { return seconds * 60; }//秒からフレームを出す

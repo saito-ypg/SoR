@@ -30,6 +30,7 @@ class Player : public GameActor
     AttackRangeQuad testQuad;
     AttackRangeCircle testCircle;
     AttackRangeCirculerSector testSector;
+    bool canMove();
 protected:
 
 public:

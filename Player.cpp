@@ -7,6 +7,7 @@ constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue
     return (int)(f * 10000) == 0;
 }
+
 //コンストラクタ
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
@@ -68,7 +69,7 @@ void Player::ActorUpdate()
     if (Input::IsKeyDown(DIK_C))
     {
         testSector.position_=transform_.position_;
-        testSector.radius_ = 2;
+        testSector.radius_ =3;
         testSector.rotate_ = transform_.rotate_.y;
         testSector.centerAngle_ = 45;
         CollisionManager::HitTestBy(PLAYER, testSector);
@@ -228,4 +229,16 @@ void Player::calculateForMove(XMVECTOR target_)
     XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
     if (XMVectorGetY(vCross) < 0) { angle *= -1; }
     transform_.rotate_.y = XMConvertToDegrees(angle);
+}
+bool Player::canMove()
+{
+    for (auto itr : skills)
+    {
+        if (itr != nullptr)
+        {
+            if (itr->CanMove() == false);
+            return false;
+        }
+    }
+    return true;
 }

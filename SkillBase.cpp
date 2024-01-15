@@ -19,6 +19,7 @@ void SkillBase::Update()
 
 	if (isInOperation)
 	{
+		action();//ここで更新で良い？
 		steptime--;//時間進める
 		if (steptime <= 0)
 		{

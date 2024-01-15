@@ -111,9 +111,9 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 			b= std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr, angleM)), sectorToActor)));//もう片方の端。回転の逆行列
 			float close = std::min(a, b);//両端を見て近いほうのrad
 				
-			float sinx = XMVectorGetX(XMVector3Length(sectorToActor * std::sin(close)));
-			if(sinx>actor->GetRadius())//それでも外にいるなら
-			{//外す
+			float vecSin = XMVectorGetX(XMVector3Length(sectorToActor * std::sin(close)));
+			if(vecSin>actor->GetRadius())//それでも範囲外なら
+			{//スルー
 				continue;
 			}
 		}
