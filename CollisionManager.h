@@ -52,9 +52,6 @@ namespace CollisionManager
 	/// <param name="camp">Š‘®w‰c</param>
 	void RemoveCamp(GameActor*actor,CAMPS camp);
 
-
-
-	//void Update();//©‚¢‚ç‚È‚¢‹C‚ª‚·‚é
 	void Release();//‰ğ•úˆ—
 }
 

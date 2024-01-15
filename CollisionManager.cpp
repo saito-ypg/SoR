@@ -18,6 +18,10 @@ namespace {
 	}
 }
 
+void CollisionManager::Update()
+{
+}
+
 void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
 {
 	ActorCollider* ac = new ActorCollider(&newActor->GetTransformRef()->position_);
