@@ -7,7 +7,7 @@ class testSkill :
 public:
     testSkill();
     ~testSkill();
-    void Update()override;
+    //void Update()override;
     void action()override;
     void Draw() override;
 };
