@@ -2,7 +2,7 @@
 //#include "Engine/GameObject.h"
 #include"GameActor.h"
 #include"PlayerSkillsInclude.h"
-constexpr float MOVE_VELOCITY = 10.0f /60;
+constexpr float MOVE_VELOCITY = 2.0f /60;
 class Player : public GameActor
 {//PimplÇ∆Ç©Ç¢Ç§äTîOÅAÇÊÇ≥ÇªÇ§
     int hModel_;

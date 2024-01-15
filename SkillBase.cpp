@@ -24,7 +24,7 @@ void SkillBase::Update()
 		{
 			stepindex++;//ステップ進める
 			if (stepindex >= sequence.size())//ステップ全部終わったら
-				isInOperation = false();//動作終わらせる
+				isInOperation = false;//動作終わらせる
 		}
 	}
 }

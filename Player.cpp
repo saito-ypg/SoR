@@ -207,10 +207,10 @@ void Player::calculateForMove(XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     moveDirection_ = XMVector3Normalize(target_-vPos);
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-   /* if (nearlyZero(length*10))
-        return;*/
-    moveTime_ = length / MOVE_VELOCITY;
-    
+   
+    moveTime_ = length / MOVE_VELOCITY -1;//ç≈å„å∏ÇÁÇ≥Ç»Ç¢Ç∆Ç∑Ç≤Ç¢Ç™Ç≠Ç™Ç≠Ç∑ÇÈ
+     if (length < 0.002)//ìKìñ
+        return;
     //à⁄ìÆï˚å¸Çå¸Ç≠
     XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
     float dot=XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
