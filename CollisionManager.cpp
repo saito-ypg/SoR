@@ -81,7 +81,7 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 }
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
-{//欠陥がある!!!逆向いてても当たる
+{
 	XMFLOAT3 s = sector.position_;
 	s.y = 0;
 	XMVECTOR sectorPos = XMLoadFloat3(&s);
@@ -106,10 +106,13 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 		if (std::abs(deviation)> radAngle)//中心が扇の外なら
 		{//追加で検証
 			XMMATRIX angleM = XMMatrixRotationY(radAngle);//開き具合
-			float close=std::min//両端を見て近いほうのrad、扇型大きいとき怪しい
-				(std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront,angleM) , sectorToActor)))//片方の端
-				,std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr,angleM)), sectorToActor))));//もう片方の端。回転の逆行列
-			if(XMVectorGetX(XMVector3Length( sectorToActor*std::sin(close) ))>sector.radius_)//それでも外にいるなら
+			float a, b;
+			a = (std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, angleM), sectorToActor))));//片方の端
+			b= std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr, angleM)), sectorToActor)));//もう片方の端。回転の逆行列
+			float close = std::min(a, b);//両端を見て近いほうのrad
+				
+			float sinx = XMVectorGetX(XMVector3Length(sectorToActor * std::sin(close)));
+			if(sinx>actor->GetRadius())//それでも外にいるなら
 			{//外す
 				continue;
 			}
