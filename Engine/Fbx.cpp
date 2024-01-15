@@ -152,6 +152,11 @@ void Fbx::Release()
 	SAFE_RELEASE(pVertexBuffer_);
 	SAFE_DELETE_ARRAY(pMaterialList_);
 	SAFE_DELETE_ARRAY(indexCount_);
+	for(int i=0;i<materialCount_;i++)
+	{ 
+		SAFE_DELETE_ARRAY(ppIndex_[i]);
+	}
+	SAFE_DELETE_ARRAY(ppIndex_);
 }
 
 void Fbx::RayCast(RayCastData& rayData)

@@ -56,7 +56,7 @@ void Player::ActorUpdate()
         testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
         testQuad.width_ = 5;
-        testQuad.rotate_ =transform_.rotate_.y+45;
+        testQuad.rotate_ =transform_.rotate_.y;
         CollisionManager::HitTestBy(PLAYER, testQuad);
     }
     if (Input::IsKeyDown(DIK_X))
@@ -152,6 +152,16 @@ void Player::ActorDraw()
         c.scale_.z = testCircle.radius_;
         Model::SetTransform(hCircle_, c);
         Model::Draw(hCircle_);
+    }
+    if (Input::IsKey(DIK_C))
+    {
+        Transform s;
+        s.position_ = testSector.position_;
+        s.scale_.x = testSector.radius_;
+        s.scale_.z = testSector.radius_;
+        s.rotate_.y =180+ testSector.rotate_;
+        Model::SetTransform(hSector_, s);
+        Model::Draw(hSector_);
     }
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
