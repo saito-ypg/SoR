@@ -17,10 +17,13 @@ class Player : public GameActor
     std::vector<SkillBase*>skills{ 4 };
     void ActivateSkill(int number);
 
-    //入れたベクトルをスクリーン座標からワールド座標に変換して返す
-    XMVECTOR getMouseTargetPos(XMFLOAT3 mouse);
-    
-    void calculateForMove(XMVECTOR target_);
+    //現在のマウス座標をワールド座標に変換して返す
+    XMVECTOR getMouseTargetPos();
+    //targetの方向に回転
+    void FaceTargetDirection(const XMVECTOR& target_);
+    //移動+回転
+    void calculateForMove(const XMVECTOR target_);
+   
 
     void move();
     
@@ -45,6 +48,8 @@ public:
 
     //個別更新
     void ActorUpdate() override;
+
+    bool isHit(const DirectX::XMVECTOR& target);
 
     //描画
     void ActorDraw() override;

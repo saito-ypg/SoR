@@ -25,10 +25,10 @@ void PlayScene::Initialize()
 	Instantiate<Ground>(this);
 	Instantiate<Decoy>(this);
 	GameObject* d = Instantiate<Decoy>(this);
-	d->SetPosition(XMFLOAT3(1, 0, 3));
+	d->SetPosition(XMFLOAT3(1, 0, 10));
 	d->SetRotateY(45);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
-	Camera::SetPosition(XMFLOAT3{ 0, 15, -10.0f });
+	Camera::SetPosition(XMFLOAT3{ 0, 30, -20.0f });
 }
 
 //çXêV

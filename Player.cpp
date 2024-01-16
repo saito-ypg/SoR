@@ -4,7 +4,8 @@
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
-bool nearlyZero(float f) {//ほぼ0であるといえるならtrue
+constexpr float PLAYER_ROT_TH = 0.1;//移動時に回転するかどうかの距離のしきい値
+bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
     return (int)(f * 10000) == 0;
 }
 
@@ -54,6 +55,10 @@ void Player::ActorUpdate()
     //当たり判定テスト用
     if (Input::IsKeyDown(DIK_Z))
     {
+        XMVECTOR target = getMouseTargetPos();
+        if (isHit(target))
+        FaceTargetDirection(target);
+
         testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
         testQuad.width_ = 5;
@@ -68,6 +73,9 @@ void Player::ActorUpdate()
     }
     if (Input::IsKeyDown(DIK_C))
     {
+        XMVECTOR target = getMouseTargetPos();
+        if (isHit(target))
+            FaceTargetDirection(target);
         testSector.position_=transform_.position_;
         testSector.radius_ =3;
         testSector.rotate_ = transform_.rotate_.y;
@@ -81,13 +89,15 @@ void Player::ActorUpdate()
 
     if (Input::IsMouseButton(1))//移動
     {
-        XMVECTOR target= getMouseTargetPos(Input::GetMousePosition());
-        if(XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV)))
+        XMVECTOR target= getMouseTargetPos();
+        if (isHit(target))
             calculateForMove(target);
     }
     //各入力
     if(Input::IsMouseButton(0))//通常攻撃
-    { }
+    {
+
+    }
     else if (Input::IsKeyDown(DIK_Q))
     {
         ActivateSkill(0);
@@ -104,6 +114,11 @@ void Player::ActorUpdate()
         if(itr != nullptr)
             itr->Update();
     }
+}
+
+bool Player::isHit(const DirectX::XMVECTOR& target)
+{
+    return XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV));
 }
 
 void Player::move()
@@ -137,6 +152,7 @@ void Player::ActorDraw()
 
     if (Input::IsKey(DIK_Z))
     {
+       
         Transform q;
         q.position_ = testQuad.position_;
         q.scale_.x = testQuad.width_;
@@ -182,14 +198,15 @@ void Player::Release()
     }
 }
 
-void Player::ActivateSkill(int number)
+void Player::ActivateSkill(const int number)
 {
     if (number > 0 && number < skills.size())
         skills.at(number)->Activate(transform_);
 }
 
-XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)
+XMVECTOR Player::getMouseTargetPos()
 {
+    XMFLOAT3 mouse = Input::GetMousePosition();
     XMMATRIX matInv = Camera::GetInverseMatrix();
     XMFLOAT3 front = mouse, back = mouse;
     back.z = 1.0f;
@@ -212,19 +229,25 @@ XMVECTOR Player::getMouseTargetPos(XMFLOAT3 mouse)
     return NotHitV;
 }
 
-void Player::calculateForMove(XMVECTOR target_)
+void Player::calculateForMove(const XMVECTOR target_)
 {
     //移動情報の計算
-    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
-    moveDirection_ = XMVector3Normalize(target_-vPos);
+    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);//Face～にも同じ記述あるがこっちでも書くほうが楽
+
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-   
-    moveTime_ = length / MOVE_VELOCITY -1;//最後減らさないとすごいがくがくする
-     if (length < 0.002)//適当
-        return;
-    //移動方向を向く
+    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行がないと動きが微妙になる
+     if (length < PLAYER_ROT_TH)return;
+ 
+    FaceTargetDirection(target_);
+    
+}
+void Player::FaceTargetDirection(const XMVECTOR& target_)
+{
+    XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
+    //移動方向を向く 
+    moveDirection_ = XMVector3Normalize(target_ - vPos);
     XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
-    float dot=XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
+    float dot = XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
     float angle = (float)acos(dot);
     XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
     if (XMVectorGetY(vCross) < 0) { angle *= -1; }
@@ -236,7 +259,7 @@ bool Player::canMove()
     {
         if (itr != nullptr)
         {
-            if (itr->CanMove() == false);
+            if (itr->CanMove() == false)
             return false;
         }
     }
