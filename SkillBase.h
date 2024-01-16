@@ -36,6 +36,6 @@ public:
 	bool CanMove() { return castTime_ < 0;  }
 
 	static float Sec(float flames) {return flames / 60;}//フレームから秒を出す
-	static float flame(float seconds) { return seconds * 60; }//秒からフレームを出す
+	static float frame(float seconds) { return seconds * 60; }//秒からフレームを出す
 };
 

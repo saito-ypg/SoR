@@ -3,6 +3,7 @@
 #include"Engine/Model.h"
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
+
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 constexpr float PLAYER_ROT_TH = 0.1;//移動時に回転するかどうかの距離のしきい値
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
@@ -39,6 +40,7 @@ void Player::Initialize()
 //更新
 void Player::ActorUpdate()
 {
+#ifdef _DEBUG
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))
             SetVelocity(1.0f);
@@ -50,14 +52,10 @@ void Player::ActorUpdate()
             return;
     }
 
-  
-
     //当たり判定テスト用
     if (Input::IsKeyDown(DIK_Z))
     {
-        XMVECTOR target = getMouseTargetPos();
-        if (isHit(target))
-        FaceTargetDirection(target);
+        FaceMouseDirection();
 
         testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
@@ -67,6 +65,9 @@ void Player::ActorUpdate()
     }
     if (Input::IsKeyDown(DIK_X))
     {
+        XMVECTOR target = getMouseTargetPos();
+        if (isHit(target))
+            FaceTargetDirection(target);
         testCircle.position_=transform_.position_;
         testCircle.radius_ = 2.2;
         CollisionManager::HitTestBy(PLAYER, testCircle);
@@ -83,7 +84,7 @@ void Player::ActorUpdate()
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
-
+#endif
 
     
 
@@ -114,6 +115,13 @@ void Player::ActorUpdate()
         if(itr != nullptr)
             itr->Update();
     }
+}
+
+void Player::FaceMouseDirection()
+{
+    XMVECTOR target = getMouseTargetPos();
+    if (isHit(target))
+        FaceTargetDirection(target);
 }
 
 bool Player::isHit(const DirectX::XMVECTOR& target)
@@ -149,7 +157,7 @@ void Player::AddCamp()
 void Player::ActorDraw()
 {
     DrawCollision();
-
+#ifdef _DEBUG
     if (Input::IsKey(DIK_Z))
     {
        
@@ -180,6 +188,7 @@ void Player::ActorDraw()
         Model::SetTransform(hSector_, s);
         Model::Draw(hSector_);
     }
+#endif
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
     for (auto itr : skills)

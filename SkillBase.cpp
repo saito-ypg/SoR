@@ -6,8 +6,8 @@ SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.
 }
 SkillBase::SkillBase(float CT, float CD) :SkillBase()
 {
-	defaultCastTime_ = flame(CT);
-	defaultCoolDown_ = flame(CD);
+	defaultCastTime_ = frame(CT);
+	defaultCoolDown_ = frame(CD);
 }
 
 void SkillBase::Update()

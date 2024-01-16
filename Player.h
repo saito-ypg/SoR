@@ -28,11 +28,13 @@ class Player : public GameActor
     void move();
     
     void AddCamp()override;
-
+#ifdef _DEBUG
     //test
     AttackRangeQuad testQuad;
     AttackRangeCircle testCircle;
     AttackRangeCirculerSector testSector;
+#endif // _DEBUG
+
     bool canMove();
 protected:
 
@@ -48,6 +50,8 @@ public:
 
     //å¬ï çXêV
     void ActorUpdate() override;
+
+    void FaceMouseDirection();
 
     bool isHit(const DirectX::XMVECTOR& target);
 
