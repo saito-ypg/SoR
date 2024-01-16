@@ -23,7 +23,8 @@ class Player : public GameActor
     void FaceTargetDirection(const XMVECTOR& target_);
     //ˆÚ“®+‰ñ“]
     void calculateForMove(const XMVECTOR target_);
-   
+    
+    void FaceMouseDirection();
 
     void move();
     
@@ -51,7 +52,7 @@ public:
     //ŒÂ•ÊXV
     void ActorUpdate() override;
 
-    void FaceMouseDirection();
+   
 
     bool isHit(const DirectX::XMVECTOR& target);
 

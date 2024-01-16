@@ -65,18 +65,14 @@ void Player::ActorUpdate()
     }
     if (Input::IsKeyDown(DIK_X))
     {
-        XMVECTOR target = getMouseTargetPos();
-        if (isHit(target))
-            FaceTargetDirection(target);
+        FaceMouseDirection();
         testCircle.position_=transform_.position_;
         testCircle.radius_ = 2.2;
         CollisionManager::HitTestBy(PLAYER, testCircle);
     }
     if (Input::IsKeyDown(DIK_C))
     {
-        XMVECTOR target = getMouseTargetPos();
-        if (isHit(target))
-            FaceTargetDirection(target);
+        FaceMouseDirection();
         testSector.position_=transform_.position_;
         testSector.radius_ =3;
         testSector.rotate_ = transform_.rotate_.y;
