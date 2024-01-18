@@ -80,6 +80,8 @@ void Player::ActorUpdate()
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
+    if (Input::IsKeyDown(DIK_A))
+        transform_.rotate_.y = XMConvertToDegrees(atan2(-transform_.position_.x, -transform_.position_.z));
 #endif
 
     
@@ -244,12 +246,15 @@ void Player::FaceTargetDirection(const XMVECTOR& target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     //ˆÚ“®•ûŒü‚ðŒü‚­ 
     moveDirection_ = XMVector3Normalize(target_ - vPos);
-    XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
+    XMFLOAT3 fdir;
+    XMStoreFloat3(&fdir, moveDirection_);
+    transform_.rotate_.y = XMConvertToDegrees(atan2(fdir.x, fdir.z));
+    /*XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
     float dot = XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
     float angle = (float)acos(dot);
     XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
     if (XMVectorGetY(vCross) < 0) { angle *= -1; }
-    transform_.rotate_.y = XMConvertToDegrees(angle);
+    transform_.rotate_.y = XMConvertToDegrees(angle);*/
 }
 bool Player::canMove()
 {
