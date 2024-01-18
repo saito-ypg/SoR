@@ -1,5 +1,5 @@
 #include "AttackRange.h"
-AttackRangeBase::AttackRangeBase():areatype_(NONE),a_(-1),b_(-1),c_(0)
+AttackRangeBase::AttackRangeBase():areatype_(NONE),a_(-1),b_(-1),c_(0),position_({0,0,0})
 {
 }
 AttackRangeBase::AttackRangeBase(XMFLOAT3 pos):AttackRangeBase()
@@ -18,6 +18,11 @@ AttackRangeCircle::AttackRangeCircle(XMFLOAT3 pos):AttackRangeCircle()
 	position_ = pos;
 }
 
+AttackRangeBase AttackRangeCircle::operator=(const AttackRangeCircle& c)
+{
+	return static_cast<AttackRangeBase>(c);//ÉfÅ[É^í«â¡ÇµÇƒÇ»Ç¢ÇÃÇ≈ãñÇµÇƒÇŸÇµÇ¢
+}
+
 AttackRangeQuad::AttackRangeQuad():AttackRangeBase()
 {
 	width_ = -1;
@@ -32,6 +37,11 @@ AttackRangeQuad::AttackRangeQuad(XMFLOAT3 pos) :AttackRangeQuad()
 	position_ = pos;
 }
 
+AttackRangeBase AttackRangeQuad::operator=(const AttackRangeQuad& q)
+{
+	return static_cast<AttackRangeBase>(q);
+}
+
 
 AttackRangeCirculerSector::AttackRangeCirculerSector():AttackRangeBase()
 {
@@ -44,6 +54,11 @@ AttackRangeCirculerSector::AttackRangeCirculerSector():AttackRangeBase()
 AttackRangeCirculerSector::AttackRangeCirculerSector(XMFLOAT3 pos) :AttackRangeCirculerSector()
 {
 	position_ = pos;
+}
+
+AttackRangeBase AttackRangeCirculerSector::operator=(const AttackRangeCirculerSector& s)
+{
+	return static_cast<AttackRangeBase>(s);
 }
 
 

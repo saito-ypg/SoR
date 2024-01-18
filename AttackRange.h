@@ -21,9 +21,11 @@ protected:
 };
 struct AttackRangeCircle		:public AttackRangeBase//円形の攻撃範囲データ
 {
+	
 	float &radius_=a_;//半径
 	AttackRangeCircle();
 	AttackRangeCircle(XMFLOAT3 pos);
+	AttackRangeBase operator=(const AttackRangeCircle& c);
 };
 struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 {
@@ -32,6 +34,7 @@ struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 	float &rotate_=c_;//y軸回転
 	AttackRangeQuad();
 	AttackRangeQuad(XMFLOAT3 pos);
+	AttackRangeBase operator=(const AttackRangeQuad& q);
 };
 struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 {
@@ -40,5 +43,6 @@ struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 	float &rotate_=c_;//中心角の二等分線の回転,y軸
 	AttackRangeCirculerSector();
 	AttackRangeCirculerSector(XMFLOAT3 pos);
+	AttackRangeBase operator=(const AttackRangeCirculerSector& s);
 };
 

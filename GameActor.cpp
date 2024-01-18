@@ -7,9 +7,9 @@ GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(p
 	hCircle_ = -1;
 	hQuad_ = -1;
 	hSector_ = -1;
-	hCircle_ = Model::Load("Assets\\CircleArea.fbx");
-	hQuad_ = Model::Load("Assets\\QuadArea.fbx");
-	hSector_ = Model::Load("Assets\\SectorArea.fbx");
+	hCircle_ = Model::Load("Assets\\Area\\CircleArea.fbx");
+	hQuad_ = Model::Load("Assets\\Area\\QuadArea.fbx");
+	hSector_ = Model::Load("Assets\\Area\\SectorArea.fbx");
 	assert(hCircle_ >= 0);
 }
 

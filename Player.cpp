@@ -27,7 +27,7 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    hModel_ = Model::Load("Assets/psample.fbx");
+    hModel_ = Model::Load("Assets/Charactors/psample.fbx");
     assert(hModel_ >= 0);
     status_.maxHp_ = 200;
     status_.hitCircleRange_ = 1.1f;
@@ -104,7 +104,7 @@ void Player::ActorUpdate()
         move();
     }
 
-
+    
 
     for (auto itr : skills)//skillアップデート
     {
@@ -128,14 +128,7 @@ bool Player::isHit(const DirectX::XMVECTOR& target)
 void Player::move()
 {
     vMove_ = moveDirection_ * MOVE_VELOCITY * GetVelocity();
-    if (moveTime_ < 1)
-    {
-        XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-        vpos += vMove_ * moveTime_;
-        XMStoreFloat3(&transform_.position_, vpos);
-        moveTime_ = 0;
-    }
-    else
+    if (moveTime_ >1)
     {
         XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
         vpos += vMove_;
@@ -240,7 +233,7 @@ void Player::calculateForMove(const XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);//Face～にも同じ記述あるがこっちでも書くほうが楽
 
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行がないと動きが微妙になる
+    moveTime_ = length / MOVE_VELOCITY ;//-1と次の行がないと動きが微妙になる
      if (length < PLAYER_ROT_TH)return;
  
     FaceTargetDirection(target_);

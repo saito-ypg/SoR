@@ -3,7 +3,8 @@
 class testSkill :
     public SkillBase
 {
-
+private:
+    
 public:
     testSkill();
     ~testSkill();

@@ -12,7 +12,7 @@ SkillBase::SkillBase(float CT, float CD) :SkillBase()
 
 void SkillBase::Update()
 {//‰¼
-	if (castTime_ > 0)
+	if (castTime_ >= 0)
 		castTime_--;
 	else
 		coolDown_--;

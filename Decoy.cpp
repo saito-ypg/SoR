@@ -13,7 +13,7 @@ Decoy::~Decoy()
 
 void Decoy::Initialize()
 {
-	hModels_.push_back(Model::Load("Assets\\decoy.fbx"));
+	hModels_.push_back(Model::Load("Assets/Charactors/decoy.fbx"));
 }
 
 void Decoy::ActorUpdate()
