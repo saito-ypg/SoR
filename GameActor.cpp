@@ -15,6 +15,7 @@ GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(p
 
 GameActor::~GameActor()
 {
+
 }
 
 void GameActor::Update()
@@ -38,6 +39,7 @@ void GameActor::Draw()
 
 void GameActor::TakeAttacked()
 {
+	KillMe();
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
 {    
