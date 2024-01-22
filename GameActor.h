@@ -26,7 +26,7 @@ protected:
     int hCircle_;
     int hQuad_;
     int hSector_;
-
+    void DrawHP();//HP‚ğ•`‰æ‚·‚éB
 public:
     float GetRadius()const{return status_.hitCircleRange_;}
     GameActor(GameObject* parent, const std::string& name); 

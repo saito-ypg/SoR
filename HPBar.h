@@ -12,6 +12,6 @@ namespace HPBar
 	};
 	void Initialize();
 	void Update(float hpRatio);//hp割合入れて表示のための計算
-	void Draw();//座標入れて描画。
+	void Draw(HANDLE h,Transform t);//座標入れて描画。
 };
 

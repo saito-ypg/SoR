@@ -27,6 +27,8 @@ void HPBar::Update(float hp)
 {
 }
 
-void HPBar::Draw()
+void HPBar::Draw(HANDLE h,Transform t)
 {
+	Image::SetTransform(hImage.at((int)h), t);
+	Image::Draw(hImage.at((int)h));
 }

@@ -1,6 +1,10 @@
 #include "GameActor.h"
 #include"Engine/Model.h"
 
+void GameActor::DrawHP()
+{
+}
+
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
