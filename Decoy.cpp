@@ -28,4 +28,5 @@ void Decoy::ActorDraw()
 
 void Decoy::Release()
 {
+	RemoveCamp();
 }

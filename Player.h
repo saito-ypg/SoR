@@ -29,6 +29,7 @@ class Player : public GameActor
     void move();
     
     void AddCamp()override;
+    void RemoveCamp()override;
 #ifdef _DEBUG
     //test
     AttackRangeQuad testQuad;

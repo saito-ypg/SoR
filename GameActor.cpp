@@ -37,12 +37,17 @@ void GameActor::Draw()
 
 void GameActor::TakeAttacked()
 {
-	KillMe();
+	KillMe();//‘Ì—ÍŠÖŒW‚Å‚«‚é‚Ü‚ÅŽb’è
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
 {    
 	CollisionManager::AddCamp(act, camp);
 }
+void GameActor::RemoveColliderCamp(GameActor* act, CAMPS camp)
+{
+	CollisionManager::RemoveCamp(act, camp);
+}
+
 void GameActor::SimpleDraw()
 {
 	if (hModels_.empty())

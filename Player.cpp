@@ -144,6 +144,11 @@ void Player::AddCamp()
     AddColliderCamp((GameActor*)this, PLAYER);
 }
 
+void Player::RemoveCamp()
+{
+    RemoveColliderCamp((GameActor*)this, PLAYER);
+}
+
 //描画
 void Player::ActorDraw()
 {
@@ -212,21 +217,24 @@ XMVECTOR Player::getMouseTargetPos()
     back.z = 1.0f;
     XMVECTOR vFront = XMVector3TransformCoord(XMLoadFloat3(&front), matInv);
     XMVECTOR vBack = XMVector3TransformCoord(XMLoadFloat3(&back), matInv);
-    Ground* pGround = (Ground*)FindObject("Ground");
-    int hG = pGround->GetGloundHandle();
-    RayCastData data;
-    XMStoreFloat4(&data.start, vFront);
-    XMStoreFloat4(&data.dir,vBack - vFront);
-    //Model::SetTransform(hG, transform_);
-    Model::RayCast(hG, data);
-    if (data.hit)
-    {
-        XMVECTOR vpos = XMLoadFloat4(&data.dir);
-        vpos *= data.dist;
-        XMVECTOR vstart = XMLoadFloat4(&data.start);
-        return (vstart + vpos);
-    }
-    return NotHitV;
+    XMVECTOR dir = XMVector3Normalize(vBack - vFront);
+    XMVECTOR a = dir / XMVectorGetY(dir);
+    return Camera::GetPosition()- (a * XMVectorGetY(Camera::GetPosition()));
+    //Ground* pGround = (Ground*)FindObject("Ground");
+    //int hG = pGround->GetGloundHandle();
+    //RayCastData data;
+    //XMStoreFloat4(&data.start, vFront);
+    //XMStoreFloat4(&data.dir,vBack - vFront);
+    ////Model::SetTransform(hG, transform_);
+    //Model::RayCast(hG, data);
+    //if (data.hit)
+    //{
+    //    XMVECTOR vpos = XMLoadFloat4(&data.dir);
+    //    vpos *= data.dist;
+    //    XMVECTOR vstart = XMLoadFloat4(&data.start);
+    //    return (vstart + vpos);
+    //}
+    //return NotHitV;
 }
 
 void Player::calculateForMove(const XMVECTOR target_)
@@ -235,7 +243,7 @@ void Player::calculateForMove(const XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);//Face～にも同じ記述あるがこっちでも書くほうが楽
 
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-    moveTime_ = length / MOVE_VELOCITY ;//-1と次の行がないと動きが微妙になる
+    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行がないと動きが微妙になる
      if (length < PLAYER_ROT_TH)return;
  
     FaceTargetDirection(target_);

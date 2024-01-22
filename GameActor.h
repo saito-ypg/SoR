@@ -15,6 +15,9 @@ protected:
 
     void AddColliderCamp(GameActor *act, CAMPS camp);//“–‚½‚è”»’è‚ğ“o˜^AŒp³æ‚Åw‰cŒÅ’è‚·‚é
     virtual void AddCamp()=0;//Œp³—p
+    void RemoveColliderCamp(GameActor* act, CAMPS camp);;//“–‚½‚è”»’èÁ‹
+    virtual void RemoveCamp()= 0;//Œp³—p
+    
 
     //void LoadModel(string filename);//ƒ‚ƒfƒ‹‚ğ“Ç‚İ‚İAhModels_‚É’Ç‰ÁB“Ç‚İ‚ß‚½‚çtrue
     
