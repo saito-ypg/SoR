@@ -218,8 +218,8 @@ XMVECTOR Player::getMouseTargetPos()
     XMVECTOR vFront = XMVector3TransformCoord(XMLoadFloat3(&front), matInv);
     XMVECTOR vBack = XMVector3TransformCoord(XMLoadFloat3(&back), matInv);
     XMVECTOR dir = XMVector3Normalize(vBack - vFront);
-    XMVECTOR a = dir / XMVectorGetY(dir);
-    return Camera::GetPosition()- (a * XMVectorGetY(Camera::GetPosition()));
+    XMVECTOR a = dir / XMVectorGetY(dir);//yが1になるように
+    return Camera::GetPosition()- (a * XMVectorGetY(Camera::GetPosition()));//カメラ座標からdir方向に進んでyが0の時の座標を返す
     //Ground* pGround = (Ground*)FindObject("Ground");
     //int hG = pGround->GetGloundHandle();
     //RayCastData data;
