@@ -33,9 +33,7 @@ void GameActor::Draw()
 	ActorDraw();
 }
 
-//void GameActor::ActorUpdate()
-//{
-//}
+
 
 void GameActor::TakeAttacked()
 {

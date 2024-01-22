@@ -45,6 +45,9 @@
     <Filter Include="Scenes\PlayScene\Objects\Charactors\base&amp;mechanics">
       <UniqueIdentifier>{0601a09d-a4d8-474d-96b9-e49379275427}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\PlayScene\UI">
+      <UniqueIdentifier>{654999fb-101d-4356-aa5f-7597955c7462}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -143,6 +146,7 @@
     <ClInclude Include="SkillBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClInclude>
+    <ClInclude Include="HPBar.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -245,6 +249,7 @@
     <ClCompile Include="SkillBase.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClCompile>
+    <ClCompile Include="HPBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
