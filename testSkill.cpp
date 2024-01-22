@@ -15,13 +15,14 @@ void testSkill::action()
 	switch (stepindex)
 	{
 	case INVOKED:
-
+		__debugbreak();
 		break;
 	case START_ATTACK:
+		__debugbreak();
 		break;
 
 	case END_ATTACK:
-
+		__debugbreak();
 		break;
 
 

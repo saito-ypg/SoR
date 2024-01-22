@@ -200,7 +200,7 @@ void Player::Release()
 
 void Player::ActivateSkill(const int number)
 {
-    if (number > 0 && number < skills.size())
+    if (number >= 0 && number < skills.size())
         skills.at(number)->Activate(transform_);
 }
 

@@ -3,15 +3,9 @@
 #include"Engine/Image.h"
 #include"Engine/Camera.h"
 namespace {
-	enum HANDLE {
-		BASE = 0,
-		DMG,
-		BAR,
-		FRAME,
-		NUM
-	};
+	
 	using std::vector;
-	vector<int>hImage{ HANDLE::NUM };
+	vector<int>hImage{ HPBar::HANDLE::NUM };
 }
 
 void HPBar::Initialize()
