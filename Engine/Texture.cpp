@@ -21,14 +21,16 @@ HRESULT Texture::Load(std::string fileName)
 	mbstowcs_s(&ret, wtext, fileName.c_str(), fileName.length());
 	DirectX::TexMetadata metadata;
 	ScratchImage image;
-	HRESULT hr=S_OK;
+	HRESULT hr = S_OK;
 	hr = LoadFromWICFile(wtext, WIC_FLAGS::WIC_FLAGS_NONE, &metadata, image);
 
-	if (FAILED(hr)) 
+	if (FAILED(hr))
 	{
 		MessageBox(nullptr, "画像の読み込みに失敗しました", "エラー", MB_OK);
-		return hr; 
+		return hr;
 	}
+	size_ = XMFLOAT3{(float) metadata.width ,(float)metadata.height,0 };
+
 	//サンプラーの作成
 	D3D11_SAMPLER_DESC  SamDesc;
 	ZeroMemory(&SamDesc, sizeof(D3D11_SAMPLER_DESC));

@@ -9,7 +9,7 @@ namespace Image
 		Sprite* pSprite_;//fbx
 		Transform transform_;//トランスフォーム
 		std::string fileName_;//ファイル名
-
+		float size;
 	};
 	int Load(std::string fileName);
 	void SetTransform(int hPict, Transform transform);

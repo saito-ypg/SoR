@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite() :vertices_(nullptr),index_(nullptr),pVertexBuffer_(nullptr),pIndexBuffer_(nullptr),pConstantBuffer_(nullptr),pTexture_(nullptr),indexNum_(0),vertexNum_(0)
+Sprite::Sprite() :vertices_(nullptr), index_(nullptr), pVertexBuffer_(nullptr), pIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr), indexNum_(0), vertexNum_(0)
 {
 }
 
@@ -23,7 +23,7 @@ HRESULT Sprite::Initialize(string filename)
 	}
 	InitIndexData();
 	// インデックスバッファを生成する
-	hr=CreateIndexBuffer();
+	hr = CreateIndexBuffer();
 	if (FAILED(hr))
 	{
 		MessageBox(nullptr, "インデックスバッファの作成に失敗しました", "エラー", MB_OK);
@@ -31,7 +31,7 @@ HRESULT Sprite::Initialize(string filename)
 	}
 
 	//コンスタントバッファ作成
-	hr=CreateConstantBuffer();
+	hr = CreateConstantBuffer();
 	if (FAILED(hr))
 	{
 		MessageBox(nullptr, "コンスタントバッファの作成に失敗しました", "エラー", MB_OK);
@@ -49,10 +49,14 @@ HRESULT Sprite::Initialize(string filename)
 
 void Sprite::Draw(Transform& transform)
 {
+	using namespace Direct3D;
 	Direct3D::SetShader(SHADER_2D);
-
 	transform.Calculation();
-	XMMATRIX worldmatrix = transform.GetWorldMatrix();
+	//画面に合わせる
+	XMMATRIX view = XMMatrixScaling(1.0f / scrWidth_, 1.0f / scrHeight_, 1.0f);
+	XMMATRIX worldmatrix = transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
+
+
 	PassDataToCB(worldmatrix);
 
 	SetBufferToPipeline();
@@ -73,66 +77,66 @@ void Sprite::Release()
 }
 //////initialize分割//////
 void Sprite::InitVertexData()
-	{
-		vertexNum_ = 4;
-		vertices_ = new VERTEX[vertexNum_]{
-			{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },// 四角形の頂点（左上）
-		{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f) },	// 四角形の頂点（右上）
-		{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f) },// 四角形の頂点（右下）
-		{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) },	// 四角形の頂点（左下）		
-		};
-	}
+{
+	vertexNum_ = 4;
+	vertices_ = new VERTEX[vertexNum_]{
+		{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },// 四角形の頂点（左上）
+	{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f) },	// 四角形の頂点（右上）
+	{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f) },// 四角形の頂点（右下）
+	{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) },	// 四角形の頂点（左下）		
+	};
+}
 HRESULT Sprite::CreateVertexBuffer()
-	{
-		D3D11_BUFFER_DESC bd_vertex;
-		bd_vertex.ByteWidth = vertexNum_ * sizeof(VERTEX);
-		bd_vertex.Usage = D3D11_USAGE_DEFAULT;
-		bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bd_vertex.CPUAccessFlags = 0;
-		bd_vertex.MiscFlags = 0;
-		bd_vertex.StructureByteStride = 0;
-		D3D11_SUBRESOURCE_DATA data_vertex;
-		data_vertex.pSysMem = vertices_;
-		return Direct3D::pDevice_->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
+{
+	D3D11_BUFFER_DESC bd_vertex;
+	bd_vertex.ByteWidth = vertexNum_ * sizeof(VERTEX);
+	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
+	bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bd_vertex.CPUAccessFlags = 0;
+	bd_vertex.MiscFlags = 0;
+	bd_vertex.StructureByteStride = 0;
+	D3D11_SUBRESOURCE_DATA data_vertex;
+	data_vertex.pSysMem = vertices_;
+	return Direct3D::pDevice_->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 
-	}
+}
 void Sprite::InitIndexData()
-	{
-		indexNum_ = 6;
-		index_ = new int[6] { 0, 2, 3, 0, 1, 2 };
-	}
+{
+	indexNum_ = 6;
+	index_ = new int[6] { 0, 2, 3, 0, 1, 2 };
+}
 HRESULT Sprite::CreateIndexBuffer()
-	{
-		D3D11_BUFFER_DESC   bd;
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = indexNum_ * sizeof(int);
-		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		bd.CPUAccessFlags = 0;
-		bd.MiscFlags = 0;
+{
+	D3D11_BUFFER_DESC   bd;
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = indexNum_ * sizeof(int);
+	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
 
-		D3D11_SUBRESOURCE_DATA InitData;
-		InitData.pSysMem = index_;
-		InitData.SysMemPitch = 0;
-		InitData.SysMemSlicePitch = 0;
-		return Direct3D::pDevice_->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
-	}
+	D3D11_SUBRESOURCE_DATA InitData;
+	InitData.pSysMem = index_;
+	InitData.SysMemPitch = 0;
+	InitData.SysMemSlicePitch = 0;
+	return Direct3D::pDevice_->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
+}
 HRESULT Sprite::CreateConstantBuffer()
-	{
-		D3D11_BUFFER_DESC cb;
-		cb.ByteWidth = sizeof(CONSTANT_BUFFER);
-		cb.Usage = D3D11_USAGE_DYNAMIC;
-		cb.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		cb.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		cb.MiscFlags = 0;
-		cb.StructureByteStride = 0;
+{
+	D3D11_BUFFER_DESC cb;
+	cb.ByteWidth = sizeof(CONSTANT_BUFFER);
+	cb.Usage = D3D11_USAGE_DYNAMIC;
+	cb.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cb.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	cb.MiscFlags = 0;
+	cb.StructureByteStride = 0;
 
-		return Direct3D::pDevice_->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
-	}
+	return Direct3D::pDevice_->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
+}
 HRESULT Sprite::LoadTexture(string filename)
-	{
-		pTexture_ = new Texture;
-		return pTexture_->Load(filename);
-	}
+{
+	pTexture_ = new Texture;
+	return pTexture_->Load(filename);
+}
 
 /////////draw分割/////////
 void Sprite::PassDataToCB(DirectX::XMMATRIX& worldMatrix)

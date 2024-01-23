@@ -53,5 +53,11 @@ private:
 	//Draw関数から呼ばれる関数
 	void PassDataToCB(DirectX::XMMATRIX& wordlMatrix);
 	void SetBufferToPipeline();
+
+
+	//画像サイズの取得
+	//戻値：画像サイズ
+	XMFLOAT3 GetTextureSize() { return pTexture_->GetSize(); }
+
 };
 
