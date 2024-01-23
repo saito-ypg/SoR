@@ -146,7 +146,9 @@
     <ClInclude Include="SkillBase.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClInclude>
-    <ClInclude Include="HPBar.h" />
+    <ClInclude Include="HPBar.h">
+      <Filter>Scenes\PlayScene\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -249,7 +251,9 @@
     <ClCompile Include="SkillBase.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
     </ClCompile>
-    <ClCompile Include="HPBar.cpp" />
+    <ClCompile Include="HPBar.cpp">
+      <Filter>Scenes\PlayScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,7 +5,7 @@
 namespace {
 	
 	using std::vector;
-	vector<int>hImage{ HPBar::HANDLE::NUM };
+	vector<int>hImage((int) HPBar::HANDLE::NUM);
 }
 
 void HPBar::Initialize()

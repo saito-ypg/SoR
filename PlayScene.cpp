@@ -6,7 +6,7 @@
 #include"Engine/SceneManager.h"
 #include"CollisionManager.h"
 #include"Decoy.h"
-
+#include"HPBar.h"
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
 	: GameObject(parent, "PlayScene")
@@ -29,6 +29,7 @@ void PlayScene::Initialize()
 	d->SetRotateY(45);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
 	Camera::SetPosition(XMFLOAT3{ 0, 30, -20.0f });
+	HPBar::Initialize();
 }
 
 //更新

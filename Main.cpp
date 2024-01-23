@@ -7,6 +7,7 @@
 #include"Engine/Camera.h"
 #include"Engine/Input.h"
 #include"Engine/Model.h"
+#include"Engine/Image.h"
 #include"Engine/RootJob.h"
 #include <crtdbg.h>
 const char* WIN_CLASS_NAME = "SampleGame";
@@ -149,6 +150,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 	Model::Release();
+	Image::Release();
 	pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 

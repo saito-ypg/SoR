@@ -1,10 +1,8 @@
 #include "GameActor.h"
 #include"Engine/Model.h"
-
-void GameActor::DrawHP()
-{
-}
-
+#include"Engine/Camera.h"
+#include"HPBar.h"
+#include"Engine/Image.h"
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
@@ -35,8 +33,24 @@ void GameActor::Draw()
 	//‚È‚ñ‚©‚â‚é
 
 	ActorDraw();
-}
+	DrawHP();
 
+}
+void GameActor::DrawHP()
+{
+	int h = Image::Load("Assets/Interface/ball1.png");
+	Transform t;
+	t.scale_ = XMFLOAT3(0.1, 0.1, 0.1);
+	Image::SetTransform(h,t );
+	Image::Draw(h);
+	//Transform DrawT;
+	//XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
+	//XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()/**Camera::GetVPMatrix()*/));
+	//for (int i = 0; i < HPBar::NUM; i++)
+	//{
+	//	HPBar::Draw((HPBar::HANDLE)i, DrawT);
+	//}
+}
 
 
 void GameActor::TakeAttacked()
