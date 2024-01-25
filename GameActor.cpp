@@ -45,10 +45,11 @@ void GameActor::DrawHP()
 	DrawT.position_.x = DrawT.position_.x / Direct3D::scrWidth_* 2.0f - 1;
 
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
-	for (int i = 0; i < HPBar::NUM; i++)
+	HPBar::Draw(HPBar::BAR, DrawT);
+	/*for (int i = 0; i < HPBar::NUM; i++)
 	{
 		HPBar::Draw((HPBar::HANDLE)i, DrawT);
-	}
+	}*/
 }
 
 
