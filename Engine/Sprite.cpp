@@ -47,14 +47,17 @@ HRESULT Sprite::Initialize(string filename)
 	return S_OK;
 }
 
-void Sprite::Draw(Transform& transform)
+void Sprite::Draw(Transform& transform, RECT rect)
 {
 	using namespace Direct3D;
 	Direct3D::SetShader(SHADER_2D);
 	transform.Calculation();
 	//画面に合わせる
+		//表示するサイズに合わせる
+	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom, 1);
+
 	XMMATRIX view = XMMatrixScaling(1.0f / scrWidth_, 1.0f / scrHeight_, 1.0f);
-	XMMATRIX worldmatrix = transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
+	XMMATRIX worldmatrix = cut*transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
 
 
 	PassDataToCB(worldmatrix);
@@ -78,13 +81,14 @@ void Sprite::Release()
 //////initialize分割//////
 void Sprite::InitVertexData()
 {
-	vertexNum_ = 4;
-	vertices_ = new VERTEX[vertexNum_]{
+
+	vertices_ = new VERTEX[]{
 		{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },// 四角形の頂点（左上）
 	{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f) },	// 四角形の頂点（右上）
 	{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),  XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f) },// 四角形の頂点（右下）
 	{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) },	// 四角形の頂点（左下）		
 	};
+	vertexNum_ = 4;
 }
 HRESULT Sprite::CreateVertexBuffer()
 {
@@ -139,7 +143,7 @@ HRESULT Sprite::LoadTexture(string filename)
 }
 
 /////////draw分割/////////
-void Sprite::PassDataToCB(DirectX::XMMATRIX& worldMatrix)
+void Sprite::PassDataToCB(const DirectX::XMMATRIX& worldMatrix)
 {
 	CONSTANT_BUFFER cb;
 	cb.matW = XMMatrixTranspose(worldMatrix);

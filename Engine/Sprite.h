@@ -34,9 +34,11 @@ public:
 	Sprite();
 	~Sprite();
 	HRESULT Initialize(string filename);
-	void Draw(Transform&transform);
+	void Draw(Transform&transform, RECT rect);
 	void Release();
-
+//画像サイズの取得
+	//戻値：画像サイズ
+	XMFLOAT3 GetTextureSize() { return pTexture_->GetSize(); }
 private:
 	//initialize内の関数
 	virtual void InitVertexData();
@@ -51,13 +53,11 @@ private:
 
 
 	//Draw関数から呼ばれる関数
-	void PassDataToCB(DirectX::XMMATRIX& wordlMatrix);
+	void PassDataToCB(const DirectX::XMMATRIX& wordlMatrix);
 	void SetBufferToPipeline();
 
 
-	//画像サイズの取得
-	//戻値：画像サイズ
-	XMFLOAT3 GetTextureSize() { return pTexture_->GetSize(); }
+	
 
 };
 

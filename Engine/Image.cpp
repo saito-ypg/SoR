@@ -24,7 +24,9 @@ int Image::Load(std::string fileName)
 	}
 
 	imageList_.push_back(pData);
-	return imageList_.size() - 1;
+	int newHandle = imageList_.size() - 1;
+	ResetRect(newHandle);
+	return newHandle;
 }
 
 void Image::SetTransform(int hPict, Transform transform)
@@ -34,7 +36,7 @@ void Image::SetTransform(int hPict, Transform transform)
 
 void Image::Draw(int hPict)
 {
-	imageList_.at(hPict)->pSprite_->Draw(imageList_.at(hPict)->transform_);
+	imageList_.at(hPict)->pSprite_->Draw(imageList_.at(hPict)->transform_,imageList_.at(hPict)->size);
 }
 
 void Image::Release(int hPict)
@@ -43,4 +45,13 @@ void Image::Release(int hPict)
 
 void Image::Release()
 {
+}
+
+void Image::ResetRect(int hPict)
+{
+	XMFLOAT3 size = imageList_.at(hPict)->pSprite_-> GetTextureSize();
+	imageList_.at(hPict)->size.left = 0;
+	imageList_.at(hPict)->size.top = 0;
+	imageList_.at(hPict)->size.right = (long)size.x;
+	imageList_.at(hPict)->size.bottom = (long)size.y;
 }

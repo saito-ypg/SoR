@@ -42,9 +42,12 @@ void GameActor::DrawHP()
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
+	DrawT.position_.x = DrawT.position_.x / Direct3D::scrWidth_* 2.0f - 1;
+
+	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
 	for (int i = 0; i < HPBar::NUM; i++)
 	{
-			HPBar::Draw((HPBar::HANDLE)i, DrawT);
+		HPBar::Draw((HPBar::HANDLE)i, DrawT);
 	}
 }
 
