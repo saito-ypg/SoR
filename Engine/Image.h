@@ -10,6 +10,7 @@ namespace Image
 		Transform transform_;//トランスフォーム
 		std::string fileName_;//ファイル名
 		float size;
+		ImageData() :pSprite_(nullptr),size(0) {}
 	};
 	int Load(std::string fileName);
 	void SetTransform(int hPict, Transform transform);

@@ -4,6 +4,8 @@
 #include"../PlayScene.h"
 SceneManager::SceneManager(GameObject* parent) :GameObject(parent, "SceneManager")
 {
+	currentSceneID_ = (SCENE_ID) - 1;
+	nextSceneID_ = (SCENE_ID)-1;
 }
 
 SceneManager::~SceneManager()

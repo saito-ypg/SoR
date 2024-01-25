@@ -70,8 +70,8 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 			,0//Yは判定いらない
 			,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }};
 
-		float dist = sqrt(pow(compare.x - f3Actor.x, 2) + pow(compare.z - f3Actor.z, 2));
-		float r = pow(actor->GetRadius(), 2);//此処と上の行不安アル
+		float dist = (float)sqrt(pow(compare.x - f3Actor.x, 2) + pow(compare.z - f3Actor.z, 2));
+		float r = (float)pow(actor->GetRadius(), 2);//此処と上の行不安アル
 		if (dist <r)
 		{
 			UnderAttack(actor);

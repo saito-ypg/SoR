@@ -9,7 +9,7 @@ namespace Model
 		Fbx* pFbx_;//fbx
 		Transform transform_;//トランスフォーム
 		std::string fileName_;//ファイル名
-
+		ModelData():pFbx_(nullptr){}
 	};
 	int Load(std::string fileName);
 	void SetTransform(int hModel, Transform transform);
