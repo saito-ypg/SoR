@@ -4,7 +4,7 @@
 #include"Camera.h"
 #include"Texture.h"
 
-Fbx::Fbx():pVertexBuffer_(nullptr),pIndexBuffer_(nullptr),pConstantBuffer_(nullptr),pMaterialList_(nullptr), vertexCount_(0), polygonCount_(0), materialCount_(0),indexCount_(nullptr)
+Fbx::Fbx() :pVertexBuffer_(nullptr), pIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pMaterialList_(nullptr), pVertices_(nullptr),ppIndex_(nullptr), vertexCount_(0), polygonCount_(0), materialCount_(0), indexCount_(nullptr)
 {
 }
 

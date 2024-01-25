@@ -3,7 +3,7 @@
 #include<DirectXTex.h>
 #pragma comment(lib,"DirectXTex.lib")
 
-Texture::Texture() :pSampler_(nullptr), pSRV_(nullptr)
+Texture::Texture() :pSampler_(nullptr), pSRV_(nullptr), size_(0, 0, 0)
 {
 }
 

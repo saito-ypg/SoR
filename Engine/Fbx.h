@@ -1,5 +1,5 @@
 #pragma once
-
+#pragma warning(once:4099)
 #include <d3d11.h>
 #include <fbxsdk.h>
 #include <string>
@@ -7,6 +7,7 @@
 #pragma comment(lib, "LibFbxSDK-Md.lib")
 #pragma comment(lib, "LibXml2-Md.lib")
 #pragma comment(lib, "zlib-Md.lib")
+
 class Texture;
 struct RayCastData
 {
