@@ -2,6 +2,7 @@
 #include"global.h"
 namespace Image {
     std::vector<ImageData*> imageList_;
+	bool ExistHandle(int handle) { return (handle >= 0 && handle < imageList_.size()); }
 }
 int Image::Load(std::string fileName)
 {
@@ -24,27 +25,51 @@ int Image::Load(std::string fileName)
 	}
 
 	imageList_.push_back(pData);
-	int newHandle = imageList_.size() - 1;
+	int newHandle = (int)imageList_.size() - 1;
 	ResetRect(newHandle);
 	return newHandle;
 }
 
 void Image::SetTransform(int hPict, Transform transform)
 {
+	if (!ExistHandle(hPict))
+		return;
 	imageList_.at(hPict)->transform_ = transform;
 }
 
 void Image::Draw(int hPict)
 {
+	if (!ExistHandle(hPict))
+		return;
 	imageList_.at(hPict)->pSprite_->Draw(imageList_.at(hPict)->transform_,imageList_.at(hPict)->size);
 }
 
 void Image::Release(int hPict)
 {
+	if (!ExistHandle(hPict))
+		return;
 }
 
 void Image::Release()
 {
+	bool isReffered = false;
+	for (int i = 0; i < imageList_.size(); i++)
+	{
+		for (int j = i + 1; j < imageList_.size(); j++)
+		{
+			if (imageList_.at(i)->pSprite_ == imageList_.at(j)->pSprite_)
+			{
+				isReffered = true;
+				break;
+			}
+		}
+		if (!isReffered)
+		{
+			SAFE_DELETE(imageList_.at(i)->pSprite_);
+		}
+		SAFE_DELETE(imageList_.at(i));
+	}
+	imageList_.clear();
 }
 
 void Image::ResetRect(int hPict)

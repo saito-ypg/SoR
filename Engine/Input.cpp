@@ -122,12 +122,12 @@ namespace Input
 
 	XMFLOAT3 GetMouseMove()
 	{
-		return XMFLOAT3(mouseState_.lX, mouseState_.lY, mouseState_.lZ);
+		return XMFLOAT3((float)mouseState_.lX,(float) mouseState_.lY, (float)mouseState_.lZ);
 	}
 	void SetMousePosition(int x, int y)
 	{
-		mousePosition_.x = x;
-		mousePosition_.y = y;
+		mousePosition_.x =(float) x;
+		mousePosition_.y =(float) y;
 	/*	std::string resStr = std::to_string(x) + "," + std::to_string(y)+"\n";
 		OutputDebugString(resStr.c_str());*/
 	}

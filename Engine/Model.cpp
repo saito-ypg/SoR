@@ -3,6 +3,7 @@
 namespace Model{
 	
 	std::vector<ModelData*> modelList_;//モデルのポインタを入れるベクタ
+	bool ExistHandle(int handle) { return (handle >= 0 && handle < modelList_.size()); }
 }
 int Model::Load(std::string fileName)
 {
@@ -33,23 +34,28 @@ int Model::Load(std::string fileName)
 	}
 	
 	modelList_.push_back(pData);
-	return modelList_.size() - 1;
+	return (int)modelList_.size() - 1;
 
 }
 
 void Model::SetTransform(int hModel, Transform transform)
 {
+	if (!ExistHandle(hModel))
+		return;
 	modelList_.at(hModel)->transform_ = transform;
 }
 
 void Model::Draw(int hModel)
 {
+	if (!ExistHandle(hModel))
+		return;
 	modelList_.at(hModel)->pFbx_->Draw(modelList_.at(hModel)->transform_);
 }
 
 void Model::Release(int hModel)
 {
-	
+	if (!ExistHandle(hModel))
+		return;
 }
 
 void Model::Release()
@@ -71,12 +77,13 @@ void Model::Release()
 		}
 		SAFE_DELETE(modelList_.at(i));
 	}
-
 	modelList_.clear();
 }
 
 void Model::RayCast(int hModel, RayCastData& raydata)
 {
+	if (!ExistHandle(hModel))
+		return;
 	modelList_.at(hModel)->transform_.Calculation();
 	//RayCast前にraycastDataの各情報をワールド空間からモデル空間に変換する
 	XMMATRIX invWorld=XMMatrixInverse(nullptr,modelList_.at(hModel)->transform_.GetWorldMatrix());

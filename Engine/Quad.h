@@ -25,9 +25,9 @@ protected:
 		XMVECTOR uv;
 		XMVECTOR normal;
 	};
-	UINT64 vertexNum_;
+	UINT vertexNum_;
 	VERTEX* vertices_;
-	UINT64 indexNum_;//インデックス情報
+	UINT indexNum_;//インデックス情報
 	int* index_;//インデックス情報
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
 	ID3D11Buffer* pIndexBuffer_;   //インデックスバッファ
