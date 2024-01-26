@@ -12,5 +12,10 @@ class ModeratorSequence :
 private:
 protected:
 public:
+    ModeratorSequence(GameObject*parent);
+    ~ModeratorSequence();
+    void Update()override;
+    void Draw()override;
+    void Release()override;
 };
 
