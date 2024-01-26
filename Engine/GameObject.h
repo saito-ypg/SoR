@@ -1,8 +1,8 @@
 #pragma once
+
 #include<string>
 #include<list>
 #include "Transform.h"
-
 //class SphereCollider;
 using std::string;
 class GameObject

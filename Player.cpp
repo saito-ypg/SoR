@@ -3,11 +3,10 @@
 #include"Engine/Model.h"
 #include"Engine/Input.h"
 #include"Engine/Camera.h"
-
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
-constexpr float PLAYER_ROT_TH = 0.1;//移動時に回転するかどうかの距離のしきい値
+constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
-    return (int)(f * 10000) == 0;
+    return XMScalarNearEqual(f, 0.0f, 0.0001f);
 }
 
 //コンストラクタ
@@ -67,7 +66,7 @@ void Player::ActorUpdate()
     {
         FaceMouseDirection();
         testCircle.position_=transform_.position_;
-        testCircle.radius_ = 2.2;
+        testCircle.radius_ = 2.2f;
         CollisionManager::HitTestBy(PLAYER, testCircle);
     }
     if (Input::IsKeyDown(DIK_C))
@@ -81,10 +80,8 @@ void Player::ActorUpdate()
     }
 
     if (Input::IsKeyDown(DIK_A))
-        transform_.rotate_.y = XMConvertToDegrees(atan2(-transform_.position_.x, -transform_.position_.z));
+        transform_.rotate_.y = XMConvertToDegrees((float)atan2(-transform_.position_.x, -transform_.position_.z));
 #endif
-
-    
 
     if (Input::IsMouseButton(1))//移動
     {
@@ -220,21 +217,7 @@ XMVECTOR Player::getMouseTargetPos()
     XMVECTOR dir = XMVector3Normalize(vBack - vFront);
     XMVECTOR a = dir / XMVectorGetY(dir);//yが1になるように
     return Camera::GetPosition()- (a * XMVectorGetY(Camera::GetPosition()));//カメラ座標からdir方向に進んでyが0の時の座標を返す
-    //Ground* pGround = (Ground*)FindObject("Ground");
-    //int hG = pGround->GetGloundHandle();
-    //RayCastData data;
-    //XMStoreFloat4(&data.start, vFront);
-    //XMStoreFloat4(&data.dir,vBack - vFront);
-    ////Model::SetTransform(hG, transform_);
-    //Model::RayCast(hG, data);
-    //if (data.hit)
-    //{
-    //    XMVECTOR vpos = XMLoadFloat4(&data.dir);
-    //    vpos *= data.dist;
-    //    XMVECTOR vstart = XMLoadFloat4(&data.start);
-    //    return (vstart + vpos);
-    //}
-    //return NotHitV;
+
 }
 
 void Player::calculateForMove(const XMVECTOR target_)
@@ -256,13 +239,8 @@ void Player::FaceTargetDirection(const XMVECTOR& target_)
     moveDirection_ = XMVector3Normalize(target_ - vPos);
     XMFLOAT3 fdir;
     XMStoreFloat3(&fdir, moveDirection_);
-    transform_.rotate_.y = XMConvertToDegrees(atan2(fdir.x, fdir.z));
-    /*XMVECTOR vfront = XMVector3Normalize(XMVectorSet(0, 0, 1, 0));
-    float dot = XMVectorGetX(XMVector3Dot(moveDirection_, vfront));
-    float angle = (float)acos(dot);
-    XMVECTOR vCross = XMVector3Cross(vfront, moveDirection_);
-    if (XMVectorGetY(vCross) < 0) { angle *= -1; }
-    transform_.rotate_.y = XMConvertToDegrees(angle);*/
+    transform_.rotate_.y = XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
+    
 }
 bool Player::canMove()
 {
