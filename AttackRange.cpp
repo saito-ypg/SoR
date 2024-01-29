@@ -1,4 +1,5 @@
 #include "AttackRange.h"
+#pragma warning(disable:26437)
 AttackRangeBase::AttackRangeBase():areatype_(NONE),a_(-1),b_(-1),c_(0),position_({0,0,0})
 {
 }
@@ -20,7 +21,7 @@ AttackRangeCircle::AttackRangeCircle(XMFLOAT3 pos):AttackRangeCircle()
 
 AttackRangeBase AttackRangeCircle::operator=(const AttackRangeCircle& c)
 {
-	return static_cast<AttackRangeBase>(c);//データ追加してないので許してほしい
+	return static_cast<AttackRangeBase>(c);//データ追加してないので許してほしい←何で実装したか忘れた…
 }
 
 AttackRangeQuad::AttackRangeQuad():AttackRangeBase()
