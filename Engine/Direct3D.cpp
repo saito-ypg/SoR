@@ -115,8 +115,8 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 		descDepth.CPUAccessFlags = 0;
 		descDepth.MiscFlags = 0;
-		pDevice_->CreateTexture2D(&descDepth, NULL, &pDepthStencil_);
-		pDevice_->CreateDepthStencilView(pDepthStencil_, NULL, &pDepthStencilView_);
+		pDevice_->CreateTexture2D(&descDepth, nullptr, &pDepthStencil_);
+		pDevice_->CreateDepthStencilView(pDepthStencil_, nullptr, &pDepthStencilView_);
 		//データを画面に描画するための一通りの設定（パイプライン）
 		pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);  // データの入力種類を指定
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView_);            // 描画先を設定

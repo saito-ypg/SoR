@@ -15,7 +15,7 @@ struct RayCastData
 	XMFLOAT4 dir;
 	bool hit;
 	float dist;
-	RayCastData() { dist = FLT_MAX; hit = false; }
+	RayCastData() { start = { 0,0,0,0 }, dir = { 0,0,0,0 }; dist = FLT_MAX; hit = false; }
 };
 
 class Fbx

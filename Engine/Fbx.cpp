@@ -187,7 +187,7 @@ HRESULT Fbx::InitVertex(fbxsdk::FbxMesh* mesh)
 	pVertices_ = new VERTEX[vertexCount_];
 
 	//全ポリゴン
-	for (DWORD poly = 0; poly < polygonCount_; poly++)
+	for (int poly = 0; poly < polygonCount_; poly++)
 	{
 		//3頂点分
 		for (int vertex = 0; vertex < 3; vertex++)
@@ -232,14 +232,14 @@ HRESULT Fbx::InitIndex(fbxsdk::FbxMesh* mesh)
 	pIndexBuffer_ = new ID3D11Buffer*[materialCount_];
 	indexCount_ = new int[materialCount_];
 	ppIndex_ = new int* [materialCount_];
-	//int index=new int[polygoncount_ * 3];
+	const int indexes = polygonCount_ * 3;
 	for (int i = 0; i < materialCount_; i++)
 	{
-		ppIndex_[i] = new int[polygonCount_ * 3];
+		ppIndex_[i] = new int[indexes];
 		int count = 0;
 		
 		//全ポリゴン
-		for (DWORD poly = 0; poly < polygonCount_; poly++)
+		for (int poly = 0; poly < polygonCount_; poly++)
 		{
 			FbxLayerElementMaterial* mtl = mesh->GetLayer(0)->GetMaterials();
 			int mtlId = mtl->GetIndexArray().GetAt(poly);
