@@ -75,7 +75,7 @@ void Player::ActorUpdate()
         testSector.position_=transform_.position_;
         testSector.radius_ =3;
         testSector.rotate_ = transform_.rotate_.y;
-        testSector.centerAngle_ = 45;
+        testSector.centerAngle_ = 30;
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
@@ -202,8 +202,18 @@ void Player::Release()
 
 void Player::ActivateSkill(const int number)
 {
-    if (number >= 0 && number < skills.size())
-        skills.at(number)->Activate(transform_);
+
+    if (!this->canMove())//自身が動けるか？
+        return;
+    if (number < 0 || number >= skills.size())//存在するスキル番号か？
+        return;
+    auto& skill = skills.at(number);
+    if (!skill->CanUse())//対象のスキルは使用可能か？
+        return;
+    FaceMouseDirection();//マウス方向を向く
+    moveTime_ = 0;//移動してたら止める
+ 
+    skill->Activate(transform_);
 }
 
 XMVECTOR Player::getMouseTargetPos()

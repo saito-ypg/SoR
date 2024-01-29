@@ -23,7 +23,7 @@ void HPBar::Initialize()
 	}
 }
 
-void HPBar::Update(float hp)
+void HPBar::Update(float hpRatio)
 {
 }
 

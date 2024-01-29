@@ -44,7 +44,8 @@ public:
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
 	void Activate(Transform tr);//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
-	bool CanMove() { return castTime_ < 0;  }
+	bool CanUse() { return coolDown_ <= 0; }
+	bool CanMove() { return castTime_ <= 0;  }
 
 	static float Sec(float flames) {return flames / 60;}//フレームから秒に変換
 	static float frame(float seconds) { return seconds * 60; }//秒からフレームに変換
