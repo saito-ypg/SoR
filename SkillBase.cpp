@@ -1,5 +1,5 @@
 #include "SkillBase.h"
-
+#include"CollisionManager.h"
 
 SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f), isInOperation(false)
 {
@@ -8,6 +8,11 @@ SkillBase::SkillBase(float CT, float CD) :SkillBase()
 {
 	defaultCastTime_ = frame(CT);
 	defaultCoolDown_ = frame(CD);
+}
+
+SkillBase::~SkillBase()
+{
+	
 }
 
 void SkillBase::Update()
@@ -43,5 +48,20 @@ void SkillBase::Activate(Transform tr)
 	stepindex = 0;
 	steptime = sequence.front();
 	isInOperation = true;
+}
+
+void SkillBase::RegisterHitRange(AttackRangeCircle c)
+{
+	CollisionManager::RegisterHitRange(PLAYER, c);
+}
+
+void SkillBase::RegisterHitRange(AttackRangeQuad q)
+{
+	CollisionManager::RegisterHitRange(PLAYER, q);
+}
+
+void SkillBase::RegisterHitRange(AttackRangeCirculerSector s)
+{
+	CollisionManager::RegisterHitRange(PLAYER, s);
 }
 

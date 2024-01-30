@@ -30,20 +30,23 @@ protected:
 	float coolDown_;//クールタイム残り時間
 	bool isInOperation;
 	
-	struct attack {
-		AttackRangeBase* range;
-		float Duration;
-		DamageData damageData_;
-	};
+	void RegisterHitRange(AttackRangeCircle c);
+	void RegisterHitRange(AttackRangeQuad q);
+	void RegisterHitRange(AttackRangeCirculerSector s);
+	//struct attack {
+	//	AttackRangeBase* range;
+	//	DamageData damageData_;
+	//};//いるか分かっていない
 public:
 	
 
 	SkillBase();
 	SkillBase(float CT, float CD);//秒単位指定
-
+	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
 	void Activate(Transform tr);//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
+	virtual void Release() = 0;
 	bool CanUse() { return coolDown_ <= 0; }
 	bool CanMove() { return castTime_ <= 0;  }
 

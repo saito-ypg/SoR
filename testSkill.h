@@ -8,8 +8,9 @@ private:
 public:
     testSkill();
     ~testSkill();
-    //void Update()override;
+
     void action()override;
     void Draw() override;
+    void Release() override;
 };
 
