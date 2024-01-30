@@ -19,10 +19,11 @@ AttackRangeCircle::AttackRangeCircle(XMFLOAT3 pos):AttackRangeCircle()
 	position_ = pos;
 }
 
-AttackRangeBase AttackRangeCircle::operator=(const AttackRangeCircle& c)
+bool AttackRangeCircle::IsHit()
 {
-	return static_cast<AttackRangeBase>(c);//データ追加してないので許してほしい←何で実装したか忘れた…
+	return false;
 }
+
 
 AttackRangeQuad::AttackRangeQuad():AttackRangeBase()
 {
@@ -38,9 +39,9 @@ AttackRangeQuad::AttackRangeQuad(XMFLOAT3 pos) :AttackRangeQuad()
 	position_ = pos;
 }
 
-AttackRangeBase AttackRangeQuad::operator=(const AttackRangeQuad& q)
+bool AttackRangeQuad::IsHit()
 {
-	return static_cast<AttackRangeBase>(q);
+	return false;
 }
 
 
@@ -57,9 +58,10 @@ AttackRangeCirculerSector::AttackRangeCirculerSector(XMFLOAT3 pos) :AttackRangeC
 	position_ = pos;
 }
 
-AttackRangeBase AttackRangeCirculerSector::operator=(const AttackRangeCirculerSector& s)
+bool AttackRangeCirculerSector::IsHit()
 {
-	return static_cast<AttackRangeBase>(s);
+	return false;
 }
+
 
 

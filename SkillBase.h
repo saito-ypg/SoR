@@ -31,7 +31,7 @@ protected:
 	bool isInOperation;
 	
 	struct attack {
-		AttackRangeBase range;
+		AttackRangeBase* range;
 		float Duration;
 		DamageData damageData_;
 	};

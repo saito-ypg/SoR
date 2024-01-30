@@ -11,6 +11,7 @@ private:
 protected:
     ActorInfo status_;
     bool isInvincible_;//–³“Gó‘Ô‚©H
+    bool isDead_;//HP0ˆÈ‰º‚É‚È‚Á‚½‚ç‚±‚ê•Ï‚¦‚é
     std::vector<int> hModels_;//ƒ‚ƒfƒ‹”Ô†‚ğƒŠƒXƒg‚É
 
     void AddColliderCamp(GameActor *act, CAMPS camp);//“–‚½‚è”»’è‚ğ“o˜^AŒp³æ‚Åw‰cŒÅ’è‚·‚é

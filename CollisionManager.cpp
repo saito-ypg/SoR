@@ -1,20 +1,28 @@
-#include "CollisionManager.h"
-#include"GameActor.h"
+#include<cmath>
 #include<map>
 #include<vector>
 #include<unordered_map>
+#include "CollisionManager.h"
+#include"GameActor.h"
+#include"Engine/global.h"
 #include"Engine/Debug.h"
-#include<cmath>
+
 //各陣営の当たり判定
 namespace {
-	std::vector<std::unordered_map<const GameActor*, const ActorCollider*>>CollisionList(CAMPS::NUM);
+	//mapでやるのよくない？走査するなら構造体のvector?
 	
+	using namespace CollisionManager;
+	std::vector<std::vector<actorAddr>>CollisionList(CAMPS::NUM);
+	std::vector<std::vector<RangeData>>RangeTest(CAMPS::NUM);
+
+
+
 	/// <summary>
 	/// 攻撃が当たった際に呼ばれる。
 	/// </summary>
-	void UnderAttack(const GameActor* a)
+	void UnderAttack( ::GameActor* a)
 	{
-		const_cast<GameActor*>(a)->TakeAttacked();//暫定的にconstキャスト。
+		a->TakeAttacked();
 	}
 }
 
@@ -22,10 +30,10 @@ void CollisionManager::Update()
 {
 }
 
-void CollisionManager::AddCamp(GameActor* newActor, CAMPS camp)
+void CollisionManager::AddCamp(::GameActor* newActor, CAMPS camp)
 {
 	ActorCollider* ac = new ActorCollider(&newActor->GetTransformRef()->position_);
-	CollisionList.at(camp).emplace(newActor, ac);
+	CollisionList.at(camp).emplace_back(newActor, ac);
 
 }
 
@@ -128,12 +136,17 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 {
 	auto& campMap = CollisionList.at(camp);
-	if (campMap.find(actor) == campMap.end())//そもそも存在しなかったら何もしない？
+	for (auto itr=campMap.begin();itr!=campMap.end();)
 	{
-		return;
+		if (itr->pActor == actor)
+		{
+			SAFE_DELETE(itr->pCollider);
+			itr = campMap.erase(itr);
+			break;
+		}
+		itr++;
 	}
-	delete	campMap.at(actor);
-	campMap.erase(actor);
+
 }
 
 
@@ -143,7 +156,7 @@ void CollisionManager::Release()
 	{
 		for (auto& itin : it)
 		{
-			delete itin.second;
+			SAFE_DELETE(itin.pCollider);
 		}
 		it.clear();
 	}
