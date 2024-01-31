@@ -13,6 +13,7 @@ class Sprite
 	struct CONSTANT_BUFFER
 	{
 		XMMATRIX	matW;
+		XMMATRIX	uvTrans;
 	};
 
 	//’¸“_î•ñ
@@ -53,7 +54,7 @@ private:
 
 
 	//DrawŠÖ”‚©‚çŒÄ‚Î‚ê‚éŠÖ”
-	void PassDataToCB(const DirectX::XMMATRIX& wordlMatrix);
+	void PassDataToCB(const DirectX::XMMATRIX& wordlMatrix,const XMMATRIX&texel);
 	void SetBufferToPipeline();
 
 

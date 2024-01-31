@@ -41,6 +41,7 @@ void Image::Draw(int hPict)
 {
 	if (!ExistHandle(hPict))
 		return;
+	imageList_.at(hPict)->transform_.Calculation();
 	imageList_.at(hPict)->pSprite_->Draw(imageList_.at(hPict)->transform_,imageList_.at(hPict)->size);
 }
 

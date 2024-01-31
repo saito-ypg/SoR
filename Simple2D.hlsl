@@ -12,6 +12,7 @@ SamplerState	g_sampler : register(s0);	//サンプラー
 cbuffer global
 {
 	float4x4	matW;	//ワールド行列
+    float4x4	matTex;
 };
 
 //───────────────────────────────────────
@@ -34,7 +35,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 	//ローカル座標に、ワールド行列をかけて
 	//ワールド座標に変換し、ピクセルシェーダーへ
 	outData.pos = mul(pos, matW);
-	outData.uv = uv.xy;
+    outData.uv = mul(uv, matTex);
 	//まとめて出力
 	return outData;
 }
