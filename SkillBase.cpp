@@ -50,18 +50,18 @@ void SkillBase::Activate(Transform tr)
 	isInOperation = true;
 }
 
-void SkillBase::RegisterHitRange(AttackRangeCircle c)
+void SkillBase::RegisterHitRange(AttackRangeCircle c, DamageData &dmg)
 {
-	CollisionManager::RegisterHitRange(PLAYER, c);
+	CollisionManager::RegisterHitRange(PLAYER, c,dmg);
 }
 
-void SkillBase::RegisterHitRange(AttackRangeQuad q)
+void SkillBase::RegisterHitRange(AttackRangeQuad q, DamageData &dmg)
 {
-	CollisionManager::RegisterHitRange(PLAYER, q);
+	CollisionManager::RegisterHitRange(PLAYER, q, dmg);
 }
 
-void SkillBase::RegisterHitRange(AttackRangeCirculerSector s)
+void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg)
 {
-	CollisionManager::RegisterHitRange(PLAYER, s);
+	CollisionManager::RegisterHitRange(PLAYER, s, dmg);
 }
 

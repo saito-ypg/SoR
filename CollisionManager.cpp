@@ -1,4 +1,3 @@
-
 #include<map>
 #include<vector>
 #include<unordered_map>
@@ -6,7 +5,7 @@
 #include"GameActor.h"
 #include"Engine/global.h"
 #include"Engine/Debug.h"
-
+#include"DamageData.h"
 
 //Šew‰c‚Ì“–‚½‚è”»’è
 namespace {
@@ -14,9 +13,10 @@ namespace {
 	
 	using namespace CollisionManager;
 	struct RangeData {
-		AttackRangeBase* pRange;
-		std::vector<GameActor*>ExclutionList;//‚·‚Å‚Éƒqƒbƒg‚µ‚½‚à‚Ì‚È‚Ç“ü‚ê‚Ä‚¨‚­A”»’è‚©‚ç‚ÍœŠO
-		
+		AttackRangeBase* pRange_;
+		std::vector<GameActor*>ExclutionList_{0};//‚·‚Å‚Éƒqƒbƒg‚µ‚½‚à‚Ì‚È‚Ç“ü‚ê‚Ä‚¨‚­A”»’è‚©‚ç‚ÍœŠO
+		DamageData dmg_;
+		RangeData(AttackRangeBase* pR, DamageData dmg) :pRange_(pR),dmg_(dmg){}
 	};
 
 	std::vector<std::vector<actorAddr>>CollisionList(CAMPS::NUM);
@@ -26,9 +26,9 @@ namespace {
 	/// <summary>
 	/// UŒ‚‚ª“–‚½‚Á‚½Û‚ÉŒÄ‚Î‚ê‚éB
 	/// </summary>
-	void UnderAttack( ::GameActor* a)
+	void UnderAttack(::GameActor* a, DamageData& dmg)
 	{
-		a->TakeAttacked();
+		a->TakeAttacked(dmg);
 	}
 }
 
@@ -40,17 +40,17 @@ void CollisionManager::Update()
 		{
 			for (auto& itrActor : CollisionList.at(((camp)+1) % NUM))//‘Šè‚Ìw‰c‚Ì“G‚Æ”»’èæ‚é
 			{
-				if (std::find(itr->ExclutionList.begin(), itr->ExclutionList.end(), itrActor.pActor) != itr->ExclutionList.end())
+				if (std::find(itr->ExclutionList_.begin(), itr->ExclutionList_.end(), itrActor.pActor) != itr->ExclutionList_.end())
 					continue;
-				if (itr->pRange->IsHit(itrActor))
-					UnderAttack(itrActor.pActor);
+				if (itr->pRange_->IsHit(itrActor))
+					UnderAttack(itrActor.pActor,itr->dmg_);
 			}
-			itr->pRange->Duration--;
-			if (itr->pRange->Duration <= 0)
+			itr->pRange_->Duration--;
+			if (itr->pRange_->Duration <= 0)
 			{
 				//‚È‚ñ‚©‘«‚è‚È‚­‚È‚¢‚©H
-				delete itr->pRange;
-				itr->pRange = nullptr;
+				delete itr->pRange_;
+				itr->pRange_ = nullptr;
 				itr = RangeTest.at(camp).erase(itr);
 			}
 			else
@@ -160,19 +160,19 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector)
 	//}
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCircle c)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg)
 {
-	RangeTest.at(camp).emplace_back(new AttackRangeCircle(c));
+	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCircle(c),dmg));
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeQuad q)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg)
 {
-	RangeTest.at(camp).emplace_back(new AttackRangeQuad(q));
+	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeQuad(q), dmg));
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg)
 {
-	RangeTest.at(camp).emplace_back(new AttackRangeCirculerSector(s));
+	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCirculerSector(s), dmg));
 }
 
 

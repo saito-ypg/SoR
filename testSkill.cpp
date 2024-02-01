@@ -25,7 +25,10 @@ void testSkill::action()
 			circle.Duration = 1;
 			circle.radius_ = 2;
 			circle.position_ = this->transform_.position_;
-			RegisterHitRange(circle);
+			DamageData dmg;
+			dmg.damage_ = 20;
+			dmg.knockback_ = 1;
+			RegisterHitRange(circle, dmg);
 		}
 //		__debugbreak();
 		break;

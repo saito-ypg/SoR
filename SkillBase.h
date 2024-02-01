@@ -30,13 +30,10 @@ protected:
 	float coolDown_;//クールタイム残り時間
 	bool isInOperation;
 	
-	void RegisterHitRange(AttackRangeCircle c);
-	void RegisterHitRange(AttackRangeQuad q);
-	void RegisterHitRange(AttackRangeCirculerSector s);
-	//struct attack {
-	//	AttackRangeBase* range;
-	//	DamageData damageData_;
-	//};//いるか分かっていない
+	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
+	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg);
+	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg);
+
 public:
 	
 

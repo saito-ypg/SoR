@@ -3,9 +3,12 @@
 #include"Engine/Camera.h"
 #include"HPBar.h"
 #include"Engine/Image.h"
+#include"Engine/Debug.h"
+
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
+	isDead_ = false;
 	hCircle_ = -1;
 	hQuad_ = -1;
 	hSector_ = -1;
@@ -43,9 +46,8 @@ void GameActor::DrawHP()
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
 	DrawT.position_.x = DrawT.position_.x / Direct3D::scrWidth_* 2.0f - 1;
-
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
-	HPBar::Draw(HPBar::BAR, DrawT);
+	//HPBar::Draw(HPBar::BAR, DrawT);
 	/*for (int i = 0; i < HPBar::NUM; i++)
 	{
 		HPBar::Draw((HPBar::HANDLE)i, DrawT);
@@ -53,9 +55,11 @@ void GameActor::DrawHP()
 }
 
 
-void GameActor::TakeAttacked()
+void GameActor::TakeAttacked(DamageData& dmg)
 {
-	KillMe();//‘Ì—ÍŠÖŒW‚Å‚«‚é‚Ü‚ÅŽb’è
+	status_.hp_ -= dmg.damage_;
+
+
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
 {    

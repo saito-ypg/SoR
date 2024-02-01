@@ -5,6 +5,7 @@ enum AREATYPE {
 	CIRCLE, QUAD, SECTOR, NONE
 };
 using namespace DirectX;
+struct actorAddr;
 struct AttackRangeBase
 {
 
@@ -17,9 +18,7 @@ struct AttackRangeBase
 	virtual bool IsHit(struct actorAddr& data)=0;
 protected:
 	AREATYPE areatype_;//攻撃エリア。要初期化
-	//float a_;
-	//float b_;
-	//float c_;
+
 
 };
 struct AttackRangeCircle		:public AttackRangeBase//円形の攻撃範囲データ

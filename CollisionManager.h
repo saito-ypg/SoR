@@ -5,7 +5,7 @@
 //ƒvƒŒƒCƒ„[w‰c/“Gw‰c
 enum CAMPS{PLAYER,ENEMY,NUM};
 class GameActor;
-
+struct DamageData;
 struct actorAddr {
 	GameActor* pActor;//ƒLƒƒƒ‰
 	ActorCollider* pCollider;//ƒLƒƒƒ‰‚Ì“–‚½‚è”»’è
@@ -51,9 +51,9 @@ namespace CollisionManager
 	/// <param name="quad">îŒ`UŒ‚ƒGƒŠƒA</param>
 	void HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector);
 
-	void RegisterHitRange(CAMPS camp, AttackRangeCircle c);
-	void RegisterHitRange(CAMPS camp, AttackRangeQuad q);
-	void RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s);
+	void RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg);
+	void RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg);
+	void RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg);
 	/// <summary>
 	///w‰cƒŠƒXƒg‚©‚çíœ‚·‚éB“|‚³‚ê‚½Û‚ÉŒÄ‚Ô 
 	/// </summary>
