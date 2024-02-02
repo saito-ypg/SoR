@@ -29,6 +29,9 @@ void GameActor::Update()
 	
 	ActorUpdate();
 
+
+	if (status_.hp_ <= 0)
+		KillMe();
 }
 
 void GameActor::Draw()
@@ -58,7 +61,7 @@ void GameActor::DrawHP()
 void GameActor::TakeAttacked(DamageData& dmg)
 {
 	status_.hp_ -= dmg.damage_;
-
+	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)

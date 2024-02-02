@@ -13,7 +13,9 @@ bool nearlyZero(float f) {//‚Ù‚Ú0‚Å‚ ‚é‚Æ‚¢‚¦‚é‚È‚çtrueB
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
-
+    status_.maxHp_ = 200;
+    status_.hp_ = status_.maxHp_;
+    status_.hitCircleRange_ = 1.1f;
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
@@ -28,8 +30,7 @@ void Player::Initialize()
 {
     hModel_ = Model::Load("Assets/Charactors/psample.fbx");
     assert(hModel_ >= 0);
-    status_.maxHp_ = 200;
-    status_.hitCircleRange_ = 1.1f;
+
     AddCamp();
 
 

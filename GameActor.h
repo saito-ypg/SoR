@@ -11,7 +11,7 @@ private:
 protected:
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
-    bool isDead_;//HP0以下になったらこれ変える
+    bool isDead_;//HP0以下になったらこれ変える、gameobjectとは別？
     std::vector<int> hModels_;//モデル番号をリストに
 
     void AddColliderCamp(GameActor *act, CAMPS camp);//当たり判定を登録、継承先で陣営固定する
