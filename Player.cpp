@@ -79,8 +79,6 @@ void Player::ActorUpdate()
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
-    if (Input::IsKeyDown(DIK_A))
-        transform_.rotate_.y = XMConvertToDegrees((float)atan2(-transform_.position_.x, -transform_.position_.z));
 #endif
 
     if (Input::IsMouseButton(1))//ˆÚ“®

@@ -13,6 +13,8 @@ class Sprite
 	struct CONSTANT_BUFFER
 	{
 		XMMATRIX	matW;
+		XMMATRIX	uvTrans;
+		XMFLOAT4	color;
 	};
 
 	//í∏ì_èÓïÒ

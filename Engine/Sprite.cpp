@@ -51,6 +51,7 @@ void Sprite::Draw(Transform& transform, RECT rect)
 {
 	using namespace Direct3D;
 	Direct3D::SetShader(SHADER_2D);
+	//Direct3D::SetDepthBafferWriteEnable(false);
 	transform.Calculation();
 	//画面に合わせる
 		//表示するサイズに合わせる
@@ -65,6 +66,7 @@ void Sprite::Draw(Transform& transform, RECT rect)
 	SetBufferToPipeline();
 
 	Direct3D::pContext_->DrawIndexed(indexNum_, 0, 0);//!!
+	//Direct3D::SetDepthBafferWriteEnable(true);
 }
 
 void Sprite::Release()
@@ -147,7 +149,8 @@ void Sprite::PassDataToCB(const DirectX::XMMATRIX& worldMatrix)
 {
 	CONSTANT_BUFFER cb;
 	cb.matW = XMMatrixTranspose(worldMatrix);
-
+	cb.uvTrans = XMMatrixTranspose(texel);
+	cb.color = { 1.0f,1.0f,1.0f,1.0f };
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る

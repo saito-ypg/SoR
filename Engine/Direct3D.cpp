@@ -20,6 +20,7 @@ namespace Direct3D
 
 	ID3D11Texture2D* pDepthStencil_;			//深度ステンシル
 	ID3D11DepthStencilView* pDepthStencilView_;		//深度ステンシルビュー
+	ID3D11BlendState* pBlendState;//ブレンドステート
 
 	int scrWidth_, scrHeight_;
 }
@@ -115,8 +116,27 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 		descDepth.CPUAccessFlags = 0;
 		descDepth.MiscFlags = 0;
-		pDevice_->CreateTexture2D(&descDepth, NULL, &pDepthStencil_);
-		pDevice_->CreateDepthStencilView(pDepthStencil_, NULL, &pDepthStencilView_);
+		pDevice_->CreateTexture2D(&descDepth, nullptr, &pDepthStencil_);
+		pDevice_->CreateDepthStencilView(pDepthStencil_, nullptr, &pDepthStencilView_);
+
+		////ブレンドステート
+		//D3D11_BLEND_DESC BlendDesc;
+		//ZeroMemory(&BlendDesc, sizeof(BlendDesc));
+		//BlendDesc.AlphaToCoverageEnable = FALSE;
+		//BlendDesc.IndependentBlendEnable = FALSE;
+		//BlendDesc.RenderTarget[0].BlendEnable = TRUE;//此処から下3行まで変えると結構変わる！　半透明使うかどうか
+		//BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;		//現在描画しようとするもの
+		//BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;//すでに描画されてるモノ
+		//BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;			//混色の方法
+		//BlendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		//BlendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		//BlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		//BlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		//pDevice_->CreateBlendState(&BlendDesc, &pBlendState);
+
+		//float blendFactor[4]{ D3D11_BLEND_ZERO,D3D11_BLEND_ZERO ,D3D11_BLEND_ZERO ,D3D11_BLEND_ZERO };
+		//pContext_->OMSetBlendState(pBlendState, blendFactor, 0xffffffff);
+
 		//データを画面に描画するための一通りの設定（パイプライン）
 		pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);  // データの入力種類を指定
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView_);            // 描画先を設定
@@ -304,4 +324,19 @@ void  Direct3D::Release()
 	SAFE_RELEASE(pSwapChain_);
 	SAFE_RELEASE(pContext_);
 	SAFE_RELEASE(pDevice_);
+}
+
+void Direct3D::SetDepthBafferWriteEnable(bool isWrite)
+{//ON
+	if (isWrite)
+	{
+		//Zバッファ（デプスステンシルを指定する）
+		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView_);
+	}
+
+	//OFF
+	else
+	{
+		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, nullptr);
+	}
 }

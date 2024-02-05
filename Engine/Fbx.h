@@ -1,5 +1,4 @@
 #pragma once
-#pragma warning(once:4099)
 #include <d3d11.h>
 #include <fbxsdk.h>
 #include <string>
