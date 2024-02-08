@@ -1,3 +1,4 @@
+#include<cmath>
 #include "GameActor.h"
 #include"Engine/Model.h"
 #include"Engine/Camera.h"
@@ -64,6 +65,7 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 	{//ÉmÉNÉoèàóù
 		XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
 		vpos += dir * dmg.knockback_;
+
 		XMStoreFloat3(&transform_.position_, vpos);
 
 	}

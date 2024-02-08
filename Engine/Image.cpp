@@ -49,6 +49,25 @@ void Image::Release(int hPict)
 {
 	if (!ExistHandle(hPict))
 		return;
+	//同じモデルを他でも使っていないか
+	bool isExist = false;
+	for (int i = 0; i < imageList_.size(); i++)
+	{
+		//すでに開いている場合
+		if (imageList_.at(i) != nullptr && i != hPict && imageList_.at(i)->pSprite_ == imageList_.at(hPict)->pSprite_)
+		{
+			isExist = true;
+			break;
+		}
+	}
+
+	//使ってなければモデル解放
+	if (isExist == false)
+	{
+		SAFE_DELETE(imageList_.at(hPict)->pSprite_);
+	}
+
+	SAFE_DELETE(imageList_.at(hPict));
 }
 
 void Image::Release()
