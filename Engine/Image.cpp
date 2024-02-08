@@ -72,22 +72,10 @@ void Image::Release(int hPict)
 
 void Image::Release()
 {
-	bool isReffered = false;
+	
 	for (int i = 0; i < imageList_.size(); i++)
 	{
-		for (int j = i + 1; j < imageList_.size(); j++)
-		{
-			if (imageList_.at(i)->pSprite_ == imageList_.at(j)->pSprite_)
-			{
-				isReffered = true;
-				break;
-			}
-		}
-		if (!isReffered)
-		{
-			SAFE_DELETE(imageList_.at(i)->pSprite_);
-		}
-		SAFE_DELETE(imageList_.at(i));
+		SAFE_DELETE(imageList_.at(i)->pSprite_);
 	}
 	imageList_.clear();
 }
