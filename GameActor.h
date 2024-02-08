@@ -36,7 +36,7 @@ public:
     virtual void ActorUpdate()=0;//継承先で実装
     void Draw() override final;//個別の描画はActorDrawに分離すること
     virtual void ActorDraw() = 0;
-    void TakeAttacked(DamageData &dmg);//オーバーライドするか未定
+    void TakeAttacked(DamageData &dmg,XMVECTOR &dir);//オーバーライドするか未定
     Transform* GetTransformRef();
 };
 

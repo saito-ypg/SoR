@@ -58,9 +58,17 @@ void GameActor::DrawHP()
 }
 
 
-void GameActor::TakeAttacked(DamageData& dmg)
+void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
 	status_.hp_ -= dmg.damage_;
+	{//ÉmÉNÉoèàóù
+		XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
+		vpos += dir * dmg.knockback_;
+		XMStoreFloat3(&transform_.position_, vpos);
+
+	}
+
+
 	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 
 }

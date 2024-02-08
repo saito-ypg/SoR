@@ -48,6 +48,9 @@
     <Filter Include="Scenes\PlayScene\UI">
       <UniqueIdentifier>{654999fb-101d-4356-aa5f-7597955c7462}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\TitleScene">
+      <UniqueIdentifier>{85adb349-a73e-4fa4-9e38-8f10a14369b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="HPBar.h">
       <Filter>Scenes\PlayScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scenes\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="HPBar.cpp">
       <Filter>Scenes\PlayScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scenes\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

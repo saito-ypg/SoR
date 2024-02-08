@@ -26,9 +26,11 @@ namespace {
 	/// <summary>
 	/// UŒ‚‚ª“–‚½‚Á‚½Û‚ÉŒÄ‚Î‚ê‚éB
 	/// </summary>
-	void UnderAttack(::GameActor* a, DamageData& dmg)
+	void UnderAttack(::GameActor* act, DamageData& dmg,XMFLOAT3 &pos)
 	{
-		a->TakeAttacked(dmg);
+		auto actpos = act->GetPosition();
+		XMVECTOR dir =XMVector3Normalize( XMLoadFloat3(&actpos) - XMLoadFloat3(&pos));
+		act->TakeAttacked(dmg,dir);
 	}
 }
 
@@ -43,7 +45,8 @@ void CollisionManager::Update()
 				if (std::find(itr->ExclutionList_.begin(), itr->ExclutionList_.end(), itrActor.pActor) != itr->ExclutionList_.end())
 					continue;
 				if (itr->pRange_->IsHit(itrActor))
-					UnderAttack(itrActor.pActor,itr->dmg_);
+					UnderAttack(itrActor.pActor,itr->dmg_,itr->pRange_->position_);
+			
 			}
 			itr->pRange_->Duration--;
 			if (itr->pRange_->Duration <= 0)
