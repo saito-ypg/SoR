@@ -34,6 +34,9 @@ void TitleScene::Update()
 //•`‰æ
 void TitleScene::Draw()
 {
+	transform_.scale_ = { 0.4f,0.4f,0.4f };
+	Image::SetTransform(hImage, transform_);
+	Image::Draw(hImage);
 }
 
 //ŠJ•ú

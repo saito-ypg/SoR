@@ -67,7 +67,7 @@ void Image::Release(int hPict)
 		SAFE_DELETE(imageList_.at(hPict)->pSprite_);
 	}
 
-	SAFE_DELETE(imageList_.at(hPict));
+	imageList_.erase(imageList_.begin()+hPict);
 }
 
 void Image::Release()
