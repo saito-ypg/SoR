@@ -36,7 +36,7 @@ void GameActor::Update()
 	ActorUpdate();
 	if (knockBack.Time > 0)
 	{
-		float quart = (1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4));
+		float quart = (1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4));//outquartÇÃëùï™
 		XMVECTOR force = knockBack.Velocity * quart * knockBack.Dir;
 		ForceMove(knockBack.Velocity * quart * knockBack.Dir);
 		knockBack.Time--;
