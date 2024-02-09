@@ -12,7 +12,7 @@ private:
         float Velocity;//‹­‚³
         XMVECTOR Dir;//•ûŒü³‹K‰»
     } knockBack;
-    const float defTime = 15.0f;
+    const float defTime = 25.0f;
     protected:
     
     ActorInfo status_;

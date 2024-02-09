@@ -93,6 +93,7 @@ GameObject* GameObject::FindChildObject(string _objName)
 
 GameObject* GameObject::GetRootJob()
 {
+
 	if (pParent_ == nullptr)
 		return this;
 	return pParent_->GetRootJob();

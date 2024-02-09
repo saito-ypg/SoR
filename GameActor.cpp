@@ -81,6 +81,11 @@ void GameActor::DrawHP()
 
 void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
+	if (isInvincible_)
+	{
+
+		return;
+	}
 	status_.hp_ -= dmg.damage_;
 	{//ƒmƒNƒoˆ—
 		knockBack.Velocity = dmg.knockback_;
@@ -91,6 +96,8 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 	if (dmg.pEffect_) {
 		dmg.pEffect_;//—]—T‚ ‚Á‚½‚çÀ‘•‚µ‚æ
 	}
+	XMFLOAT3 fdir = GameObject::operator=(-dir);
+	transform_.rotate_.y= XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
 	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 
 }

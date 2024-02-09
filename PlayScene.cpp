@@ -30,6 +30,7 @@ void PlayScene::Initialize()
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
 	Camera::SetPosition(XMFLOAT3{ 0, 30, -20.0f });
 	HPBar::Initialize();
+
 }
 
 //çXêV

@@ -84,7 +84,7 @@ public:
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 	void SetScale(float x, float y, float z) { SetScale(XMFLOAT3(x, y, z)); }
 
-
+	XMFLOAT3 operator=(const XMVECTOR& vec) { XMFLOAT3 tmp; XMStoreFloat3(&tmp, vec); return tmp; };
 	////“–‚½‚è”»’èŠÖ˜A 
 	//
 	///// <summary>
