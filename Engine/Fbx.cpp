@@ -153,8 +153,8 @@ void Fbx::Release()
 	SAFE_DELETE_ARRAY(pMaterialList_);
 	SAFE_DELETE_ARRAY(indexCount_);
 	for(int i=0;i<materialCount_;i++)
-	{ 
-		SAFE_DELETE_ARRAY(ppIndex_[i]);
+	{ if(ppIndex_)
+		SAFE_DELETE(ppIndex_[i]);
 	}
 	SAFE_DELETE_ARRAY(ppIndex_);
 }

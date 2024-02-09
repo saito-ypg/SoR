@@ -56,26 +56,7 @@ void Model::Release(int hModel)
 {
 	if (!ExistHandle(hModel))
 		return;
-
-	//同じモデルを他でも使っていないか
-	bool isExist = false;
-	for (int i = 0; i < modelList_.size(); i++)
-	{
-		//すでに開いている場合
-		if (modelList_.at(i) != nullptr && i != hModel && modelList_.at(i)->pFbx_ == modelList_.at(hModel)->pFbx_)
-		{
-			isExist = true;
-			break;
-		}
-	}
-
-	//使ってなければモデル解放
-	if (isExist == false)
-	{
-		SAFE_RELEASE(modelList_.at(hModel)->pFbx_);
-	}
-
-	modelList_.erase(modelList_.begin() + hModel);
+	
 }
 
 void Model::Release()
