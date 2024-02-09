@@ -231,8 +231,8 @@ HRESULT Fbx::InitIndex(fbxsdk::FbxMesh* mesh)
 {
 	pIndexBuffer_ = new ID3D11Buffer*[materialCount_];
 	indexCount_ = new int[materialCount_];
-	ppIndex_ = new int* [materialCount_];
-	//int index=new int[polygoncount_ * 3];
+	const int indexes = polygonCount_ * 3;
+	ppIndex_ = std::make_unique<std::make_unique<int>(indexes)>(materialCount_);
 	for (int i = 0; i < materialCount_; i++)
 	{
 		ppIndex_[i] = new int[polygonCount_ * 3];
