@@ -8,11 +8,11 @@ class ActorCollider;
 class GameActor :public GameObject{
 private:
     struct {
-        float Time;//動く残り時間、強さから算出。
+        float Time;//動く残り時間
         float Velocity;//強さ
         XMVECTOR Dir;//方向正規化
     } knockBack;
-
+    const float defTime = 15.0f;
     protected:
     
     ActorInfo status_;

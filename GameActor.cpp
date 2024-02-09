@@ -36,9 +36,12 @@ void GameActor::Update()
 	ActorUpdate();
 	if (knockBack.Time > 0)
 	{
-
-		ForceMove(knockBack.Dir*[&]()->float { return 1 - std::pow(1 - knockBack.Time, 4); });
+		float quart = (1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4));
+		XMVECTOR force = knockBack.Velocity * quart * knockBack.Dir;
+		ForceMove(knockBack.Velocity * quart * knockBack.Dir);
 		knockBack.Time--;
+		if (knockBack.Time <= 0)
+			knockBack.Dir = XMVectorZero();
 	}
 
 	if (status_.hp_ <= 0)
@@ -80,7 +83,6 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
 	status_.hp_ -= dmg.damage_;
 	{//ƒmƒNƒoˆ—
-		const float defTime = 2.0f;
 		knockBack.Velocity = dmg.knockback_;
 		knockBack.Time = defTime;
 		knockBack.Dir = dir;
