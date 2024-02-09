@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <fbxsdk.h>
 #include <string>
+#include<memory>
 #include "Transform.h"
 #pragma comment(lib, "LibFbxSDK-Md.lib")
 #pragma comment(lib, "LibXml2-Md.lib")
