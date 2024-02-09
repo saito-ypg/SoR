@@ -56,8 +56,9 @@ void Model::Release(int hModel)
 {
 	if (!ExistHandle(hModel))
 		return;
-	//“¯‚¶ƒ‚ƒfƒ‹‚ð‘¼‚Å‚àŽg‚Á‚Ä‚¢‚È‚¢‚©
-	bool isExist = false;
+void Model::Release()
+{
+	bool isReffered = false;
 	for (int i = 0; i < modelList_.size(); i++)
 	{
 		//‚·‚Å‚ÉŠJ‚¢‚Ä‚¢‚éê‡
