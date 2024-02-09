@@ -17,6 +17,11 @@ GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(p
 	hQuad_ = Model::Load("Assets\\Area\\QuadArea.fbx");
 	hSector_ = Model::Load("Assets\\Area\\SectorArea.fbx");
 	assert(hCircle_ >= 0);
+	assert(hQuad_ >= 0);
+	assert(hSector_ >= 0);
+
+	knockBack = { 0,0,XMVectorZero() };
+
 }
 
 GameActor::~GameActor()
@@ -29,10 +34,19 @@ void GameActor::Update()
 	//いろいろ更新入れる
 	
 	ActorUpdate();
+	if (knockBack.Time > 0)
+	{
 
+		ForceMove(knockBack.Dir*[&]()->float { return 1 - std::pow(1 - knockBack.Time, 4); });
+		knockBack.Time--;
+	}
 
 	if (status_.hp_ <= 0)
 		KillMe();
+}
+
+void GameActor::ActorUpdate()
+{
 }
 
 void GameActor::Draw()
@@ -42,6 +56,9 @@ void GameActor::Draw()
 	ActorDraw();
 	DrawHP();
 
+}
+void GameActor::ActorDraw()
+{
 }
 void GameActor::DrawHP()
 {
@@ -63,14 +80,15 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
 	status_.hp_ -= dmg.damage_;
 	{//ノクバ処理
-		XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-		vpos += dir * dmg.knockback_;
-
-		XMStoreFloat3(&transform_.position_, vpos);
+		const float defTime = 2.0f;
+		knockBack.Velocity = dmg.knockback_;
+		knockBack.Time = defTime;
+		knockBack.Dir = dir;
 
 	}
-
-
+	if (dmg.pEffect_) {
+		dmg.pEffect_;//余裕あったら実装しよ
+	}
 	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 
 }
@@ -81,6 +99,11 @@ void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
 void GameActor::RemoveColliderCamp(GameActor* act, CAMPS camp)
 {
 	CollisionManager::RemoveCamp(act, camp);
+}
+
+bool GameActor::CanMove()
+{
+	return false;
 }
 
 void GameActor::SimpleDraw()
@@ -104,4 +127,12 @@ void GameActor::DrawCollision()
 Transform* GameActor::GetTransformRef()
 {
 	return &transform_;
+}
+
+void GameActor::ForceMove(XMVECTOR move)
+{
+	XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
+	vpos += move;
+	XMStoreFloat3(&transform_.position_, vpos);
+
 }

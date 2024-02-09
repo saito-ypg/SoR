@@ -7,8 +7,14 @@
 class ActorCollider;
 class GameActor :public GameObject{
 private:
+    struct {
+        float Time;//動く残り時間、強さから算出。
+        float Velocity;//強さ
+        XMVECTOR Dir;//方向正規化
+    } knockBack;
+
+    protected:
     
-protected:
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
     bool isDead_;//HP0以下になったらこれ変える、gameobjectとは別？
@@ -19,7 +25,7 @@ protected:
     void RemoveColliderCamp(GameActor* act, CAMPS camp);;//当たり判定消去
     virtual void RemoveCamp()= 0;//継承用
     
-
+    bool CanMove();//妨害要素によって動けない状態にあるか
     //void LoadModel(string filename);//モデルを読み込み、hModels_に追加。読み込めたらtrue
     
     void SimpleDraw();//簡易的にモデルを描画する。draw内で呼ぶ
@@ -38,5 +44,6 @@ public:
     virtual void ActorDraw() = 0;
     void TakeAttacked(DamageData &dmg,XMVECTOR &dir);//オーバーライドするか未定
     Transform* GetTransformRef();
+    void ForceMove(XMVECTOR move);
 };
 

@@ -35,7 +35,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 	//ローカル座標に、ワールド行列をかけて
 	//ワールド座標に変換し、ピクセルシェーダーへ
 	outData.pos = mul(pos, matW);
-    outData.uv = mul(uv, matTex);
+    outData.uv = (float2) mul(uv, matTex);
 	//まとめて出力
 	return outData;
 }
