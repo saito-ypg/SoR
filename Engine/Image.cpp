@@ -50,27 +50,24 @@ void Image::Release(int hPict)
 {
 	if (!ExistHandle(hPict))
 		return;
-}
 
-void Image::Release()
-{
 	bool isReffered = false;
 	for (int i = 0; i < imageList_.size(); i++)
 	{
 		for (int j = i + 1; j < imageList_.size(); j++)
 		{
-			isExist = true;
+			isReffered = true;
 			break;
 		}
 	}
 
 	//Žg‚Á‚Ä‚È‚¯‚ê‚Îƒ‚ƒfƒ‹‰ð•ú
-	if (isExist == false)
+	if (isReffered == false)
 	{
 		SAFE_DELETE(imageList_.at(hPict)->pSprite_);
 	}
 	SAFE_DELETE(imageList_.at(hPict));
-	imageList_.erase(imageList_.begin()+hPict);
+	imageList_.erase(imageList_.begin() + hPict);
 }
 
 void Image::ReleaseAll()
@@ -78,9 +75,7 @@ void Image::ReleaseAll()
 	
 	for (int i = 0; i < imageList_.size(); i++)
 	{
-		Release(i);/*
-		SAFE_DELETE(imageList_.at(i)->pSprite_);
-		SAFE_DELETE(imageList_.at(i));*/
+		Release(i);
 	}
 	imageList_.clear();
 }
