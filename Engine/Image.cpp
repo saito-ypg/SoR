@@ -1,11 +1,13 @@
 #include "Image.h"
 #include"global.h"
+#include"Debug.h"
 namespace Image {
     std::vector<ImageData*> imageList_;
 	bool ExistHandle(int handle) { return (handle >= 0 && handle < imageList_.size()); }
 }
 int Image::Load(std::string fileName)
 {
+	Debug::Log((int)sizeof(ImageData));
 	ImageData* pData = new ImageData;
 	pData->fileName_ = fileName;
 	pData->pSprite_ = nullptr;
@@ -57,17 +59,28 @@ void Image::Release()
 	{
 		for (int j = i + 1; j < imageList_.size(); j++)
 		{
-			if (imageList_.at(i)->pSprite_ == imageList_.at(j)->pSprite_)
-			{
-				isReffered = true;
-				break;
-			}
+			isExist = true;
+			break;
 		}
-		if (!isReffered)
-		{
-			SAFE_DELETE(imageList_.at(i)->pSprite_);
-		}
-		SAFE_DELETE(imageList_.at(i));
+	}
+
+	//Žg‚Á‚Ä‚È‚¯‚ê‚Îƒ‚ƒfƒ‹‰ð•ú
+	if (isExist == false)
+	{
+		SAFE_DELETE(imageList_.at(hPict)->pSprite_);
+	}
+	SAFE_DELETE(imageList_.at(hPict));
+	imageList_.erase(imageList_.begin()+hPict);
+}
+
+void Image::ReleaseAll()
+{
+	
+	for (int i = 0; i < imageList_.size(); i++)
+	{
+		Release(i);/*
+		SAFE_DELETE(imageList_.at(i)->pSprite_);
+		SAFE_DELETE(imageList_.at(i));*/
 	}
 	imageList_.clear();
 }

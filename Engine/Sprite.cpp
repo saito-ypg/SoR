@@ -71,7 +71,6 @@ void Sprite::Draw(Transform& transform, RECT rect)
 
 void Sprite::Release()
 {
-	SAFE_RELEASE(pTexture_);
 	SAFE_DELETE(pTexture_);
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pIndexBuffer_);
