@@ -83,7 +83,6 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
 	if (isInvincible_)
 	{
-
 		return;
 	}
 	status_.hp_ -= dmg.damage_;
@@ -91,7 +90,6 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 		knockBack.Velocity = dmg.knockback_;
 		knockBack.Time = defTime;
 		knockBack.Dir = dir;
-
 	}
 	if (dmg.pEffect_) {
 		dmg.pEffect_;//—]—T‚ ‚Á‚½‚çŽÀ‘•‚µ‚æ

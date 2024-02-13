@@ -35,6 +35,11 @@ bool AttackRangeCircle::IsHit(actorAddr& data)
 
 }
 
+XMVECTOR AttackRangeCircle::getDir(XMFLOAT3 pos)
+{
+	return  XMVector3Normalize(XMLoadFloat3(&pos) - XMLoadFloat3(&position_));
+}
+
 
 AttackRangeQuad::AttackRangeQuad() :AttackRangeBase()
 {
@@ -75,6 +80,12 @@ bool AttackRangeQuad::IsHit(actorAddr& data)
 	float r = (float)pow(data.pActor->GetRadius(), 2);//çüèàÇ∆è„ÇÃçsïsà¿ÉAÉã
 	return (dist < r);
 
+
+}
+
+XMVECTOR AttackRangeQuad::getDir(XMFLOAT3 pos)
+{
+	return XMVector3TransformCoord(XMVECTOR{ 0,0,1,0 }, XMMatrixRotationY(this->rotate_));
 
 }
 
@@ -128,6 +139,11 @@ bool AttackRangeCirculerSector::IsHit(actorAddr& data)
 	}
 	return true;
 
+}
+
+XMVECTOR AttackRangeCirculerSector::getDir(XMFLOAT3 pos)
+{
+	return  XMVector3Normalize(XMLoadFloat3(&pos) - XMLoadFloat3(&position_));
 }
 
 

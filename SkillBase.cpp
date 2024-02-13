@@ -25,7 +25,7 @@ void SkillBase::Update()
 		return;
 	}
 
-	action();//ここで更新で良い？
+	action();
 	steptime--;//時間進める
 	if (steptime > 0)
 		return;
@@ -40,8 +40,6 @@ void SkillBase::Update()
 
 void SkillBase::Activate(Transform tr)
 {
-
-	//発動できる状態なら
 	transform_ = tr;
 	castTime_ = defaultCastTime_;
 	coolDown_ = defaultCoolDown_;

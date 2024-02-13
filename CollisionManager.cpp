@@ -9,8 +9,6 @@
 
 //各陣営の当たり判定
 namespace {
-	//mapでやるのよくない？走査するなら構造体のvector?
-	
 	using namespace CollisionManager;
 	struct RangeData {
 		AttackRangeBase* pRange_;
@@ -18,18 +16,15 @@ namespace {
 		DamageData dmg_;
 		RangeData(AttackRangeBase* pR, DamageData dmg) :pRange_(pR),dmg_(dmg){}
 	};
-
 	std::vector<std::vector<actorAddr>>CollisionList(CAMPS::NUM);
 	std::vector<std::vector<RangeData>>RangeTest(CAMPS::NUM);
-
-	
 	/// <summary>
 	/// 攻撃が当たった際に呼ばれる。
 	/// </summary>
-	void UnderAttack(::GameActor* act, DamageData& dmg,XMFLOAT3 &pos)
+	void UnderAttack(::GameActor* act, DamageData& dmg,AttackRangeBase*range)
 	{
-		auto actpos = act->GetPosition();
-		XMVECTOR dir =XMVector3Normalize( XMLoadFloat3(&actpos) - XMLoadFloat3(&pos));
+		XMFLOAT3 actpos = act->GetPosition();
+		XMVECTOR dir = range->getDir(act->GetPosition());
 		act->TakeAttacked(dmg,dir);
 	}
 }
@@ -45,8 +40,9 @@ void CollisionManager::Update()
 				if (std::find(itr->ExclutionList_.begin(), itr->ExclutionList_.end(), itrActor.pActor) != itr->ExclutionList_.end())
 					continue;
 				if (itr->pRange_->IsHit(itrActor))
-					UnderAttack(itrActor.pActor,itr->dmg_,itr->pRange_->position_);
-			
+				{
+					UnderAttack(itrActor.pActor, itr->dmg_,itr->pRange_ );
+				}
 			}
 			itr->pRange_->Duration--;
 			if (itr->pRange_->Duration <= 0)
@@ -64,6 +60,11 @@ void CollisionManager::Update()
 
 void CollisionManager::AddCamp(::GameActor* newActor, CAMPS camp)
 {
+	for (auto& itr : CollisionList.at(camp))
+	{
+		if (itr.pActor == newActor)//重複しないように
+			return;
+	}
 	ActorCollider* ac = new ActorCollider(&newActor->GetTransformRef()->position_);
 	CollisionList.at(camp).emplace_back(newActor, ac);
 

@@ -25,7 +25,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Decoy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
-    <ClCompile Include="EnemyList.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Debug.cpp" />
     <ClCompile Include="Engine\Direct3D.cpp" />
@@ -86,7 +86,7 @@
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="SkillBase.h" />
     <ClInclude Include="TestScene.h" />
-    <ClInclude Include="EnemyList.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="testSkill.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>

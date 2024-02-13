@@ -16,6 +16,7 @@ struct AttackRangeBase
 	AttackRangeBase(XMFLOAT3 pos);
 	AREATYPE getType() { return areatype_; }
 	virtual bool IsHit(struct actorAddr& data)=0;
+	virtual XMVECTOR getDir(XMFLOAT3 pos) = 0;
 protected:
 	AREATYPE areatype_;//攻撃エリア。要初期化
 
@@ -28,6 +29,7 @@ struct AttackRangeCircle		:public AttackRangeBase//円形の攻撃範囲データ
 	AttackRangeCircle();
 	AttackRangeCircle(XMFLOAT3 pos);
 	bool IsHit(struct actorAddr &data)override;
+	XMVECTOR getDir(XMFLOAT3 pos) override;
 };
 struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 {
@@ -37,6 +39,7 @@ struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 	AttackRangeQuad();
 	AttackRangeQuad(XMFLOAT3 pos);
 	bool IsHit(struct actorAddr& data)override;
+	XMVECTOR getDir(XMFLOAT3 pos) override;
 };
 struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 {
@@ -46,5 +49,6 @@ struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 	AttackRangeCirculerSector();
 	AttackRangeCirculerSector(XMFLOAT3 pos);
 	bool IsHit(struct actorAddr& data)override;
+	XMVECTOR getDir(XMFLOAT3 pos) override;
 };
 

@@ -110,7 +110,7 @@
     <ClInclude Include="Decoy.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyList.h">
+    <ClInclude Include="EnemyManager.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
@@ -224,7 +224,7 @@
     <ClCompile Include="Decoy.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyList.cpp">
+    <ClCompile Include="EnemyManager.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
