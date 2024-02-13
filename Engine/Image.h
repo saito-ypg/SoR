@@ -16,7 +16,7 @@ namespace Image
 	void SetTransform(int hPict, Transform transform);
 	void Draw(int hPict);
 	void Release(int hPict);
-	void Release();//モデルを使っていないか確認
+	void ReleaseAll();//モデルを使っていないか確認
 	void ResetRect(int hPict);
 }
 
