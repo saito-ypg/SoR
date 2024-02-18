@@ -74,7 +74,6 @@ void Sprite::Draw(Transform& transform, RECT rect)
 
 void Sprite::Release()
 {
-	SAFE_RELEASE(pTexture_);
 	SAFE_DELETE(pTexture_);
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pIndexBuffer_);
@@ -112,7 +111,7 @@ HRESULT Sprite::CreateVertexBuffer()
 void Sprite::InitIndexData()
 {
 	indexNum_ = 6;
-	index_ = new int[6] { 0, 2, 3, 0, 1, 2 };
+	index_ = new int[indexNum_] { 0, 2, 3, 0, 1, 2 };
 }
 HRESULT Sprite::CreateIndexBuffer()
 {

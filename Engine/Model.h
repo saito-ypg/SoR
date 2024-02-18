@@ -15,7 +15,7 @@ namespace Model
 	void SetTransform(int hModel, Transform transform);
 	void Draw(int hModel);
 	void Release(int hModel);
-	void Release();//モデルを使っていないか確認
+	void ReleaseAll();//モデルを使っていないか確認
 	void RayCast(int hModel, RayCastData& raydata);//モデル番号を指定し、そのFBXにレイキャストをおこなう
 	
 }

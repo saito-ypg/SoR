@@ -56,17 +56,37 @@ void Model::Release(int hModel)
 {
 	if (!ExistHandle(hModel))
 		return;
-	
-}
 
-void Model::Release()
-{
+	//同じモデルを他でも使っていないか
+	bool isExist = false;
 	for (int i = 0; i < modelList_.size(); i++)
 	{
-		SAFE_RELEASE(modelList_.at(i)->pFbx_);
+		//すでに開いている場合
+		if (modelList_.at(i) != nullptr && i != hModel && modelList_.at(i)->pFbx_ == modelList_.at(hModel)->pFbx_)
+		{
+			isExist = true;
+			break;
+		}
+	}
+
+	//使ってなければモデル解放
+	if (isExist == false)
+	{
+		SAFE_DELETE(modelList_.at(hModel)->pFbx_);
+	}
+	SAFE_DELETE(modelList_.at(hModel));
+}
+
+void Model::ReleaseAll()
+{
+
+	for (int i = 0; i < modelList_.size(); i++)
+	{
+		Release(i);
 	}
 	modelList_.clear();
 }
+
 
 void Model::RayCast(int hModel, RayCastData& raydata)
 {

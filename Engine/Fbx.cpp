@@ -4,7 +4,7 @@
 #include"Camera.h"
 #include"Texture.h"
 
-Fbx::Fbx() :pVertexBuffer_(nullptr), pIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pMaterialList_(nullptr), pVertices_(nullptr),ppIndex_(nullptr), vertexCount_(0), polygonCount_(0), materialCount_(0), indexCount_(nullptr)
+Fbx::Fbx() :pVertexBuffer_(nullptr), ppIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pMaterialList_(nullptr), pVertices_(nullptr),ppIndex_(nullptr), vertexCount_(0), polygonCount_(0), materialCount_(0), indexCount_(nullptr)
 {
 }
 
@@ -133,7 +133,7 @@ void Fbx::Draw(Transform& transform)
 		// インデックスバッファーをセット
 		stride = sizeof(int);
 		offset = 0;
-		Direct3D::pContext_->IASetIndexBuffer(pIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
+		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
 
 		//コンスタントバッファ
 		Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
@@ -147,11 +147,22 @@ void Fbx::Draw(Transform& transform)
 
 void Fbx::Release()
 {
-	SAFE_RELEASE(pConstantBuffer_);
-	SAFE_DELETE_ARRAY(pIndexBuffer_);
+
 	SAFE_RELEASE(pVertexBuffer_);
-	SAFE_DELETE_ARRAY(pMaterialList_);
+	for (int i = 0; i < materialCount_; i++)
+	{
+		SAFE_RELEASE(ppIndexBuffer_[i]);
+		SAFE_DELETE(ppIndex_[i]);
+		SAFE_DELETE(pMaterialList_[i].pTexture);
+	}
+	
+	SAFE_DELETE_ARRAY(ppIndex_);
 	SAFE_DELETE_ARRAY(indexCount_);
+	SAFE_DELETE_ARRAY(ppIndexBuffer_);
+	SAFE_DELETE_ARRAY(pMaterialList_);
+
+	SAFE_DELETE_ARRAY(pVertices_);
+	SAFE_RELEASE(pConstantBuffer_);
 }
 
 void Fbx::RayCast(RayCastData& rayData)
@@ -177,8 +188,7 @@ void Fbx::RayCast(RayCastData& rayData)
 //頂点バッファ準備
 HRESULT Fbx::InitVertex(fbxsdk::FbxMesh* mesh)
 {
-	//頂点情報を入れる配列
-	//VERTEX* vertices=new VERTEX[vertexCount_];
+
 	pVertices_ = new VERTEX[vertexCount_];
 
 	//全ポリゴン
@@ -224,7 +234,7 @@ HRESULT Fbx::InitVertex(fbxsdk::FbxMesh* mesh)
 //インデックスバッファ準備
 HRESULT Fbx::InitIndex(fbxsdk::FbxMesh* mesh)
 {
-	pIndexBuffer_ = new ID3D11Buffer*[materialCount_];
+	ppIndexBuffer_ = new ID3D11Buffer*[materialCount_];
 	indexCount_ = new int[materialCount_];
 	ppIndex_ = new int* [materialCount_];
 	const int indexes = polygonCount_ * 3;
@@ -263,7 +273,7 @@ HRESULT Fbx::InitIndex(fbxsdk::FbxMesh* mesh)
 		InitData.pSysMem = ppIndex_[i];
 		InitData.SysMemPitch = 0;
 		InitData.SysMemSlicePitch = 0;
-		HRESULT hr=Direct3D::pDevice_->CreateBuffer(&bd, &InitData, &pIndexBuffer_[i]);
+		HRESULT hr=Direct3D::pDevice_->CreateBuffer(&bd, &InitData, &ppIndexBuffer_[i]);
 		if(FAILED(hr))
 		{
 			return hr;
@@ -316,7 +326,7 @@ void Fbx::SetBufferToPipeline(int i)
 	// インデックスバッファーをセット
 	stride = sizeof(int);
 	offset = 0;
-	Direct3D::pContext_->IASetIndexBuffer(pIndexBuffer_[i], DXGI_FORMAT_R32_UINT, offset);
+	Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, offset);
 		
 	//コンスタントバッファ
 	Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	

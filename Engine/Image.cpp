@@ -1,8 +1,9 @@
 #include "Image.h"
 #include"global.h"
+
 namespace Image {
     std::vector<ImageData*> imageList_;
-	bool ExistHandle(int handle) { return (handle >= 0 && handle < imageList_.size()); }
+	bool ExistHandle(int handle) { return (0<=handle  && handle < imageList_.size()); }
 }
 int Image::Load(std::string fileName)
 {
@@ -12,7 +13,7 @@ int Image::Load(std::string fileName)
 
 	for (auto& e : imageList_)
 	{
-		if (e->fileName_ == fileName)
+		if (e&&e->fileName_ == fileName)
 		{
 			pData->pSprite_ = e->pSprite_;
 			break;
@@ -49,37 +50,34 @@ void Image::Release(int hPict)
 {
 	if (!ExistHandle(hPict))
 		return;
-	//同じモデルを他でも使っていないか
-	bool isExist = false;
+
+	bool isReffered = false;
 	for (int i = 0; i < imageList_.size(); i++)
 	{
 		//すでに開いている場合
 		if (imageList_.at(i) != nullptr && i != hPict && imageList_.at(i)->pSprite_ == imageList_.at(hPict)->pSprite_)
 		{
-			isExist = true;
+			isReffered= true;
 			break;
 		}
 	}
 
 	//使ってなければモデル解放
-	if (isExist == false)
+	if (isReffered == false)
 	{
 		SAFE_DELETE(imageList_.at(hPict)->pSprite_);
 	}
-
-	imageList_.erase(imageList_.begin()+hPict);
+	SAFE_DELETE(imageList_.at(hPict));
 }
 
-void Image::Release()
+void Image::ReleaseAll()
 {
-	
 	for (int i = 0; i < imageList_.size(); i++)
 	{
-		SAFE_DELETE(imageList_.at(i)->pSprite_);
+		Release(i);
 	}
 	imageList_.clear();
 }
-
 void Image::ResetRect(int hPict)
 {
 	XMFLOAT3 size = imageList_.at(hPict)->pSprite_-> GetTextureSize();
