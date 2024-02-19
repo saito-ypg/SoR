@@ -5,19 +5,20 @@
 #include "Transform.h"
 //class SphereCollider;
 using std::string;
-class GameObject
+class GameObject 
 {
 private:
-	float deltatime_;//前回更新からの秒数 
-	float timeScale;//このゲームオブジェクトとその子供の更新速度
-	float parentTimeScale;//親のゲームオブジェクトの更新速度
+
 protected:
 	std::list<GameObject*> childList_;
 	Transform transform_;
 	GameObject* pParent_;
 	std::string	objectName_;
 	//SphereCollider* pCollider_;
-	
+
+	int deltatime_;//前回更新からのミリ秒数 
+	float timeScale;//このゲームオブジェクトとその子供の更新速度
+	float parentTimeScale;//親のゲームオブジェクトの更新速度
 	
 public:
 	GameObject();
@@ -63,7 +64,7 @@ public:
 
 
 	//アクセス関数
-	float GetDeltaTime()const { return deltatime_; }
+	int GetDeltaTime()const { return deltatime_; }
 	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
 	float GetVelocity()const { return parentTimeScale * timeScale; }//
 	GameObject* GetParent() const{ return pParent_; }

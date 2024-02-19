@@ -128,6 +128,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 			{
 				continue;
 			}
+			pRootJob->SetDelta(nowTime-lastUpdateTime);
 			lastUpdateTime = nowTime;
 			countFps++;
 
@@ -138,6 +139,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 			Camera::Update();
 			//“ü—Í‚Ìˆ—
 			Input::Update();
+			
 			pRootJob->UpdateSub();
 
 			//•`‰æ
