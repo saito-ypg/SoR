@@ -19,10 +19,16 @@ void ModeratorSequence::Initialize()
 
 void ModeratorSequence::Update(const float& dt)
 {
-	switch (st)
+	switch (state)
 	{
-	default:
+	case ModeratorSequence::PREP:
 		break;
+	case ModeratorSequence::BEGIN:
+		if()
+		break;
+	case ModeratorSequence::END:
+		break;
+
 	}
 }
 
