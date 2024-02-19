@@ -1,10 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
-
+#include<memory>
+class ModeratorSequence;
 
 //■■シーンを管理するクラス
 class PlayScene : public GameObject
 {
+private:
+	ModeratorSequence* mod;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）

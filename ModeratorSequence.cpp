@@ -9,6 +9,10 @@ ModeratorSequence::~ModeratorSequence()
 	Release();
 }
 
+void ModeratorSequence::Initialize()
+{
+}
+
 void ModeratorSequence::Update()
 {
 }

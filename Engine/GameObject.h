@@ -1,5 +1,5 @@
 #pragma once
-
+#include<memory>
 #include<string>
 #include<list>
 #include "Transform.h"
@@ -64,8 +64,8 @@ public:
 
 	//アクセス関数
 	float GetDeltaTime()const { return deltatime_; }
-	float GetMyVelocity() const { return VelocityCoefficient; }
-	float GetVelocity()const { return parentVelocityCoefficient * VelocityCoefficient; }
+	float GetMyVelocity() const { return VelocityCoefficient; }//オブジェクト単体の更新速度
+	float GetVelocity()const { return parentVelocityCoefficient * VelocityCoefficient; }//
 	GameObject* GetParent() const{ return pParent_; }
 	XMFLOAT3 GetPosition() const { return transform_.position_; }
 	XMFLOAT3 GetRotate() const { return transform_.rotate_; }
@@ -118,7 +118,6 @@ public:
 		parent->childList_.push_back(p);
 		return p;
 	}
-
 };
 
 

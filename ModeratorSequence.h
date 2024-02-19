@@ -10,10 +10,13 @@ class ModeratorSequence :
     public GameObject
 {
 private:
-protected:
+    float time;//¡‚Íˆ—ŠÔˆË‘¶‚¶‚á‚È‚­ƒtƒŒ[ƒ€”ˆË‘¶‚¾‚©‚çAŠÔ‘‚â‚·‚Ì‚àŒÅ’è‚Å‚¢‚¢‚©
+    
+
 public:
     ModeratorSequence(GameObject*parent);
     ~ModeratorSequence();
+    void Initialize()override;
     void Update()override;
     void Draw()override;
     void Release()override;

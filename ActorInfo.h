@@ -2,10 +2,10 @@
 class ActorInfo
 {
 public:
-	int hp_;
-	int maxHp_;
+	float hp_;
+	float maxHp_;
 	float hitCircleRange_;
 	ActorInfo() :hp_(0), maxHp_(0), hitCircleRange_(0) {};
-	ActorInfo(int maxHp, float range):hp_(maxHp),maxHp_(maxHp),hitCircleRange_(range){}
+	ActorInfo(float maxHp, float range):hp_(maxHp),maxHp_(maxHp),hitCircleRange_(range){}
 };
 
