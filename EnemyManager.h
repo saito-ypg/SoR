@@ -12,7 +12,7 @@ public:
 	EnemyManager(GameObject* parent);
 	~EnemyManager();
 	void Initialize();
-	void Update();
+	void Update(const float& dt);
 	void Draw();
 	void Release();
 	std::vector<EnemyBase*> Enemylist_;

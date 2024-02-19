@@ -19,11 +19,12 @@ void EnemyManager::Initialize()
 {
 }
 
-void EnemyManager::Update()
+void EnemyManager::Update(const float& dt)
 {
 	for (auto& itr : Enemylist_)
 	{
-		itr->UpdateSub();
+		
+		itr->UpdateSub(dt);
 	}
 }
 

@@ -20,7 +20,7 @@ void SceneManager::Initialize()
 	Instantiate<TitleScene>(this);
 }
 
-void SceneManager::Update()
+void SceneManager::Update(const float& dt)
 {
 	/*ƒV[ƒ“‚ğØ‚è‘Ö‚¦
 	Œ»İ‚ÆŸ‚ª•Ê‚¾‚Á‚½‚çØ‚è‘Ö‚¦

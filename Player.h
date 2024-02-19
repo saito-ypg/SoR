@@ -51,7 +51,7 @@ public:
     void Initialize() override;
 
     //ŒÂ•ÊXV
-    void ActorUpdate() override;
+    void ActorUpdate(const float& dt) override;
 
    
 

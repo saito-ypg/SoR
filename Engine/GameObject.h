@@ -16,7 +16,6 @@ protected:
 	std::string	objectName_;
 	//SphereCollider* pCollider_;
 
-	int deltatime_;//前回更新からのミリ秒数 
 	float timeScale;//このゲームオブジェクトとその子供の更新速度
 	float parentTimeScale;//親のゲームオブジェクトの更新速度
 	
@@ -26,12 +25,12 @@ public:
 	virtual ~GameObject();
 
 	virtual void Initialize() = 0;
-	virtual void Update() = 0;
+	virtual void Update(const float& dt) = 0;
 	virtual void Draw() = 0;
 	virtual void Release() = 0;
 
 	//自身と子全てのUpdateを呼ぶ
-	void UpdateSub();
+	void UpdateSub(const float& dt);
 	//自身と子全てのDrawを呼ぶ
 	void DrawSub();
 	//自身と子全てのReleaseを呼ぶ
@@ -64,7 +63,6 @@ public:
 
 
 	//アクセス関数
-	int GetDeltaTime()const { return deltatime_; }
 	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
 	float GetVelocity()const { return parentTimeScale * timeScale; }//
 	GameObject* GetParent() const{ return pParent_; }

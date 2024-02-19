@@ -38,19 +38,20 @@ void Player::Initialize()
 }
 
 //更新
-void Player::ActorUpdate()
+void Player::ActorUpdate(const float& dt)
 {
 #ifdef _DEBUG
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))
-            SetTimeScale(1.0f);
+            pParent_->SetTimeScale(1.0f);
         if (Input::IsKeyDown(DIK_2))
-            SetTimeScale(2.0f);
+            pParent_->SetTimeScale(2.0f);
         if (Input::IsKeyDown(DIK_0))
-            SetTimeScale(0.0f);
+            pParent_->SetTimeScale(0.0f);
         if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
+    int a=0;
 
     //当たり判定テスト用
     if (Input::IsKeyDown(DIK_Z))

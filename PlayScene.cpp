@@ -37,7 +37,7 @@ void PlayScene::Initialize()
 }
 
 //XV
-void PlayScene::Update()
+void PlayScene::Update(const float& dt)
 {
 	CollisionManager::Update();
 }

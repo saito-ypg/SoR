@@ -38,8 +38,8 @@ public:
     float GetRadius()const{return status_.hitCircleRange_;}
     GameActor(GameObject* parent, const std::string& name); 
     virtual ~GameActor();
-    void Update() override final;//info関連の更新はすべてのキャラでやるので、個別の更新はActorUpdateに分離すること
-    virtual void ActorUpdate()=0;//継承先で実装
+    void Update(const float& dt) override final;//info関連の更新はすべてのキャラでやるので、個別の更新はActorUpdateに分離すること
+    virtual void ActorUpdate(const float& dt)=0;//継承先で実装
     void Draw() override final;//個別の描画はActorDrawに分離すること
     virtual void ActorDraw() = 0;
     void TakeAttacked(DamageData &dmg,XMVECTOR &dir);//オーバーライドするか未定

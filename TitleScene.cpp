@@ -22,7 +22,7 @@ void TitleScene::Initialize()
 }
 
 //çXêV
-void TitleScene::Update()
+void TitleScene::Update(const float& dt)
 {
 	if (Input::IsKeyDown(DIK_RETURN))
 	{

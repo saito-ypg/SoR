@@ -29,11 +29,11 @@ GameActor::~GameActor()
 
 }
 
-void GameActor::Update()
+void GameActor::Update(const float& dt)
 {
 	//‚¢‚ë‚¢‚ëXV“ü‚ê‚é
 	
-	ActorUpdate();
+	ActorUpdate(dt);
 	if (knockBack.Time > 0)
 	{
 		float quart =(1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4));//outquart‚Ì‘•ª
@@ -48,7 +48,7 @@ void GameActor::Update()
 		KillMe();
 }
 
-void GameActor::ActorUpdate()
+void GameActor::ActorUpdate(const float& dt)
 {
 }
 

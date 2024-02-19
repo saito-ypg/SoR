@@ -14,6 +14,7 @@ const char* WIN_CLASS_NAME = "SampleGame";
 const char* GAME_TITLE = "サンプルゲーム";
 const int WINDOW_WIDTH = 800;  //ウィンドウの幅
 const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
+const DWORD DELTA_MAX = 333;
 RootJob* pRootJob = nullptr;
 
 //プロトタイプ宣言
@@ -124,11 +125,11 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 				countFps = 0;
 				startTime = nowTime;
 			}
-			if ((nowTime - lastUpdateTime) * 60 <= 1000.0f)
+			DWORD diff = nowTime - lastUpdateTime;
+			if ((diff) * 60 <= 1000.0f)
 			{
 				continue;
 			}
-			pRootJob->SetDelta(nowTime-lastUpdateTime);
 			lastUpdateTime = nowTime;
 			countFps++;
 
@@ -140,7 +141,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 			//入力の処理
 			Input::Update();
 			
-			pRootJob->UpdateSub();
+			pRootJob->UpdateSub(diff<DELTA_MAX?diff:DELTA_MAX);
 
 			//描画
 			Direct3D::BeginDraw();

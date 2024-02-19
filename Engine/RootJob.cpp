@@ -9,19 +9,15 @@ RootJob::~RootJob()
 {
 }
 
-void RootJob::SetDelta(int dt)
-{
-	deltatime_ = dt;
-}
-
 void RootJob::Initialize()
 {	
 
 	Instantiate<SceneManager>(this);
 }
 
-void RootJob::Update()
+void RootJob::Update(const float& dt)
 {
+
 }
 
 void RootJob::Draw()
