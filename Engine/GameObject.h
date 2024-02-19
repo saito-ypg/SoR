@@ -1,23 +1,23 @@
 #pragma once
-
+#include<memory>
 #include<string>
 #include<list>
 #include "Transform.h"
 //class SphereCollider;
 using std::string;
-class GameObject
+class GameObject 
 {
 private:
-	float deltatime_;//前回更新からの秒数 
-	float VelocityCoefficient;//このゲームオブジェクトとその子供の更新速度
-	float parentVelocityCoefficient;//親のゲームオブジェクトの更新速度
+
 protected:
 	std::list<GameObject*> childList_;
 	Transform transform_;
 	GameObject* pParent_;
 	std::string	objectName_;
 	//SphereCollider* pCollider_;
-	
+
+	float timeScale;//このゲームオブジェクトとその子供の更新速度
+	float parentTimeScale;//親のゲームオブジェクトの更新速度
 	
 public:
 	GameObject();
@@ -25,12 +25,12 @@ public:
 	virtual ~GameObject();
 
 	virtual void Initialize() = 0;
-	virtual void Update() = 0;
+	virtual void Update(const float& dt) = 0;
 	virtual void Draw() = 0;
 	virtual void Release() = 0;
 
 	//自身と子全てのUpdateを呼ぶ
-	void UpdateSub();
+	void UpdateSub(const float& dt);
 	//自身と子全てのDrawを呼ぶ
 	void DrawSub();
 	//自身と子全てのReleaseを呼ぶ
@@ -63,9 +63,8 @@ public:
 
 
 	//アクセス関数
-	float GetDeltaTime()const { return deltatime_; }
-	float GetMyVelocity() const { return VelocityCoefficient; }
-	float GetVelocity()const { return parentVelocityCoefficient * VelocityCoefficient; }
+	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
+	float GetVelocity()const { return parentTimeScale * timeScale; }//
 	GameObject* GetParent() const{ return pParent_; }
 	XMFLOAT3 GetPosition() const { return transform_.position_; }
 	XMFLOAT3 GetRotate() const { return transform_.rotate_; }
@@ -73,7 +72,7 @@ public:
 	XMFLOAT3 GetWorldPosition()const { return Transform::Float3Add(GetParent()->transform_.position_, transform_.position_); }
 	XMFLOAT3 GetWorldRotate() const { return Transform::Float3Add(GetParent()->transform_.rotate_, transform_.rotate_); }
 	XMFLOAT3 GetWorldScale() const { return Transform::Float3Add(GetParent()->transform_.scale_, transform_.scale_); }
-	void SetVelocity(float v) { VelocityCoefficient = v; }
+	void SetTimeScale(float v) { timeScale = v; }
 	void SetPosition(XMFLOAT3 position) { transform_.position_ = position; }
 	void SetPosition(float x, float y, float z) { SetPosition(XMFLOAT3(x, y, z)); }
 	void SetRotate(XMFLOAT3 rotate) { transform_.rotate_ = rotate; }
@@ -84,7 +83,7 @@ public:
 	void SetScale(XMFLOAT3 scale) { transform_.scale_ = scale; }
 	void SetScale(float x, float y, float z) { SetScale(XMFLOAT3(x, y, z)); }
 
-
+	XMFLOAT3 operator=(const XMVECTOR& vec) { XMFLOAT3 tmp; XMStoreFloat3(&tmp, vec); return tmp; };
 	////当たり判定関連 
 	//
 	///// <summary>
@@ -118,7 +117,6 @@ public:
 		parent->childList_.push_back(p);
 		return p;
 	}
-
 };
 
 

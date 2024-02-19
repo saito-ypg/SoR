@@ -1,11 +1,15 @@
+#include<cmath>
 #include "GameActor.h"
 #include"Engine/Model.h"
 #include"Engine/Camera.h"
 #include"HPBar.h"
 #include"Engine/Image.h"
+#include"Engine/Debug.h"
+
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
+	isDead_ = false;
 	hCircle_ = -1;
 	hQuad_ = -1;
 	hSector_ = -1;
@@ -13,6 +17,11 @@ GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(p
 	hQuad_ = Model::Load("Assets\\Area\\QuadArea.fbx");
 	hSector_ = Model::Load("Assets\\Area\\SectorArea.fbx");
 	assert(hCircle_ >= 0);
+	assert(hQuad_ >= 0);
+	assert(hSector_ >= 0);
+
+	knockBack = { 0,0,XMVectorZero() };
+
 }
 
 GameActor::~GameActor()
@@ -20,12 +29,27 @@ GameActor::~GameActor()
 
 }
 
-void GameActor::Update()
+void GameActor::Update(const float& dt)
 {
 	//‚¢‚ë‚¢‚ëXV“ü‚ê‚é
 	
-	ActorUpdate();
+	ActorUpdate(dt);
+	if (knockBack.Time > 0)
+	{
+		float quart =(1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4));//outquart‚Ì‘•ª
+		XMVECTOR force = knockBack.Velocity * quart * knockBack.Dir;
+		ForceMove(knockBack.Velocity * quart * knockBack.Dir);
+		knockBack.Time--;
+		if (knockBack.Time <= 0)
+			knockBack.Dir = XMVectorZero();
+	}
 
+	if (status_.hp_ <= 0)
+		KillMe();
+}
+
+void GameActor::ActorUpdate(const float& dt)
+{
 }
 
 void GameActor::Draw()
@@ -36,6 +60,9 @@ void GameActor::Draw()
 	DrawHP();
 
 }
+void GameActor::ActorDraw()
+{
+}
 void GameActor::DrawHP()
 {
 	Transform DrawT;
@@ -43,7 +70,6 @@ void GameActor::DrawHP()
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
 	DrawT.position_.x = DrawT.position_.x / Direct3D::scrWidth_* 2.0f - 1;
-
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
 	//HPBar::Draw(HPBar::BAR, DrawT);
 	for (int i = 0; i < HPBar::NUM; i++)
@@ -53,9 +79,25 @@ void GameActor::DrawHP()
 }
 
 
-void GameActor::TakeAttacked()
+void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
-	KillMe();//‘Ì—ÍŠÖŒW‚Å‚«‚é‚Ü‚Åb’è
+	if (isInvincible_)
+	{
+		return;
+	}
+	status_.hp_ -= dmg.damage_;
+	{//ƒmƒNƒoˆ—
+		knockBack.Velocity = dmg.knockback_;
+		knockBack.Time = defTime;
+		knockBack.Dir = dir;
+	}
+	if (dmg.pEffect_) {
+		dmg.pEffect_;//—]—T‚ ‚Á‚½‚çÀ‘•‚µ‚æ
+	}
+	XMFLOAT3 fdir = GameObject::operator=(-dir);
+	transform_.rotate_.y= XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
+	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
+
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
 {    
@@ -64,6 +106,11 @@ void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
 void GameActor::RemoveColliderCamp(GameActor* act, CAMPS camp)
 {
 	CollisionManager::RemoveCamp(act, camp);
+}
+
+bool GameActor::CanMove()
+{
+	return false;
 }
 
 void GameActor::SimpleDraw()
@@ -87,4 +134,12 @@ void GameActor::DrawCollision()
 Transform* GameActor::GetTransformRef()
 {
 	return &transform_;
+}
+
+void GameActor::ForceMove(XMVECTOR move)
+{
+	XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
+	vpos += move;
+	XMStoreFloat3(&transform_.position_, vpos);
+
 }

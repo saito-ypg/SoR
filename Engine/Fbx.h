@@ -2,6 +2,7 @@
 #include <d3d11.h>
 #include <fbxsdk.h>
 #include <string>
+#include<memory>
 #include "Transform.h"
 #pragma comment(lib, "LibFbxSDK-Md.lib")
 #pragma comment(lib, "LibXml2-Md.lib")
@@ -14,7 +15,7 @@ struct RayCastData
 	XMFLOAT4 dir;
 	bool hit;
 	float dist;
-	RayCastData() { dist = FLT_MAX; hit = false; }
+	RayCastData() { start = { 0,0,0,0 }, dir = { 0,0,0,0 }; dist = FLT_MAX; hit = false; }
 };
 
 class Fbx
@@ -48,7 +49,7 @@ private:
 	int materialCount_;	//マテリアルの個数
 
 	ID3D11Buffer* pVertexBuffer_;
-	ID3D11Buffer** pIndexBuffer_;
+	ID3D11Buffer** ppIndexBuffer_;
 	ID3D11Buffer* pConstantBuffer_;
 	MATERIAL* pMaterialList_;//マテリアルのポインタ。後で配列になる可能性
 	int* indexCount_;

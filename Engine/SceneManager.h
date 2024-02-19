@@ -5,6 +5,7 @@
 enum SCENE_ID
 {
     SCENE_ID_TEST = 0,
+    SCENE_ID_TITLE,
     SCENE_ID_PLAY,
 };
 
@@ -18,7 +19,7 @@ public:
     ~SceneManager() override;
     
     void Initialize() override;
-    void Update() override;
+    void Update(const float& dt) override;
     void Draw() override;
     void Release() override;
 

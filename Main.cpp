@@ -15,16 +15,17 @@ const char* WIN_CLASS_NAME = "SampleGame";
 const char* GAME_TITLE = "サンプルゲーム";
 const int WINDOW_WIDTH = 800;  //ウィンドウの幅
 const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
+const DWORD DELTA_MAX = 333;
 RootJob* pRootJob = nullptr;
 
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //エントリーポイント
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//	_crtBreakAlloc = 302;
+	//_crtBreakAlloc = 303;
 	//ウィンドウクラス（設計図）を作成
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
@@ -125,7 +126,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				countFps = 0;
 				startTime = nowTime;
 			}
-			if ((nowTime - lastUpdateTime) * 60 <= 1000.0f)
+			DWORD diff = nowTime - lastUpdateTime;
+			if ((diff) * 60 <= 1000.0f)
 			{
 				continue;
 			}
@@ -139,7 +141,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			Camera::Update();
 			//入力の処理
 			Input::Update();
-			pRootJob->UpdateSub();
+			
+			pRootJob->UpdateSub(diff<DELTA_MAX?diff:DELTA_MAX);
 
 			//描画
 			Direct3D::BeginDraw();

@@ -6,15 +6,28 @@
 /// その他UIとかはSceneに?
 /// 処理内容未定
 /// </summary>
+
+class EnemyManager;
+class EnemySpawner;
+
 class ModeratorSequence :
     public GameObject
 {
 private:
-protected:
+    float curTime;//今は処理時間依存じゃなくフレーム数依存だから、時間増やすのも固定でいいか
+    float ttlTime;//ゲーム全体
+    int waves;//ウェーブ数
+    EnemyManager* manager;
+    enum {
+        PREP=0,//準備
+        BEGIN,//敵スポーン開始
+        END//敵全滅後
+    } state;//
 public:
     ModeratorSequence(GameObject*parent);
     ~ModeratorSequence();
-    void Update()override;
+    void Initialize()override;
+    void Update(const float& dt)override;
     void Draw()override;
     void Release()override;
 };

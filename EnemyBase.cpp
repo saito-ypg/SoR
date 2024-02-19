@@ -12,6 +12,7 @@ void EnemyBase::RemoveCamp()
 
 EnemyBase::EnemyBase(GameObject* parent):GameActor(parent,"Enemy")
 {
+	eStat_ = WAIT;
 }
 
 EnemyBase::~EnemyBase()

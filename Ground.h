@@ -16,7 +16,7 @@ public:
     void Initialize() override;
 
     //XV
-    void Update() override;
+    void Update(const float& dt) override;
 
     //•`‰æ
     void Draw() override;

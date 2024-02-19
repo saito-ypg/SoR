@@ -74,21 +74,19 @@ void Model::Release(int hModel)
 	{
 		SAFE_DELETE(modelList_.at(hModel)->pFbx_);
 	}
-
-
 	SAFE_DELETE(modelList_.at(hModel));
-	modelList_.erase(modelList_.begin() + hModel);
 }
 
 void Model::ReleaseAll()
 {
-	bool isReffered = false;
+
 	for (int i = 0; i < modelList_.size(); i++)
 	{
 		Release(i);
 	}
 	modelList_.clear();
 }
+
 
 void Model::RayCast(int hModel, RayCastData& raydata)
 {

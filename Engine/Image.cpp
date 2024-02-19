@@ -1,9 +1,9 @@
 #include "Image.h"
 #include"global.h"
-#include"Debug.h"
+
 namespace Image {
     std::vector<ImageData*> imageList_;
-	bool ExistHandle(int handle) { return (handle >= 0 && handle < imageList_.size()); }
+	bool ExistHandle(int handle) { return (0<=handle  && handle < imageList_.size()); }
 }
 int Image::Load(std::string fileName)
 {
@@ -14,7 +14,7 @@ int Image::Load(std::string fileName)
 
 	for (auto& e : imageList_)
 	{
-		if (e->fileName_ == fileName)
+		if (e&&e->fileName_ == fileName)
 		{
 			pData->pSprite_ = e->pSprite_;
 			break;
@@ -43,6 +43,7 @@ void Image::Draw(int hPict)
 {
 	if (!ExistHandle(hPict))
 		return;
+	imageList_.at(hPict)->transform_.Calculation();
 	imageList_.at(hPict)->pSprite_->Draw(imageList_.at(hPict)->transform_,imageList_.at(hPict)->size);
 }
 
@@ -54,9 +55,10 @@ void Image::Release(int hPict)
 	bool isReffered = false;
 	for (int i = 0; i < imageList_.size(); i++)
 	{
-		for (int j = i + 1; j < imageList_.size(); j++)
+		//‚·‚Å‚ÉŠJ‚¢‚Ä‚¢‚éê‡
+		if (imageList_.at(i) != nullptr && i != hPict && imageList_.at(i)->pSprite_ == imageList_.at(hPict)->pSprite_)
 		{
-			isReffered = true;
+			isReffered= true;
 			break;
 		}
 	}
@@ -67,19 +69,16 @@ void Image::Release(int hPict)
 		SAFE_DELETE(imageList_.at(hPict)->pSprite_);
 	}
 	SAFE_DELETE(imageList_.at(hPict));
-	imageList_.erase(imageList_.begin() + hPict);
 }
 
 void Image::ReleaseAll()
 {
-	
 	for (int i = 0; i < imageList_.size(); i++)
 	{
 		Release(i);
 	}
 	imageList_.clear();
 }
-
 void Image::ResetRect(int hPict)
 {
 	XMFLOAT3 size = imageList_.at(hPict)->pSprite_-> GetTextureSize();

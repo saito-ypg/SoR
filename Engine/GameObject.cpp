@@ -2,7 +2,7 @@
 #include"global.h"
 //#include"SphereCollider.h"
 
-GameObject::GameObject() :pParent_(nullptr),IsDead(false)/*,pCollider_(nullptr)*/, objectName_(""),deltatime_(0),VelocityCoefficient(1.0f),parentVelocityCoefficient(1.0f)
+GameObject::GameObject() :pParent_(nullptr),IsDead(false)/*,pCollider_(nullptr)*/, objectName_(""),timeScale(1.0f),parentTimeScale(1.0f)
 {
 }
 
@@ -18,16 +18,15 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::UpdateSub()
+void GameObject::UpdateSub(const float&  dt)
 {
 	
-	this->Update();
+	this->Update(dt);
 
 	for (auto it = childList_.begin(), end = childList_.end(); it != end;)
 	{
-		(*it)->parentVelocityCoefficient = parentVelocityCoefficient * VelocityCoefficient;
-		(*it)->deltatime_ = this->deltatime_;//子クラスにdelta伝える？グローバルでやればいい？
-		(*it)->UpdateSub();
+		(*it)->parentTimeScale = parentTimeScale * timeScale;
+		(*it)->UpdateSub(dt);
 	
 		if ((*it)->IsDead)
 		{
@@ -93,6 +92,7 @@ GameObject* GameObject::FindChildObject(string _objName)
 
 GameObject* GameObject::GetRootJob()
 {
+
 	if (pParent_ == nullptr)
 		return this;
 	return pParent_->GetRootJob();

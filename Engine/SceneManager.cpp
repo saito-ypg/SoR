@@ -2,6 +2,7 @@
 #include"global.h"
 #include"../TestScene.h"
 #include"../PlayScene.h"
+#include"../TitleScene.h"
 SceneManager::SceneManager(GameObject* parent) :GameObject(parent, "SceneManager")
 {
 	currentSceneID_ = (SCENE_ID) - 1;
@@ -14,12 +15,12 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initialize()
 {
-	currentSceneID_ = SCENE_ID_PLAY;
-	nextSceneID_ = SCENE_ID_PLAY;
-	Instantiate<PlayScene>(this);
+	currentSceneID_ = SCENE_ID_TITLE;
+	nextSceneID_ = SCENE_ID_TITLE;
+	Instantiate<TitleScene>(this);
 }
 
-void SceneManager::Update()
+void SceneManager::Update(const float& dt)
 {
 	/*ƒV[ƒ“‚ğØ‚è‘Ö‚¦
 	Œ»İ‚ÆŸ‚ª•Ê‚¾‚Á‚½‚çØ‚è‘Ö‚¦
@@ -35,6 +36,8 @@ void SceneManager::Update()
 		switch (nextSceneID_) {
 		case SCENE_ID_TEST:
 			Instantiate<TestScene>(this); break;
+		case SCENE_ID_TITLE:
+			Instantiate<TitleScene>(this); break;
 		case SCENE_ID_PLAY:
 			Instantiate<PlayScene>(this); break;
 		}

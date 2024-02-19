@@ -58,10 +58,15 @@ void Sprite::Draw(Transform& transform, RECT rect)
 	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom, 1);
 
 	XMMATRIX view = XMMatrixScaling(1.0f / scrWidth_, 1.0f / scrHeight_, 1.0f);
-	XMMATRIX worldmatrix = cut*transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
+	XMMATRIX worldmatrix =cut*transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
 
+	XMMATRIX mTexTrans = XMMatrixTranslation((float)rect.left / (float)pTexture_->GetSize().x,
+		(float)rect.top / (float)pTexture_->GetSize().y, 0.0f);
+	XMMATRIX mTexScale = XMMatrixScaling((float)rect.right / (float)pTexture_->GetSize().x,
+		(float)rect.bottom / (float)pTexture_->GetSize().y, 1.0f);
+	XMMATRIX mTexel =mTexScale * mTexTrans;
 
-	PassDataToCB(worldmatrix);
+	PassDataToCB(worldmatrix,mTexel);
 
 	SetBufferToPipeline();
 
@@ -108,7 +113,7 @@ HRESULT Sprite::CreateVertexBuffer()
 void Sprite::InitIndexData()
 {
 	indexNum_ = 6;
-	index_ = new int[6] { 0, 2, 3, 0, 1, 2 };
+	index_ = new int[indexNum_] { 0, 2, 3, 0, 1, 2 };
 }
 HRESULT Sprite::CreateIndexBuffer()
 {
@@ -144,7 +149,7 @@ HRESULT Sprite::LoadTexture(string filename)
 }
 
 /////////draw•ªŠ„/////////
-void Sprite::PassDataToCB(const DirectX::XMMATRIX& worldMatrix)
+void Sprite::PassDataToCB(const DirectX::XMMATRIX& worldMatrix, const XMMATRIX& texel)
 {
 	CONSTANT_BUFFER cb;
 	cb.matW = XMMatrixTranspose(worldMatrix);

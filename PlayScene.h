@@ -1,10 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
-
+#include<memory>
+class ModeratorSequence;
 
 //■■シーンを管理するクラス
 class PlayScene : public GameObject
 {
+private:
+	ModeratorSequence* mod;
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
@@ -15,7 +19,7 @@ public:
 	void Initialize() override;
 
 	//更新
-	void Update() override;
+	void Update(const float& dt) override;
 
 	//描画
 	void Draw() override;

@@ -1,7 +1,11 @@
 #include "ModeratorSequence.h"
-
+#include"EnemyManager.h"
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
 {
+	curTime = 0;
+	ttlTime = 0;
+	waves = 0;
+	manager = nullptr;
 }
 
 ModeratorSequence::~ModeratorSequence()
@@ -9,8 +13,23 @@ ModeratorSequence::~ModeratorSequence()
 	Release();
 }
 
-void ModeratorSequence::Update()
+void ModeratorSequence::Initialize()
 {
+}
+
+void ModeratorSequence::Update(const float& dt)
+{
+	switch (state)
+	{
+	case ModeratorSequence::PREP:
+		break;
+	case ModeratorSequence::BEGIN:
+		if()
+		break;
+	case ModeratorSequence::END:
+		break;
+
+	}
 }
 
 void ModeratorSequence::Draw()

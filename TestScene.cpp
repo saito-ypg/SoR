@@ -8,7 +8,7 @@ void TestScene::Initialize()
 {
 }
 
-void TestScene::Update()
+void TestScene::Update(const float& dt)
 {
 	
 }

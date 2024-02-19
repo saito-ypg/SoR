@@ -20,7 +20,7 @@ void Ground::Initialize()
 }
 
 //XV
-void Ground::Update()
+void Ground::Update(const float& dt)
 {
 }
 

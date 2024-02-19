@@ -13,7 +13,9 @@ bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
-
+    status_.maxHp_ = 200;
+    status_.hp_ = status_.maxHp_;
+    status_.hitCircleRange_ = 1.1f;
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
@@ -28,8 +30,7 @@ void Player::Initialize()
 {
     hModel_ = Model::Load("Assets/Charactors/psample.fbx");
     assert(hModel_ >= 0);
-    status_.maxHp_ = 200;
-    status_.hitCircleRange_ = 1.1f;
+
     AddCamp();
 
 
@@ -37,19 +38,20 @@ void Player::Initialize()
 }
 
 //更新
-void Player::ActorUpdate()
+void Player::ActorUpdate(const float& dt)
 {
 #ifdef _DEBUG
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))
-            SetVelocity(1.0f);
+            pParent_->SetTimeScale(1.0f);
         if (Input::IsKeyDown(DIK_2))
-            SetVelocity(2.0f);
+            pParent_->SetTimeScale(2.0f);
         if (Input::IsKeyDown(DIK_0))
-            SetVelocity(0.0f);
-        if (nearlyZero(GetMyVelocity()))//更新速度がほぼほぼ0ならあとの処理飛ばす
+            pParent_->SetTimeScale(0.0f);
+        if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
+    int a=0;
 
     //当たり判定テスト用
     if (Input::IsKeyDown(DIK_Z))
@@ -75,7 +77,7 @@ void Player::ActorUpdate()
         testSector.position_=transform_.position_;
         testSector.radius_ =3;
         testSector.rotate_ = transform_.rotate_.y;
-        testSector.centerAngle_ = 45;
+        testSector.centerAngle_ = 30;
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
@@ -200,8 +202,18 @@ void Player::Release()
 
 void Player::ActivateSkill(const int number)
 {
-    if (number >= 0 && number < skills.size())
-        skills.at(number)->Activate(transform_);
+
+    if (!this->canMove())//自身が動けるか？
+        return;
+    if (number < 0 || number >= skills.size())//存在するスキル番号か？
+        return;
+    auto& skill = skills.at(number);
+    if (!skill->CanUse())//対象のスキルは使用可能か？
+        return;
+    FaceMouseDirection();//マウス方向を向く
+    moveTime_ = 0;//移動してたら止める
+ 
+    skill->Activate(transform_);
 }
 
 XMVECTOR Player::getMouseTargetPos()
