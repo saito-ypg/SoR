@@ -21,10 +21,18 @@ void EnemyManager::Initialize()
 
 void EnemyManager::Update()
 {
+	for (auto& itr : Enemylist_)
+	{
+		itr->UpdateSub();
+	}
 }
 
 void EnemyManager::Draw()
 {
+	for (auto& itr : Enemylist_)
+	{
+		itr->DrawSub();
+	}
 }
 
 void EnemyManager::Release()

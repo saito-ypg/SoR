@@ -2,25 +2,8 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Fbx" Collapsed="true">
     <Position X="27.75" Y="0.5" Width="1.5" />
-    <NestedTypes>
-      <Struct Name="Fbx::MATERIAL" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Fbx.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Struct Name="Fbx::CONSTANT_BUFFER" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Fbx.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Struct Name="Fbx::VERTEX" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Fbx.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ooAAgACBBJAAAwAAQQKQAAAAAAIAAAAAAAAEABAAAAI=</HashCode>
+      <HashCode>ooAAgACBhJAAAwAAQQKQAAAAAAIAAAAAAAAEABAAAAI=</HashCode>
       <FileName>Engine\Fbx.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -33,18 +16,6 @@
   </Class>
   <Class Name="Quad" Collapsed="true">
     <Position X="24.25" Y="1.5" Width="1.5" />
-    <NestedTypes>
-      <Struct Name="Quad::CONSTANT_BUFFER" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Quad.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Struct Name="Quad::VERTEX" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Quad.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>gAIEAABBABQCAwAAAACAAAAAAAATBAAAAQAAQBEBAAA=</HashCode>
       <FileName>Engine\Quad.h</FileName>
@@ -73,18 +44,6 @@
   </Class>
   <Class Name="Sprite" Collapsed="true">
     <Position X="27.75" Y="1.5" Width="1.5" />
-    <NestedTypes>
-      <Struct Name="Sprite::CONSTANT_BUFFER" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Sprite.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Struct Name="Sprite::VERTEX" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Engine\Sprite.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>gAIEAABBABQCAwAAAACAAAAAAAATAAAQIQAAQBABAAI=</HashCode>
       <FileName>Engine\Sprite.h</FileName>
@@ -158,13 +117,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAABAAAAAAAIAAAAABAAAEAABAAAAA=</HashCode>
       <FileName>Decoy.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="EnemyBase">
-    <Position X="15" Y="17.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAACAAAA=</HashCode>
-      <FileName>EnemyBase.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EnemyManager">
