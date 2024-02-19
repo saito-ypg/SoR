@@ -43,12 +43,12 @@ void Player::ActorUpdate()
 #ifdef _DEBUG
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))
-            SetVelocity(1.0f);
+            SetTimeScale(1.0f);
         if (Input::IsKeyDown(DIK_2))
-            SetVelocity(2.0f);
+            SetTimeScale(2.0f);
         if (Input::IsKeyDown(DIK_0))
-            SetVelocity(0.0f);
-        if (nearlyZero(GetMyVelocity()))//更新速度がほぼほぼ0ならあとの処理飛ばす
+            SetTimeScale(0.0f);
+        if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
 

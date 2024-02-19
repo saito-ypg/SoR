@@ -1,5 +1,5 @@
 #include "ModeratorSequence.h"
-
+#include"EnemyManager.h"
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
 {
 }
