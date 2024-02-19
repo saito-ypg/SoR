@@ -19,6 +19,11 @@ void ModeratorSequence::Initialize()
 
 void ModeratorSequence::Update(const float& dt)
 {
+	switch (st)
+	{
+	default:
+		break;
+	}
 }
 
 void ModeratorSequence::Draw()

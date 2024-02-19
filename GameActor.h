@@ -4,7 +4,8 @@
 #include "ActorInfo.h"
 #include"CollisionManager.h"
 #include"DamageData.h"
-class ActorCollider;
+class ActorCollider; 
+const float defTime = 25.0f;
 class GameActor :public GameObject{
 private:
     struct {
@@ -12,7 +13,7 @@ private:
         float Velocity;//ã≠Ç≥
         XMVECTOR Dir;//ï˚å¸ê≥ãKâª
     } knockBack;
-    const float defTime = 25.0f;
+   
     protected:
     
     ActorInfo status_;

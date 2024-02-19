@@ -18,7 +18,11 @@ private:
     float ttlTime;//ゲーム全体
     int waves;//ウェーブ数
     EnemyManager* manager;
-
+    enum {
+        PREP=0,//準備
+        BEGIN,//敵スポーン開始
+        END//敵全滅後
+    } state;//
 public:
     ModeratorSequence(GameObject*parent);
     ~ModeratorSequence();
