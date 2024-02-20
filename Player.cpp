@@ -11,7 +11,7 @@ bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
+    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),isSkillBeingUsed(false)
 {
     status_.maxHp_ = 200;
     status_.hp_ = status_.maxHp_;
@@ -90,15 +90,23 @@ void Player::ActorUpdate(const float& dt)
         XMVECTOR target= getMouseTargetPos();
         if (isHit(target))
             calculateForMove(target);
+
     }
     //各入力
     if(Input::IsMouseButton(0))//通常攻撃
     {
 
     }
-    else if (Input::IsKeyDown(DIK_Q))
-    {
-        ActivateSkill(0);
+    else {
+        if (!isSkillBeingUsed && Input::IsKeyDown(DIK_Q))
+        {
+            isSkillBeingUsed = canUseSkill(0);
+        }
+        if (isSkillBeingUsed&&Input::IsKeyUp(DIK_Q))
+        {
+            isSkillBeingUsed = false;
+            ActivateSkill(0);
+        }
     }
     if (moveTime_ > 0)
     {
@@ -135,6 +143,7 @@ void Player::move()
         vpos += vMove_;
         XMStoreFloat3(&transform_.position_, vpos);
         moveTime_ -= GetVelocity();
+        isSkillBeingUsed = false;
     }
 }
 
@@ -202,20 +211,33 @@ void Player::Release()
     }
 }
 
+bool Player::canUseSkill(int number)
+{
+    if (!this->canMove())//自身が動けるか？
+        return false;
+    if (number < 0 || number >= skills.size())//存在するスキル番号か？
+        return false;
+    return skills.at(number)->CanUse();//対象のスキルは使用可能か？
+    
+}
+
 void Player::ActivateSkill(const int number)
 {
-
-    if (!this->canMove())//自身が動けるか？
-        return;
-    if (number < 0 || number >= skills.size())//存在するスキル番号か？
-        return;
-    auto& skill = skills.at(number);
-    if (!skill->CanUse())//対象のスキルは使用可能か？
+    if (!canUseSkill(number))
         return;
     FaceMouseDirection();//マウス方向を向く
     moveTime_ = 0;//移動してたら止める
  
-    skill->Activate(transform_);
+    skills.at(number)->Activate(transform_);
+}
+
+void Player::previewSkill(int number)
+{
+    if(!canUseSkill(number))
+        return;//ここまでは発動と一緒
+
+
+
 }
 
 XMVECTOR Player::getMouseTargetPos()

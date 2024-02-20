@@ -15,8 +15,10 @@ class Player : public GameActor
 
  //スキル登録
     std::vector<SkillBase*>skills{ 4 };
+    bool isSkillBeingUsed;
+    bool canUseSkill(int number);
     void ActivateSkill(int number);
-
+    void previewSkill(int number);
     //現在のマウス座標をワールド座標に変換して返す
     XMVECTOR getMouseTargetPos();
     //targetの方向に回転

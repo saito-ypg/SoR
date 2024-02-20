@@ -141,7 +141,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 			//“ü—Í‚Ìˆ—
 			Input::Update();
 			
-			pRootJob->UpdateSub(diff<DELTA_MAX?diff:DELTA_MAX);
+			pRootJob->UpdateSub(float(diff<DELTA_MAX?diff:DELTA_MAX));
 
 			//•`‰æ
 			Direct3D::BeginDraw();
