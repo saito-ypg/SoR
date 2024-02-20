@@ -64,7 +64,7 @@ public:
 
 	//アクセス関数
 	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
-	float GetVelocity()const { return parentalTimeScale * timeScale; }//
+	float GetTotalTimeScale()const { return parentalTimeScale * timeScale; }//
 	GameObject* GetParent() const{ return pParent_; }
 	XMFLOAT3 GetPosition() const { return transform_.position_; }
 	XMFLOAT3 GetRotate() const { return transform_.rotate_; }

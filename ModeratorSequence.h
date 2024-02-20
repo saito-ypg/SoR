@@ -1,5 +1,7 @@
 #pragma once
+#include<chrono>
 #include "Engine\GameObject.h"
+
 /// <summary>
 /// ゲームの進行をつかさどる
 /// 敵を直接シーンに出すのではなく、此処から指令を出して特定のタイミングで出現～とする
@@ -9,13 +11,14 @@
 
 class EnemyManager;
 class EnemySpawner;
-
+using std::chrono::milliseconds;
 class ModeratorSequence :
     public GameObject
 {
+
 private:
-    float curTime;//今は処理時間依存じゃなくフレーム数依存だから、時間増やすのも固定でいいか
-    float ttlTime;//ゲーム全体
+    milliseconds curTime;//今は処理時間依存じゃなくフレーム数依存だから、時間増やすのも固定でいいか
+    milliseconds ttlTime;//ゲーム全体
     int waves;//ウェーブ数
     EnemyManager* manager;
     enum {

@@ -135,13 +135,13 @@ bool Player::isHit(const DirectX::XMVECTOR& target)
 
 void Player::move()
 {
-    vMove_ = moveDirection_ * MOVE_VELOCITY * GetVelocity();
+    vMove_ = moveDirection_ * MOVE_VELOCITY * GetTotalTimeScale();
     if (moveTime_ >1)
     {
         XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
         vpos += vMove_;
         XMStoreFloat3(&transform_.position_, vpos);
-        moveTime_ -= GetVelocity();
+        moveTime_ -= GetTotalTimeScale();
         isSkillBeingUsed = false;
     }
 }

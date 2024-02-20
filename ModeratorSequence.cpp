@@ -2,8 +2,9 @@
 #include"EnemyManager.h"
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
 {
-	curTime = 0;
-	ttlTime = 0;
+	//https://chat.openai.com/share/4c4ae57d-f51a-4ef8-895a-9d1c7068977d
+	curTime = milliseconds(0);
+	ttlTime = milliseconds(0);
 	waves = 0;
 	state = BEGIN;
 	manager = nullptr;
@@ -11,7 +12,7 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 
 ModeratorSequence::~ModeratorSequence()
 {
-	Release();
+	
 }
 
 void ModeratorSequence::Initialize()
@@ -28,8 +29,8 @@ void ModeratorSequence::Update(const float& dt)
 		break;
 	case ModeratorSequence::BEGIN:
 		if (true) {
-			curTime += dt;
-			ttlTime += dt;
+			curTime +=milliseconds(static_cast<long long>(dt));
+			ttlTime += milliseconds(static_cast<long long>(dt));
 			
 		}
 		break;
