@@ -4,6 +4,7 @@
 #include <fbxsdk.h>
 #include <string>
 #include<memory>
+#include<vector>
 #include "Transform.h"
 #pragma comment(lib, "LibFbxSDK-Md.lib")
 #pragma comment(lib, "LibXml2-Md.lib")

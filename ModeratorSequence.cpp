@@ -5,6 +5,7 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	curTime = 0;
 	ttlTime = 0;
 	waves = 0;
+	state = BEGIN;
 	manager = nullptr;
 }
 
@@ -24,7 +25,7 @@ void ModeratorSequence::Update(const float& dt)
 	case ModeratorSequence::PREP:
 		break;
 	case ModeratorSequence::BEGIN:
-		if()
+		if (true) {}
 		break;
 	case ModeratorSequence::END:
 		break;
