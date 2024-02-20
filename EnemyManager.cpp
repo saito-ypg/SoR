@@ -38,4 +38,8 @@ void EnemyManager::Draw()
 
 void EnemyManager::Release()
 {
+	for (auto& itr : Enemylist_)
+	{
+		itr->KillMe();
+	}
 }

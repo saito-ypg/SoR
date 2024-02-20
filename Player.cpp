@@ -57,7 +57,6 @@ void Player::ActorUpdate(const float& dt)
     if (Input::IsKeyDown(DIK_Z))
     {
         FaceMouseDirection();
-
         testQuad.position_ = transform_.position_;
         testQuad.length_ = 2;
         testQuad.width_ = 5;

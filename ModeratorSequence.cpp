@@ -16,6 +16,7 @@ ModeratorSequence::~ModeratorSequence()
 
 void ModeratorSequence::Initialize()
 {
+	manager = new EnemyManager(this);
 }
 
 void ModeratorSequence::Update(const float& dt)
@@ -23,9 +24,14 @@ void ModeratorSequence::Update(const float& dt)
 	switch (state)
 	{
 	case ModeratorSequence::PREP:
+
 		break;
 	case ModeratorSequence::BEGIN:
-		if (true) {}
+		if (true) {
+			curTime += dt;
+			ttlTime += dt;
+			
+		}
 		break;
 	case ModeratorSequence::END:
 		break;
@@ -39,5 +45,6 @@ void ModeratorSequence::Draw()
 
 void ModeratorSequence::Release()
 {
-
+	manager->Release();
+	delete manager;
 }
