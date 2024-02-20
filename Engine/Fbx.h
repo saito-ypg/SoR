@@ -43,7 +43,7 @@ private:
 	};
 	
 	VERTEX* pVertices_;//頂点配列
-	std::unique_ptr<std::unique_ptr<int>> ppIndex_;
+	int** ppIndex_;
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数
 	int materialCount_;	//マテリアルの個数

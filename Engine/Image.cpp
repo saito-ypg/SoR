@@ -1,6 +1,6 @@
 #include "Image.h"
 #include"global.h"
-
+#include"Debug.h"
 namespace Image {
     std::vector<ImageData*> imageList_;
 	bool ExistHandle(int handle) { return (0<=handle  && handle < imageList_.size()); }
