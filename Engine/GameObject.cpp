@@ -2,7 +2,7 @@
 #include"global.h"
 //#include"SphereCollider.h"
 
-GameObject::GameObject() :pParent_(nullptr),IsDead(false)/*,pCollider_(nullptr)*/, objectName_(""),timeScale(1.0f),parentTimeScale(1.0f)
+GameObject::GameObject() :pParent_(nullptr),IsDead(false)/*,pCollider_(nullptr)*/, objectName_(""),timeScale(1.0f),parentalTimeScale(1.0f)
 {
 }
 
@@ -25,7 +25,7 @@ void GameObject::UpdateSub(const float&  dt)
 
 	for (auto it = childList_.begin(), end = childList_.end(); it != end;)
 	{
-		(*it)->parentTimeScale = parentTimeScale * timeScale;
+		(*it)->parentalTimeScale = parentalTimeScale * timeScale;
 		(*it)->UpdateSub(dt);
 	
 		if ((*it)->IsDead)
