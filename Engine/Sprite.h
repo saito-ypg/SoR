@@ -54,7 +54,7 @@ private:
 
 
 	//DrawŠÖ”‚©‚çŒÄ‚Î‚ê‚éŠÖ”
-	void PassDataToCB(const DirectX::XMMATRIX& wordlMatrix,const XMMATRIX&texel);
+	void PassDataToCB(const Transform& transform ,const RECT& relct);
 	void SetBufferToPipeline();
 
 

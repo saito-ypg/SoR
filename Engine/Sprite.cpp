@@ -50,24 +50,15 @@ HRESULT Sprite::Initialize(string filename)
 void Sprite::Draw(Transform& transform, RECT rect)
 {
 	using namespace Direct3D;
-	Direct3D::SetShader(SHADER_2D);
+	Direct3D::SetShader(SHADER_2D);	
+	SetBufferToPipeline();
 	transform.Calculation();
 	//画面に合わせる
 		//表示するサイズに合わせる
-	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom, 1);
 
-	XMMATRIX view = XMMatrixScaling(1.0f / scrWidth_, 1.0f / scrHeight_, 1.0f);
-	XMMATRIX worldmatrix =cut*transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
+	PassDataToCB(transform,rect);
 
-	XMMATRIX mTexTrans = XMMatrixTranslation((float)rect.left / (float)pTexture_->GetSize().x,
-		(float)rect.top / (float)pTexture_->GetSize().y, 0.0f);
-	XMMATRIX mTexScale = XMMatrixScaling((float)rect.right / (float)pTexture_->GetSize().x,
-		(float)rect.bottom / (float)pTexture_->GetSize().y, 1.0f);
-	XMMATRIX mTexel =mTexScale * mTexTrans;
 
-	PassDataToCB(worldmatrix,mTexel);
-
-	SetBufferToPipeline();
 
 	Direct3D::pContext_->DrawIndexed(indexNum_, 0, 0);//!!
 }
@@ -147,12 +138,27 @@ HRESULT Sprite::LoadTexture(string filename)
 }
 
 /////////draw分割/////////
-void Sprite::PassDataToCB(const DirectX::XMMATRIX& worldMatrix, const XMMATRIX& texel)
+void Sprite::PassDataToCB(const Transform&transform,const RECT& rect)
 {
+	using namespace Direct3D;
 	CONSTANT_BUFFER cb;
-	cb.matW = XMMatrixTranspose(worldMatrix);
-	cb.uvTrans = XMMatrixTranspose(texel);
+	
 	D3D11_MAPPED_SUBRESOURCE pdata;
+
+	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom, 1);
+
+	XMMATRIX view = XMMatrixScaling(1.0f / scrWidth_, 1.0f / scrHeight_, 1.0f);
+	XMMATRIX worldmatrix = cut * transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
+
+	XMMATRIX mTexTrans = XMMatrixTranslation((float)rect.left / (float)pTexture_->GetSize().x,
+		(float)rect.top / (float)pTexture_->GetSize().y, 0.0f);
+	XMMATRIX mTexScale = XMMatrixScaling((float)rect.right / (float)pTexture_->GetSize().x,
+		(float)rect.bottom / (float)pTexture_->GetSize().y, 1.0f);
+	XMMATRIX mTexel = mTexScale * mTexTrans;
+
+	cb.matW = XMMatrixTranspose(worldmatrix);
+	cb.uvTrans = XMMatrixTranspose(mTexel);
+
 	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
 	ID3D11SamplerState* pSampler = pTexture_->GetSampler();
