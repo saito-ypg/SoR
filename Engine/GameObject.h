@@ -110,7 +110,7 @@ public:
 
 	//実体化のテンプレート
 	template <class T>
-	static T* Instantiate(GameObject* parent) {
+	T* Instantiate(GameObject* parent) {
 		T* p;
 		p = new T(parent);
 		p->Initialize();
