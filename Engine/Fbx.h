@@ -1,15 +1,20 @@
 #pragma once
-#pragma warning(once:4099)
+
 #include <d3d11.h>
-#include <fbxsdk.h>
 #include <string>
 #include<memory>
 #include<vector>
 #include "Transform.h"
+
+#pragma warning(push)
+#pragma warning(disable:4099)
+#pragma warning(disable:26451)
+#pragma warning(disable:26495)
+#include <fbxsdk.h>
 #pragma comment(lib, "LibFbxSDK-Md.lib")
 #pragma comment(lib, "LibXml2-Md.lib")
 #pragma comment(lib, "zlib-Md.lib")
-
+#pragma warning(pop)
 class Texture;
 struct RayCastData
 {

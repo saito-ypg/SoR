@@ -15,6 +15,14 @@ EnemyBase::EnemyBase(GameObject* parent):GameActor(parent,"Enemy")
 	eStat_ = WAIT;
 }
 
+EnemyBase::EnemyBase(GameObject* parent, bool isboss):EnemyBase(parent)
+{
+	if (isboss)
+	{
+		transform_.scale_ = { 1.5,1.5,1.5 };
+	}
+}
+
 EnemyBase::~EnemyBase()
 {
 }

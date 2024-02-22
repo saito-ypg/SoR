@@ -7,7 +7,7 @@ class EnemyBase;
 //スポーンさせるクラスが別にいてほしいな～
 class EnemyManager {
 private:
-
+	std::vector<EnemyBase*> Enemylist_;
 public:
 	EnemyManager(GameObject* parent);
 	~EnemyManager();
@@ -15,10 +15,10 @@ public:
 	void Update(const float& dt);
 	void Draw();
 	void Release();
-	std::vector<EnemyBase*> Enemylist_;
+	
 
 	void add(EnemyBase* enemy);//listに敵を登録。引数にInstantiateとか必要かな
-
+	bool Eliminated();
 
 
 

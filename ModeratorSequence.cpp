@@ -33,6 +33,8 @@ void ModeratorSequence::Update(const float& dt)
 			ttlTime += milliseconds(static_cast<long long>(dt));
 			
 		}
+		if (manager->Eliminated())
+			state = END;
 		break;
 	case ModeratorSequence::END:
 		break;

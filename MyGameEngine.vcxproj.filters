@@ -155,6 +155,9 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Scenes\TitleScene</Filter>
     </ClInclude>
+    <ClInclude Include="EnemySpawner.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />
@@ -262,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scenes\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawner.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

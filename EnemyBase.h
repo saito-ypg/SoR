@@ -3,16 +3,19 @@
 
 class EnemyBase : public GameActor 
 {
+public:
+	enum STATE { WAIT, IN_SPAWN, DEAD };
 private:
 	
 protected:
 	void AddCamp() override;
 	void RemoveCamp() override;
 	
-	enum STATE { WAIT, IN_SPAWN }eStat_;//ä«óùóp
+	STATE eStat_;//ä«óùóp
 public:
 	STATE getStat() { return eStat_; }
 	EnemyBase(GameObject* parent);
+	EnemyBase(GameObject* parent, bool isboss);
 	virtual ~EnemyBase();
 	
 	

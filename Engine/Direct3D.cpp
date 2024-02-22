@@ -18,8 +18,8 @@ namespace Direct3D
 	};
 	SHADER_BUNDLE shaderBundle[SHADER_MAX];
 
-	ID3D11Texture2D* pDepthStencil_;			//深度ステンシル
-	ID3D11DepthStencilView* pDepthStencilView_;		//深度ステンシルビュー
+	ID3D11Texture2D* pDepthStencil_=nullptr;			//深度ステンシル
+	ID3D11DepthStencilView* pDepthStencilView_=nullptr;		//深度ステンシルビュー
 
 	int scrWidth_, scrHeight_;
 }
@@ -116,7 +116,9 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 		descDepth.CPUAccessFlags = 0;
 		descDepth.MiscFlags = 0;
 		pDevice_->CreateTexture2D(&descDepth, nullptr, &pDepthStencil_);
+#pragma warning(disable: 6387) // 特定の警告を無効化
 		pDevice_->CreateDepthStencilView(pDepthStencil_, nullptr, &pDepthStencilView_);
+#pragma warning(default: 6387) // 特定の警告を無効化
 		//データを画面に描画するための一通りの設定（パイプライン）
 		pContext_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);  // データの入力種類を指定
 		pContext_->OMSetRenderTargets(1, &pRenderTargetView_, pDepthStencilView_);            // 描画先を設定

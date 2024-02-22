@@ -36,7 +36,7 @@ void GameActor::Update(const float& dt)
 	ActorUpdate(dt);
 	if (knockBack.Time > 0)
 	{
-		float quart =(1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4));//outquartÇÃëùï™
+		float quart =(float)((1 - std::pow(1 - (defTime - knockBack.Time) / defTime, 4))-(1 - std::pow(1 - (defTime - knockBack.Time-1) / defTime, 4)));//outquartÇÃëùï™
 		XMVECTOR force = knockBack.Velocity * quart * knockBack.Dir;
 		ForceMove(knockBack.Velocity * quart * knockBack.Dir);
 		knockBack.Time--;
@@ -65,15 +65,27 @@ void GameActor::ActorDraw()
 }
 void GameActor::DrawHP()
 {
+	
 	Transform DrawT;
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
 	DrawT.position_.x = DrawT.position_.x / Direct3D::scrWidth_* 2.0f - 1;
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
+	using namespace HPBar;
 	//HPBar::Draw(HPBar::BAR, DrawT);
 	for (int i = 0; i < HPBar::NUM; i++)
 	{
+		switch (i)
+		{
+		case DMG:
+			//HPÉoÅ[ÇÇ¢Å[Ç∂ÇÒÇÆor
+			break;
+		case BAR:
+			
+
+			break;
+		}
 		HPBar::Draw((HPBar::HANDLE)i, DrawT);
 	}
 }

@@ -7,6 +7,18 @@ void EnemyManager::add(EnemyBase* enemy)
 	//当たり判定の敵側に入れる
 }
 
+bool EnemyManager::Eliminated()
+{
+	if (!Enemylist_.empty())//空だったら何かしらおかしいはず
+		return false;
+	for (const auto& itr : Enemylist_)
+	{
+		if (itr->getStat() != EnemyBase::DEAD)
+			return false;
+	}
+	return true;//全員倒してたらtrue返してクリアってする？
+}
+
 EnemyManager::EnemyManager(GameObject* parent)
 {
 }
