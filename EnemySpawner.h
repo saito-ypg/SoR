@@ -2,7 +2,7 @@
 
 
 enum class EnemyType {
-	Decoy = 0,
+	DECOY = 0,
 
 	MAX//Å‘å’lA‚±‚êg‚¤‚±‚Æ‚Í‚È‚¢‚¾‚ë‚¤‚¯‚Ç
 };

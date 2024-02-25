@@ -8,7 +8,7 @@ EnemyBase* EnemySpawner::EnemyFactoty::createEnemy(GameObject* pParent, EnemyTyp
 	using enum EnemyType;
 	switch (type)
 	{
-	case Decoy:
+	case DECOY:
 		return pParent->Instantiate<Decoy>(pParent);
 
 	}

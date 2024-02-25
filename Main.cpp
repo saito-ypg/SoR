@@ -1,7 +1,7 @@
 #include <Windows.h>
 #pragma comment(lib, "winmm.lib")
 #include<cstdlib>
-
+#include<chrono>
 #include<DirectXCollision.h>
 #include"Engine/Direct3D.h"
 #include"Engine/Camera.h"
