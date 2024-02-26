@@ -14,18 +14,19 @@ void ModeratorSequence::LoadData()
 		using json = nlohmann::json;
 		json stageData;
 		ifs >> stageData;
-		for(auto& game:stageData["Games"])
+		auto size = stageData.size();
+		spawnDataList.resize(size);
+		for(auto i=0;i<size;i++)
 		{
-			spawnDataList.push_back();
+			auto& game = stageData["Games"].at(i);
 			for (auto& stage : game["stage"]) {
-				EnemySpawning temp;
-				temp;
+				EnemySpawning temp{ 0,EnemyType::MAX,false };
 				if (stage.empty())	assert(false);//stage‚ª‹ó‚Ìê‡
 
 				temp.spawntime= stage["spawn_time"];
-				temp.type = TypeMap.at(stage["eneym_type"]);
+				temp.type = TypeMap.at(stage["enemy_type"]);
 				temp.is_boss = stage["is_boss"];
-
+				spawnDataList.at(i).emplace_back(temp);
 			}
 
 		}
