@@ -1,7 +1,8 @@
 #pragma once
 #include<chrono>
+#include<map>
 #include "Engine\GameObject.h"
-
+#include"EnemyType.h"
 /// <summary>
 /// ゲームの進行をつかさどる
 /// 敵を直接シーンに出すのではなく、此処から指令を出して特定のタイミングで出現～とする
@@ -22,10 +23,24 @@ private:
     int waves;//ウェーブ数
     EnemyManager* manager;
     enum {
-        PREP=0,//準備
+        CHANGED=0,//シーン変わった直後
+        PREP,//準備
         BEGIN,//敵スポーン開始
         END//敵全滅後
     } state;//
+    const std::map<std::string, EnemyType> TypeMap =
+    {
+        {"DECOY",EnemyType::DECOY}
+    };
+    struct Stage
+    {
+        float spawntime;//ウェーブ開始後スポーンする時間（秒)
+        string enemytype;
+        bool is_boss;
+
+    };
+
+    void LoadData();
 public:
     ModeratorSequence(GameObject*parent);
     ~ModeratorSequence();

@@ -158,6 +158,7 @@
     <ClInclude Include="EnemySpawner.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyType.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple3D.hlsl" />

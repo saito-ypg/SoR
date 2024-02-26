@@ -1,12 +1,17 @@
 #include "ModeratorSequence.h"
 #include"EnemyManager.h"
+void ModeratorSequence::LoadData()
+{
+	string filename = "game_stage.json";
+
+}
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
 {
 	//https://chat.openai.com/share/4c4ae57d-f51a-4ef8-895a-9d1c7068977d
 	curTime = milliseconds(0);
 	ttlTime = milliseconds(0);
 	waves = 0;
-	state = BEGIN;
+	state = CHANGED;
 	manager = nullptr;
 }
 
@@ -18,6 +23,8 @@ ModeratorSequence::~ModeratorSequence()
 void ModeratorSequence::Initialize()
 {
 	manager = new EnemyManager(this);
+	LoadData();
+
 }
 
 void ModeratorSequence::Update(const float& dt)

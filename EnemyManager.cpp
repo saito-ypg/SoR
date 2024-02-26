@@ -9,8 +9,8 @@ void EnemyManager::add(EnemyBase* enemy)
 
 bool EnemyManager::Eliminated()
 {
-	if (!Enemylist_.empty())//‹ó‚¾‚Á‚½‚ç‰½‚©‚µ‚ç‚¨‚©‚µ‚¢‚Í‚¸
-		return false;
+	assert(!Enemylist_.empty());//‹ó‚¾‚Á‚½‚ç‰½‚©‚µ‚ç‚¨‚©‚µ‚¢‚Í‚¸
+		
 	for (const auto& itr : Enemylist_)
 	{
 		if (itr->getStat() != EnemyBase::DEAD)

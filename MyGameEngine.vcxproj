@@ -64,6 +64,7 @@
     <ClInclude Include="Decoy.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemySpawner.h" />
+    <ClInclude Include="EnemyType.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Debug.h" />
     <ClInclude Include="Engine\Direct3D.h" />
