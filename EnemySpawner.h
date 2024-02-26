@@ -1,7 +1,7 @@
 #pragma once
-
-
-
+#include"EnemyType.h"
+class EnemyBase;
+class GameObject;
 class EnemySpawner
 {
 private:

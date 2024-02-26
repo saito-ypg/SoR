@@ -13,6 +13,8 @@
 class EnemyManager;
 class EnemySpawner;
 using std::chrono::milliseconds;
+using std::vector;
+using std::map;
 class ModeratorSequence :
     public GameObject
 {
@@ -32,14 +34,13 @@ private:
     {
         {"DECOY",EnemyType::DECOY}
     };
-    struct Stage
+    struct EnemySpawning
     {
         float spawntime;//ウェーブ開始後スポーンする時間（秒)
-        string enemytype;
+        EnemyType type;
         bool is_boss;
-
     };
-
+    vector<vector<EnemySpawning>> spawnDataList;
     void LoadData();
 public:
     ModeratorSequence(GameObject*parent);

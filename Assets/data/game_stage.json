@@ -1,13 +1,19 @@
 {
   "Games":[
     {
-      "wave_id":1,
-      "stage":[
+      "wave_id": 1,
+      "stage": [
         {
           "spawn_time": 1.5,
           "enemy_type": "DECOY",
           "is_boss": false
         }
+      ]
+    },
+    {
+      "wave_id": 2,
+      "stage": [
+        {}
       ]
     }
   ]

@@ -27,8 +27,8 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 	Instantiate<Ground>(this);
 	mod = Instantiate<ModeratorSequence>(this);
-	Instantiate<Decoy>(this);
-	GameObject* d = Instantiate<Decoy>(this);
+	//Instantiate<Decoy>(this);
+	auto* d = Instantiate<Decoy>(this);
 	d->SetPosition(XMFLOAT3(1, 0, 10));
 	d->SetRotateY(45);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
