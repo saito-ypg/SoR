@@ -12,17 +12,23 @@
 
 class EnemyManager;
 class EnemySpawner;
-using std::chrono::milliseconds;
-using std::vector;
-using std::map;
+struct EnemySpawning
+{
+    float spawntime;//ウェーブ開始後スポーンする時間（秒)
+    EnemyType type;
+    bool is_boss;
+    auto operator<=>(const EnemySpawning& other)const{ return this->spawntime <=> other.spawntime; }
+    auto operator<=>(const float& f)const { return this->spawntime <=> f; }
+};
 class ModeratorSequence :
     public GameObject
 {
 
 private:
-    milliseconds curTime;//今は処理時間依存じゃなくフレーム数依存だから、時間増やすのも固定でいいか
-    milliseconds ttlTime;//ゲーム全体
+    std::chrono::milliseconds curTime;//今は処理時間依存じゃなくフレーム数依存だから、時間増やすのも固定でいいか
+    std::chrono::milliseconds ttlTime;//ゲーム全体
     int waves;//ウェーブ数
+    int spawnindex;
     EnemyManager* manager;
     enum {
         CHANGED=0,//シーン変わった直後
@@ -34,13 +40,8 @@ private:
     {
         {"DECOY",EnemyType::DECOY}
     };
-    struct EnemySpawning
-    {
-        float spawntime;//ウェーブ開始後スポーンする時間（秒)
-        EnemyType type;
-        bool is_boss;
-    };
-    vector<vector<EnemySpawning>> spawnDataList;
+   
+    std::vector<std::vector<EnemySpawning>> spawnDataList;
     void LoadData();
 public:
     ModeratorSequence(GameObject*parent);

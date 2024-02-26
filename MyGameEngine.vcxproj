@@ -116,6 +116,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\data\game_stage.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

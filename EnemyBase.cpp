@@ -10,6 +10,11 @@ void EnemyBase::RemoveCamp()
 	RemoveColliderCamp((GameActor*)this, ENEMY);
 }
 
+void EnemyBase:: dyingProcess()
+{
+	eStat_ = DEAD;
+}
+
 EnemyBase::EnemyBase(GameObject* parent):GameActor(parent,"Enemy")
 {
 	eStat_ = WAIT;

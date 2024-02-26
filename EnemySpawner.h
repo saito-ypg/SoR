@@ -7,11 +7,12 @@ class EnemySpawner
 private:
 	class EnemyFactoty {
 	public:
-		static EnemyBase* createEnemy(GameObject* pParent, EnemyType type);
+		static EnemyBase* createEnemy(GameObject* pParent, EnemyType type,bool isBoss);
 		
 	};
 
 public:
-	EnemyBase* spawnEnemy(GameObject*pParent, EnemyType type);
+	static EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type);
+	static EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type,bool isBoss);
 };
 

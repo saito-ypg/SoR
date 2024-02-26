@@ -9,7 +9,7 @@
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
-	isDead_ = false;
+	isdying = false;
 	hCircle_ = -1;
 	hQuad_ = -1;
 	hSector_ = -1;
@@ -45,7 +45,11 @@ void GameActor::Update(const float& dt)
 	}
 
 	if (status_.hp_ <= 0)
-		KillMe();
+		isdying = true;
+	if (isdying)
+	{
+		dyingProcess();
+	}
 }
 
 void GameActor::ActorUpdate(const float& dt)
@@ -58,9 +62,16 @@ void GameActor::Draw()
 
 	ActorDraw();
 	DrawHP();
-
+	if (status_.hp_ <= 0)
+		dyingDraw();
 }
 void GameActor::ActorDraw()
+{
+}
+void GameActor::dyingProcess()
+{
+}
+void GameActor::dyingDraw()
 {
 }
 void GameActor::DrawHP()
@@ -94,7 +105,7 @@ void GameActor::DrawHP()
 void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 {
 	if (isInvincible_)
-	{
+	{//–³“G‚Ìˆ—‚ ‚ê‚Î‘‚­
 		return;
 	}
 	status_.hp_ -= dmg.damage_;

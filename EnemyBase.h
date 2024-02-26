@@ -10,7 +10,7 @@ private:
 protected:
 	void AddCamp() override;
 	void RemoveCamp() override;
-	
+	void dyingProcess()override;
 	STATE eStat_;//ä«óùóp
 public:
 	STATE getStat() { return eStat_; }

@@ -4,7 +4,7 @@
       "wave_id": 1,
       "stage": [
         {
-          "spawn_time": 1.5,
+          "spawn_time": 5.0,
           "enemy_type": "DECOY",
           "is_boss": false
         }

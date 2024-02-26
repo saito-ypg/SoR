@@ -18,7 +18,8 @@ private:
     
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
-    bool isDead_;//HP0以下になったらこれ変える、gameobjectとは別？
+    bool isdying;//HP0以下になったらこれ変える、gameobjectとは別？
+    bool  IsDying_()const { return isdying; }
     std::vector<int> hModels_;//モデル番号をリストに
 
     void AddColliderCamp(GameActor *act, CAMPS camp);//当たり判定を登録、継承先で陣営固定する
@@ -35,6 +36,8 @@ private:
     int hQuad_;
     int hSector_;
     void DrawHP();//HPを描画する。
+    virtual void dyingProcess();//死亡時処理。ないならないでよし
+    virtual void dyingDraw();//死亡時描画。倒れるアニメーションとか
 public:
     float GetRadius()const{return status_.hitCircleRange_;}
     GameActor(GameObject* parent, const std::string& name); 
@@ -43,6 +46,7 @@ public:
     virtual void ActorUpdate(const float& dt)=0;//継承先で実装
     void Draw() override final;//個別の描画はActorDrawに分離すること
     virtual void ActorDraw() = 0;
+
     void TakeAttacked(DamageData &dmg,XMVECTOR &dir);//オーバーライドするか未定
     Transform* GetTransformRef();
     void ForceMove(XMVECTOR move);
