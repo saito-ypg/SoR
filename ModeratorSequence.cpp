@@ -1,8 +1,19 @@
 #include "ModeratorSequence.h"
 #include"EnemyManager.h"
+#include<fstream>
+#include"libraries/json.hpp"
 void ModeratorSequence::LoadData()
 {
+	using namespace std;
+	//https://jsoneditoronline.org/#left=local.desuze&right=local.judamu jsonエディタ
 	string filename = "game_stage.json";
+	ifstream ifs(filename.c_str());
+	if (ifs.good())
+	{
+		
+
+
+	}
 
 }
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
