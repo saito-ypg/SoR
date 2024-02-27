@@ -59,11 +59,13 @@ void GameActor::ActorUpdate(const float& dt)
 void GameActor::Draw()
 {
 	//‚È‚ñ‚©‚â‚é
-
+	
 	ActorDraw();
 	DrawHP();
-	if (status_.hp_ <= 0)
+	if (isdying)
 		dyingDraw();
+	else
+		DrawCollision();
 }
 void GameActor::ActorDraw()
 {

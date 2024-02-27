@@ -11,6 +11,11 @@ Decoy::~Decoy()
 {
 }
 
+void Decoy::dyingDraw()
+{
+	transform_.rotate_.x = -90;
+}
+
 void Decoy::Initialize()
 {
 	hModels_.push_back(Model::Load("Assets/Charactors/decoy.fbx"));
@@ -22,7 +27,6 @@ void Decoy::ActorUpdate(const float& dt)
 
 void Decoy::ActorDraw()
 {
-	DrawCollision();
 	SimpleDraw();
 }
 

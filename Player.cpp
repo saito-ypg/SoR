@@ -159,7 +159,6 @@ void Player::RemoveCamp()
 //•`‰æ
 void Player::ActorDraw()
 {
-    DrawCollision();
 #ifdef _DEBUG
     if (Input::IsKey(DIK_Z))
     {

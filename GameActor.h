@@ -18,7 +18,7 @@ private:
     
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
-    bool isdying;//HP0以下になったらこれ変える、gameobjectとは別？
+    bool isdying;//HP0以下になったらこれ変える、回復しても死んだまま
     bool  IsDying_()const { return isdying; }
     std::vector<int> hModels_;//モデル番号をリストに
 
