@@ -278,6 +278,7 @@
     <None Include="Assets\data\game_stage.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="Assets\data\stage_schema.json" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />

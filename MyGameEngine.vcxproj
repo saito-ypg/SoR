@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
+    <None Include="Assets\data\stage_schema.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -256,4 +257,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\directxtex_desktop_win10.2023.4.28.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\directxtex_desktop_win10.2023.4.28.1\build\native\directxtex_desktop_win10.targets'))" />
   </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

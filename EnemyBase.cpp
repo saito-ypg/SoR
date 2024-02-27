@@ -12,6 +12,7 @@ void EnemyBase::RemoveCamp()
 
 void EnemyBase:: dyingProcess()
 {
+	RemoveCamp();
 	eStat_ = DEAD;
 }
 

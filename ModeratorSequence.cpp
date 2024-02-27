@@ -4,7 +4,7 @@
 #include<fstream>
 #include<algorithm>
 #include"libraries/json.hpp"
-string DATA_PATH="Assets/data/";
+const string DATA_PATH="Assets/data/";
 using std::vector;
 using namespace std::chrono;
 

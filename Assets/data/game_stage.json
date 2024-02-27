@@ -1,5 +1,5 @@
 {
-  "Games":[
+  "Games": [
     {
       "wave_id": 1,
       "stage": [
@@ -11,9 +11,10 @@
       ]
     },
     {
+
       "wave_id": 2,
       "stage": [
-        {}
+
       ]
     }
   ]
