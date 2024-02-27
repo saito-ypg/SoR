@@ -99,6 +99,7 @@ void ModeratorSequence::Update(const float& dt)
 	case ModeratorSequence::END:
 		spawnindex = 0;
 		waves++;
+		state = PREP;
 		break;
 
 	}

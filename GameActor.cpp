@@ -78,12 +78,13 @@ void GameActor::dyingDraw()
 }
 void GameActor::DrawHP()
 {
+	const float HPBarRatio = 128.0f / Direct3D::scrWidth_;
 	
 	Transform DrawT;
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
-	DrawT.position_.x = DrawT.position_.x / Direct3D::scrWidth_* 2.0f - 1;
+	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::scrWidth_-HPBarRatio/4.0f)* 2.0f - 1;
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
 	using namespace HPBar;
 	//HPBar::Draw(HPBar::BAR, DrawT);
