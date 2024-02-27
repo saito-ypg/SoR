@@ -5,20 +5,13 @@
 #include"HPBar.h"
 #include"Engine/Image.h"
 #include"Engine/Debug.h"
+#include"areamodels.h"
 
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
 	isdying = false;
-	hCircle_ = -1;
-	hQuad_ = -1;
-	hSector_ = -1;
-	hCircle_ = Model::Load("Assets\\Area\\CircleArea.fbx");
-	hQuad_ = Model::Load("Assets\\Area\\QuadArea.fbx");
-	hSector_ = Model::Load("Assets\\Area\\SectorArea.fbx");
-	assert(hCircle_ >= 0);
-	assert(hQuad_ >= 0);
-	assert(hSector_ >= 0);
+
 
 	knockBack = { 0,0,XMVectorZero() };
 
@@ -153,8 +146,8 @@ void GameActor::DrawCollision()
 	circle.position_ = transform_.position_;
 	circle.scale_.x = status_.hitCircleRange_;
 	circle.scale_.z = status_.hitCircleRange_;
-	Model::SetTransform(hCircle_, circle);
-	Model::Draw(hCircle_);
+	Model::SetTransform(area(CIRCLE), circle);
+	Model::Draw(area(CIRCLE));
 
 }
 Transform* GameActor::GetTransformRef()

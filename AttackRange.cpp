@@ -3,7 +3,7 @@
 #include"CollisionManager.h"
 #include"GameActor.h"
 #pragma warning(disable:26437)
-
+using namespace AreaModels;
 AttackRangeBase::AttackRangeBase() :areatype_(NONE),position_({ 0,0,0 }), Duration(1)
 {
 }

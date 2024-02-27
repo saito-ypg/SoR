@@ -4,6 +4,7 @@
 #include "ActorInfo.h"
 #include"CollisionManager.h"
 #include"DamageData.h"
+using namespace AreaModels;
 class ActorCollider; 
 const float defTime = 25.0f;
 class GameActor :public GameObject{
@@ -32,9 +33,6 @@ private:
     
     void SimpleDraw();//簡易的にモデルを描画する。draw内で呼ぶ
     void DrawCollision();//テスト用、当たり判定を描画。draw内で呼ぶ
-    int hCircle_;
-    int hQuad_;
-    int hSector_;
     void DrawHP();//HPを描画する。
     virtual void dyingProcess();//死亡時処理。ないならないでよし
     virtual void dyingDraw();//死亡時描画。倒れるアニメーションとか

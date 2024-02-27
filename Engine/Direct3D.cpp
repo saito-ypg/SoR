@@ -1,8 +1,10 @@
 #include<DirectXMath.h>
 #include <d3dcompiler.h>
+#include<string>
 #include"Direct3D.h"
 #include"Camera.h"
 using namespace DirectX;
+std::wstring SHADER_PATH= L"Assets/Resourses/";
 namespace Direct3D
 {
 	ID3D11Device* pDevice_ = nullptr;		//デバイス
@@ -156,7 +158,7 @@ HRESULT Direct3D::InitShader3D()
 {
 	// 頂点シェーダの作成（コンパイル）		
 		ID3DBlob* pCompileVS = nullptr;
-		 D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+		 D3DCompileFromFile((SHADER_PATH+ L"Simple3D.hlsl").c_str(), nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 		assert(pCompileVS != nullptr);
 
 		HRESULT	hr =pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &(shaderBundle[SHADER_3D].pVertexShader_));
@@ -184,7 +186,7 @@ HRESULT Direct3D::InitShader3D()
 
 		//ピクセルシェーダの作成（コンパイル）
 		ID3DBlob* pCompilePS = nullptr;
-		hr = D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+		hr = D3DCompileFromFile((SHADER_PATH + L"Simple3D.hlsl").c_str(), nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 		assert(pCompilePS != nullptr);
 
 		hr = pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &(shaderBundle[SHADER_3D].pPixelShader_));
@@ -216,7 +218,7 @@ HRESULT Direct3D::InitShader2D()
 	//こっから2D
 	{// 頂点シェーダの作成（コンパイル）		
 		ID3DBlob* pCompileVS = nullptr;
-		HRESULT hr = D3DCompileFromFile(L"Simple2D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+		HRESULT hr = D3DCompileFromFile((SHADER_PATH + L"Simple2D.hlsl").c_str(), nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 		assert(pCompileVS != nullptr);
 
 		hr = pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &(shaderBundle[SHADER_2D].pVertexShader_));
@@ -242,7 +244,7 @@ HRESULT Direct3D::InitShader2D()
 
 		// ピクセルシェーダの作成（コンパイル）
 		ID3DBlob* pCompilePS = nullptr;
-		hr = D3DCompileFromFile(L"Simple2D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+		hr = D3DCompileFromFile((SHADER_PATH + L"Simple2D.hlsl").c_str(), nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 		assert(pCompilePS != nullptr);
 
 		hr = pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &(shaderBundle[SHADER_2D].pPixelShader_));

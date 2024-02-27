@@ -168,8 +168,8 @@ void Player::ActorDraw()
         q.scale_.x = testQuad.width_;
         q.scale_.z = testQuad.length_;
         q.rotate_.y = testQuad.rotate_;
-        Model::SetTransform(hQuad_,q );
-        Model::Draw(hQuad_);
+        Model::SetTransform(area(QUAD), q);
+        Model::Draw(area(QUAD));
     }
     if (Input::IsKey(DIK_X))
     {
@@ -177,8 +177,8 @@ void Player::ActorDraw()
         c.position_ = testCircle.position_;
         c.scale_.x = testCircle.radius_;
         c.scale_.z = testCircle.radius_;
-        Model::SetTransform(hCircle_, c);
-        Model::Draw(hCircle_);
+        Model::SetTransform(area(CIRCLE), c);
+        Model::Draw(area(CIRCLE));
     }
     if (Input::IsKey(DIK_C))
     {
@@ -187,8 +187,8 @@ void Player::ActorDraw()
         s.scale_.x = testSector.radius_;
         s.scale_.z = testSector.radius_;
         s.rotate_.y =180+ testSector.rotate_;
-        Model::SetTransform(hSector_, s);
-        Model::Draw(hSector_);
+        Model::SetTransform(area(SECTOR), s);
+        Model::Draw(area(SECTOR));
     }
 #endif
     Model::SetTransform(hModel_,transform_);

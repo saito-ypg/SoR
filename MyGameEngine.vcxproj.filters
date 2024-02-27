@@ -161,10 +161,13 @@
     <ClInclude Include="EnemyType.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="areamodels.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Simple3D.hlsl" />
-    <FxCompile Include="Simple2D.hlsl" />
+    <FxCompile Include="Assets\Resourses\Simple3D.hlsl" />
+    <FxCompile Include="Assets\Resourses\Simple2D.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Sprite.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="areamodels.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

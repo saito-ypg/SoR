@@ -1,9 +1,7 @@
 #pragma once
 //攻撃範囲の構造体を記述
 #include<DirectXMath.h>
-enum AREATYPE {
-	CIRCLE, QUAD, SECTOR, NONE
-};
+#include "areamodels.h"
 using namespace DirectX;
 struct actorAddr;
 struct AttackRangeBase
@@ -14,11 +12,11 @@ struct AttackRangeBase
 	float Duration;//判定持続フレーム
 	AttackRangeBase();
 	AttackRangeBase(XMFLOAT3 pos);
-	AREATYPE getType() { return areatype_; }
+	AreaModels::AREATYPE getType() { return areatype_; }
 	virtual bool IsHit(struct actorAddr& data)=0;
 	virtual XMVECTOR getDir(XMFLOAT3 pos) = 0;
 protected:
-	AREATYPE areatype_;//攻撃エリア。要初期化
+	AreaModels::AREATYPE areatype_;//攻撃エリア。要初期化
 
 
 };
