@@ -7,6 +7,11 @@
           "spawn_time": 5.0,
           "enemy_type": "DECOY",
           "is_boss": false
+        },
+        {
+          "spawn_time": 8.0,
+          "enemy_type": "DECOY",
+          "is_boss": true
         }
       ]
     },
@@ -19,7 +24,3 @@
     }
   ]
 }
-
-
-    
-  

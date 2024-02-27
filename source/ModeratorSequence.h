@@ -1,7 +1,7 @@
 #pragma once
 #include<chrono>
 #include<map>
-#include "Engine\GameObject.h"
+#include "../Engine\GameObject.h"
 #include"EnemyType.h"
 /// <summary>
 /// ƒQ[ƒ€‚Ìis‚ğ‚Â‚©‚³‚Ç‚é

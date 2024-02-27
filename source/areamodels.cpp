@@ -1,5 +1,5 @@
 #include "areamodels.h"
-#include"Engine/Model.h"
+#include"../Engine/Model.h"
 namespace AreaModels
 {
 	int handles[AreaModels::AREATYPE::NONE] = { -1,-1,-1 };

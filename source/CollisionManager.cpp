@@ -1,10 +1,11 @@
 #include<map>
 #include<vector>
 #include<unordered_map>
+#include"../Engine/global.h"
+#include"../Engine/Debug.h"
 #include "CollisionManager.h"
 #include"GameActor.h"
-#include"Engine/global.h"
-#include"Engine/Debug.h"
+
 #include"DamageData.h"
 
 //Šew‰c‚Ì“–‚½‚è”»’è

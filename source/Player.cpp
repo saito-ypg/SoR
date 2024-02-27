@@ -1,8 +1,8 @@
 #include "Player.h"
 #include"Ground.h"
-#include"Engine/Model.h"
-#include"Engine/Input.h"
-#include"Engine/Camera.h"
+#include"../Engine/Model.h"
+#include"../Engine/Input.h"
+#include"../Engine/Camera.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 constexpr float PLAYER_ROT_TH = 0.1f;//ˆÚ“®‚É‰ñ“]‚·‚é‚©‚Ç‚¤‚©‚Ì‹——£‚Ì‚µ‚«‚¢’l
 bool nearlyZero(float f) {//‚Ù‚Ú0‚Å‚ ‚é‚Æ‚¢‚¦‚é‚È‚çtrueB

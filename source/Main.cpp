@@ -3,12 +3,12 @@
 #include<cstdlib>
 #include<chrono>
 #include<DirectXCollision.h>
-#include"Engine/Direct3D.h"
-#include"Engine/Camera.h"
-#include"Engine/Input.h"
-#include"Engine/Model.h"
-#include"Engine/Image.h"
-#include"Engine/RootJob.h"
+#include"../Engine/Direct3D.h"
+#include"../Engine/Camera.h"
+#include"../Engine/Input.h"
+#include"../Engine/Model.h"
+#include"../Engine/Image.h"
+#include"../Engine/RootJob.h"
 #include <crtdbg.h>
 const char* WIN_CLASS_NAME = "SampleGame";
 const char* GAME_TITLE = "ƒTƒ“ƒvƒ‹ƒQ[ƒ€";

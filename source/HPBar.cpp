@@ -1,7 +1,7 @@
 #include<vector>
+#include"../Engine/Image.h"
+#include"../Engine/Camera.h"
 #include "HPBar.h"
-#include"Engine/Image.h"
-#include"Engine/Camera.h"
 namespace {
 	
 	using std::vector;

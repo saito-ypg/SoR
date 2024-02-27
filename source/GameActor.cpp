@@ -1,10 +1,11 @@
 #include<cmath>
 #include "GameActor.h"
-#include"Engine/Model.h"
-#include"Engine/Camera.h"
+#include"../Engine/Model.h"
+#include"../Engine/Camera.h"
+#include"../Engine/Image.h"
+#include"../Engine/Debug.h"
 #include"HPBar.h"
-#include"Engine/Image.h"
-#include"Engine/Debug.h"
+
 #include"areamodels.h"
 
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
