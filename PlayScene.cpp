@@ -8,6 +8,7 @@
 #include"EnemyManager.h"
 #include"ModeratorSequence.h"
 #include"Decoy.h"
+#include"HPBar.h"
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
 	: GameObject(parent, "PlayScene")
@@ -22,7 +23,7 @@ PlayScene::~PlayScene()
 //初期化
 void PlayScene::Initialize()
 {
-	
+	HPBar::Initialize();
 	Instantiate<Player>(this);
 	Instantiate<Ground>(this);
 	mod = Instantiate<ModeratorSequence>(this);

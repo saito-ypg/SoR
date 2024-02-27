@@ -74,7 +74,7 @@ void GameActor::DrawHP()
 	//HPBar::Draw(HPBar::BAR, DrawT);
 	for (int i = 0; i < HPBar::NUM; i++)
 	{
-		HPBar::Draw((HPBar::HANDLE)i, DrawT);
+		HPBar::Draw(HPBar::BAR, DrawT);
 	}
 }
 

@@ -22,6 +22,10 @@ namespace Direct3D
 	//初期化
 	HRESULT Initialize(int winW, int winH, HWND hWnd);
 
+	enum BLEND_MODE
+	{
+		DEFAULT,ADD,MAX
+	};
 	//シェーダー準備
 	HRESULT InitShader();
 	HRESULT InitShader3D();
@@ -38,5 +42,8 @@ namespace Direct3D
 	void Release();
 
 	void SetDepthBafferWriteEnable(bool isWrite);
+
+	void SetBlendMode(BLEND_MODE mode);
+
 
 };

@@ -50,9 +50,10 @@ HRESULT Sprite::Initialize(string filename)
 void Sprite::Draw(Transform& transform, RECT rect)
 {
 	using namespace Direct3D;
-	Direct3D::SetShader(SHADER_2D);
-	//Direct3D::SetDepthBafferWriteEnable(false);
-	transform.Calculation();
+	SetShader(SHADER_2D);
+	SetBlendMode(ADD);
+	SetBufferToPipeline();
+	//transform.Calculation();
 	//画面に合わせる
 		//表示するサイズに合わせる
 	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom, 1);
@@ -68,10 +69,11 @@ void Sprite::Draw(Transform& transform, RECT rect)
 
 	PassDataToCB(worldmatrix,mTexel);
 
-	SetBufferToPipeline();
+
 
 	Direct3D::pContext_->DrawIndexed(indexNum_, 0, 0);//!!
-	//Direct3D::SetDepthBafferWriteEnable(true);
+	SetShader(SHADER_3D);
+	SetDepthBafferWriteEnable(true);
 }
 
 void Sprite::Release()
@@ -171,6 +173,7 @@ void Sprite::SetBufferToPipeline()
 	UINT offset = 0;
 	Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 
+	Direct3D::SetDepthBafferWriteEnable(false);
 	// インデックスバッファーをセット
 	stride = sizeof(int);
 	offset = 0;
