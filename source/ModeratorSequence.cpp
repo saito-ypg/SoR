@@ -105,7 +105,6 @@ void ModeratorSequence::Update(const float& dt)
 	
 		break;
 	case END:
-
 		Transition(NEXT);
 
 		break;

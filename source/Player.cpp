@@ -14,7 +14,7 @@ Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),isSkillBeingUsed(false)
 {
     status_ = ActorInfo(200, 1.1f);
-    status_.hp_ = 20;
+
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }
