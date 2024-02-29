@@ -6,7 +6,7 @@
 #include"DamageData.h"
 using namespace AreaModels;
 class ActorCollider; 
-const float defTime = 25.0f;
+const float defTime = 35.0f;
 class GameActor :public GameObject{
 private:
     struct {

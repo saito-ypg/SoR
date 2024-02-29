@@ -77,14 +77,14 @@ void ModeratorSequence::Update(const float& dt)
 		break;
 	case BEGIN:
 		if (true) {//ŠÔğŒ
-			if (spawnindex < spawnDataList.at(waves).size()) {
+			auto size = spawnDataList.at(waves).size();
+			if (spawnindex <size ) {
 				auto& waiting = spawnDataList.at(waves).at(spawnindex);
-				if (waiting.spawntime <=static_cast<float>(duration_cast<seconds>(curTime).count()))
+				float time = static_cast<float>(duration_cast<seconds>(curTime).count());
+				if (waiting.spawntime <=time)
 				{
-					while (spawnindex < spawnDataList.at(waves).size()) {
-						manager->add(EnemySpawner::spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));
+						manager->add(EnemySpawner::spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));	
 						spawnindex++;
-					}
 				}
 				
 			}

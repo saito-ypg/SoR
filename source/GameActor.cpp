@@ -53,13 +53,16 @@ void GameActor::ActorUpdate(const float& dt)
 void GameActor::Draw()
 {
 	//Ç»ÇÒÇ©Ç‚ÇÈ
-	
+
 	ActorDraw();
-	DrawHP();
+
 	if (isdying)
 		dyingDraw();
 	else
+	{
 		DrawCollision();
+		DrawHP();
+	}
 }
 void GameActor::ActorDraw()
 {
@@ -87,14 +90,14 @@ void GameActor::DrawHP()
 		switch (i)
 		{
 		case DMG:
-			//HPÉoÅ[ÇÇ¢Å[Ç∂ÇÒÇÆor
-			break;
 		case BAR:
-			
+			DrawT.scale_.x = status_.hp_ / status_.maxHp_;
 
 			break;
 		}
-		HPBar::Draw((HPBar::HANDLE)i, DrawT);
+		if (DrawT.scale_.x < 0)
+			DrawT.scale_.x = 0;
+		HPBar::Draw((HPBar::HANDLE)BAR, DrawT);
 	}
 }
 
