@@ -7,7 +7,7 @@
 const string DATA_PATH="Assets/data/";
 using std::vector;
 using namespace std::chrono;
-
+constexpr float TRANSITION_MS = 3000;
 
 void ModeratorSequence::LoadData()
 {
@@ -48,6 +48,8 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	waves = 0;
 	spawnindex = 0;
 	state = CHANGED;
+	transitionTime = TRANSITION_MS;
+
 	manager = nullptr;
 }
 
@@ -69,13 +71,14 @@ void ModeratorSequence::Update(const float& dt)
 	switch (state)
 	{
 	case CHANGED:
+	
 		Transition(BEGIN);
-
-
+	
 		break;
 	case PREP:
 
 		Transition(BEGIN);
+		transitionTime = TRANSITION_MS;
 		break;
 	case BEGIN:
 		if (true) {//ŽžŠÔðŒ
@@ -93,6 +96,7 @@ void ModeratorSequence::Update(const float& dt)
 			else if (manager->Eliminated())
 			{
 				state = END;
+				transitionTime = TRANSITION_MS;
 			}
 			curTime += milliseconds(static_cast<long long>(dt));
 			ttlTime += milliseconds(static_cast<long long>(dt));
@@ -101,14 +105,15 @@ void ModeratorSequence::Update(const float& dt)
 	
 		break;
 	case END:
-		transitionTime = 3000;
-		Transition(NEXT)
-		
+
+		Transition(NEXT);
+
 		break;
 	case NEXT:
 		spawnindex = 0;
 		waves++;
 		state = PREP;
+		transitionTime = TRANSITION_MS;
 	}
 	manager->Update(dt);
 }
