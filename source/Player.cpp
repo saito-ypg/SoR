@@ -13,9 +13,8 @@ bool nearlyZero(float f) {//ÇŸÇ⁄0Ç≈Ç†ÇÈÇ∆Ç¢Ç¶ÇÈÇ»ÇÁtrueÅB
 Player::Player(GameObject* parent)
     :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),isSkillBeingUsed(false)
 {
-    status_.maxHp_ = 200;
-    status_.hp_ = status_.maxHp_;
-    status_.hitCircleRange_ = 1.1f;
+    status_ = ActorInfo(200, 1.1f);
+    status_.hp_ = 20;
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
 }

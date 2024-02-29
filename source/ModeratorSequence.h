@@ -31,12 +31,14 @@ private:
     int waves;//ウェーブ数
     int spawnindex;
     EnemyManager* manager;
-    enum {
+    enum s{
         CHANGED=0,//シーン変わった直後
         PREP,//準備
         BEGIN,//敵スポーン開始
-        END//敵全滅後
+        END,//敵全滅後
+        NEXT,
     } state;//
+    float transitionTime;//ミリ秒単位、進行に使う
     const std::map<std::string, EnemyType> TypeMap =
     {
         {"DECOY",EnemyType::DECOY}

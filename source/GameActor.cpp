@@ -84,21 +84,22 @@ void GameActor::DrawHP()
 	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::scrWidth_-HPBarRatio/4.0f)* 2.0f - 1;
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
 	using namespace HPBar;
-	//HPBar::Draw(HPBar::BAR, DrawT);
-	for (int i = 0; i < HPBar::NUM; i++)
+	DrawT.scale_.x = status_.hp_ / status_.maxHp_;
+	HPBar::Draw(HPBar::BAR, DrawT);
+	/*for (int i = 0; i < HPBar::NUM; i++)
 	{
 		switch (i)
 		{
 		case DMG:
 		case BAR:
-			DrawT.scale_.x = status_.hp_ / status_.maxHp_;
+			
 
 			break;
 		}
 		if (DrawT.scale_.x < 0)
 			DrawT.scale_.x = 0;
 		HPBar::Draw((HPBar::HANDLE)BAR, DrawT);
-	}
+	}*/
 }
 
 

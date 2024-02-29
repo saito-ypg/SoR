@@ -65,15 +65,17 @@ void ModeratorSequence::Initialize()
 
 void ModeratorSequence::Update(const float& dt)
 {
+	auto Transition = [&](ModeratorSequence::s nextState) {transitionTime -= dt; if (transitionTime < 0)state = nextState; };
 	switch (state)
 	{
 	case CHANGED:
-		state = BEGIN;
+		Transition(BEGIN);
 
 
 		break;
 	case PREP:
 
+		Transition(BEGIN);
 		break;
 	case BEGIN:
 		if (true) {//ŽžŠÔðŒ
@@ -98,12 +100,15 @@ void ModeratorSequence::Update(const float& dt)
 		}
 	
 		break;
-	case ModeratorSequence::END:
+	case END:
+		transitionTime = 3000;
+		Transition(NEXT)
+		
+		break;
+	case NEXT:
 		spawnindex = 0;
 		waves++;
 		state = PREP;
-		break;
-
 	}
 	manager->Update(dt);
 }
