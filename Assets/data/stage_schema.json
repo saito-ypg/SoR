@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "Games": {
+    "Waves": {
       "type": "array",
       "items": {
         "type": "object",
@@ -10,7 +10,7 @@
           "wave_id": {
             "type": "integer"
           },
-          "stage": {
+          "enemy": {
             "type": "array",
             "items": {
               "type": "object",
@@ -29,9 +29,9 @@
             }
           }
         },
-        "required": [ "wave_id", "stage" ]
+        "required": [ "wave_id", "enemy" ]
       }
     }
   },
-  "required": [ "Games" ]
+  "required": [ "Waves" ]
 }

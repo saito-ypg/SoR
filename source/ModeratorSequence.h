@@ -19,6 +19,7 @@ struct EnemySpawning
     bool is_boss;
     auto operator<=>(const EnemySpawning& other)const{ return this->spawntime <=> other.spawntime; }
     auto operator<=>(const float& f)const { return this->spawntime <=> f; }
+    EnemySpawning() :spawntime(0), type(EnemyType::MAX), is_boss(false) {}
 };
 class ModeratorSequence :
     public GameObject
@@ -41,7 +42,7 @@ private:
         {"DECOY",EnemyType::DECOY}
     };
    
-    std::vector<std::vector<EnemySpawning>> spawnDataList;
+    std::vector<std::vector<EnemySpawning>> spawnDataList;//ウェーブ数・敵の数
     void LoadData();
 public:
     ModeratorSequence(GameObject*parent);

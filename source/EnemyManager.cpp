@@ -35,7 +35,6 @@ void EnemyManager::Update(const float& dt)
 {
 	for (auto& itr : Enemylist_)
 	{
-		
 		itr->UpdateSub(dt);
 	}
 }

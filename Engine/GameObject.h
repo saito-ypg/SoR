@@ -67,6 +67,7 @@ public:
 	float GetTotalTimeScale()const { return parentalTimeScale * timeScale; }//
 	GameObject* GetParent() const{ return pParent_; }
 	XMFLOAT3 GetPosition() const { return transform_.position_; }
+	XMVECTOR GetPositionV() const { return XMLoadFloat3(&transform_.position_); }
 	XMFLOAT3 GetRotate() const { return transform_.rotate_; }
 	XMFLOAT3 GetScale() const { return transform_.scale_; }
 	XMFLOAT3 GetWorldPosition()const { return Transform::Float3Add(GetParent()->transform_.position_, transform_.position_); }
@@ -75,6 +76,7 @@ public:
 	void SetTimeScale(float v) { timeScale = v; }
 	void SetPosition(XMFLOAT3 position) { transform_.position_ = position; }
 	void SetPosition(float x, float y, float z) { SetPosition(XMFLOAT3(x, y, z)); }
+	void SetPosition(XMVECTOR position) { XMStoreFloat3(&transform_.position_, position); }
 	void SetRotate(XMFLOAT3 rotate) { transform_.rotate_ = rotate; }
 	void SetRotate(float x, float y, float z) { SetRotate(XMFLOAT3(x, y, z)); }
 	void SetRotateX(float x) { SetRotate(x, transform_.rotate_.y, transform_.rotate_.z); }

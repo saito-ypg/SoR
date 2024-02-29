@@ -1,8 +1,8 @@
 {
-  "Games": [
+  "Waves": [
     {
       "wave_id": 1,
-      "stage": [
+      "enemy": [
         {
           "spawn_time": 5.0,
           "enemy_type": "DECOY",
@@ -18,8 +18,12 @@
     {
 
       "wave_id": 2,
-      "stage": [
-
+      "enemy": [
+        {
+          "spawn_time": 3.0,
+          "enemy_type": "DECOY",
+          "is_boss": false
+        }
       ]
     }
   ]

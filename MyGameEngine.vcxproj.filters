@@ -51,6 +51,9 @@
     <Filter Include="Scenes\TitleScene">
       <UniqueIdentifier>{85adb349-a73e-4fa4-9e38-8f10a14369b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\PlayScene\Objects\Props">
+      <UniqueIdentifier>{c8973fd8-80c2-421f-a818-8367f24f5d09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Sprite.h">
@@ -95,74 +98,74 @@
     <ClInclude Include="Engine\Image.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Scenes\PlayScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Scenes\PlayScene\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBase.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Decoy.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorCollider.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Debug.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="AttackRange.h">
+    <ClInclude Include="source\ActorCollider.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ActorInfo.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameActor.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CollisionManager.h">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClInclude>
-    <ClInclude Include="ModeratorSequence.h">
+    <ClInclude Include="source\areamodels.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AttackRange.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DamageData.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyBase.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyManager.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemySpawner.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyType.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Decoy.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Player.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PlayerSkillsInclude.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="source\testSkill.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SkillBase.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PlayScene.h">
       <Filter>Scenes\PlayScene</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Scenes\other</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorInfo.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClInclude>
-    <ClInclude Include="GameActor.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClInclude>
-    <ClInclude Include="DamageData.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSkillsInclude.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="testSkill.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="SkillBase.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="HPBar.h">
-      <Filter>Scenes\PlayScene\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
+    <ClInclude Include="source\TitleScene.h">
       <Filter>Scenes\TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="EnemySpawner.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="source\TestScene.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyType.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="source\Ground.h">
+      <Filter>Scenes\PlayScene\Objects\Props</Filter>
     </ClInclude>
-    <ClInclude Include="areamodels.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClInclude Include="source\ModeratorSequence.h">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="source\HPBar.h">
+      <Filter>Scenes\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -212,71 +215,71 @@
     <ClCompile Include="Engine\SphereCollider.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Scenes\PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Scenes\PlayScene\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Image.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBase.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Decoy.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorCollider.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Debug.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="AttackRange.cpp">
+    <ClCompile Include="source\ActorCollider.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ActorInfo.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameActor.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\areamodels.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="ModeratorSequence.cpp">
-      <Filter>Scenes\PlayScene</Filter>
+    <ClCompile Include="source\AttackRange.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Scenes\other</Filter>
+    <ClCompile Include="source\CollisionManager.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
     </ClCompile>
-    <ClCompile Include="ActorInfo.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClCompile>
-    <ClCompile Include="GameActor.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClCompile>
-    <ClCompile Include="testSkill.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="SkillBase.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="HPBar.cpp">
-      <Filter>Scenes\PlayScene\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Scenes\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemySpawner.cpp">
+    <ClCompile Include="source\EnemyBase.cpp">
       <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="areamodels.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClCompile Include="source\EnemyManager.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemySpawner.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Decoy.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Player.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="source\testSkill.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SkillBase.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PlayScene.cpp">
+      <Filter>Scenes\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TitleScene.cpp">
+      <Filter>Scenes\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Ground.cpp">
+      <Filter>Scenes\PlayScene\Objects\Props</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeratorSequence.cpp">
+      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HPBar.cpp">
+      <Filter>Scenes\PlayScene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +287,9 @@
     <None Include="Assets\data\game_stage.json">
       <Filter>リソース ファイル</Filter>
     </None>
-    <None Include="Assets\data\stage_schema.json" />
+    <None Include="Assets\data\stage_schema.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />

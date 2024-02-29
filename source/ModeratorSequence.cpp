@@ -20,13 +20,13 @@ void ModeratorSequence::LoadData()
 		using json = nlohmann::json;
 		json stageData;
 		ifs >> stageData;
-		auto size = stageData.size();
+		auto size = stageData["Waves"].size();
 		spawnDataList.resize(size);
 		for(auto i=0;i<size;i++)
 		{
-			auto& game = stageData["Games"].at(i);
-			for (auto& stage : game["stage"]) {
-				EnemySpawning temp{ 0,EnemyType::MAX,false };
+			auto& game = stageData["Waves"].at(i);
+			for (auto& stage : game["enemy"]) {
+				EnemySpawning temp;
 				if (stage.empty())	assert(false);//stage‚ª‹ó‚Ìê‡
 
 				temp.spawntime= stage["spawn_time"];
@@ -88,8 +88,10 @@ void ModeratorSequence::Update(const float& dt)
 				}
 				
 			}
-				else if (manager->Eliminated())
-					state = END;
+			else if (manager->Eliminated())
+			{
+				state = END;
+			}
 			curTime += milliseconds(static_cast<long long>(dt));
 			ttlTime += milliseconds(static_cast<long long>(dt));
 			
@@ -103,6 +105,7 @@ void ModeratorSequence::Update(const float& dt)
 		break;
 
 	}
+	manager->Update(dt);
 }
 
 void ModeratorSequence::Draw()
