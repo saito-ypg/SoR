@@ -87,8 +87,6 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 		PostQuitMessage(0);
 	}
 
-
-
 	Camera::Initialize();
 
 	pRootJob = new RootJob(nullptr);//GameObjectñÿç\ë¢ÇÃç≈è„à ÇÃÇΩÇﬂÅAêeñ≥Çµ

@@ -323,12 +323,15 @@ void Direct3D::SetShader(SHADER_TYPE type)
 
 void Direct3D::BeginDraw()
 {
+	if (NULL == pDevice_) return;
+	if (NULL == pContext_) return;
+	if (NULL == pRenderTargetView_) return;
+	if (NULL == pSwapChain_) return;
 			//背景の色
 	float clearColor[4] = { 0.0f, 0.5f, 0.5f, 1.0f };//R,G,B,A
 
 	//画面をクリア
 	pContext_->ClearRenderTargetView(pRenderTargetView_, clearColor);
-	Camera::Update();	
 	//深度バッファクリア
 	pContext_->ClearDepthStencilView(pDepthStencilView_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 

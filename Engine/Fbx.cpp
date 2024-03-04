@@ -100,7 +100,7 @@ HRESULT Fbx::Load(std::string fileName)
 void Fbx::Draw(Transform& transform)
 {	
 	transform.Calculation();//トランスフォームを計算
-	Direct3D::SetBlendMode(Direct3D::DEFAULT);
+//	Direct3D::SetBlendMode(Direct3D::DEFAULT);
 	Direct3D::SetShader(SHADER_3D);
 
 	//コンスタントバッファに情報を渡す
