@@ -121,9 +121,8 @@
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="todo.txt" />
+    <None Include="README.md" />
+    <None Include="todo.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
