@@ -51,7 +51,7 @@ void Sprite::Draw(Transform& transform, RECT rect)
 {
 	using namespace Direct3D;
 	SetShader(SHADER_2D);
-	SetBlendMode(ADD);
+//	SetBlendMode(ADD);
 	SetBufferToPipeline();
 	//transform.Calculation();
 	//âÊñ Ç…çáÇÌÇπÇÈ

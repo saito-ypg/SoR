@@ -153,7 +153,7 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 			ZeroMemory(&BlendDesc, sizeof(BlendDesc));
 			BlendDesc.AlphaToCoverageEnable = FALSE;
 			BlendDesc.IndependentBlendEnable = FALSE;
-			BlendDesc.RenderTarget[0].BlendEnable = FALSE;//此処から下3行まで変えると結構変わる！　半透明使うかどうか
+			BlendDesc.RenderTarget[0].BlendEnable = TRUE;//此処から下3行まで変えると結構変わる！　半透明使うかどうか
 			BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;		//現在描画しようとするもの
 			BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;//すでに描画されてるモノ
 			BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;			//混色の方法

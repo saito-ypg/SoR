@@ -98,10 +98,11 @@ HRESULT Fbx::Load(std::string fileName)
 }
 
 void Fbx::Draw(Transform& transform)
-{
+{	
+	transform.Calculation();//トランスフォームを計算
 	Direct3D::SetBlendMode(Direct3D::DEFAULT);
 	Direct3D::SetShader(SHADER_3D);
-	transform.Calculation();//トランスフォームを計算
+
 	//コンスタントバッファに情報を渡す
 	
 	for (int i = 0; i < materialCount_; i++)
