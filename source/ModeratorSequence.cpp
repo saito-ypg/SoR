@@ -67,18 +67,23 @@ void ModeratorSequence::Initialize()
 
 void ModeratorSequence::Update(const float& dt)
 {
-	auto Transition = [&](ModeratorSequence::s nextState) {transitionTime -= dt; if (transitionTime < 0)state = nextState; };
+	auto Transition = [&](ModeratorSequence::s nextState) {
+		transitionTime -= dt; 
+		if (transitionTime < 0)
+			state = nextState;
+		return (transitionTime < 0);
+	};
 	switch (state)
 	{
 	case CHANGED:
 	
-		Transition(BEGIN);
-	
+		if(Transition(PREP))
+			transitionTime = TRANSITION_MS;
 		break;
 	case PREP:
 
 		Transition(BEGIN);
-		transitionTime = TRANSITION_MS;
+		
 		break;
 	case BEGIN:
 		if (true) {//ŽžŠÔðŒ
