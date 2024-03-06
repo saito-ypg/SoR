@@ -1,8 +1,9 @@
+#include<fstream>
+#include<algorithm>
 #include "ModeratorSequence.h"
 #include"EnemyManager.h"
 #include"EnemySpawner.h"
-#include<fstream>
-#include<algorithm>
+
 #include"../libraries/json.hpp"
 const string DATA_PATH="Assets/data/";
 using std::vector;
@@ -77,9 +78,10 @@ void ModeratorSequence::Update(const float& dt)
 	{
 	case CHANGED:
 	
-		if(Transition(PREP))
+		if (Transition(PREP)) {
 			transitionTime = TRANSITION_MS;
-		break;
+			
+		}break;
 	case PREP:
 
 		Transition(BEGIN);

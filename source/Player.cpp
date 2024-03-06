@@ -83,12 +83,13 @@ void Player::ActorUpdate(const float& dt)
         transform_.rotate_.y = XMConvertToDegrees((float)atan2(-transform_.position_.x, -transform_.position_.z));
 #endif
 
-    if (Input::IsMouseButton(1))//ˆÚ“®
+    if (Input::IsMouseButton(1))//ˆÚ“®æw’è
     {
         XMVECTOR target= getMouseTargetPos();
-        if (isHit(target))
+        if (isHit(target)) {
             calculateForMove(target);
-
+            isSkillBeingUsed = false;
+        }
     }
     //Še“ü—Í
     if(Input::IsMouseButton(0))//’ÊíUŒ‚
@@ -141,7 +142,7 @@ void Player::move()
         vpos += vMove_;
         XMStoreFloat3(&transform_.position_, vpos);
         moveTime_ -= GetTotalTimeScale();
-        isSkillBeingUsed = false;
+
     }
 }
 
@@ -261,6 +262,7 @@ void Player::calculateForMove(const XMVECTOR target_)
      if (length < PLAYER_ROT_TH)return;
  
     FaceTargetDirection(target_);
+
     
 }
 void Player::FaceTargetDirection(const XMVECTOR& target_)

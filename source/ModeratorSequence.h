@@ -45,7 +45,7 @@ private:
     };
    
     std::vector<std::vector<EnemySpawning>> spawnDataList;//ウェーブ数・敵の数
-    void LoadData();
+    void LoadData();//jsonからデータを読む
 public:
     ModeratorSequence(GameObject*parent);
     ~ModeratorSequence();

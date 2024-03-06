@@ -27,7 +27,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 	if (!enemy)
 		assert(false);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians(rand() % 360));
-	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0,10,0), rotmat);
+	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0,20,0), rotmat);
 	enemy->SetPosition(vpos);
 	return enemy;
 }

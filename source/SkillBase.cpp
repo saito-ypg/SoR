@@ -21,6 +21,7 @@ void SkillBase::Update()
 		if (castTime_ > 0)
 			castTime_--;
 		else
+			if(coolDown_>0)
 			coolDown_--;
 		return;
 	}
