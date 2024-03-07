@@ -8,14 +8,15 @@
 #include"../Engine/Input.h"
 #include"../Engine/Model.h"
 #include"../Engine/Image.h"
-#include"../Engine/RootJob.h"
+#include"../Engine/RootObject.h"
+#include"../Engine/Global.h"
 #include <crtdbg.h>
 const char* WIN_CLASS_NAME = "SampleGame";
 const char* GAME_TITLE = "サンプルゲーム";
 const int WINDOW_WIDTH = 800;  //ウィンドウの幅
 const int WINDOW_HEIGHT = 600; //ウィンドウの高さ
 const DWORD DELTA_MAX = 333;
-RootJob* pRootJob = nullptr;
+RootObject* pRootJob = nullptr;
 
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -71,7 +72,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 	ShowWindow(hWnd, nCmdShow);
 
 	HRESULT hr;
-	hr = Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd);
+	hr = Direct3D::Initialize(hWnd,WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (FAILED(hr))
 	{
 		PostQuitMessage(0);
@@ -79,18 +80,14 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 	}//プログラム終了
 
 
-	hr = Input::Initialize(hWnd);
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, "入力の初期化に失敗しました", "エラー", MB_OK);
-		PostQuitMessage(0);
-	}
+	Input::Initialize(hWnd);
+
 
 
 
 	Camera::Initialize();
 
-	pRootJob = new RootJob(nullptr);//GameObject木構造の最上位のため、親無し
+	pRootJob = new RootObject(nullptr);//GameObject木構造の最上位のため、親無し
 	pRootJob->Initialize();
 
 	//メッセージループ（何か起きるのを待つ）
@@ -152,8 +149,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 			Direct3D::EndDraw();
 		}
 	}
-	Model::ReleaseAll();
-	Image::ReleaseAll();
+	Model::AllRelease();
+	Image::AllRelease();
 	pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 

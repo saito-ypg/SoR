@@ -4,6 +4,7 @@
 #include"../Engine/Camera.h"
 #include"../Engine/Image.h"
 #include"../Engine/Debug.h"
+#include"../Engine/Direct3D.h"
 #include"HPBar.h"
 
 #include"areamodels.h"
@@ -75,14 +76,14 @@ void GameActor::dyingDraw()
 }
 void GameActor::DrawHP()
 {
-	const float HPBarRatio = 128.0f / Direct3D::scrWidth_;
+	const float HPBarRatio = 128.0f / Direct3D::scrWidth;
 	
 	Transform DrawT;
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
-	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::scrWidth_-HPBarRatio/4.0f)* 2.0f - 1;
-	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
+	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::scrWidth-HPBarRatio/4.0f)* 2.0f - 1;
+	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight * 2.0f + 1;
 	using namespace HPBar;
 	DrawT.scale_.x = status_.hp_ / status_.maxHp_;
 	HPBar::Draw(HPBar::BAR, DrawT);

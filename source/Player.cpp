@@ -42,11 +42,11 @@ void Player::ActorUpdate(const float& dt)
 #ifdef _DEBUG
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))
-            pParent_->SetTimeScale(1.0f);
+            GetParent()->SetTimeScale(1.0f);
         if (Input::IsKeyDown(DIK_2))
-            pParent_->SetTimeScale(2.0f);
+            GetParent()->SetTimeScale(2.0f);
         if (Input::IsKeyDown(DIK_0))
-            pParent_->SetTimeScale(0.0f);
+            GetParent()->SetTimeScale(0.0f);
         if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
@@ -247,7 +247,7 @@ XMVECTOR Player::getMouseTargetPos()
     XMVECTOR vBack = XMVector3TransformCoord(XMLoadFloat3(&back), matInv);
     XMVECTOR dir = XMVector3Normalize(vBack - vFront);
     XMVECTOR a = dir / XMVectorGetY(dir);//yが1になるように
-    return Camera::GetPosition()- (a * XMVectorGetY(Camera::GetPosition()));//カメラ座標からdir方向に進んでyが0の時の座標を返す
+    return Camera::GetPositionV()- (a * XMVectorGetY(Camera::GetPositionV()));//カメラ座標からdir方向に進んでyが0の時の座標を返す
 
 }
 

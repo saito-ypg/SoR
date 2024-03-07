@@ -1,9 +1,13 @@
+#include<fstream>
+#include<algorithm>
+#include<string>
 #include "ModeratorSequence.h"
 #include"EnemyManager.h"
 #include"EnemySpawner.h"
 #include<fstream>
 #include<algorithm>
 #include"../libraries/json.hpp"
+using std::string;
 const string DATA_PATH="Assets/data/";
 using std::vector;
 using namespace std::chrono;
