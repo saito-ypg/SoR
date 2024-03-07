@@ -1,7 +1,9 @@
 # SoR　
 ## 目次
 - [ゲーム概要](##ゲーム概要)
-- [ゲーム操作]
+- [ゲーム操作](##ゲーム操作)
+- [プロジェクトファイル](##プロジェクトファイルリスト)
+- [ゲーム動画、実行ファイルはこちら(OneDriveへのリンク)](https://jc21-my.sharepoint.com/:f:/g/personal/220188_jc-21_jp/EuiY7hTJUiBOqEDtnYaoqLoBR-Y7lTXVEWZs50AptfgKFQ?e=tNvsPk)
 
 ## ゲーム概要
 クオータービュー系のアクションゲームです。\
@@ -33,5 +35,4 @@ Qキー：円形スキル
   - ***packages*** NuGetで導入したものフォルダ
     - directxtex_desktop_win10 ~ →エンジン用
   - ***sources*** ソースコードフォルダ
-    - 
   - todo.txt **実装したいことなど記述**
