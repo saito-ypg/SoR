@@ -19,15 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\ActorInfo.cpp" />
-    <ClCompile Include="source\ActorCollider.cpp" />
-    <ClCompile Include="source\areamodels.cpp" />
-    <ClCompile Include="source\AttackRange.cpp" />
-    <ClCompile Include="source\CollisionManager.cpp" />
-    <ClCompile Include="source\Decoy.cpp" />
-    <ClCompile Include="source\EnemyBase.cpp" />
-    <ClCompile Include="source\EnemyManager.cpp" />
-    <ClCompile Include="source\EnemySpawner.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Debug.cpp" />
     <ClCompile Include="Engine\Direct3D.cpp" />
@@ -44,29 +35,28 @@
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
-    <ClCompile Include="source\GameActor.cpp" />
-    <ClCompile Include="source\Ground.cpp" />
-    <ClCompile Include="source\HPBar.cpp" />
-    <ClCompile Include="source\Main.cpp" />
-    <ClCompile Include="source\ModeratorSequence.cpp" />
-    <ClCompile Include="source\Player.cpp" />
-    <ClCompile Include="source\PlayScene.cpp" />
-    <ClCompile Include="source\SkillBase.cpp" />
-    <ClCompile Include="source\TestScene.cpp" />
-    <ClCompile Include="source\testSkill.cpp" />
-    <ClCompile Include="source\TitleScene.cpp" />
+    <ClCompile Include="sources\ActorCollider.cpp" />
+    <ClCompile Include="sources\ActorInfo.cpp" />
+    <ClCompile Include="sources\areamodels.cpp" />
+    <ClCompile Include="sources\AttackRange.cpp" />
+    <ClCompile Include="sources\CollisionManager.cpp" />
+    <ClCompile Include="sources\Decoy.cpp" />
+    <ClCompile Include="sources\EnemyBase.cpp" />
+    <ClCompile Include="sources\EnemyManager.cpp" />
+    <ClCompile Include="sources\EnemySpawner.cpp" />
+    <ClCompile Include="sources\GameActor.cpp" />
+    <ClCompile Include="sources\Ground.cpp" />
+    <ClCompile Include="sources\HPBar.cpp" />
+    <ClCompile Include="sources\Main.cpp" />
+    <ClCompile Include="sources\ModeratorSequence.cpp" />
+    <ClCompile Include="sources\Player.cpp" />
+    <ClCompile Include="sources\PlayScene.cpp" />
+    <ClCompile Include="sources\SkillBase.cpp" />
+    <ClCompile Include="sources\TestScene.cpp" />
+    <ClCompile Include="sources\testSkill.cpp" />
+    <ClCompile Include="sources\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\ActorInfo.h" />
-    <ClInclude Include="source\ActorCollider.h" />
-    <ClInclude Include="source\areamodels.h" />
-    <ClInclude Include="source\AttackRange.h" />
-    <ClInclude Include="source\CollisionManager.h" />
-    <ClInclude Include="source\DamageData.h" />
-    <ClInclude Include="source\Decoy.h" />
-    <ClInclude Include="source\EnemyBase.h" />
-    <ClInclude Include="source\EnemySpawner.h" />
-    <ClInclude Include="source\EnemyType.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Debug.h" />
     <ClInclude Include="Engine\Direct3D.h" />
@@ -82,18 +72,28 @@
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
-    <ClInclude Include="source\GameActor.h" />
-    <ClInclude Include="source\Ground.h" />
-    <ClInclude Include="source\HPBar.h" />
-    <ClInclude Include="source\ModeratorSequence.h" />
-    <ClInclude Include="source\Player.h" />
-    <ClInclude Include="source\PlayerSkillsInclude.h" />
-    <ClInclude Include="source\PlayScene.h" />
-    <ClInclude Include="source\SkillBase.h" />
-    <ClInclude Include="source\TestScene.h" />
-    <ClInclude Include="source\EnemyManager.h" />
-    <ClInclude Include="source\testSkill.h" />
-    <ClInclude Include="source\TitleScene.h" />
+    <ClInclude Include="sources\ActorCollider.h" />
+    <ClInclude Include="sources\ActorInfo.h" />
+    <ClInclude Include="sources\areamodels.h" />
+    <ClInclude Include="sources\AttackRange.h" />
+    <ClInclude Include="sources\CollisionManager.h" />
+    <ClInclude Include="sources\DamageData.h" />
+    <ClInclude Include="sources\Decoy.h" />
+    <ClInclude Include="sources\EnemyBase.h" />
+    <ClInclude Include="sources\EnemyManager.h" />
+    <ClInclude Include="sources\EnemySpawner.h" />
+    <ClInclude Include="sources\EnemyType.h" />
+    <ClInclude Include="sources\GameActor.h" />
+    <ClInclude Include="sources\Ground.h" />
+    <ClInclude Include="sources\HPBar.h" />
+    <ClInclude Include="sources\ModeratorSequence.h" />
+    <ClInclude Include="sources\Player.h" />
+    <ClInclude Include="sources\PlayerSkillsInclude.h" />
+    <ClInclude Include="sources\PlayScene.h" />
+    <ClInclude Include="sources\SkillBase.h" />
+    <ClInclude Include="sources\TestScene.h" />
+    <ClInclude Include="sources\testSkill.h" />
+    <ClInclude Include="sources\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\Resourses\Simple2D.hlsl">

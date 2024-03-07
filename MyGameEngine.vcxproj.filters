@@ -18,41 +18,8 @@
       <Extensions>
       </Extensions>
     </Filter>
-    <Filter Include="Scenes">
-      <UniqueIdentifier>{7c47abe5-bc2f-470e-9995-96e2b311ab17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene">
-      <UniqueIdentifier>{d89fd183-09b3-49d3-85d2-704a8d6b59df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects">
-      <UniqueIdentifier>{f8e27072-fcb5-4281-ace1-360516f727b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Charactors">
-      <UniqueIdentifier>{5cc852b2-dddf-42cd-b75b-c070fa9330a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Charactors\Player">
-      <UniqueIdentifier>{986e98a9-d7eb-4fae-8819-5a29e6b20ba9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Charactors\Enemy">
-      <UniqueIdentifier>{e31dad23-6e7e-46d5-848a-ed0f9def1ab6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Charactors\Collisions">
-      <UniqueIdentifier>{231d0e07-16d5-4453-b7ad-15554b7d252f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\other">
-      <UniqueIdentifier>{e47e568f-6f57-4d88-ba74-ff7855651579}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Charactors\base&amp;mechanics">
-      <UniqueIdentifier>{0601a09d-a4d8-474d-96b9-e49379275427}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\UI">
-      <UniqueIdentifier>{654999fb-101d-4356-aa5f-7597955c7462}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\TitleScene">
-      <UniqueIdentifier>{85adb349-a73e-4fa4-9e38-8f10a14369b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenes\PlayScene\Objects\Props">
-      <UniqueIdentifier>{c8973fd8-80c2-421f-a818-8367f24f5d09}</UniqueIdentifier>
+    <Filter Include="sourses">
+      <UniqueIdentifier>{f3a8b7e4-e764-4611-a526-e584481c409e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -101,71 +68,71 @@
     <ClInclude Include="Engine\Debug.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="source\ActorCollider.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClInclude Include="sources\ActorCollider.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\ActorInfo.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClInclude Include="sources\ActorInfo.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\GameActor.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClInclude Include="sources\areamodels.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\CollisionManager.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClInclude Include="sources\AttackRange.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\areamodels.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClInclude Include="sources\CollisionManager.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\AttackRange.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClInclude Include="sources\DamageData.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\DamageData.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClInclude Include="sources\Decoy.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemyBase.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="sources\EnemyBase.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemyManager.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="sources\EnemyManager.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemySpawner.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="sources\EnemySpawner.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemyType.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="sources\EnemyType.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\Decoy.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClInclude Include="sources\GameActor.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\Player.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    <ClInclude Include="sources\Ground.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\PlayerSkillsInclude.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    <ClInclude Include="sources\HPBar.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\testSkill.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    <ClInclude Include="sources\ModeratorSequence.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\SkillBase.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
+    <ClInclude Include="sources\Player.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\PlayScene.h">
-      <Filter>Scenes\PlayScene</Filter>
+    <ClInclude Include="sources\PlayerSkillsInclude.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\TitleScene.h">
-      <Filter>Scenes\TitleScene</Filter>
+    <ClInclude Include="sources\PlayScene.h">
+      <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\TestScene.h">
+    <ClInclude Include="sources\SkillBase.h">
+      <Filter>sourses</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\testSkill.h">
+      <Filter>sourses</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\TitleScene.h">
+      <Filter>sourses</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\TestScene.h">
       <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Ground.h">
-      <Filter>Scenes\PlayScene\Objects\Props</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeratorSequence.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClInclude>
-    <ClInclude Include="source\HPBar.h">
-      <Filter>Scenes\PlayScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,65 +188,65 @@
     <ClCompile Include="Engine\Debug.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="source\ActorCollider.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClCompile Include="sources\ActorCollider.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\ActorInfo.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClCompile Include="sources\ActorInfo.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameActor.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
+    <ClCompile Include="sources\areamodels.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\areamodels.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClCompile Include="sources\AttackRange.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\AttackRange.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClCompile Include="sources\CollisionManager.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\CollisionManager.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Collisions</Filter>
+    <ClCompile Include="sources\Decoy.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemyBase.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClCompile Include="sources\EnemyBase.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemyManager.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClCompile Include="sources\EnemyManager.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemySpawner.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
+    <ClCompile Include="sources\EnemySpawner.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
-    <ClCompile Include="source\Main.cpp">
+    <ClCompile Include="sources\GameActor.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\Ground.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\HPBar.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ModeratorSequence.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\Player.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\PlayScene.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\SkillBase.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\testSkill.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\TitleScene.cpp">
+      <Filter>sourses</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\TestScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\Decoy.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Player.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="source\testSkill.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SkillBase.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PlayScene.cpp">
-      <Filter>Scenes\PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="source\TitleScene.cpp">
-      <Filter>Scenes\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="source\TestScene.cpp">
+    <ClCompile Include="sources\Main.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Ground.cpp">
-      <Filter>Scenes\PlayScene\Objects\Props</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeratorSequence.cpp">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\HPBar.cpp">
-      <Filter>Scenes\PlayScene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,8 +257,7 @@
     <None Include="Assets\data\stage_schema.json">
       <Filter>リソース ファイル</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="todo.txt" />
+    <None Include="README.md" />
+    <None Include="todo.md" />
   </ItemGroup>
 </Project>

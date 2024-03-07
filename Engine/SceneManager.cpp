@@ -1,8 +1,8 @@
 #include "SceneManager.h"
 #include"global.h"
-#include"../source/TestScene.h"
-#include"../source/PlayScene.h"
-#include"../source/TitleScene.h"
+#include"../sources/TestScene.h"
+#include"../sources/PlayScene.h"
+#include"../sources/TitleScene.h"
 SceneManager::SceneManager(GameObject* parent) :GameObject(parent, "SceneManager")
 {
 	currentSceneID_ = (SCENE_ID) - 1;
