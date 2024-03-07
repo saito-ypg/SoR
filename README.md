@@ -1,7 +1,6 @@
 # SoR　
-## 目次
-- [ゲーム概要](##ゲーム概要)
-- [ゲーム操作]
+目次はGithubの機能をご利用下さい
+## [ゲーム動画、実行ファイルはこちら(OneDriveへジャンプします)](https://jc21-my.sharepoint.com/:f:/g/personal/220188_jc-21_jp/EuiY7hTJUiBOqEDtnYaoqLoBR-Y7lTXVEWZs50AptfgKFQ?e=tNvsPk)
 
 ## ゲーム概要
 クオータービュー系のアクションゲームです。\
@@ -29,9 +28,11 @@ Qキー：円形スキル
     - ***Interface*** UI関連画像フォルダ
     - ***Resourses*** シェーダー類格納フォルダ
   - ***libraries*** 外部ライブラリ導入したものフォルダ
-    - json.hpp → [nlohmann/json/](https://github.com/nlohmann/json)
+    - json.hpp → [nlohmann/json/single_include](https://github.com/nlohmann/json)
   - ***packages*** NuGetで導入したものフォルダ
     - directxtex_desktop_win10 ~ →エンジン用
   - ***sources*** ソースコードフォルダ
-    - 
-  - todo.txt **実装したいことなど記述**
+  - [todo.md](./todo.md) **実装したいことなど記述**
+
+## アピールポイント
+- 敵やスキルを新しく追加するとき、極力ベース部分の変更をすることがないような仕組みづくりを心掛けました
