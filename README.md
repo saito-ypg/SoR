@@ -1,6 +1,8 @@
 # SoR　
-___
 ## ゲーム概要
+
+
+## ゲーム操作
 エンター押すとplay開始
 
 マウス右クリック：押した場所へ移動
@@ -12,18 +14,19 @@ Qキー：円形スキル
 
 ___
 ## プロジェクトファイルリスト
-- ***SoR*** プロジェクトルート
-  - ***Engine*** ゲームエンジン部　授業で製作したもの+α
+- ***SoR*** プロジェクトルートフォルダ
+  - ***Engine*** ゲームエンジン部フォルダ　授業で製作したもの-α
     - (詳細省略)
-  - ***Assets*** 素材
-    - ***Area***  範囲表示モデル
-    - ***Charactors*** キャラクターモデル
-    - ***data*** ステージ構成等データファイルjson
-    - ***Interface*** UI関連画像
-    - ***Resourses*** シェーダー類
-  - ***libraries*** 外部ライブラリ導入したもの
-    - json.hpp → https://github.com/nlohmann/json
-  - packages (nugetとかで入れたもの)
+  - ***Assets*** 素材フォルダ
+    - ***Area***  範囲表示モデルフォルダ
+    - ***Charactors*** キャラクターモデルフォルダ
+    - ***data*** ステージ構成等jsonデータ格納フォルダ
+    - ***Interface*** UI関連画像フォルダ
+    - ***Resourses*** シェーダー類格納フォルダ
+  - ***libraries*** 外部ライブラリ導入したものフォルダ
+    - json.hpp → [nlohmann/json/](https://github.com/nlohmann/json)
+  - ***packages*** NuGetで導入したものフォルダ
     - directxtex_desktop_win10~ →エンジン用
-  - source　(各種ソースコード)
+  - ***sources*** ソースコードフォルダ
     - 
+  - todo.txt 実装したいことなど記述
