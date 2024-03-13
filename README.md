@@ -1,5 +1,4 @@
 # SoR　
-目次はGithubの機能をご利用下さい
 ## [ゲーム動画、実行ファイルはこちら(OneDriveへジャンプします)](https://jc21-my.sharepoint.com/:f:/g/personal/220188_jc-21_jp/EuiY7hTJUiBOqEDtnYaoqLoBR-Y7lTXVEWZs50AptfgKFQ?e=tNvsPk)
 
 ## ゲーム概要
