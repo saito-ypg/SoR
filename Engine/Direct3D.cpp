@@ -2,9 +2,7 @@
 #include "Direct3D.h"
 #include "Global.h"
 #include "Transform.h"
-#include<string>
-using std::wstring;
-wstring SHADER_PATH=L"Assets/Shader/";
+
 //画面の描画に関する処理
 namespace Direct3D
 {
@@ -40,8 +38,8 @@ namespace Direct3D
 	ID3D11Device*           pDevice_ = nullptr;
 	ID3D11DeviceContext*    pContext_ = nullptr;
 	SHADER_BUNDLE			shaderBundle[SHADER_MAX] = { 0 };
-	int						scrWidth= 0;
-	int						scrHeight = 0;
+	int						screenWidth_ = 0;
+	int						screenHeight_ = 0;
 
 
 
@@ -153,7 +151,6 @@ namespace Direct3D
 #pragma warning(default: 6387) // 特定の警告を無効化
 
 
-
 		//深度テストを行う深度ステンシルステートの作成
 		{
 			//デフォルト
@@ -210,11 +207,11 @@ namespace Direct3D
 
 
 		//コリジョン表示するか
-		//isDrawCollision_ = GetPrivateProfileInt("DEBUG", "ViewCollider", 0, ".\\setup.ini") != 0;
+		isDrawCollision_ = GetPrivateProfileInt("DEBUG", "ViewCollider", 0, ".\\setup.ini") != 0;
 
 
-		scrWidth = screenWidth;
-		scrHeight = screenHeight;
+		screenWidth_ = screenWidth;
+		screenHeight_ = screenHeight;
 
 		return S_OK;
 	}
@@ -229,17 +226,13 @@ namespace Direct3D
 		{
 			// 頂点シェーダの作成（コンパイル）
 			ID3DBlob *pCompileVS = NULL;
-			HRESULT hr=D3DCompileFromFile((SHADER_PATH+L"Simple3D.hlsl" ).c_str(), nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
-			if (FAILED(hr))
-			{
-				MessageBox(nullptr, "シェーダー読み込み失敗", "エラー", S_OK);
-			}
+			D3DCompileFromFile(L"Shader/Simple3D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 			pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &shaderBundle[SHADER_3D].pVertexShader);
 
 
 			// ピクセルシェーダの作成（コンパイル）
 			ID3DBlob *pCompilePS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"Simple3D.hlsl").c_str(), nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+			D3DCompileFromFile(L"Shader/Simple3D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 			pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_3D].pPixelShader);
 
 
@@ -260,7 +253,7 @@ namespace Direct3D
 			D3D11_RASTERIZER_DESC rdc = {};
 			rdc.CullMode = D3D11_CULL_BACK;
 			rdc.FillMode = D3D11_FILL_SOLID;
-			rdc.FrontCounterClockwise = FALSE;	//反時計回りは表面じゃない
+			rdc.FrontCounterClockwise = TRUE;
 			pDevice_->CreateRasterizerState(&rdc, &shaderBundle[SHADER_3D].pRasterizerState);
 		}
 
@@ -269,13 +262,13 @@ namespace Direct3D
 		{
 			// 頂点シェーダの作成（コンパイル）
 			ID3DBlob *pCompileVS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"Simple2D.hlsl").c_str(), nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+			D3DCompileFromFile(L"Shader/Simple2D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 			pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &shaderBundle[SHADER_2D].pVertexShader);
 
 
 			// ピクセルシェーダの作成（コンパイル）
 			ID3DBlob *pCompilePS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"Simple3D.hlsl").c_str(), nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+			D3DCompileFromFile(L"Shader/Simple2D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 			pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_2D].pPixelShader);
 
 
@@ -303,13 +296,13 @@ namespace Direct3D
 		{
 			// 頂点シェーダの作成（コンパイル）
 			ID3DBlob *pCompileVS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"Debug3D.hlsl").c_str(), nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+			D3DCompileFromFile(L"Shader/Debug3D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 			pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &shaderBundle[SHADER_UNLIT].pVertexShader);
 
 
 			// ピクセルシェーダの作成（コンパイル）
 			ID3DBlob *pCompilePS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"Debug3D.hlsl").c_str(), nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+			D3DCompileFromFile(L"Shader/Debug3D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 			pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_UNLIT].pPixelShader);
 
 
@@ -336,13 +329,13 @@ namespace Direct3D
 		{
 			// 頂点シェーダの作成（コンパイル）
 			ID3DBlob* pCompileVS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"BillBoard.hlsl").c_str(), nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
+			D3DCompileFromFile(L"Shader/BillBoard.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
 			pDevice_->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &shaderBundle[SHADER_BILLBOARD].pVertexShader);
 
 
 			// ピクセルシェーダの作成（コンパイル）
 			ID3DBlob* pCompilePS = NULL;
-			D3DCompileFromFile((SHADER_PATH + L"Billboard.hlsl").c_str(), nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
+			D3DCompileFromFile(L"Shader/BillBoard.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
 			pDevice_->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &shaderBundle[SHADER_BILLBOARD].pPixelShader);
 
 

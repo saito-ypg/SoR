@@ -1,6 +1,7 @@
 #include "gameObject.h"
 #include <assert.h>
-
+#include"global.h"
+#include"Direct3D.h"
 
 //コンストラクタ（親も名前もなし）
 GameObject::GameObject(void) :

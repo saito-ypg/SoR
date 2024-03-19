@@ -58,9 +58,9 @@
     <ClCompile Include="sources\Player.cpp" />
     <ClCompile Include="sources\PlayScene.cpp" />
     <ClCompile Include="sources\SkillBase.cpp" />
-    <ClCompile Include="sources\TestScene.cpp" />
     <ClCompile Include="sources\testSkill.cpp" />
     <ClCompile Include="sources\TitleScene.cpp" />
+    <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio.h" />
@@ -105,9 +105,9 @@
     <ClInclude Include="sources\PlayerSkillsInclude.h" />
     <ClInclude Include="sources\PlayScene.h" />
     <ClInclude Include="sources\SkillBase.h" />
-    <ClInclude Include="sources\TestScene.h" />
     <ClInclude Include="sources\testSkill.h" />
     <ClInclude Include="sources\TitleScene.h" />
+    <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
@@ -213,7 +213,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>

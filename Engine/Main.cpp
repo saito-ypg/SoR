@@ -67,7 +67,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//ルートオブジェクト準備
 	//すべてのゲームオブジェクトの親となるオブジェクト
-	RootObject* pRootObject = new RootObject;
+	RootObject* pRootObject = new RootObject(nullptr);
 	pRootObject->Initialize();
 
 
