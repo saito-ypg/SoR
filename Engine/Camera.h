@@ -20,11 +20,9 @@ namespace Camera
 
 	//位置を取得
 	XMFLOAT3 GetPosition();
-	XMVECTOR GetPositionV();
 
 	//焦点を取得
 	XMFLOAT3 GetTarget();
-	XMVECTOR GetTargetV();
 
 	//ビュー行列を取得
 	XMMATRIX GetViewMatrix();
@@ -32,9 +30,12 @@ namespace Camera
 	//プロジェクション行列を取得
 	XMMATRIX GetProjectionMatrix();
 
-	XMMATRIX GetVPMatrix();
-
-	XMMATRIX GetInverseMatrix();
 	//ビルボード用回転行列を取得
 	XMMATRIX GetBillboardMatrix();
+
+	//ビューポート行列を取得
+	XMMATRIX GetVPMatrix();
+
+	//view,proj,vp3つの逆行列を合わせたものを取得
+	XMMATRIX GetInverseMatrix();
 };

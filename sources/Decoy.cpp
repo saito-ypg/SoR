@@ -19,7 +19,7 @@ void Decoy::dyingDraw()
 
 void Decoy::Initialize()
 {
-	hModels_.push_back(Model::Load("Assets/Charactors/decoy.fbx"));
+	hModels_.push_back(Model::Load("Charactors/decoy.fbx"));
 }
 
 void Decoy::ActorUpdate(const float& dt)

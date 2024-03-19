@@ -127,7 +127,7 @@ void Sprite::Draw(Transform& transform, RECT rect, float alpha)
 	XMMATRIX cut = XMMatrixScaling((float)rect.right, (float)rect.bottom ,1);
 
 	//âÊñ Ç…çáÇÌÇπÇÈ
-	XMMATRIX view = XMMatrixScaling(1.0f / Direct3D::scrWidth, 1.0f / Direct3D::scrHeight, 1.0f);
+	XMMATRIX view = XMMatrixScaling(1.0f / Direct3D::screenWidth_, 1.0f / Direct3D::screenHeight_, 1.0f);
 
 	//ç≈èIìIÇ»çsóÒ
 	XMMATRIX world = cut * transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;

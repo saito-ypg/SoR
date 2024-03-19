@@ -15,7 +15,7 @@ Ground::~Ground()
 //‰Šú‰»
 void Ground::Initialize()
 {
-    hModel_ = Model::Load("Assets/Ground.fbx");
+    hModel_ = Model::Load("ground.fbx");
     assert(hModel_ >= 0);
 }
 

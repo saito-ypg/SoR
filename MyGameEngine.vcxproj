@@ -32,6 +32,7 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Image.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
+    <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\Model.cpp" />
     <ClCompile Include="Engine\RootObject.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
@@ -53,7 +54,6 @@
     <ClCompile Include="sources\GameActor.cpp" />
     <ClCompile Include="sources\Ground.cpp" />
     <ClCompile Include="sources\HPBar.cpp" />
-    <ClCompile Include="sources\Main.cpp" />
     <ClCompile Include="sources\ModeratorSequence.cpp" />
     <ClCompile Include="sources\Player.cpp" />
     <ClCompile Include="sources\PlayScene.cpp" />

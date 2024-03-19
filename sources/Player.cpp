@@ -3,6 +3,7 @@
 #include"../Engine/Model.h"
 #include"../Engine/Input.h"
 #include"../Engine/Camera.h"
+#include"../Engine/Global.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
@@ -27,7 +28,7 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    hModel_ = Model::Load("Assets/Charactors/psample.fbx");
+    hModel_ = Model::Load("Charactors/psample.fbx");
     assert(hModel_ >= 0);
 
     AddCamp();
@@ -83,12 +84,13 @@ void Player::ActorUpdate(const float& dt)
         transform_.rotate_.y = XMConvertToDegrees((float)atan2(-transform_.position_.x, -transform_.position_.z));
 #endif
 
-    if (Input::IsMouseButton(1))//移動
+    if (Input::IsMouseButton(1))//移動先指定
     {
-        XMVECTOR target= getMouseTargetPos();
-        if (isHit(target))
+        XMVECTOR target = getMouseTargetPos();
+        if (isHit(target)) {
             calculateForMove(target);
-
+            isSkillBeingUsed = false;
+        }
     }
     //各入力
     if(Input::IsMouseButton(0))//通常攻撃
@@ -247,7 +249,9 @@ XMVECTOR Player::getMouseTargetPos()
     XMVECTOR vBack = XMVector3TransformCoord(XMLoadFloat3(&back), matInv);
     XMVECTOR dir = XMVector3Normalize(vBack - vFront);
     XMVECTOR a = dir / XMVectorGetY(dir);//yが1になるように
-    return Camera::GetPositionV()- (a * XMVectorGetY(Camera::GetPositionV()));//カメラ座標からdir方向に進んでyが0の時の座標を返す
+    auto temp = Camera::GetPosition();
+    XMVECTOR campos = XMLoadFloat3(&temp);
+    return campos- (a * XMVectorGetY(campos));//カメラ座標からdir方向に進んでyが0の時の座標を返す
 
 }
 

@@ -6,7 +6,7 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "Transform.h"
-#include "global.h"
+
 
 
 
@@ -31,23 +31,10 @@ protected:
 	//衝突判定リスト
 	std::list<Collider*>	colliderList_;	
 
-
 	float timeScale;//このゲームオブジェクトとその子供の更新速度
 	float parentalTimeScale;//親のゲームオブジェクトの更新速度
 
 public:
-	//オブジェクトを作成するテンプレート
-	template <class T>
-	T* Instantiate(GameObject* pParent)
-	{
-		T* pNewObject = new T(pParent);
-		if (pParent != nullptr)
-		{
-			pParent->PushBackChild(pNewObject);
-		}
-		pNewObject->Initialize();
-		return pNewObject;
-	}
 	//コンストラクタ
 	GameObject();
 	GameObject(GameObject* parent);
@@ -58,12 +45,12 @@ public:
 
 	//各オブジェクトで必ず作る関数
 	virtual void Initialize(void) = 0;
-	virtual void Update(const float &dt) = 0;
+	virtual void Update(const float& dt) = 0;
 	virtual void Draw() = 0;
 	virtual void Release(void) = 0;
 
 	//自分の該当関数を読んだ後、子供の関数も呼ぶ
-	void UpdateSub(const float &dt);
+	void UpdateSub(const float& dt);
 	void DrawSub();
 	void ReleaseSub();
 
@@ -146,20 +133,20 @@ public:
 	//RootJobを取得
 	GameObject* GetRootJob();
 
-	XMFLOAT3 operator=(const XMVECTOR& vec) { XMFLOAT3 tmp; XMStoreFloat3(&tmp, vec); return tmp; }
+
 	//各アクセス関数
+	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
+	float GetTotalTimeScale()const { return parentalTimeScale * timeScale; }//
 	XMFLOAT3 GetPosition() { return transform_.position_; }
 	XMFLOAT3 GetRotate() { return transform_.rotate_; }
 	XMFLOAT3 GetScale() { return transform_.scale_; }
 	XMFLOAT3 GetWorldPosition() { return Transform::Float3Add(GetParent()->transform_.position_ , transform_.position_); }
 	XMFLOAT3 GetWorldRotate() { return Transform::Float3Add(GetParent()->transform_.rotate_, transform_.rotate_); }
 	XMFLOAT3 GetWorldScale() { return Transform::Float3Add(GetParent()->transform_.scale_, transform_.scale_); }
-	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
-	float GetTotalTimeScale()const { return parentalTimeScale * timeScale; }//
-	void SetTimeScale(float v) { timeScale = v; }	
+	void SetTimeScale(float v) { timeScale = v; }
 	void SetPosition(XMFLOAT3 position) { transform_.position_ = position; }
-	void SetPosition(float x, float y, float z) { SetPosition(XMFLOAT3( x, y, z )); }
 	void SetPosition(XMVECTOR position) { XMStoreFloat3(&transform_.position_, position); }
+	void SetPosition(float x, float y, float z) { SetPosition(XMFLOAT3( x, y, z )); }
 	void SetRotate(XMFLOAT3 rotate) { transform_.rotate_ = rotate; }
 	void SetRotate(float x, float y, float z) { SetRotate(XMFLOAT3( x, y, z )); }
 	void SetRotateX(float x) { SetRotate(x, transform_.rotate_.y, transform_.rotate_.z); }
@@ -195,5 +182,16 @@ private:
 };
 
 
-
+//オブジェクトを作成するテンプレート
+template <class T>
+T* Instantiate(GameObject* pParent)
+{
+	T* pNewObject = new T(pParent);
+	if (pParent != nullptr)
+	{
+		pParent->PushBackChild(pNewObject);
+	}
+	pNewObject->Initialize();
+	return pNewObject;
+}
 

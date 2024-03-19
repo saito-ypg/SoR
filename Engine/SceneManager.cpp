@@ -1,6 +1,6 @@
 #include "sceneManager.h"
 
-#include "../sources/TestScene.h"
+#include "../TestScene.h"
 #include"../sources/TitleScene.h"
 #include"../sources/PlayScene.h"
 #include "Model.h"
@@ -24,7 +24,7 @@ void SceneManager::Initialize()
 }
 
 //更新
-void SceneManager::Update(const float&dt)
+void SceneManager::Update(const float& dt)
 {
 	//次のシーンが現在のシーンと違う　＝　シーンを切り替えなければならない
 	if (currentSceneID_ != nextSceneID_)
@@ -41,8 +41,10 @@ void SceneManager::Update(const float&dt)
 		switch (nextSceneID_)
 		{
 		case SCENE_ID_TEST: Instantiate<TestScene>(this); break;
-		case SCENE_ID_TITLE: Instantiate<TitleScene>(this); break;
-		case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
+
+		case SCENE_ID_TITLE:Instantiate<TitleScene>(this); break;
+
+		case SCENE_ID_PLAY:Instantiate<PlayScene>(this); break;
 		}
 		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;

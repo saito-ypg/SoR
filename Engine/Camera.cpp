@@ -14,7 +14,7 @@ void Camera::Initialize()
 	_target = XMFLOAT3( 0, 0, 0);	//カメラの焦点
 
 	//プロジェクション行列
-	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::scrWidth / (FLOAT)Direct3D::scrHeight, 0.1f, 1000.0f);
+	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
 //更新（ビュー行列作成）
@@ -41,18 +41,8 @@ void Camera::SetPosition(XMFLOAT3 position) { _position = position; }
 //焦点を取得
 XMFLOAT3 Camera::GetTarget() { return _target; }
 
-XMVECTOR Camera::GetTargetV()
-{
-	return XMLoadFloat3(&_target);
-}
-
 //位置を取得
 XMFLOAT3 Camera::GetPosition() { return _position; }
-
-XMVECTOR Camera::GetPositionV()
-{
-	return XMLoadFloat3(&_position);
-}
 
 //ビュー行列を取得
 XMMATRIX Camera::GetViewMatrix() { return _view; }
@@ -60,10 +50,13 @@ XMMATRIX Camera::GetViewMatrix() { return _view; }
 //プロジェクション行列を取得
 XMMATRIX Camera::GetProjectionMatrix() { return _proj; }
 
+//ビルボード用回転行列を取得
+XMMATRIX Camera::GetBillboardMatrix(){	return _billBoard; }
+
 XMMATRIX Camera::GetVPMatrix()
 {
-	float w = (float)(Direct3D::scrWidth/ 2.0f);
-	float h = (float)(Direct3D::scrHeight / 2.0f);
+	float w = (float)(Direct3D::screenWidth_ / 2.0f);
+	float h = (float)(Direct3D::screenHeight_ / 2.0f);
 	XMMATRIX vp =
 	{
 	   w,0,0,0,
@@ -76,8 +69,7 @@ XMMATRIX Camera::GetVPMatrix()
 
 XMMATRIX Camera::GetInverseMatrix()
 {
+
+
 	return XMMatrixInverse(nullptr, GetVPMatrix()) * XMMatrixInverse(nullptr, _proj) * XMMatrixInverse(nullptr, _view);
 }
-
-//ビルボード用回転行列を取得
-XMMATRIX Camera::GetBillboardMatrix(){	return _billBoard; }

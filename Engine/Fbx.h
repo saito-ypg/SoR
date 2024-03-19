@@ -1,17 +1,8 @@
 #pragma once
 #include <d3d11.h>
+#include <fbxsdk.h>
 #include <vector>
 #include <string>
-#include <fbxsdk.h>
-#pragma warning(push)
-#pragma warning(disable:4099)
-#pragma warning(disable:26451)
-#pragma warning(disable:26495)
-#include <fbxsdk.h>
-#pragma comment(lib, "LibFbxSDK-Md.lib")
-#pragma comment(lib, "LibXml2-Md.lib")
-#pragma comment(lib, "zlib-Md.lib")
-#pragma warning(pop)
 #include "Transform.h"
 
 class FbxParts;
