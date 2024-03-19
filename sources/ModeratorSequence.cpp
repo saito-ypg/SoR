@@ -8,7 +8,7 @@
 #include<algorithm>
 #include"../libraries/json.hpp"
 using std::string;
-const string DATA_PATH="Assets/data/";
+const string DATA_PATH="data/";
 using std::vector;
 using namespace std::chrono;
 constexpr float TRANSITION_MS = 3000;
@@ -51,7 +51,7 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	ttlTime = milliseconds(0);
 	waves = 0;
 	spawnindex = 0;
-	state = CHANGED;
+	state = BEGIN;
 	transitionTime = TRANSITION_MS;
 
 	manager = nullptr;
