@@ -1,82 +1,91 @@
 #pragma once
-
 #include <d3d11.h>
+#include <fbxsdk.h>
+#include <vector>
 #include <string>
-#include<memory>
-#include<vector>
 #include "Transform.h"
 
-#pragma warning(push)
-#pragma warning(disable:4099)
-#pragma warning(disable:26451)
-#pragma warning(disable:26495)
-#include <fbxsdk.h>
-#pragma comment(lib, "LibFbxSDK-Md.lib")
-#pragma comment(lib, "LibXml2-Md.lib")
-#pragma comment(lib, "zlib-Md.lib")
-#pragma warning(pop)
-class Texture;
+class FbxParts;
+
+//レイキャスト用構造体
 struct RayCastData
 {
-	XMFLOAT4 start;
-	XMFLOAT4 dir;
-	bool hit;
-	float dist;
-	RayCastData() { start = { 0,0,0,0 }, dir = { 0,0,0,0 }; dist = FLT_MAX; hit = false; }
+	XMFLOAT3	start;	//レイ発射位置
+	XMFLOAT3	dir;	//レイの向きベクトル
+	float       dist;	//衝突点までの距離
+	BOOL        hit;	//レイが当たったか
+	XMFLOAT3 normal;	//法線
+
+	RayCastData() { dist = 99999.0f; }
 };
 
+//-----------------------------------------------------------
+//　FBXファイルを扱うクラス
+//　ほとんどの処理は各パーツごとにFbxPartsクラスで行う
+//-----------------------------------------------------------
 class Fbx
 {
-private:
-	//マテリアル
-	struct MATERIAL
-	{
-		Texture*	pTexture;
-		XMFLOAT4	diffuse;
-	};
-	struct CONSTANT_BUFFER
-	{
-		XMMATRIX	matWVP;
-		XMMATRIX	matNormal;
-		XMFLOAT4	diffuseColor;		// ディフューズカラー（マテリアルの色）
-		int			isTexture;		// テクスチャ貼ってあるかどうか
-	};
+	//FbxPartクラスをフレンドクラスにする
+	//FbxPartのprivateな関数にもアクセス可
+	friend class FbxParts;
 
-	struct VERTEX
-	{
-		XMVECTOR position;
-		XMVECTOR uv;
-		XMVECTOR normal;
-	};
-	
-	VERTEX* pVertices_;//頂点配列
-	int** ppIndex_;
-	int vertexCount_;	//頂点数
-	int polygonCount_;	//ポリゴン数
-	int materialCount_;	//マテリアルの個数
 
-	ID3D11Buffer* pVertexBuffer_;
-	ID3D11Buffer** ppIndexBuffer_;
-	ID3D11Buffer* pConstantBuffer_;
-	MATERIAL* pMaterialList_;//マテリアルのポインタ。後で配列になる可能性
-	int* indexCount_;
+
+	//モデルの各パーツ（複数あるかも）
+	std::vector<FbxParts*>	parts_;
+
+	//FBXファイルを扱う機能の本体
+	FbxManager* pFbxManager_;
+
+	//FBXファイルのシーン（Mayaで作ったすべての物体）を扱う
+	FbxScene*	pFbxScene_;
+
+
+	// アニメーションのフレームレート
+	FbxTime::EMode	_frameRate;
+
+	//アニメーション速度
+	float			_animSpeed;
+
+	//アニメーションの最初と最後のフレーム
+	int _startFrame, _endFrame;
+
+
+
+
+
+	//ノードの中身を調べる
+	//引数：pNode		調べるノード
+	//引数：pPartsList	パーツのリスト
+	void CheckNode(FbxNode* pNode, std::vector<FbxParts*> *pPartsList);
+
+
+
+
 public:
-
 	Fbx();
 	~Fbx();
-	HRESULT Load(std::string fileName);
-	void    Draw(Transform& transform);
+
+	//ロード
+	//引数：fileName	ファイル名
+	//戻値：成功したかどうか
+	virtual HRESULT Load(std::string fileName);
+
+	//描画
+	//引数：World	ワールド行列
+	void    Draw(Transform& transform, int frame);
+
+	//解放
 	void    Release();
 
-	void RayCast(RayCastData& raydata);
+	//任意のボーンの位置を取得
+	//引数：boneName	取得したいボーンの位置
+	//戻値：ボーンの位置
+	XMFLOAT3 GetBonePosition(std::string boneName);
 
+	//レイキャスト（レイを飛ばして当たり判定）
+	//引数：data	必要なものをまとめたデータ
+	void RayCast(RayCastData *data);
 
-private:
-	void PassDataToCB(Transform transform,int i);
-	void SetBufferToPipeline(int i);
-	//頂点バッファ準備
-	HRESULT	InitVertex(fbxsdk::FbxMesh* mesh);
-	HRESULT	InitIndex(fbxsdk::FbxMesh* mesh);
-	HRESULT InitConstantBuffer();	//コンスタントバッファ準備
-	HRESULT InitMaterial(fbxsdk::FbxNode* pNode);
 };
+

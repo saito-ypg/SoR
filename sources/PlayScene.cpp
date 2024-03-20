@@ -24,9 +24,10 @@ PlayScene::~PlayScene()
 //‰Šú‰»
 void PlayScene::Initialize()
 {
+	Instantiate<Ground>(this);
 	AreaModels::Initialize();
 	Instantiate<Player>(this);
-	Instantiate<Ground>(this);
+
 	mod = Instantiate<ModeratorSequence>(this);
 	//Instantiate<Decoy>(this);
 	auto* d = Instantiate<Decoy>(this);
