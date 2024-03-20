@@ -3,25 +3,6 @@
 //　最終更新日：2023/04/06
 //
 
-//エントリーポイント
-int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
-{
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_crtBreakAlloc = 132716;
-	//ウィンドウクラス（設計図）を作成
-	WNDCLASSEX wc;
-	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
-	wc.hInstance = hInstance;		               //インスタンスハンドル
-	wc.lpszClassName = WIN_CLASS_NAME;            //ウィンドウクラス名
-	wc.lpfnWndProc = WndProc;                   //ウィンドウプロシージャ
-	wc.style = CS_VREDRAW | CS_HREDRAW;         //スタイル（デフォルト）
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); //アイコン
-	wc.hIconSm = LoadIcon(NULL, IDI_WINLOGO);   //小さいアイコン
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);   //マウスカーソル
-	wc.lpszMenuName = NULL;          //メニュー（なし）
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //背景（白）
 
 
 #include <Windows.h>
@@ -43,33 +24,18 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInst, _In
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";	//ウィンドウクラス名
 
-	HWND hWnd = CreateWindow(
-		WIN_CLASS_NAME,         //ウィンドウクラス名
-		GAME_TITLE,     //タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW-WS_THICKFRAME, //スタイル（普通のウィンドウ）
-		CW_USEDEFAULT,       //表示位置左（おまかせ）
-		CW_USEDEFAULT,       //表示位置上（おまかせ）
-		winW,                 //ウィンドウ幅
-		winH,                 //ウィンドウ高さ
-		NULL,                //親ウインドウ（なし）
-		NULL,                //メニュー（なし）
-		hInstance,           //インスタンス
-		NULL                 //パラメータ（なし）
-	);
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-	//ウィンドウを表示
-	ShowWindow(hWnd, nCmdShow);
 
 // エントリーポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-//#if defined(DEBUG) | defined(_DEBUG)
-//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//#endif
+	//#if defined(DEBUG) | defined(_DEBUG)
+	//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//#endif
 
 	srand((unsigned)time(NULL));
 	SetCurrentDirectory("Assets");
@@ -80,12 +46,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int fpsLimit = GetPrivateProfileInt("GAME", "Fps", 60, ".\\setup.ini");				//FPS（画面更新速度）
 	int isDrawFps = GetPrivateProfileInt("DEBUG", "ViewFps", 0, ".\\setup.ini");		//キャプションに現在のFPSを表示するかどうか
 
-	hr = Input::Initialize(hWnd);
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, "入力の初期化に失敗しました", "エラー", MB_OK);
-		PostQuitMessage(0);
-	}
 
 
 
@@ -112,7 +72,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	//メッセージループ（何か起きるのを待つ）
-
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
 	while (msg.message != WM_QUIT)
@@ -149,7 +108,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				}
 			}
 
-				SetWindowText(hWnd, str);
 
 			//指定した時間（FPSを60に設定した場合は60分の1秒）経過していたら更新処理
 			if ((nowTime - lastUpdateTime) * fpsLimit > 1000.0f)
@@ -166,7 +124,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				//全オブジェクトの更新処理
 				//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-				pRootObject->UpdateSub(nowTime-lastUpdateTime);
+				pRootObject->UpdateSub(nowTime - lastUpdateTime);
 
 				//カメラを更新
 				Camera::Update();
@@ -174,7 +132,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//エフェクトの更新
 				VFX::Update();
 
-			pRootJob->UpdateSub(float(diff<DELTA_MAX?diff:DELTA_MAX));
 
 				//このフレームの描画開始
 				Direct3D::BeginDraw();
@@ -191,7 +148,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 
-				
+
 				//ちょっと休ませる
 				Sleep(1);
 			}
@@ -199,7 +156,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 	}
 
-	
+
 
 	//いろいろ解放
 	VFX::Release();
@@ -209,7 +166,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	pRootObject->ReleaseSub();
 	SAFE_DELETE(pRootObject);
 	Direct3D::Release();
-
 
 	return 0;
 }
@@ -269,12 +225,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
-	//ウィンドウを閉じた
+		//ウィンドウを閉じた
 	case WM_DESTROY:
 		PostQuitMessage(0);	//プログラム終了
 		return 0;
 
-	//マウスが動いた
+		//マウスが動いた
 	case WM_MOUSEMOVE:
 		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
 		return 0;
