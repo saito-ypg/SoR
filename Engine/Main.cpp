@@ -8,8 +8,8 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <time.h>
-
+//#include <time.h>
+#include<chrono>
 #include "global.h"
 #include "RootObject.h"
 #include "Model.h"
@@ -23,7 +23,8 @@
 
 //定数宣言
 const char* WIN_CLASS_NAME = "SampleGame";	//ウィンドウクラス名
-
+const char* TITLE = "Survivors of Rampage";
+const DWORD DELTA_MAX = 333;
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
@@ -107,10 +108,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					lastFpsResetTime = nowTime;
 				}
 			}
-
+			DWORD diff = nowTime - lastUpdateTime;
 
 			//指定した時間（FPSを60に設定した場合は60分の1秒）経過していたら更新処理
-			if ((nowTime - lastUpdateTime) * fpsLimit > 1000.0f)
+			if ((diff) * fpsLimit > 1000.0f)
 			{
 				//時間計測関連
 				lastUpdateTime = nowTime;	//現在の時間（最後に画面を更新した時間）を覚えておく
@@ -124,7 +125,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				//全オブジェクトの更新処理
 				//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-				pRootObject->UpdateSub(nowTime - lastUpdateTime);
+				pRootObject->UpdateSub(float(diff < DELTA_MAX ? diff : DELTA_MAX));
 
 				//カメラを更新
 				Camera::Update();
@@ -196,7 +197,7 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 
 	//タイトルバーに表示する内容
 	char caption[64];
-	GetPrivateProfileString("SCREEN", "Caption", "***", caption, 64, ".\\setup.ini");
+	GetPrivateProfileString("SCREEN", "Caption",TITLE, caption, 64, ".\\setup.ini");
 
 	//ウィンドウを作成
 	HWND hWnd = CreateWindow(
