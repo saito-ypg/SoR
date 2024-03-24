@@ -1,63 +1,68 @@
-#include "SceneManager.h"
-#include"global.h"
-#include"../sources/TestScene.h"
-#include"../sources/PlayScene.h"
+#include "sceneManager.h"
+
+#include "../TestScene.h"
 #include"../sources/TitleScene.h"
-SceneManager::SceneManager(GameObject* parent) :GameObject(parent, "SceneManager")
+#include"../sources/PlayScene.h"
+#include "Model.h"
+#include "Image.h"
+#include "Audio.h"
+
+
+//コンストラクタ
+SceneManager::SceneManager(GameObject * parent)
+	: GameObject(parent, "SceneManager")
 {
-	currentSceneID_ = (SCENE_ID) - 1;
-	nextSceneID_ = (SCENE_ID)-1;
 }
 
-SceneManager::~SceneManager()
-{
-}
-
+//初期化
 void SceneManager::Initialize()
 {
+	//最初のシーンを準備
 	currentSceneID_ = SCENE_ID_TITLE;
-	nextSceneID_ = SCENE_ID_TITLE;
+	nextSceneID_ = currentSceneID_;
 	Instantiate<TitleScene>(this);
 }
 
+//更新
 void SceneManager::Update(const float& dt)
 {
-	/*シーンを切り替え
-	現在と次が別だったら切り替え
-	現在のシーンの後片付け
-	新しいシーンの準備*/
+	//次のシーンが現在のシーンと違う　＝　シーンを切り替えなければならない
 	if (currentSceneID_ != nextSceneID_)
 	{
-		auto scene = childList_.begin();
-		(*scene)->ReleaseSub();
-		SAFE_DELETE(*scene);
-		childList_.clear();
-		
-		switch (nextSceneID_) {
-		case SCENE_ID_TEST:
-			Instantiate<TestScene>(this); break;
-		case SCENE_ID_TITLE:
-			Instantiate<TitleScene>(this); break;
-		case SCENE_ID_PLAY:
-			Instantiate<PlayScene>(this); break;
-		}
-		currentSceneID_ = nextSceneID_;
+		//そのシーンのオブジェクトを全削除
+		KillAllChildren();
 
+		//ロードしたデータを全削除
+		Audio::Release();
+		Model::AllRelease();
+		Image::AllRelease();
+
+		//次のシーンを作成
+		switch (nextSceneID_)
+		{
+		case SCENE_ID_TEST: Instantiate<TestScene>(this); break;
+
+		case SCENE_ID_TITLE:Instantiate<TitleScene>(this); break;
+
+		case SCENE_ID_PLAY:Instantiate<PlayScene>(this); break;
+		}
+		Audio::Initialize();
+		currentSceneID_ = nextSceneID_;
 	}
 }
 
+//描画
 void SceneManager::Draw()
 {
 }
 
+//開放
 void SceneManager::Release()
 {
 }
-/// <summary>
-/// 指定したシーンをnextSceneID_に設定する（＝次のUpdateが呼ばれたときに切り替わる）
-/// </summary>
-/// <param name="_next"></param>
-void SceneManager::ChangeScene(SCENE_ID _next)
+
+//シーン切り替え（実際に切り替わるのはこの次のフレーム）
+void SceneManager::ChangeScene(SCENE_ID next)
 {
-	nextSceneID_ = _next;
+	nextSceneID_ = next;
 }

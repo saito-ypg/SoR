@@ -4,6 +4,7 @@
 #include"../Engine/Camera.h"
 #include"../Engine/Image.h"
 #include"../Engine/Debug.h"
+#include"../Engine/Direct3D.h"
 #include"HPBar.h"
 
 #include"areamodels.h"
@@ -75,31 +76,33 @@ void GameActor::dyingDraw()
 }
 void GameActor::DrawHP()
 {
-	const float HPBarRatio = 128.0f / Direct3D::scrWidth_;
+	const float HPBarRatio = 128.0f / Direct3D::screenWidth_;
 	
 	Transform DrawT;
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
-	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::scrWidth_-HPBarRatio/4.0f)* 2.0f - 1;
-	DrawT.position_.y = DrawT.position_.y / -Direct3D::scrHeight_ * 2.0f + 1;
+	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::screenWidth_ -HPBarRatio/4.0f)* 2.0f - 1;
+	DrawT.position_.y = DrawT.position_.y / -Direct3D::screenHeight_ * 2.0f + 1;
 	using namespace HPBar;
-	DrawT.scale_.x = status_.hp_ / status_.maxHp_;
-	HPBar::Draw(HPBar::BAR, DrawT);
-	/*for (int i = 0; i < HPBar::NUM; i++)
+
+	//HPBar::Draw(HPBar::BAR, DrawT);
+	for (auto i = 0; i < HPBar::NUM; i++)
 	{
 		switch (i)
 		{
 		case DMG:
 		case BAR:
-			
+			DrawT.scale_.x = status_.hp_ / status_.maxHp_;
 
 			break;
+		default:
+			DrawT.scale_.x = 1;
 		}
 		if (DrawT.scale_.x < 0)
 			DrawT.scale_.x = 0;
-		HPBar::Draw((HPBar::HANDLE)BAR, DrawT);
-	}*/
+		HPBar::Draw((HPBar::HANDLE)i, DrawT);
+	}
 }
 
 
@@ -118,7 +121,8 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 	if (dmg.pEffect_) {
 		dmg.pEffect_;//—]—T‚ ‚Á‚½‚çŽÀ‘•‚µ‚æ
 	}
-	XMFLOAT3 fdir = GameObject::operator=(-dir);
+	XMFLOAT3 fdir;
+	XMStoreFloat3(&fdir, -dir);
 	transform_.rotate_.y= XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
 	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 

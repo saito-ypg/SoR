@@ -17,7 +17,7 @@ TitleScene::~TitleScene()
 //‰Šú‰»
 void TitleScene::Initialize()
 {
-	hImage = Image::Load("Assets/title.png");
+	hImage = Image::Load("title.png");
 	assert(hImage >= 0);
 }
 

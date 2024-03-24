@@ -1,77 +1,62 @@
-#include "Camera.h"
+#include "camera.h"
+#include "Direct3D.h"
 
-namespace Camera{	
-	XMVECTOR position_;	//カメラの位置（視点）
-	XMVECTOR target_;	//見る位置（焦点）
-	XMMATRIX viewMatrix_;	//ビュー行列
-	XMMATRIX projMatrix_;	//プロジェクション行列
-}
+XMFLOAT3 _position;
+XMFLOAT3 _target;
+XMMATRIX _view;
+XMMATRIX _proj;
+XMMATRIX _billBoard;
 
-//初期化
+//初期化（プロジェクション行列作成）
 void Camera::Initialize()
 {
-	position_ = XMVectorSet(0, 3, -10, 0);
-	target_ = XMVectorSet(0, 0, 0, 0);
+	_position = XMFLOAT3(0, 3, -10);	//カメラの位置
+	_target = XMFLOAT3( 0, 0, 0);	//カメラの焦点
 
 	//プロジェクション行列
-	projMatrix_ = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)800 / (FLOAT)600, 0.1f, 100.0f);
+	_proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)Direct3D::screenWidth_ / (FLOAT)Direct3D::screenHeight_, 0.1f, 1000.0f);
 }
 
-//更新
+//更新（ビュー行列作成）
 void Camera::Update()
 {
-	//ビュー行列の作成
-	viewMatrix_ = XMMatrixLookAtLH(position_, target_, XMVectorSet(0, 1, 0, 0));
-}
+	//ビュー行列
+	_view = XMMatrixLookAtLH(XMVectorSet(_position.x, _position.y, _position.z, 0),
+		XMVectorSet(_target.x, _target.y, _target.z, 0), XMVectorSet(0, 1, 0, 0));
 
-//位置を設定
-void Camera::SetPosition(XMVECTOR position)
-{
-	Camera::position_ = position;
-}
 
-void Camera::SetPosition(XMFLOAT3 position)
-{
-	SetPosition(XMLoadFloat3(&position));
+	//ビルボード行列
+	//（常にカメラの方を向くように回転させる行列。パーティクルでしか使わない）
+	//http://marupeke296.com/DXG_No11_ComeOnBillboard.html
+	_billBoard = XMMatrixLookAtLH(XMVectorSet(0, 0, 0, 0), XMLoadFloat3(&_target)- XMLoadFloat3(&_position), XMVectorSet(0, 1, 0, 0));
+	_billBoard = XMMatrixInverse(nullptr, _billBoard);
 }
 
 //焦点を設定
-void Camera::SetTarget(XMVECTOR target)
-{
-	Camera::target_ = target;
-}
+void Camera::SetTarget(XMFLOAT3 target) { _target = target; }
 
-void Camera::SetTarget(XMFLOAT3 target)
-{
-	SetTarget(XMLoadFloat3(&target));
-}
+//位置を設定
+void Camera::SetPosition(XMFLOAT3 position) { _position = position; }
 
-XMVECTOR Camera::GetPosition()
-{
-	return position_;
-}
+//焦点を取得
+XMFLOAT3 Camera::GetTarget() { return _target; }
 
-XMVECTOR Camera::GetTarget()
-{
-	return target_;
-}
+//位置を取得
+XMFLOAT3 Camera::GetPosition() { return _position; }
 
 //ビュー行列を取得
-XMMATRIX Camera::GetViewMatrix()
-{
-	return viewMatrix_;
-}
+XMMATRIX Camera::GetViewMatrix() { return _view; }
 
 //プロジェクション行列を取得
-XMMATRIX Camera::GetProjectionMatrix()
-{
-	return projMatrix_;
-}
+XMMATRIX Camera::GetProjectionMatrix() { return _proj; }
+
+//ビルボード用回転行列を取得
+XMMATRIX Camera::GetBillboardMatrix(){	return _billBoard; }
 
 XMMATRIX Camera::GetVPMatrix()
 {
-	float w = (float)(Direct3D::scrWidth_ / 2.0f);
-	float h = (float)(Direct3D::scrHeight_ / 2.0f);
+	float w = (float)(Direct3D::screenWidth_ / 2.0f);
+	float h = (float)(Direct3D::screenHeight_ / 2.0f);
 	XMMATRIX vp =
 	{
 	   w,0,0,0,
@@ -84,7 +69,7 @@ XMMATRIX Camera::GetVPMatrix()
 
 XMMATRIX Camera::GetInverseMatrix()
 {
-	
 
-	return XMMatrixInverse(nullptr,GetVPMatrix())*XMMatrixInverse(nullptr,projMatrix_)*XMMatrixInverse(nullptr,viewMatrix_);
+
+	return XMMatrixInverse(nullptr, GetVPMatrix()) * XMMatrixInverse(nullptr, _proj) * XMMatrixInverse(nullptr, _view);
 }

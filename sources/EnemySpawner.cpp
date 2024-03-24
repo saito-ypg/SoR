@@ -9,7 +9,7 @@ EnemyBase* EnemySpawner::EnemyFactoty::createEnemy(GameObject* pParent, EnemyTyp
 	switch (type)
 	{
 	case DECOY:
-		return pParent->Instantiate<Decoy>(pParent);
+		return Instantiate<Decoy>(pParent);
 		
 
 	}
@@ -27,7 +27,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 	if (!enemy)
 		assert(false);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians(rand() % 360));
-	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0,20,0), rotmat);
+	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0,18,0), rotmat);
 	enemy->SetPosition(vpos);
 	return enemy;
 }

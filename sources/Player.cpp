@@ -3,6 +3,7 @@
 #include"../Engine/Model.h"
 #include"../Engine/Input.h"
 #include"../Engine/Camera.h"
+#include"../Engine/Global.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
@@ -27,7 +28,7 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    hModel_ = Model::Load("Assets/Charactors/psample.fbx");
+    hModel_ = Model::Load("Charactors/psample.fbx");
     assert(hModel_ >= 0);
 
     AddCamp();
@@ -42,11 +43,11 @@ void Player::ActorUpdate(const float& dt)
 #ifdef _DEBUG
     {//速度テスト用   
         if (Input::IsKeyDown(DIK_1))
-            pParent_->SetTimeScale(1.0f);
+            GetParent()->SetTimeScale(1.0f);
         if (Input::IsKeyDown(DIK_2))
-            pParent_->SetTimeScale(2.0f);
+            GetParent()->SetTimeScale(2.0f);
         if (Input::IsKeyDown(DIK_0))
-            pParent_->SetTimeScale(0.0f);
+            GetParent()->SetTimeScale(0.0f);
         if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
@@ -85,7 +86,7 @@ void Player::ActorUpdate(const float& dt)
 
     if (Input::IsMouseButton(1))//移動先指定
     {
-        XMVECTOR target= getMouseTargetPos();
+        XMVECTOR target = getMouseTargetPos();
         if (isHit(target)) {
             calculateForMove(target);
             isSkillBeingUsed = false;
@@ -248,7 +249,9 @@ XMVECTOR Player::getMouseTargetPos()
     XMVECTOR vBack = XMVector3TransformCoord(XMLoadFloat3(&back), matInv);
     XMVECTOR dir = XMVector3Normalize(vBack - vFront);
     XMVECTOR a = dir / XMVectorGetY(dir);//yが1になるように
-    return Camera::GetPosition()- (a * XMVectorGetY(Camera::GetPosition()));//カメラ座標からdir方向に進んでyが0の時の座標を返す
+    auto temp = Camera::GetPosition();
+    XMVECTOR campos = XMLoadFloat3(&temp);
+    return campos- (a * XMVectorGetY(campos));//カメラ座標からdir方向に進んでyが0の時の座標を返す
 
 }
 

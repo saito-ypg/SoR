@@ -1,385 +1,156 @@
-#include<DirectXCollision.h>
 #include "Fbx.h"
-#include"Direct3D.h"
-#include"Camera.h"
-#include"Texture.h"
+#include "Direct3D.h"
+#include "FbxParts.h"
 
-Fbx::Fbx() :pVertexBuffer_(nullptr), ppIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pMaterialList_(nullptr), pVertices_(nullptr),ppIndex_(nullptr), vertexCount_(0), polygonCount_(0), materialCount_(0), indexCount_(nullptr)
+
+
+Fbx::Fbx():_animSpeed(0)
 {
 }
 
+
 Fbx::~Fbx()
 {
-	Release();
+	for (int i = 0; i < parts_.size(); i++)
+	{
+		delete parts_[i];
+	}
+	parts_.clear();
+
+	pFbxScene_->Destroy();
+	pFbxManager_->Destroy();
 }
 
 HRESULT Fbx::Load(std::string fileName)
 {
-	//マネージャを生成
-	FbxManager* pFbxManager = FbxManager::Create();
-
-	//シーンオブジェクトにFBXファイルの情報を流し込む
-	FbxScene* pFbxScene = FbxScene::Create(pFbxManager, "fbxscene");
-	//インポーターを生成
+	// FBXの読み込み
+	pFbxManager_ = FbxManager::Create();
+	pFbxScene_ = FbxScene::Create(pFbxManager_, "fbxscene");
 	FbxString FileName(fileName.c_str());
-	FbxImporter* fbxImporter = FbxImporter::Create(pFbxManager, "imp");
-	if(!fbxImporter->Initialize(FileName.Buffer(), -1, pFbxManager->GetIOSettings()))
+	FbxImporter *fbxImporter = FbxImporter::Create(pFbxManager_, "imp");
+	if (!fbxImporter->Initialize(FileName.Buffer(), -1, pFbxManager_->GetIOSettings()))
 	{
-		string e = fbxImporter->GetStatus().GetErrorString();
-		MessageBox(nullptr,e.c_str(), "インポーター初期化失敗", MB_OK);
+		//失敗
 		return E_FAIL;
 	}
-
-
-	if(!fbxImporter->Import(pFbxScene))//読み込み失敗
-	{
-		string e = fbxImporter->GetStatus().GetErrorString();
-		MessageBox(nullptr, e.c_str(), "ファイル読み込み失敗", MB_OK);
-		return E_FAIL;
-	}
+	fbxImporter->Import(pFbxScene_);
 	fbxImporter->Destroy();
 
-	//メッシュ情報を取得
-	FbxNode* rootNode = pFbxScene->GetRootNode();
-	FbxNode* pNode = rootNode->GetChild(0);
-	FbxMesh* mesh = pNode->GetMesh();
-
-	//各情報の個数を取得
-	vertexCount_ = mesh->GetControlPointsCount();	//頂点の数
-	polygonCount_ = mesh->GetPolygonCount();	//ポリゴンの数
-	materialCount_ = pNode->GetMaterialCount();//マテリアルの数
+	// アニメーションのタイムモードの取得
+	_frameRate = pFbxScene_->GetGlobalSettings().GetTimeMode();
 
 
 	//現在のカレントディレクトリを覚えておく
-	char curDir[_MAX_PATH];
-	GetCurrentDirectory(_MAX_PATH, curDir);
+	char defaultCurrentDir[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, defaultCurrentDir);
 
-	//引数のfileNameからディレクトリ部分を取得
+	//カレントディレクトリをファイルがあった場所に変更
 	char dir[MAX_PATH];
-	_splitpath_s(fileName.c_str(), nullptr, 0, dir, _MAX_DIR, nullptr, 0, nullptr, 0);
-
-	//カレントディレクトリ変更
+	_splitpath_s(fileName.c_str(), nullptr, 0, dir, MAX_PATH, nullptr, 0, nullptr, 0);
 	SetCurrentDirectory(dir);
 
-	HRESULT hr;
-	hr=InitVertex(mesh);		//頂点バッファ準備
-	if (FAILED(hr))
+
+
+	//ルートノードを取得して
+	FbxNode* rootNode = pFbxScene_->GetRootNode();
+
+	//そいつの子供の数を調べて
+	int childCount = rootNode->GetChildCount();
+
+	//1個ずつチェック
+	for (int i = 0; childCount > i; i++)
 	{
-		MessageBox(nullptr, "頂点バッファの初期化に失敗しました", "FBXエラー", MB_OK);
-		return hr;
-	}
-	hr=InitIndex(mesh);		//インデックスバッファ準備
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, "インデックスバッファの初期化に失敗しました", "FBXエラー", MB_OK);
-		return hr;
-	}
-	hr=InitConstantBuffer();	//コンスタントバッファ準備
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, "頂点の初期化に失敗しました", "FBXエラー", MB_OK);
-		return hr;
-	}
-	hr=InitMaterial(pNode);
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, "マテリアルの読み込みに失敗しました", "FBXエラー", MB_OK);
-		return hr;
+		CheckNode(rootNode->GetChild(i), &parts_);
 	}
 
-	//カレントディレクトリを元に戻す
-	char result[_MAX_DIR + 4];
-	wsprintf(result, "%s", curDir);
-	SetCurrentDirectory(result);
 
-	//マネージャ解放
-	pFbxManager->Destroy();
+
+	//カレントディレクトリを元の位置に戻す
+	SetCurrentDirectory(defaultCurrentDir);
+
 	return S_OK;
 }
 
-void Fbx::Draw(Transform& transform)
+void Fbx::CheckNode(FbxNode * pNode, std::vector<FbxParts*>* pPartsList)
 {
-	Direct3D::SetShader(SHADER_3D);
-	transform.Calculation();//トランスフォームを計算
-	//コンスタントバッファに情報を渡す
-	
-	for (int i = 0; i < materialCount_; i++)
+	//そのノードにはメッシュ情報が入っているだろうか？
+	FbxNodeAttribute* attr = pNode->GetNodeAttribute();
+	if (attr != nullptr && attr->GetAttributeType() == FbxNodeAttribute::eMesh)
 	{
-		CONSTANT_BUFFER cb;
-		cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-		cb.matNormal = XMMatrixTranspose(transform.GetNormalMatrix());
-		cb.isTexture = pMaterialList_[i].pTexture != nullptr;
-		cb.diffuseColor = pMaterialList_[i].diffuse;
+		//パーツを用意
+		FbxParts* pParts = new FbxParts;
+		pParts->Init(pNode);
 
-		D3D11_MAPPED_SUBRESOURCE pdata;
-		Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
-		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
-		if (pMaterialList_[i].pTexture)
+		//パーツ情報を動的配列に追加
+		pPartsList->push_back(pParts);
+	}
+
+
+	//子ノードにもデータがあるかも！！
+	{
+		//子供の数を調べて
+		int childCount = pNode->GetChildCount();
+
+		//一人ずつチェック
+		for (int i = 0; i < childCount; i++)
 		{
-		
-			ID3D11SamplerState* pSampler = pMaterialList_[i].pTexture->GetSampler();
-			Direct3D::pContext_->PSSetSamplers(0, 1, &pSampler);
-			ID3D11ShaderResourceView* pSRV = pMaterialList_[i].pTexture->GetSRV();
-			Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
+			CheckNode(pNode->GetChild(i), pPartsList);
 		}
-		
-
-		Direct3D::pContext_->Unmap(pConstantBuffer_, 0);	//再開
-		//頂点バッファ、インデックスバッファ、コンスタントバッファをパイプラインにセット
-		//頂点バッファ
-		UINT stride = sizeof(VERTEX);
-		UINT offset = 0;
-		Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
-		// インデックスバッファーをセット
-		stride = sizeof(int);
-		offset = 0;
-		Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
-
-		//コンスタントバッファ
-		Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
-		Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
-
-	
-		//描画
-		Direct3D::pContext_->DrawIndexed(indexCount_[i], 0, 0);
 	}
 }
+
 
 void Fbx::Release()
 {
 
-	SAFE_RELEASE(pVertexBuffer_);
-	for (int i = 0; i < materialCount_; i++)
+}
+
+XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
+{
+	XMFLOAT3 position = XMFLOAT3(0, 0, 0);
+	for (int i = 0; i < parts_.size(); i++)
 	{
-		SAFE_RELEASE(ppIndexBuffer_[i]);
-		SAFE_DELETE(ppIndex_[i]);
-		SAFE_DELETE(pMaterialList_[i].pTexture);
+		if (parts_[i]->GetBonePosition(boneName, &position))
+			break;
 	}
-	
-	SAFE_DELETE_ARRAY(ppIndex_);
-	SAFE_DELETE_ARRAY(indexCount_);
-	SAFE_DELETE_ARRAY(ppIndexBuffer_);
-	SAFE_DELETE_ARRAY(pMaterialList_);
 
-	SAFE_DELETE_ARRAY(pVertices_);
-	SAFE_RELEASE(pConstantBuffer_);
+
+	return position;
 }
 
-void Fbx::RayCast(RayCastData& rayData)
+void Fbx::Draw(Transform& transform, int frame)
 {
-	for (int material = 0; material < materialCount_; material++)
+	Direct3D::SetBlendMode(Direct3D::BLEND_DEFAULT);
+
+	//パーツを1個ずつ描画
+	for (int k = 0; k < parts_.size(); k++)
 	{
-		for (int poly = 0; poly < indexCount_[material]/3; poly++)
+		// その瞬間の自分の姿勢行列を得る
+		FbxTime     time;
+		time.SetTime(0, 0, 0, frame, 0, 0, _frameRate);
+
+
+		//スキンアニメーション（ボーン有り）の場合
+		if (parts_[k]->GetSkinInfo() != nullptr)
 		{
-			XMVECTOR v0 = pVertices_[ppIndex_[material][poly * 3]].position;
-			XMVECTOR v1 = pVertices_[ppIndex_[material][poly * 3+1]].position;
-			XMVECTOR v2 = pVertices_[ppIndex_[material][poly * 3+2]].position;
-			XMVECTOR start =XMLoadFloat4( &rayData.start);
-			XMVECTOR dir =XMVector3Normalize(XMLoadFloat4(&rayData.dir));
-			rayData.hit = DirectX::TriangleTests::Intersects(start,dir,v0, v1, v2,rayData.dist);
-			if (rayData.hit)
-			{
-				return;
-			}
+			parts_[k]->DrawSkinAnime(transform, time);
 		}
-	}
-}
 
-//頂点バッファ準備
-HRESULT Fbx::InitVertex(fbxsdk::FbxMesh* mesh)
-{
-
-	pVertices_ = new VERTEX[vertexCount_];
-
-	//全ポリゴン
-	for (int poly = 0; poly < polygonCount_; poly++)
-	{
-		//3頂点分
-		for (int vertex = 0; vertex < 3; vertex++)
-		{
-			//調べる頂点の番号
-			int index = mesh->GetPolygonVertex(poly, vertex);
-
-			//頂点の位置
-			FbxVector4 pos = mesh->GetControlPointAt(index);
-			pVertices_[index].position = XMVectorSet((float)pos[0], (float)pos[1], (float)pos[2], 0.0f);
-
-			//頂点のUV
-			FbxLayerElementUV* pUV = mesh->GetLayer(0)->GetUVs();
-			int uvIndex = mesh->GetTextureUVIndex(poly, vertex, FbxLayerElement::eTextureDiffuse);
-			FbxVector2  uv = pUV->GetDirectArray().GetAt(uvIndex);
-			pVertices_[index].uv = XMVectorSet((float)uv.mData[0], (float)(1.0f - uv.mData[1]), 0.0f, 0.0f);
-
-			//頂点の法線
-			FbxVector4 Normal;
-			mesh->GetPolygonVertexNormal(poly, vertex, Normal);	//ｉ番目のポリゴンの、ｊ番目の頂点の法線をゲット
-			pVertices_[index].normal = XMVectorSet((float)Normal[0], (float)Normal[1], (float)Normal[2], 0.0f);
-		}
-	}
-	// 頂点バッファ作成
-	D3D11_BUFFER_DESC bd_vertex;
-	bd_vertex.ByteWidth = vertexCount_ * sizeof(VERTEX);
-	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
-	bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd_vertex.CPUAccessFlags = 0;
-	bd_vertex.MiscFlags = 0;
-	bd_vertex.StructureByteStride = 0;
-	D3D11_SUBRESOURCE_DATA data_vertex;
-	data_vertex.pSysMem = pVertices_;
-	return Direct3D::pDevice_->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
-
-
-}
-
-//インデックスバッファ準備
-HRESULT Fbx::InitIndex(fbxsdk::FbxMesh* mesh)
-{
-	ppIndexBuffer_ = new ID3D11Buffer*[materialCount_];
-	indexCount_ = new int[materialCount_];
-	ppIndex_ = new int* [materialCount_];
-	const int indexes = polygonCount_ * 3;
-	for (int i = 0; i < materialCount_; i++)
-	{
-		ppIndex_[i] = new int[indexes];
-		int count = 0;
-		
-		//全ポリゴン
-		for (int poly = 0; poly < polygonCount_; poly++)
-		{
-			FbxLayerElementMaterial* mtl = mesh->GetLayer(0)->GetMaterials();
-			int mtlId = mtl->GetIndexArray().GetAt(poly);
-
-			if (mtlId == i)
-			{//3頂点分
-				for (DWORD vertex = 0; vertex < 3; vertex++)
-				{
-					ppIndex_ [i][count] = mesh->GetPolygonVertex(poly, vertex);
-					count++;
-				}
-			}
-
-		}
-		indexCount_[i] = count;
-		
-		// インデックスバッファを生成する
-		D3D11_BUFFER_DESC   bd;
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = polygonCount_ * 3 * sizeof(int);
-		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		bd.CPUAccessFlags = 0;
-		bd.MiscFlags = 0;
-
-		D3D11_SUBRESOURCE_DATA InitData;
-		InitData.pSysMem = ppIndex_[i];
-		InitData.SysMemPitch = 0;
-		InitData.SysMemSlicePitch = 0;
-		HRESULT hr=Direct3D::pDevice_->CreateBuffer(&bd, &InitData, &ppIndexBuffer_[i]);
-		if(FAILED(hr))
-		{
-			return hr;
-		}
-	}
-	return S_OK;
-}
-
-HRESULT Fbx::InitConstantBuffer()//コンスタントバッファ準備
-{
-	//コンスタントバッファ作成
-	D3D11_BUFFER_DESC cb;
-	cb.ByteWidth = sizeof(CONSTANT_BUFFER);
-	cb.Usage = D3D11_USAGE_DYNAMIC;
-	cb.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	cb.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	cb.MiscFlags = 0;
-	cb.StructureByteStride = 0;
-
-	// コンスタントバッファの作成
-	return  Direct3D::pDevice_->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
-
-}
-
-void Fbx::PassDataToCB(Transform transform,int i)
-{
-	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.matNormal = XMMatrixTranspose(transform.GetNormalMatrix());
-
-	D3D11_MAPPED_SUBRESOURCE pdata;
-	Direct3D::pContext_->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
-	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
-	
-		ID3D11SamplerState* pSampler = pMaterialList_[i].pTexture->GetSampler();
-		Direct3D::pContext_->PSSetSamplers(0, 1, &pSampler);
-		ID3D11ShaderResourceView* pSRV = pMaterialList_[i].pTexture->GetSRV();
-		Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
-	
-	Direct3D::pContext_->Unmap(pConstantBuffer_, 0);	//再開
-}
-
-void Fbx::SetBufferToPipeline(int i)
-{
-	//頂点バッファ
-	UINT stride = sizeof(VERTEX);
-	UINT offset = 0;
-	Direct3D::pContext_->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
-
-	// インデックスバッファーをセット
-	stride = sizeof(int);
-	offset = 0;
-	Direct3D::pContext_->IASetIndexBuffer(ppIndexBuffer_[i], DXGI_FORMAT_R32_UINT, offset);
-		
-	//コンスタントバッファ
-	Direct3D::pContext_->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
-	Direct3D::pContext_->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
-}
-
-HRESULT Fbx::InitMaterial(fbxsdk::FbxNode* pNode)
-{
-	pMaterialList_ = new Fbx::MATERIAL[materialCount_];
-
-	for (int i = 0; i < materialCount_; i++)
-	{
-		//i番目のマテリアル情報を取得
-		FbxSurfaceMaterial* pMaterial = pNode->GetMaterial(i);
-
-		//テクスチャ情報
-		FbxProperty  lProperty = pMaterial->FindProperty(FbxSurfaceMaterial::sDiffuse);
-
-		//テクスチャの数数
-		int fileTextureCount = lProperty.GetSrcObjectCount<FbxFileTexture>();
-
-		//テクスチャあり
-		if (fileTextureCount>0)
-		{
-			FbxFileTexture* textureInfo = lProperty.GetSrcObject<FbxFileTexture>(0);
-			string textureFilePath = textureInfo->GetRelativeFileName();
-
-			//ファイル名+拡張だけにする
-			char name[_MAX_FNAME];	//ファイル名
-			char ext[_MAX_EXT];	//拡張子
-			_splitpath_s(textureFilePath.c_str(), nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
-			wsprintf(name, "%s%s", name, ext);
-
-			//ファイルからテクスチャ作成
-			pMaterialList_[i].pTexture = new Texture;
-			HRESULT hr=pMaterialList_[i].pTexture->Load(name);
-			if(FAILED(hr))
-			{
-				return hr;
-			}
-
-		}
-		//テクスチャ無し
+		//メッシュアニメーションの場合
 		else
 		{
-			pMaterialList_[i].pTexture= nullptr;
-
-			//マテリアルの色
-			FbxSurfaceLambert* pMaterial = (FbxSurfaceLambert*)pNode->GetMaterial(i);
-			
-			FbxDouble3  diffuse = pMaterial->Diffuse;
-			pMaterialList_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);
+			parts_[k]->DrawMeshAnime(transform, time, pFbxScene_);
 		}
 	}
-	return S_OK;
+}
+
+
+//レイキャスト（レイを飛ばして当たり判定）
+void Fbx::RayCast(RayCastData * data)
+{
+	//すべてのパーツと判定
+	for (int i = 0; i < parts_.size(); i++)
+	{
+		parts_[i]->RayCast(data);
+	}
 }
