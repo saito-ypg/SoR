@@ -20,6 +20,4 @@ public:
 	void add(EnemyBase* enemy);//list‚É“G‚ğ“o˜^Bˆø”‚ÉInstantiate‚Æ‚©•K—v‚©‚È
 	bool Eliminated();
 
-
-
 };

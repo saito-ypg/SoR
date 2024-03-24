@@ -30,11 +30,11 @@ void PlayScene::Initialize()
 
 	mod = Instantiate<ModeratorSequence>(this);
 	//Instantiate<Decoy>(this);
-	auto* d = Instantiate<Decoy>(this);
-	d->SetPosition(XMFLOAT3(1, 0, 10));
-	d->SetRotateY(45);
+	//auto* d = Instantiate<Decoy>(this);
+	//d->SetPosition(XMFLOAT3(1, 0, 10));
+	//d->SetRotateY(45);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
-	Camera::SetPosition(XMFLOAT3{ 0, 30, -20.0f });
+	Camera::SetPosition(XMFLOAT3{ 0, 30.0f, -10.0f });
 	HPBar::Initialize();
 
 }

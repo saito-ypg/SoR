@@ -1,11 +1,15 @@
 #include<fstream>
 #include<algorithm>
 #include<string>
+#include<sstream>
+#include<iomanip>	
 #include "ModeratorSequence.h"
 #include"EnemyManager.h"
 #include"EnemySpawner.h"
-
+#include"../Engine/SceneManager.h"
+#include"../Engine/Image.h"	
 #include"../libraries/json.hpp"
+
 using std::string;
 const string DATA_PATH="data/";
 using std::vector;
@@ -50,7 +54,8 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	ttlTime = milliseconds(0);
 	waves = 0;
 	spawnindex = 0;
-	state = BEGIN;
+	state = CHANGED;
+	hImage = -1;
 	transitionTime = TRANSITION_MS;
 
 	manager = nullptr;
@@ -65,7 +70,10 @@ void ModeratorSequence::Initialize()
 {
 	manager = new EnemyManager(this);
 	LoadData();
-
+	pText = new Text();
+	pText->Initialize();
+	hImage = Image::Load("Images/inc.png");
+	assert(hImage >= 0);
 }
 
 void ModeratorSequence::Update(const float& dt)
@@ -122,12 +130,39 @@ void ModeratorSequence::Update(const float& dt)
 		waves++;
 		state = PREP;
 		transitionTime = TRANSITION_MS;
+		break;
+	case GAMEOVER:
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+		break;
 	}
 	manager->Update(dt);
 }
 
 void ModeratorSequence::Draw()
 {
+	switch (state)
+	{
+
+	case ModeratorSequence::PREP:
+		Image::SetTransform(hImage, transform_);
+		Image::Draw(hImage);
+		break;
+
+	}
+	auto ms = ttlTime;
+	auto secs = std::chrono::duration_cast<std::chrono::seconds>(ms);
+	ms -= std::chrono::duration_cast<std::chrono::milliseconds>(secs);
+	auto mins = std::chrono::duration_cast<std::chrono::minutes>(secs);
+	secs -= std::chrono::duration_cast<std::chrono::seconds>(mins);
+	std::stringstream timestr;
+	timestr <<"TIME:" << std::setw(2) << std::setfill('0') << mins.count() << ":"
+		<< std::setw(2) << std::setfill('0') << secs.count() << ":"
+		<< std::setw(3) << std::setfill('0') << ms.count();
+	pText->Draw(10, 32, timestr.str().c_str());
+	std::stringstream wavestr;
+	wavestr << "WAVES:" << waves+1;
+	pText->Draw(10, 64,wavestr.str().c_str());
 }
 
 void ModeratorSequence::Release()

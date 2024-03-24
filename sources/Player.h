@@ -41,7 +41,7 @@ class Player : public GameActor
 
     bool canMove();
 protected:
-
+    void dyingProcess()override;
 public:
     //コンストラクタ
     Player(GameObject* parent);

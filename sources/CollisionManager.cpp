@@ -209,7 +209,14 @@ void CollisionManager::Release()
 		}
 		it.clear();
 	}
-	CollisionList.clear();
 
-	
+	for (auto& it : RangeTest)
+	{
+		for (auto& itin : it)
+		{
+			SAFE_DELETE(itin.pRange_);
+		}
+		it.clear();
+	}
+
 }

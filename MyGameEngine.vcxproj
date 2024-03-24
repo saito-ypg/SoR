@@ -42,6 +42,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\VFX.cpp" />
+    <ClCompile Include="PlayerInterface.cpp" />
     <ClCompile Include="sources\ActorCollider.cpp" />
     <ClCompile Include="sources\ActorInfo.cpp" />
     <ClCompile Include="sources\areamodels.cpp" />
@@ -52,6 +53,7 @@
     <ClCompile Include="sources\EnemyManager.cpp" />
     <ClCompile Include="sources\EnemySpawner.cpp" />
     <ClCompile Include="sources\GameActor.cpp" />
+    <ClCompile Include="sources\GameOverScene.cpp" />
     <ClCompile Include="sources\Ground.cpp" />
     <ClCompile Include="sources\HPBar.cpp" />
     <ClCompile Include="sources\ModeratorSequence.cpp" />
@@ -86,6 +88,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\VFX.h" />
+    <ClInclude Include="PlayerInterface.h" />
     <ClInclude Include="sources\ActorCollider.h" />
     <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="sources\areamodels.h" />
@@ -98,6 +101,7 @@
     <ClInclude Include="sources\EnemySpawner.h" />
     <ClInclude Include="sources\EnemyType.h" />
     <ClInclude Include="sources\GameActor.h" />
+    <ClInclude Include="sources\GameOverScene.h" />
     <ClInclude Include="sources\Ground.h" />
     <ClInclude Include="sources\HPBar.h" />
     <ClInclude Include="sources\ModeratorSequence.h" />

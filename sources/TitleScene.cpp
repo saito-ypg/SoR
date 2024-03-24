@@ -17,7 +17,7 @@ TitleScene::~TitleScene()
 //‰Šú‰»
 void TitleScene::Initialize()
 {
-	hImage = Image::Load("title.png");
+	hImage = Image::Load("Images/title.png");
 	assert(hImage >= 0);
 }
 
@@ -34,7 +34,7 @@ void TitleScene::Update(const float& dt)
 //•`‰æ
 void TitleScene::Draw()
 {
-	transform_.scale_ = { 0.4f,0.4f,0.4f };
+	transform_.scale_ = { 0.6f,0.6f,0.6f };
 	Image::SetTransform(hImage, transform_);
 	Image::Draw(hImage);
 }
