@@ -33,7 +33,7 @@ private:
     int waves;//ウェーブ数
     int spawnindex;
     Text* pText;
-    int hImage;
+    int hImage[2];
     EnemyManager* manager;
     enum s{
         CHANGED=0,//シーン変わった直後

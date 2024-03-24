@@ -15,7 +15,7 @@ const string DATA_PATH="data/";
 using std::vector;
 using namespace std::chrono;
 constexpr float TRANSITION_MS = 3000;
-
+constexpr int MAX_WAVE = 2;
 void ModeratorSequence::LoadData()
 {
 	using namespace std;
@@ -55,7 +55,8 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	waves = 0;
 	spawnindex = 0;
 	state = CHANGED;
-	hImage = -1;
+	hImage[0] = -1;
+	hImage[1] = -1;
 	transitionTime = TRANSITION_MS;
 
 	manager = nullptr;
@@ -72,8 +73,10 @@ void ModeratorSequence::Initialize()
 	LoadData();
 	pText = new Text();
 	pText->Initialize();
-	hImage = Image::Load("Images/inc.png");
-	assert(hImage >= 0);
+	hImage[0] = Image::Load("Images/inc.png");
+	hImage[1] = Image::Load("Images/waveclear.png");
+	assert(hImage[0] >= 0);
+	assert(hImage[1] >= 0);
 }
 
 void ModeratorSequence::Update(const float& dt)
@@ -127,6 +130,12 @@ void ModeratorSequence::Update(const float& dt)
 	case NEXT:
 		spawnindex = 0;
 		waves++;
+		manager->clearEnemy();
+		if (waves >= MAX_WAVE)
+		{
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+		}
 		state = PREP;
 		transitionTime = TRANSITION_MS;
 		break;
@@ -140,14 +149,20 @@ void ModeratorSequence::Update(const float& dt)
 
 void ModeratorSequence::Draw()
 {
+	Transform pictT;
+	pictT.position_ = XMFLOAT3(0, 0, 0);
 	switch (state)
 	{
 
 	case ModeratorSequence::PREP:
-		Image::SetTransform(hImage, transform_);
-		Image::Draw(hImage);
+		
+		Image::SetTransform(hImage[0], pictT);
+		Image::Draw(hImage[0]);
 		break;
-
+	case ModeratorSequence::END	:
+		Image::SetTransform(hImage[1], pictT);
+		Image::Draw(hImage[1]);
+		break;
 	}
 	auto ms = ttlTime;
 	auto secs = std::chrono::duration_cast<std::chrono::seconds>(ms);
