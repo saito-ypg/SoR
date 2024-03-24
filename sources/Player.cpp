@@ -81,10 +81,10 @@ void Player::ActorUpdate(const float& dt)
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
-    if (Input::IsKey(DIK_A))
-        status_.hp_--;
+   
 #endif
-
+ if (Input::IsKey(DIK_A))
+        status_.hp_--;
     if (Input::IsMouseButton(1))//ˆÚ“®æw’è
     {
         XMVECTOR target = getMouseTargetPos();

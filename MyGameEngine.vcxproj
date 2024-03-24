@@ -47,6 +47,7 @@
     <ClCompile Include="sources\ActorInfo.cpp" />
     <ClCompile Include="sources\areamodels.cpp" />
     <ClCompile Include="sources\AttackRange.cpp" />
+    <ClCompile Include="sources\ClearScene.cpp" />
     <ClCompile Include="sources\CollisionManager.cpp" />
     <ClCompile Include="sources\Decoy.cpp" />
     <ClCompile Include="sources\EnemyBase.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="sources\areamodels.h" />
     <ClInclude Include="sources\AttackRange.h" />
+    <ClInclude Include="sources\ClearScene.h" />
     <ClInclude Include="sources\CollisionManager.h" />
     <ClInclude Include="sources\DamageData.h" />
     <ClInclude Include="sources\Decoy.h" />

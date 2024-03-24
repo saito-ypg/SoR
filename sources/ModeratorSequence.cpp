@@ -93,7 +93,6 @@ void ModeratorSequence::Update(const float& dt)
 			
 		}break;
 	case PREP:
-
 		Transition(BEGIN);
 		
 		break;
