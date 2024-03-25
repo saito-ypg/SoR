@@ -15,7 +15,7 @@ private:
         XMVECTOR Dir;//•ûŒü³‹K‰»
     } knockBack;
    
-    protected:
+protected:
     
     ActorInfo status_;
     bool isInvincible_;//–³“Gó‘Ô‚©H

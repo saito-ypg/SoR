@@ -2,45 +2,45 @@
 #include"../Engine/Input.h"
 #include"../Engine/SceneManager.h"
 #include"../Engine/Image.h"
-#include"TitleScene.h"
+#include"ClearScene.h"
 //コンストラクタ
-TitleScene::TitleScene(GameObject* parent)
-	: GameObject(parent, "TitleScene")
+ClearScene::ClearScene(GameObject* parent)
+	: GameObject(parent, "ClearScene")
 {
 	hImage = -1;
 }
 
-TitleScene::~TitleScene()
+ClearScene::~ClearScene()
 {
 }
 
 //初期化
-void TitleScene::Initialize()
+void ClearScene::Initialize()
 {
-	hImage = Image::Load("Images/title.png");
+	hImage = Image::Load("Images/Clear.png");
 	assert(hImage >= 0);
 }
 
 //更新
-void TitleScene::Update(const float& dt)
+void ClearScene::Update(const float& dt)
 {
 	if (Input::IsKeyDown(DIK_RETURN))
 	{
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_PLAY);
+		pSceneManager->ChangeScene(SCENE_ID_TITLE);
 	}
 }
 
 //描画
-void TitleScene::Draw()
+void ClearScene::Draw()
 {
-	transform_.scale_ = { 0.6f,0.6f,0.6f };
+	transform_.position_ = { 0.6f,-0.6f,0};
 	Image::SetTransform(hImage, transform_);
 	Image::Draw(hImage);
 }
 
 //開放
-void TitleScene::Release()
+void ClearScene::Release()
 {
 
 }

@@ -19,6 +19,16 @@ bool EnemyManager::Eliminated()
 	return true;//全員倒してたらtrue返してクリアってする？
 }
 
+void EnemyManager::clearEnemy()
+{
+	for (auto itr : Enemylist_)
+	{
+		itr->KillMe();
+
+	}
+	Enemylist_.clear();
+}
+
 EnemyManager::EnemyManager(GameObject* parent)
 {
 }

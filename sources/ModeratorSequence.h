@@ -2,7 +2,9 @@
 #include<chrono>
 #include<map>
 #include "../Engine\GameObject.h"
+#include"../Engine/Text.h"
 #include"EnemyType.h"
+
 /// <summary>
 /// ゲームの進行をつかさどる
 /// 敵を直接シーンに出すのではなく、此処から指令を出して特定のタイミングで出現～とする
@@ -30,6 +32,8 @@ private:
     std::chrono::milliseconds ttlTime;//ゲーム全体
     int waves;//ウェーブ数
     int spawnindex;
+    Text* pText;
+    int hImage[2];
     EnemyManager* manager;
     enum s{
         CHANGED=0,//シーン変わった直後
@@ -37,6 +41,8 @@ private:
         BEGIN,//敵スポーン開始
         END,//敵全滅後
         NEXT,
+
+        GAMEOVER,//ゲームオーバーになったら
     } state;//
     float transitionTime;//ミリ秒単位、進行に使う
     const std::map<std::string, EnemyType> TypeMap =
@@ -53,5 +59,7 @@ public:
     void Update(const float& dt)override;
     void Draw()override;
     void Release()override;
+
+    void SetGameOver() { state = GAMEOVER; }
 };
 

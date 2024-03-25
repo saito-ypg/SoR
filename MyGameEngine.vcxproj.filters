@@ -26,9 +26,6 @@
     <ClInclude Include="sources\ActorCollider.h">
       <Filter>sourses</Filter>
     </ClInclude>
-    <ClInclude Include="source\ActorInfo.h">
-      <Filter>Scenes\PlayScene\Objects\Charactors\base&amp;mechanics</Filter>
-    </ClInclude>
     <ClInclude Include="sources\areamodels.h">
       <Filter>sourses</Filter>
     </ClInclude>
@@ -85,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="sources\TitleScene.h">
       <Filter>sourses</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\TestScene.h">
-      <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Audio.h">
       <Filter>Engine</Filter>
@@ -158,6 +152,13 @@
     <ClInclude Include="Engine\VFX.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerInterface.h" />
+    <ClInclude Include="sources\ActorInfo.h" />
+    <ClInclude Include="sources\GameOverScene.h" />
+    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="sources\ClearScene.h">
+      <Filter>sourses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\ActorCollider.cpp">
@@ -213,12 +214,6 @@
     </ClCompile>
     <ClCompile Include="sources\TitleScene.cpp">
       <Filter>sourses</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\TestScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\Main.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>Engine</Filter>
@@ -285,6 +280,13 @@
     </ClCompile>
     <ClCompile Include="Engine\VFX.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Main.cpp" />
+    <ClCompile Include="PlayerInterface.cpp" />
+    <ClCompile Include="sources\GameOverScene.cpp" />
+    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="sources\ClearScene.cpp">
+      <Filter>sourses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

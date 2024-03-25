@@ -4,6 +4,7 @@
 #include"../Engine/Input.h"
 #include"../Engine/Camera.h"
 #include"../Engine/Global.h"
+#include"ModeratorSequence.h"
 constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 constexpr float PLAYER_ROT_TH = 0.1f;//ˆÚ“®Žž‚É‰ñ“]‚·‚é‚©‚Ç‚¤‚©‚Ì‹——£‚Ì‚µ‚«‚¢’l
 bool nearlyZero(float f) {//‚Ù‚Ú0‚Å‚ ‚é‚Æ‚¢‚¦‚é‚È‚çtrueB
@@ -80,10 +81,10 @@ void Player::ActorUpdate(const float& dt)
         CollisionManager::HitTestBy(PLAYER, testSector);
     }
 
-    if (Input::IsKeyDown(DIK_A))
-        transform_.rotate_.y = XMConvertToDegrees((float)atan2(-transform_.position_.x, -transform_.position_.z));
+   
 #endif
-
+ if (Input::IsKey(DIK_A))
+        status_.hp_--;
     if (Input::IsMouseButton(1))//ˆÚ“®æŽw’è
     {
         XMVECTOR target = getMouseTargetPos();
@@ -289,4 +290,10 @@ bool Player::canMove()
         }
     }
     return true;
+}
+
+void Player::dyingProcess()
+{
+    ModeratorSequence* ms = (ModeratorSequence*)FindObject("ModeratorSequence");
+    ms->SetGameOver();
 }
