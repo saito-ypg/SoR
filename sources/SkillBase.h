@@ -29,7 +29,7 @@ protected:
 	float castTime_;//動けるようになるまでの残り時間
 	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
-	bool isInOperation;
+	bool isInOperation;//スキル使用中か
 	
 	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
 	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg);

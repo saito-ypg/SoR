@@ -340,4 +340,18 @@
     <None Include="README.md" />
     <None Include="todo.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Interface\gaugeBack.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Interface\gaugeBar.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Interface\gaugeDamaged.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Assets\Interface\gaugeFrame.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

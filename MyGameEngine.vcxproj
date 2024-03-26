@@ -122,6 +122,12 @@
     <None Include="README.md" />
     <None Include="todo.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Interface\gaugeBack.png" />
+    <Image Include="Assets\Interface\gaugeBar.png" />
+    <Image Include="Assets\Interface\gaugeDamaged.png" />
+    <Image Include="Assets\Interface\gaugeFrame.png" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
