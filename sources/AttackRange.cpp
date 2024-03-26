@@ -79,7 +79,7 @@ bool AttackRangeQuad::IsHit(actorAddr& data)
 		,{max(f3Quad.z - length_, min(f3Actor.z, f3Quad.z + length_)) } };
 
 	float dist = (float)sqrt(pow(compare.x - f3Actor.x, 2) + pow(compare.z - f3Actor.z, 2));
-	float r = (float)pow(data.pActor->GetRadius(), 2);//Ÿˆ‚Æã‚Ìs•sˆÀƒAƒ‹
+	float r = (float)pow(data.pActor->GetRadius(), 2);
 	return (dist < r);
 
 

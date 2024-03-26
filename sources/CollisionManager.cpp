@@ -5,7 +5,7 @@
 #include"../Engine/Debug.h"
 #include "CollisionManager.h"
 #include"GameActor.h"
-
+#include"areamodels.h"
 #include"DamageData.h"
 
 //各陣営の当たり判定
@@ -48,9 +48,8 @@ void CollisionManager::Update()
 			itr->pRange_->Duration--;
 			if (itr->pRange_->Duration <= 0)
 			{
-				//なんか足りなくないか？
-				delete itr->pRange_;
-				itr->pRange_ = nullptr;
+			
+				SAFE_DELETE(itr->pRange_);
 				itr = RangeTest.at(camp).erase(itr);
 			}
 			else
@@ -70,7 +69,7 @@ void CollisionManager::AddCamp(::GameActor* newActor, CAMPS camp)
 	CollisionList.at(camp).emplace_back(newActor, ac);
 
 }
-
+//↓三種はAttackrangeの各クラスのIsHitに引っ越しました
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle &circle)
 {/*
 	XMFLOAT3 c = circle.position_;
@@ -91,7 +90,6 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeCircle &circle)
 
 void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 {
-
 	//XMMATRIX matRotY = XMMatrixRotationY(XMConvertToRadians(-quad.rotate_));//回転してる四角を、回転の分だけ戻す行列
 	//XMMATRIX matMove = XMMatrixTranslation(-quad.position_.x, -quad.position_.y, -quad.position_.z);//原点にずらす行列
 	//XMVECTOR quadPos = XMLoadFloat3(&quad.position_);
@@ -111,7 +109,6 @@ void CollisionManager::HitTestBy(CAMPS camp, AttackRangeQuad &quad)
 	//		{max(f3Quad.x- quad.width_,min(f3Actor.x, f3Quad.x+quad.width_))} 
 	//		,0//Yは判定いらない
 	//		,{max(f3Quad.z-quad.length_, min(f3Actor.z, f3Quad.z+quad.length_)) }};
-
 	//	float dist = (float)sqrt(pow(compare.x - f3Actor.x, 2) + pow(compare.z - f3Actor.z, 2));
 	//	float r = (float)pow(actor->GetRadius(), 2);//此処と上の行不安アル
 	//	if (dist <r)

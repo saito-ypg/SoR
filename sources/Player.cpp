@@ -98,7 +98,7 @@ void Player::ActorUpdate(const float& dt)
     {
 
     }
-    else {
+    else {//ŠeŽíƒXƒLƒ‹
         if (!isSkillBeingUsed && Input::IsKeyDown(DIK_Q))
         {
             isSkillBeingUsed = canUseSkill(0);
