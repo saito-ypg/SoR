@@ -339,6 +339,7 @@
     </None>
     <None Include="README.md" />
     <None Include="todo.md" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">

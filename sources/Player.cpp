@@ -262,7 +262,7 @@ void Player::calculateForMove(const XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);//Face～にも同じ記述あるがこっちでも書くほうが楽
 
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行がないと動きが微妙になる
+    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行で小刻みに荒ぶるの対策
      if (length < PLAYER_ROT_TH)return;
  
     FaceTargetDirection(target_);

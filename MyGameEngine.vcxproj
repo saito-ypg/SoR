@@ -118,6 +118,7 @@
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />

@@ -125,8 +125,8 @@ bool AttackRangeCirculerSector::IsHit(actorAddr& data)
 	//角度→(a・b)/|a||b|
 	XMVECTOR sectorToActor = ActorPos - sectorPos;
 	float deviation = XMVectorGetX(XMVector3AngleBetweenVectors(rotFront, sectorToActor));//ここで扇のどの辺にいるか角度が出せるはず
-	if (std::abs(deviation) > radAngle)//中心が扇の外なら
-	{//追加で検証
+	if (std::abs(deviation) > radAngle)
+	{//中心が扇の外なら追加で検証
 		XMMATRIX angleM = XMMatrixRotationY(radAngle);//開き具合
 		float a, b;
 		a = (std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, angleM), sectorToActor))));//片方の端
@@ -134,8 +134,8 @@ bool AttackRangeCirculerSector::IsHit(actorAddr& data)
 		float close = std::min(a, b);//両端を見て近いほうのrad
 
 		float vecSin = XMVectorGetX(XMVector3Length(sectorToActor * std::sin(close)));
-		if (vecSin > data.pActor->GetRadius())//それでも範囲外なら
-		{//スルー
+		if (vecSin > data.pActor->GetRadius())
+		{//それでも範囲外ならスルー
 			return false;
 		}
 	}
