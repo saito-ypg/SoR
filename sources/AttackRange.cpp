@@ -37,7 +37,7 @@ bool AttackRangeCircle::IsHit(actorAddr& data)
 
 }
 
-XMVECTOR AttackRangeCircle::getDir(XMFLOAT3 pos)
+XMVECTOR AttackRangeCircle::getDir(XMFLOAT3 pos)const
 {
 	return  XMVector3Normalize(XMLoadFloat3(&pos) - XMLoadFloat3(&position_));
 }
@@ -85,7 +85,7 @@ bool AttackRangeQuad::IsHit(actorAddr& data)
 
 }
 
-XMVECTOR AttackRangeQuad::getDir(XMFLOAT3 pos)
+XMVECTOR AttackRangeQuad::getDir(XMFLOAT3 pos)const
 {
 	return XMVector3TransformCoord(XMVECTOR{ 0,0,1,0 }, XMMatrixRotationY(this->rotate_));
 
@@ -143,10 +143,90 @@ bool AttackRangeCirculerSector::IsHit(actorAddr& data)
 
 }
 
-XMVECTOR AttackRangeCirculerSector::getDir(XMFLOAT3 pos)
+XMVECTOR AttackRangeCirculerSector::getDir(XMFLOAT3 pos)const
 {
 	return  XMVector3Normalize(XMLoadFloat3(&pos) - XMLoadFloat3(&position_));
 }
 
+/*
+struct CircleData {
+	XMFLOAT3 center;
+	float radius;
+};
 
+struct QuadData {
+	XMFLOAT3 center;
+	float width, length;
+	float rotation; // Y軸周りの回転角度(ラジアン)
+};
+
+struct CircularSectorData {
+	XMFLOAT3 center;
+	float radius;
+	float centralAngle; // 中心角(ラジアン)
+	float rotation; // Y軸周りの回転角度(ラジアン)
+};
+
+class AttackRangeDetector {
+public:
+	bool IsHit(const CircleData& circle, const actorAddr& data) const {
+		// 円形の当たり判定ロジック
+	}
+
+	bool IsHit(const QuadData& quad, const actorAddr& data) const {
+		// 矩形の当たり判定ロジック
+	}
+
+	bool IsHit(const CircularSectorData& sector, const actorAddr& data) const {
+		// 扇形の当たり判定ロジック
+	}
+
+	XMVECTOR GetDir(const CircleData& circle, XMFLOAT3 pos) const {
+		// posから円形の中心への方向ベクトルを計算して返す
+	}
+
+	XMVECTOR GetDir(const QuadData& quad, XMFLOAT3 pos) const {
+		// posから矩形の中心への方向ベクトルを計算して返す
+	}
+
+	XMVECTOR GetDir(const CircularSectorData& sector, XMFLOAT3 pos) const {
+		// posから扇形の中心への方向ベクトルを計算して返す
+	}
+};
+利用側コード
+
+cpp
+
+
+Copy code
+CircleData circleData =  初期化 ;
+QuadData quadData =  初期化 ;
+CircularSectorData sectorData =  初期化 ;
+
+AttackRangeDetector detector;
+actorAddr actorData = 初期化;
+
+if (detector.IsHit(circleData, actorData)) {
+	// 円形の当たり判定があった場合の処理
+	auto dir = detector.GetDir(circleData, position);
+	// ...
+}
+
+if (detector.IsHit(quadData, actorData)) {
+	// 矩形の当たり判定があった場合の処理
+	auto dir = detector.GetDir(quadData, position);
+	// ...
+}
+
+if (detector.IsHit(sectorData, actorData)) {
+	// 扇形の当たり判定があった場合の処理
+	auto dir = detector.GetDir(sectorData, position);
+	// ...
+}
+この設計では、利用側で形状の種類を意識する必要がなく、新しい形状を追加する際も AttackRangeDetector クラスに新しいメソッドを実装するだけで済みます。形状データは単なるデータ構造体なので、安全性も高くなります。
+
+当たり判定ロジックとデータが分離されているため、将来的に当たり判定ロジックを別のライブラリに置き換えたい場合にも、データ構造体の定義を変更する必要がありません。
+
+このアプローチのメリットは、コードの簡潔性と保守性が向上し、新しい形状を追加しやすくなることです。一方で、複数の形状データを扱う必要がある場合は、コードが冗長になる可能性があります。プロジェクトの要件に応じて、最適なアプローチを選択することが重要です。
+*///claudeにもらった改善案
 

@@ -198,7 +198,11 @@ void Player::ActorDraw()
     for (auto itr : skills)
     {
         if (itr != nullptr)
+        {
+           // itr->
             itr->Draw();
+            
+        }
     }
 }
 

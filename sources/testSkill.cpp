@@ -48,3 +48,7 @@ void testSkill::Draw()
 void testSkill::Release()
 {
 }
+
+void testSkill::DrawRangeDisplay()
+{
+}

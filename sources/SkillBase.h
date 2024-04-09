@@ -44,6 +44,7 @@ public:
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
 	void Activate(Transform tr);//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
+	virtual void DrawRangeDisplay()=0;//攻撃前に範囲を表示する
 	virtual void Release() = 0;
 	bool CanUse() { return coolDown_ <= 0; }
 	bool CanMove() { return castTime_ <= 0;  }
