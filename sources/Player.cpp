@@ -54,34 +54,8 @@ void Player::ActorUpdate(const float& dt)
     }
     int a=0;
 
-    //当たり判定テスト用
-    if (Input::IsKeyDown(DIK_Z))
-    {
-        FaceMouseDirection();
-        testQuad.position_ = transform_.position_;
-        testQuad.length_ = 2;
-        testQuad.width_ = 5;
-        testQuad.rotate_ =transform_.rotate_.y;
-        CollisionManager::HitTestBy(PLAYER, testQuad);
-    }
-    if (Input::IsKeyDown(DIK_X))
-    {
-        FaceMouseDirection();
-        testCircle.position_=transform_.position_;
-        testCircle.radius_ = 2.2f;
-        CollisionManager::HitTestBy(PLAYER, testCircle);
-    }
-    if (Input::IsKeyDown(DIK_C))
-    {
-        FaceMouseDirection();
-        testSector.position_=transform_.position_;
-        testSector.radius_ =3;
-        testSector.rotate_ = transform_.rotate_.y;
-        testSector.centerAngle_ = 30;
-        CollisionManager::HitTestBy(PLAYER, testSector);
-    }
-
    
+
 #endif
  if (Input::IsKey(DIK_A))
         status_.hp_--;

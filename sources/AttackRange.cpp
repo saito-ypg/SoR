@@ -110,9 +110,9 @@ bool AttackRangeCirculerSector::IsHit(actorAddr& data)
 	XMFLOAT3 s = position_;
 	s.y = 0;
 	XMVECTOR sectorPos = XMLoadFloat3(&s);
-	XMFLOAT3 a = *data.pCollider->position_;
-	a.y = 0;
-	XMVECTOR ActorPos = XMLoadFloat3(&a);
+	XMFLOAT3 actor= *data.pCollider->position_;
+	actor.y = 0;
+	XMVECTOR ActorPos = XMLoadFloat3(&actor);
 	if (XMVectorGetX(XMVector3Length(XMVectorAbs(sectorPos - ActorPos))) > radius_ + data.pActor->GetRadius())//まずは円と同じ
 	{
 		return false;
@@ -131,7 +131,7 @@ bool AttackRangeCirculerSector::IsHit(actorAddr& data)
 		float a, b;
 		a = (std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, angleM), sectorToActor))));//片方の端
 		b = std::abs(XMVectorGetX(XMVector3AngleBetweenVectors(XMVector3TransformCoord(rotFront, XMMatrixInverse(nullptr, angleM)), sectorToActor)));//もう片方の端。回転の逆行列
-		float close = std::min(a, b);//両端を見て近いほうのrad
+		float close = a < b?a:b;//両端を見て近いほうのrad
 
 		float vecSin = XMVectorGetX(XMVector3Length(sectorToActor * std::sin(close)));
 		if (vecSin > data.pActor->GetRadius())
