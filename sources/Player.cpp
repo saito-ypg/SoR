@@ -71,7 +71,7 @@ void Player::ActorUpdate(const float& dt)
         XMVECTOR target = getMouseTargetPos();
         if (isIntersectGround(target)) {
             calculateForMove(target);
-            usingSkillIndex = UNUSED;
+            if(Input::IsMouseButtonDown(1))usingSkillIndex = UNUSED;
         }
     }
     //Še“ü—Í
