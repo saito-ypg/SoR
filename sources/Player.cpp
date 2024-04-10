@@ -5,15 +5,22 @@
 #include"../Engine/Camera.h"
 #include"../Engine/Global.h"
 #include"ModeratorSequence.h"
-constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
-constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
+namespace {
+    constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
+    constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
+    constexpr int UNUSED = -1;//スキル長押ししてないとき
+    const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
+        {0,DIK_Q }
+    };
+    
+}
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
     return XMScalarNearEqual(f, 0.0f, 0.0001f);
 }
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),isSkillBeingUsed(false)
+    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),usingSkillIndex(UNUSED)
 {
     status_ = ActorInfo(200, 1.1f);
 
@@ -62,9 +69,9 @@ void Player::ActorUpdate(const float& dt)
     if (Input::IsMouseButton(1))//移動先指定
     {
         XMVECTOR target = getMouseTargetPos();
-        if (isHit(target)) {
+        if (isIntersectGround(target)) {
             calculateForMove(target);
-            isSkillBeingUsed = false;
+            usingSkillIndex = UNUSED;
         }
     }
     //各入力
@@ -73,14 +80,18 @@ void Player::ActorUpdate(const float& dt)
 
     }
     else {//各種スキル
-        if (!isSkillBeingUsed && Input::IsKeyDown(DIK_Q))
-        {
-            isSkillBeingUsed = canUseSkill(0);
-        }
-        if (isSkillBeingUsed&&Input::IsKeyUp(DIK_Q))
-        {
-            isSkillBeingUsed = false;
-            ActivateSkill(0);
+        for (int i = 0; i < skillsNum; i++) {
+            if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
+            {
+                if (canUseSkill(i)) {
+                    usingSkillIndex = i;
+                }
+            }
+            if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
+            {
+                ActivateSkill(i);
+                usingSkillIndex = UNUSED;
+            }
         }
     }
     if (moveTime_ > 0)
@@ -100,11 +111,11 @@ void Player::ActorUpdate(const float& dt)
 void Player::FaceMouseDirection()
 {
     XMVECTOR target = getMouseTargetPos();
-    if (isHit(target))
+    if (isIntersectGround(target))
         FaceTargetDirection(target);
 }
 
-bool Player::isHit(const DirectX::XMVECTOR& target)
+bool Player::isIntersectGround(const DirectX::XMVECTOR& target)
 {
     return XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV));
 }
@@ -169,11 +180,14 @@ void Player::ActorDraw()
 #endif
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
+    if (usingSkillIndex != UNUSED) {
+        skills.at(usingSkillIndex)->DrawRangeDisplay(transform_);
+    }
     for (auto itr : skills)
     {
         if (itr != nullptr)
         {
-           // itr->
+           
             itr->Draw();
             
         }
@@ -207,15 +221,6 @@ void Player::ActivateSkill(const int number)
     moveTime_ = 0;//移動してたら止める
  
     skills.at(number)->Activate(transform_);
-}
-
-void Player::previewSkill(int number)
-{
-    if(!canUseSkill(number))
-        return;//ここまでは発動と一緒
-
-
-
 }
 
 XMVECTOR Player::getMouseTargetPos()

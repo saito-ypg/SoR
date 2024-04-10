@@ -1,9 +1,10 @@
 #pragma once
 #include<vector>
 #include"../Engine/Transform.h"
+#include"areamodels.h"
 #include"AttackRange.h"
 #include"DamageData.h"
-#include"areamodels.h"
+
 using namespace AreaModels;
 
 //プレイヤー用スキルの基礎クラス。各種パラメーターは一旦フレーム単位で指定。
@@ -44,10 +45,10 @@ public:
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
 	void Activate(Transform tr);//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
-	virtual void DrawRangeDisplay()=0;//攻撃前に範囲を表示する
+	virtual void DrawRangeDisplay(Transform tr)=0;//攻撃前に範囲を表示する 引数→ワールド座標
 	virtual void Release() = 0;
-	bool CanUse() { return coolDown_ <= 0; }
-	bool CanMove() { return castTime_ <= 0;  }
+	bool CanUse() const{ return coolDown_ <= 0; }
+	bool CanMove() const{ return castTime_ <= 0;  }
 
 	static float Sec(float flames) {return flames / 60;}//フレームから秒に変換
 	static float frame(float seconds) { return seconds * 60; }//秒からフレームに変換

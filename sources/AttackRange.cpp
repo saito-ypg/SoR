@@ -148,6 +148,7 @@ XMVECTOR AttackRangeCirculerSector::getDir(XMFLOAT3 pos)const
 	return  XMVector3Normalize(XMLoadFloat3(&pos) - XMLoadFloat3(&position_));
 }
 
+//claudeにもらった改善案
 /*
 struct CircleData {
 	XMFLOAT3 center;
@@ -228,5 +229,6 @@ if (detector.IsHit(sectorData, actorData)) {
 当たり判定ロジックとデータが分離されているため、将来的に当たり判定ロジックを別のライブラリに置き換えたい場合にも、データ構造体の定義を変更する必要がありません。
 
 このアプローチのメリットは、コードの簡潔性と保守性が向上し、新しい形状を追加しやすくなることです。一方で、複数の形状データを扱う必要がある場合は、コードが冗長になる可能性があります。プロジェクトの要件に応じて、最適なアプローチを選択することが重要です。
-*///claudeにもらった改善案
+*/
+
 

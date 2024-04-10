@@ -4,7 +4,9 @@ class testSkill :
     public SkillBase
 {
 private:
-    
+ 
+    AttackRangeCircle circle;
+ 
 public:
     testSkill();
     ~testSkill();
@@ -12,6 +14,6 @@ public:
     void action()override;
     void Draw() override;
     void Release() override;
-    void DrawRangeDisplay() override;
+    void DrawRangeDisplay(Transform tr) override;
 };
 

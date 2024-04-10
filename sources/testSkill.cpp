@@ -1,9 +1,10 @@
 #include "testSkill.h"
-
+#include"../Engine/Model.h"
 testSkill::testSkill():SkillBase(0.5f,1.0f)
 {
 	sequence = {1,5,1};
-	
+	circle.Duration = 1;
+	circle.radius_ = 2;
 }
 
 testSkill::~testSkill()
@@ -21,9 +22,7 @@ void testSkill::action()
 	case START_ATTACK:
 		if (steptime == sequence.at(START_ATTACK))
 		{
-			AttackRangeCircle circle;
-			circle.Duration = 1;
-			circle.radius_ = 2;
+
 			circle.position_ = this->transform_.position_;
 			DamageData dmg;
 			dmg.damage_ = 20;
@@ -49,6 +48,12 @@ void testSkill::Release()
 {
 }
 
-void testSkill::DrawRangeDisplay()
+void testSkill::DrawRangeDisplay(Transform tr)
 {
+	int handle = area(CIRCLE);
+	Transform DrawT = tr;
+	const float r = circle.radius_;
+	DrawT.scale_ = {r ,r ,r };
+	Model::SetTransform(handle, DrawT);
+	Model::Draw(handle);
 }
