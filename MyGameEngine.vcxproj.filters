@@ -59,9 +59,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sources\Ground.h">
-      <Filter>sourses</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Audio.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -196,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="sources\areamodels.h">
       <Filter>sourses\Scene\Play\System</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\Ground.h">
+      <Filter>sourses\Scene\Play\Props</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
