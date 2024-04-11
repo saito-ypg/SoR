@@ -1,3 +1,4 @@
+#include<vector>
 #include "Texture.h"
 #include "Direct3D.h"
 #include "Global.h"
@@ -57,11 +58,11 @@ HRESULT Texture::Load(std::string fileName)
 	pFactory->CreateBitmapScaler(&pScaler);
 	float aspectRatio = (float)imgWidth / (float)imgHeight;
 	UINT newWidth = NextPowerOfTwo(imgWidth);
-	UINT newHeight = (UINT)(newWidth / aspectRatio);
-
+	UINT newHeight = NextPowerOfTwo(imgHeight);
+	size_ = XMFLOAT3((float)imgWidth, (float)imgHeight, 0);
 	pScaler->Initialize(pFormatConverter, newWidth, newHeight, WICBitmapInterpolationModeFant);
 	pScaler->GetSize(&imgWidth, &imgHeight);
-	size_ = XMFLOAT3((float)imgWidth, (float)imgHeight, 0);
+
 
 	// テクスチャの設定
 	ID3D11Texture2D*	pTexture;			// テクスチャデータ
@@ -77,6 +78,16 @@ HRESULT Texture::Load(std::string fileName)
 	texdec.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	texdec.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	texdec.MiscFlags = 0;
+
+	std::vector<BYTE> buffer(imgWidth * imgHeight * 4);
+	std::fill(buffer.begin(), buffer.end(), 0);
+	pFormatConverter->CopyPixels(NULL, imgWidth * 4, imgWidth * imgHeight * 4, buffer.data());
+	// バッファをD3D11_SUBRESOURCE_DATA構造体に設定します
+	D3D11_SUBRESOURCE_DATA initData = {};
+	initData.pSysMem = buffer.data();
+	initData.SysMemPitch = imgWidth * 4;
+	initData.SysMemSlicePitch = imgWidth * imgHeight * 4;
+
 	Direct3D::pDevice_->CreateTexture2D(&texdec, NULL, &pTexture);
 
 	// テクスチャを送る
@@ -110,4 +121,9 @@ HRESULT Texture::Load(std::string fileName)
 	pFactory->Release();
 
 	return S_OK;
+}
+
+XMFLOAT3 Texture::GetExtendedSize() const
+{
+	return XMFLOAT3(NextPowerOfTwo(size_.x), NextPowerOfTwo(size_.y),0);
 }
