@@ -82,7 +82,8 @@ void GameActor::DrawHP()
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
-	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::screenWidth_ -HPBarRatio/4.0f)* 2.0f - 1;
+	
+	DrawT.position_.x = (static_cast<int>((DrawT.position_.x / Direct3D::screenWidth_ - HPBarRatio / 4.0f) * Direct3D::screenWidth_) * 2.0f / Direct3D::screenWidth_) - 1.0f;
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::screenHeight_ * 2.0f + 1;
 	using namespace HPBar;
 
@@ -119,12 +120,11 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 		knockBack.Dir = dir;
 	}
 	if (dmg.pEffect_) {
-		dmg.pEffect_;//—]—T‚ ‚Á‚½‚çŽÀ‘•‚µ‚æ
+		//dmg.pEffect_;//—]—T‚ ‚Á‚½‚çŽÀ‘•‚µ‚æ
 	}
 	XMFLOAT3 fdir;
 	XMStoreFloat3(&fdir, -dir);
 	transform_.rotate_.y= XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
-	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
