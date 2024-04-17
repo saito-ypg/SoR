@@ -3,7 +3,6 @@
 #include<memory>
 class ModeratorSequence;
 
-//■■シーンを管理するクラス
 class PlayScene : public GameObject
 {
 private:
