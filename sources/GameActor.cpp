@@ -78,6 +78,7 @@ void GameActor::DrawHP()
 {
 	const float HPBarRatio = 128.0f / Direct3D::screenWidth_;
 	
+
 	Transform DrawT;
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
