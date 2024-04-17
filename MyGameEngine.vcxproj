@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BillBoard.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sources\ChargeSkill.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BillBoard.h" />
     <ClInclude Include="Engine\BoxCollider.h" />
@@ -118,7 +120,6 @@
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />

@@ -197,6 +197,9 @@
     <ClInclude Include="sources\Ground.h">
       <Filter>sourses\Scene\Play\Props</Filter>
     </ClInclude>
+    <ClInclude Include="sources\ChargeSkill.h">
+      <Filter>sourses\Scene\Play\Skills</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -328,6 +331,9 @@
     <ClCompile Include="sources\Ground.cpp">
       <Filter>sourses\Scene\Play\Props</Filter>
     </ClCompile>
+    <ClCompile Include="sources\ChargeSkill.cpp">
+      <Filter>sourses\Scene\Play\Skills</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -339,7 +345,6 @@
     </None>
     <None Include="README.md" />
     <None Include="todo.md" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">

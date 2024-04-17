@@ -7,8 +7,8 @@
 
 using namespace AreaModels;
 
-//プレイヤー用スキルの基礎クラス。各種パラメーターは一旦フレーム単位で指定。
-//各派生先のactionの中でstep毎に処理変える(switch-case)。必要なら専用のenum作る。
+///プレイヤー用スキルの基礎クラス。各種パラメーターは一旦フレーム単位で指定。
+///各派生先のactionの中でstep毎に処理変える(switch-case)。必要なら専用のenum作る。
 class SkillBase
 {
 private:
