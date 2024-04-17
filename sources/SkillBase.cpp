@@ -16,7 +16,7 @@ SkillBase::~SkillBase()
 }
 
 void SkillBase::Update()
-{//‰¼
+{
 	if (!isInOperation) {
 		if (castTime_ > 0)
 			castTime_--;

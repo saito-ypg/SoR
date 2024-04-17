@@ -14,11 +14,13 @@ class Player : public GameActor
     float moveTime_;
 
  //スキル登録
-    std::vector<SkillBase*>skills{ 4 };
-    bool isSkillBeingUsed;
+    const int skillsNum = 1;
+    std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};
+    //bool isSkillUsing;
+    int usingSkillIndex;
     bool canUseSkill(int number);
     void ActivateSkill(int number);
-    void previewSkill(int number);
+    
     //現在のマウス座標をワールド座標に変換して返す
     XMVECTOR getMouseTargetPos();
     //targetの方向に回転
@@ -57,7 +59,7 @@ public:
 
    
 
-    bool isHit(const DirectX::XMVECTOR& target);
+    bool isIntersectGround(const DirectX::XMVECTOR& target);
 
     //描画
     void ActorDraw() override;

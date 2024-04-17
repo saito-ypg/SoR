@@ -114,7 +114,7 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 	}
 	status_.hp_ -= dmg.damage_;
 	{//ƒmƒNƒoˆ—
-		knockBack.Velocity = dmg.knockback_;
+		knockBack.Velocity = dmg.knockback_/2;
 		knockBack.Time = defTime;
 		knockBack.Dir = dir;
 	}

@@ -5,15 +5,22 @@
 #include"../Engine/Camera.h"
 #include"../Engine/Global.h"
 #include"ModeratorSequence.h"
-constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
-constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
+namespace {
+    constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
+    constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
+    constexpr int UNUSED = -1;//スキル長押ししてないとき
+    const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
+        {0,DIK_Q }
+    };
+    
+}
 bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
     return XMScalarNearEqual(f, 0.0f, 0.0001f);
 }
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),isSkillBeingUsed(false)
+    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),usingSkillIndex(UNUSED)
 {
     status_ = ActorInfo(200, 1.1f);
 
@@ -54,43 +61,17 @@ void Player::ActorUpdate(const float& dt)
     }
     int a=0;
 
-    //当たり判定テスト用
-    if (Input::IsKeyDown(DIK_Z))
-    {
-        FaceMouseDirection();
-        testQuad.position_ = transform_.position_;
-        testQuad.length_ = 2;
-        testQuad.width_ = 5;
-        testQuad.rotate_ =transform_.rotate_.y;
-        CollisionManager::HitTestBy(PLAYER, testQuad);
-    }
-    if (Input::IsKeyDown(DIK_X))
-    {
-        FaceMouseDirection();
-        testCircle.position_=transform_.position_;
-        testCircle.radius_ = 2.2f;
-        CollisionManager::HitTestBy(PLAYER, testCircle);
-    }
-    if (Input::IsKeyDown(DIK_C))
-    {
-        FaceMouseDirection();
-        testSector.position_=transform_.position_;
-        testSector.radius_ =3;
-        testSector.rotate_ = transform_.rotate_.y;
-        testSector.centerAngle_ = 30;
-        CollisionManager::HitTestBy(PLAYER, testSector);
-    }
-
    
+
 #endif
  if (Input::IsKey(DIK_A))
         status_.hp_--;
     if (Input::IsMouseButton(1))//移動先指定
     {
         XMVECTOR target = getMouseTargetPos();
-        if (isHit(target)) {
+        if (isIntersectGround(target)) {
             calculateForMove(target);
-            isSkillBeingUsed = false;
+            if(Input::IsMouseButtonDown(1))usingSkillIndex = UNUSED;
         }
     }
     //各入力
@@ -98,15 +79,19 @@ void Player::ActorUpdate(const float& dt)
     {
 
     }
-    else {
-        if (!isSkillBeingUsed && Input::IsKeyDown(DIK_Q))
-        {
-            isSkillBeingUsed = canUseSkill(0);
-        }
-        if (isSkillBeingUsed&&Input::IsKeyUp(DIK_Q))
-        {
-            isSkillBeingUsed = false;
-            ActivateSkill(0);
+    else {//各種スキル
+        for (int i = 0; i < skillsNum; i++) {
+            if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
+            {
+                if (canUseSkill(i)) {
+                    usingSkillIndex = i;
+                }
+            }
+            if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
+            {
+                ActivateSkill(i);
+                usingSkillIndex = UNUSED;
+            }
         }
     }
     if (moveTime_ > 0)
@@ -126,11 +111,11 @@ void Player::ActorUpdate(const float& dt)
 void Player::FaceMouseDirection()
 {
     XMVECTOR target = getMouseTargetPos();
-    if (isHit(target))
+    if (isIntersectGround(target))
         FaceTargetDirection(target);
 }
 
-bool Player::isHit(const DirectX::XMVECTOR& target)
+bool Player::isIntersectGround(const DirectX::XMVECTOR& target)
 {
     return XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV));
 }
@@ -195,10 +180,17 @@ void Player::ActorDraw()
 #endif
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
+    if (usingSkillIndex != UNUSED) {
+        skills.at(usingSkillIndex)->DrawRangeDisplay(transform_);
+    }
     for (auto itr : skills)
     {
         if (itr != nullptr)
+        {
+           
             itr->Draw();
+            
+        }
     }
 }
 
@@ -231,15 +223,6 @@ void Player::ActivateSkill(const int number)
     skills.at(number)->Activate(transform_);
 }
 
-void Player::previewSkill(int number)
-{
-    if(!canUseSkill(number))
-        return;//ここまでは発動と一緒
-
-
-
-}
-
 XMVECTOR Player::getMouseTargetPos()
 {
     XMFLOAT3 mouse = Input::GetMousePosition();
@@ -262,7 +245,7 @@ void Player::calculateForMove(const XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);//Face～にも同じ記述あるがこっちでも書くほうが楽
 
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行がないと動きが微妙になる
+    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行で小刻みに荒ぶるの対策
      if (length < PLAYER_ROT_TH)return;
  
     FaceTargetDirection(target_);

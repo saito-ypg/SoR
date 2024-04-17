@@ -34,7 +34,6 @@ void GameOverScene::Update(const float& dt)
 //•`‰æ
 void GameOverScene::Draw()
 {
-	transform_.position_ = { 0.6f,-0.6f,0};
 	Image::SetTransform(hImage, transform_);
 	Image::Draw(hImage);
 }

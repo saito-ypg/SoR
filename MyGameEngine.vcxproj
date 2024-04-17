@@ -118,9 +118,16 @@
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Interface\gaugeBack.png" />
+    <Image Include="Assets\Interface\gaugeBar.png" />
+    <Image Include="Assets\Interface\gaugeDamaged.png" />
+    <Image Include="Assets\Interface\gaugeFrame.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
