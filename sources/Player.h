@@ -41,7 +41,8 @@ class Player : public GameActor
     AttackRangeCirculerSector testSector;
 #endif // _DEBUG
 
-    bool canMove();
+    bool isDuringSkill();
+    void MoveInput();
 protected:
     void dyingProcess()override;
 public:
@@ -56,6 +57,8 @@ public:
 
     //å¬ï çXêV
     void ActorUpdate(const float& dt) override;
+
+
 
    
 

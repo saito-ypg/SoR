@@ -1,6 +1,6 @@
 #include "ChargeSkill.h"
 
-ChargeSkill::ChargeSkill()
+ChargeSkill::ChargeSkill():SkillBase(1,1)
 {
 }
 

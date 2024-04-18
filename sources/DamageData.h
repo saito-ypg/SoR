@@ -8,6 +8,7 @@ struct DamageData
 {
 	float damage_;//ダメージ量
 	float knockback_;//ノックバック強さ
+	float duration_;//攻撃持続フレーム
 	EffectData* pEffect_;
 	DamageData() :damage_(0), knockback_(0),pEffect_(nullptr) {}
 };

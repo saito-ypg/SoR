@@ -136,7 +136,7 @@ void GameActor::RemoveColliderCamp(GameActor* act, CAMPS camp)
 	CollisionManager::RemoveCamp(act, camp);
 }
 
-bool GameActor::CanMove()
+bool GameActor::CanMoveWithEffects()
 {
 	return false;
 }

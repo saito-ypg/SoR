@@ -1,3 +1,4 @@
+#include<algorithm>
 #include "Player.h"
 #include"Ground.h"
 #include"../Engine/Model.h"
@@ -64,16 +65,10 @@ void Player::ActorUpdate(const float& dt)
    
 
 #endif
- if (Input::IsKey(DIK_A))
+    if (Input::IsKey(DIK_A))
         status_.hp_--;
-    if (Input::IsMouseButton(1))//移動先指定
-    {
-        XMVECTOR target = getMouseTargetPos();
-        if (isIntersectGround(target)) {
-            calculateForMove(target);
-            if(Input::IsMouseButtonDown(1))usingSkillIndex = UNUSED;
-        }
-    }
+    
+    MoveInput();
     //各入力
     if(Input::IsMouseButton(0))//通常攻撃
     {
@@ -105,6 +100,20 @@ void Player::ActorUpdate(const float& dt)
     {
         if(itr != nullptr)
             itr->Update();
+    }
+}
+
+void Player::MoveInput()
+{
+    if (Input::IsMouseButton(1))//移動先指定
+    {
+        if (isDuringSkill)
+            return;
+        XMVECTOR target = getMouseTargetPos();
+        if (isIntersectGround(target)) {
+            calculateForMove(target);
+            if (Input::IsMouseButtonDown(1))usingSkillIndex = UNUSED;
+        }
     }
 }
 
@@ -187,7 +196,6 @@ void Player::ActorDraw()
     {
         if (itr != nullptr)
         {
-           
             itr->Draw();
             
         }
@@ -205,7 +213,7 @@ void Player::Release()
 
 bool Player::canUseSkill(int number)
 {
-    if (!this->canMove())//自身が動けるか？
+    if (!this->isDuringSkill())//自身が動けるか？
         return false;
     if (number < 0 || number >= skills.size())//存在するスキル番号か？
         return false;
@@ -262,13 +270,13 @@ void Player::FaceTargetDirection(const XMVECTOR& target_)
     transform_.rotate_.y = XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
     
 }
-bool Player::canMove()
+bool Player::isDuringSkill()
 {
     for (auto itr : skills)
     {
         if (itr != nullptr)
         {
-            if (itr->CanMove() == false)
+            if (itr->CanMove())
             return false;
         }
     }

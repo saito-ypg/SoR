@@ -28,7 +28,7 @@ protected:
     void RemoveColliderCamp(GameActor* act, CAMPS camp);;//当たり判定消去
     virtual void RemoveCamp()= 0;//継承用
     
-    bool CanMove();//妨害要素によって動けない状態にあるか
+    bool CanMoveWithEffects();//妨害要素によって動けない状態にあるか
     //void LoadModel(string filename);//モデルを読み込み、hModels_に追加。読み込めたらtrue
     
     void SimpleDraw();//簡易的にモデルを描画する。draw内で呼ぶ

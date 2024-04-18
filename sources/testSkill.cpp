@@ -2,8 +2,7 @@
 #include"../Engine/Model.h"
 testSkill::testSkill():SkillBase(0.5f,1.0f)
 {
-	sequence = {1,5,1};
-	circle.Duration = 1;
+	sequence = { 1,5,1 };
 	circle.radius_ = 2;
 }
 
@@ -17,7 +16,6 @@ void testSkill::action()
 	switch (stepindex)
 	{
 	case INVOKED:
-//		__debugbreak();
 		break;
 	case START_ATTACK:
 		if (steptime == sequence.at(START_ATTACK))
@@ -27,13 +25,11 @@ void testSkill::action()
 			DamageData dmg;
 			dmg.damage_ = 20;
 			dmg.knockback_ = 4;
+			dmg.duration_ = 1;
 			RegisterHitRange(circle, dmg);
 		}
-//		__debugbreak();
 		break;
-
 	case END_ATTACK:
-//		__debugbreak();
 		break;
 
 

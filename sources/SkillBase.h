@@ -12,10 +12,10 @@ using namespace AreaModels;
 class SkillBase
 {
 private:
-
+	SkillBase();//派生先からは引数付きのものを呼ぶ。これは基礎的な初期化のみを行う
 protected:
 	Transform transform_;//スキル発動位置
-	std::vector<float>sequence{0};//攻撃における各ステップの時間
+	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
 	float steptime;//各ステップで現在どれだけの時間たったか
 	int stepindex;//現在何ステップ目か。sequence
 
@@ -39,8 +39,9 @@ protected:
 public:
 	
 
-	SkillBase();
-	SkillBase(float CT, float CD);//秒単位指定
+
+	SkillBase(float CT, float CD);//秒数指定→フレームに変換してる。派生先からこれを呼ぶ
+
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
 	void Activate(Transform tr);//スキル発動（ボタン押したとき）
