@@ -10,6 +10,7 @@ namespace {
     constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
     constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
     constexpr int UNUSED = -1;//スキル長押ししてないとき
+    int usingSkillIndex;//使用中スキル番号、なかったらUNUSED(=-1);
     const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
         {0,DIK_Q }
     };
@@ -21,7 +22,7 @@ bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),usingSkillIndex(UNUSED)
+    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
     status_ = ActorInfo(200, 1.1f);
 
@@ -107,7 +108,7 @@ void Player::MoveInput()
 {
     if (Input::IsMouseButton(1))//移動先指定
     {
-        if (isDuringSkill)
+        if (isDuringSkill())
             return;
         XMVECTOR target = getMouseTargetPos();
         if (isIntersectGround(target)) {
@@ -213,11 +214,11 @@ void Player::Release()
 
 bool Player::canUseSkill(int number)
 {
-    if (!this->isDuringSkill())//自身が動けるか？
+    if (this->isDuringSkill())//すでにスキル動作中ならｘ
         return false;
-    if (number < 0 || number >= skills.size())//存在するスキル番号か？
+    if (number < 0 || number >= skills.size())//存在しないスキル番号×
         return false;
-    return skills.at(number)->CanUse();//対象のスキルは使用可能か？
+    return skills.at(number)->CanUse();//対象のスキルは使用可能かを返す
     
 }
 
@@ -277,7 +278,7 @@ bool Player::isDuringSkill()
         if (itr != nullptr)
         {
             if (itr->CanMove())
-            return false;
+            return false;//動ける→スキルモーション中でない
         }
     }
     return true;

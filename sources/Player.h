@@ -15,9 +15,7 @@ class Player : public GameActor
 
  //ƒXƒLƒ‹“o˜^
     const int skillsNum = 1;
-    std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};
-    //bool isSkillUsing;
-    int usingSkillIndex;
+    std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};   
     bool canUseSkill(int number);
     void ActivateSkill(int number);
     

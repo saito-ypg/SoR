@@ -49,7 +49,9 @@ public:
 	virtual void DrawRangeDisplay(Transform tr)=0;//攻撃前に範囲を表示する 引数→ワールド座標
 	virtual void Release() = 0;
 	bool CanUse() const{ return coolDown_ <= 0; }
-	bool CanMove() const{ return castTime_ <= 0;  }
+	bool CanMove() const{ 
+		return castTime_ <= 0; 
+	}
 
 	static float Sec(float flames) {return flames / 60;}//フレームから秒に変換
 	static float frame(float seconds) { return seconds * 60; }//秒からフレームに変換
