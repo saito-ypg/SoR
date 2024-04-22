@@ -1,6 +1,6 @@
 #include "testSkill.h"
 #include"../Engine/Model.h"
-testSkill::testSkill():SkillBase(0.5f,1.0f)
+testSkill::testSkill(Player* pPlayer):SkillBase(0.5f,1.0f,pPlayer)
 {
 	sequence = { 1,5,1 };
 	circle.radius_ = 2;
@@ -16,9 +16,9 @@ void testSkill::action()
 	switch (stepindex)
 	{
 	case INVOKED:
-		break;
+		break;	
 	case START_ATTACK:
-		if (steptime == sequence.at(START_ATTACK))
+		if (steptime == sequence.at(START_ATTACK))//‚±‚±•Ï‚¦‚éI
 		{
 
 			circle.position_ = this->transform_.position_;

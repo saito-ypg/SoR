@@ -10,7 +10,7 @@ class testSkill :
 private:
     AttackRangeCircle circle;
 public:
-    testSkill();
+    testSkill(Player *pPlayer);
     virtual ~testSkill();
 
     void action()override;

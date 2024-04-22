@@ -1,13 +1,15 @@
 #include "SkillBase.h"
 #include"CollisionManager.h"
-
-SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f), isInOperation(false)
+#include"Player.h"
+SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f), isInOperation(false),pPlayer_(nullptr)
 {
 }
-SkillBase::SkillBase(float CT, float CD) :SkillBase()
+SkillBase::SkillBase(float CT, float CD, Player* pPlayer) :SkillBase()
 {
 	defaultCastTime_ = frame(CT);
 	defaultCoolDown_ = frame(CD);
+	pPlayer_ = pPlayer;
+	
 }
 
 SkillBase::~SkillBase()

@@ -6,7 +6,7 @@
 #include"DamageData.h"
 
 using namespace AreaModels;
-
+class Player;
 ///プレイヤー用スキルの基礎クラス。各種パラメーターは一旦フレーム単位で指定。
 ///各派生先のactionの中でstep毎に処理変える(switch-case)。必要なら専用のenum作る。
 class SkillBase
@@ -31,7 +31,7 @@ protected:
 	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
 	bool isInOperation;//スキル使用中か
-	
+	Player* pPlayer_;//プレイヤーのステータス変えたりしたい時に使うポインタ
 	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
 	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg);
 	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg);
@@ -40,7 +40,7 @@ public:
 	
 
 
-	SkillBase(float CT, float CD);//秒数指定→フレームに変換してる。派生先からこれを呼ぶ
+	SkillBase(float CT, float CD, Player* pPlayer);//秒数指定→フレームに変換してる。派生先からこれを呼ぶ
 
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?

@@ -44,7 +44,7 @@ void Player::Initialize()
     AddCamp();
 
 
-    skills.at(0) = dynamic_cast<SkillBase*>(new testSkill);
+    skills.at(0) = dynamic_cast<SkillBase*>(new testSkill(this));
 }
 
 //XV
