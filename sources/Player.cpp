@@ -68,10 +68,6 @@ void Player::ActorUpdate(const float& dt)
         if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
-    int a=0;
-
-   
-
 #endif
     if (Input::IsKey(DIK_A))
         status_.hp_--;
@@ -284,11 +280,11 @@ bool Player::isDuringSkill()
     {
         if (itr != nullptr)
         {
-            if (itr->CanMove())
-            return false;//動ける→スキルモーション中でない
+            if (!itr->CanMove())
+                return true;//動ける→スキルモーション中でない
         }
     }
-    return true;
+    return false;
 }
 
 void Player::dyingProcess()
