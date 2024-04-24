@@ -9,12 +9,14 @@ using namespace AreaModels;
 class Player;
 ///プレイヤー用スキルの基礎クラス。各種パラメーターは一旦フレーム単位で指定。
 ///各派生先のactionの中でstep毎に処理変える(switch-case)。必要なら専用のenum作る。
+/// コンストラクタでCastTime・CoolDownの指定
+/// sequenceのフレーム数指定を行うこと
 class SkillBase
 {
 private:
 	SkillBase();//派生先からは引数付きのものを呼ぶ。これは基礎的な初期化のみを行う
 protected:
-	Transform transform_;//スキル発動位置
+	Transform transform_;//スキル発動時のトランスフォームを格納しておく。発動時以外は基本いじらない。プレイヤーのものとは区別する
 	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
 	float steptime;//各ステップで現在どれだけの時間たったか
 	int stepindex;//現在何ステップ目か。sequence
@@ -35,7 +37,7 @@ protected:
 	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
 	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg);
 	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg);
-
+	Transform GetPlayerTransform();
 public:
 	
 
@@ -44,9 +46,9 @@ public:
 
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
-	void Activate(Transform tr);//スキル発動（ボタン押したとき）
+	void Activate();//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
-	virtual void DrawRangeDisplay(Transform tr)=0;//攻撃前に範囲を表示する 引数→ワールド座標
+	virtual void DrawRangeDisplay()=0;//攻撃前に範囲を表示する 引数→ワールド座標
 	virtual void Release() = 0;
 	bool CanUse() const{ return coolDown_ <= 0; }
 	bool CanMove() const{ 

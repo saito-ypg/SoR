@@ -1,5 +1,6 @@
 #include "testSkill.h"
 #include"../Engine/Model.h"
+#include"Player.h"
 testSkill::testSkill(Player* pPlayer):SkillBase(0.5f,1.0f,pPlayer)
 {
 	sequence = { 1,5,1 };
@@ -44,10 +45,10 @@ void testSkill::Release()
 {
 }
 
-void testSkill::DrawRangeDisplay(Transform tr)
+void testSkill::DrawRangeDisplay()
 {
 	int handle = area(CIRCLE);
-	Transform DrawT = tr;
+	Transform DrawT =GetPlayerTransform();
 	const float r = circle.radius_;
 	DrawT.scale_ = {r ,r ,r };
 	Model::SetTransform(handle, DrawT);

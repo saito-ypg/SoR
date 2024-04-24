@@ -16,6 +16,6 @@ public:
     void action()override;
     void Draw() override;
     void Release() override;
-    void DrawRangeDisplay(Transform tr) override;
+    void DrawRangeDisplay() override;
 };
 

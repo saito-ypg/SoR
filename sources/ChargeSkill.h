@@ -10,14 +10,14 @@ class ChargeSkill :
     public SkillBase
 {
 private:
-
+    AttackRangeQuad QuadArea;
 
 public:
-    ChargeSkill();
+    ChargeSkill(Player*pPlayer);
     virtual ~ChargeSkill();
     void action()override;
     void Draw() override;
-    void DrawRangeDisplay(Transform tr) override;
+    void DrawRangeDisplay() override;
     void Release() override;
  
 };

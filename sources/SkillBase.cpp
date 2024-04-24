@@ -41,9 +41,9 @@ void SkillBase::Update()
 
 }
 
-void SkillBase::Activate(Transform tr)
+void SkillBase::Activate()
 {
-	transform_ = tr;
+	transform_ = *pPlayer_->GetTransformRef();
 	castTime_ = defaultCastTime_;
 	coolDown_ = defaultCoolDown_;
 	stepindex = 0;
@@ -64,5 +64,10 @@ void SkillBase::RegisterHitRange(AttackRangeQuad q, DamageData &dmg)
 void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg)
 {
 	CollisionManager::RegisterHitRange(PLAYER, s, dmg);
+}
+
+Transform SkillBase::GetPlayerTransform()
+{
+	return *(pPlayer_->GetTransformRef());
 }
 

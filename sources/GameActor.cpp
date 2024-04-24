@@ -164,10 +164,10 @@ Transform* GameActor::GetTransformRef()
 	return &transform_;
 }
 
-void GameActor::ForceMove(XMVECTOR move)
+void GameActor::ForceMove(XMVECTOR translateBy)
 {
 	XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-	vpos += move;
+	vpos += translateBy;
 	XMStoreFloat3(&transform_.position_, vpos);
 
 }

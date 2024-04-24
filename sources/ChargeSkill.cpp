@@ -1,7 +1,10 @@
 #include "ChargeSkill.h"
 
-ChargeSkill::ChargeSkill():SkillBase(1,1)
+ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1.5f,4.0f,pPlayer)
 {
+	sequence={12,16,6};
+	QuadArea.width_ =1.1f;
+	QuadArea.length_ =4.0f;
 }
 
 ChargeSkill::~ChargeSkill()
@@ -16,7 +19,7 @@ void ChargeSkill::Draw()
 {
 }
 
-void ChargeSkill::DrawRangeDisplay(Transform tr)
+void ChargeSkill::DrawRangeDisplay()
 {
 }
 

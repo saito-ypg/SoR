@@ -191,7 +191,7 @@ void Player::ActorDraw()
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
     if (usingSkillIndex != UNUSED) {
-        skills.at(usingSkillIndex)->DrawRangeDisplay(transform_);
+        skills.at(usingSkillIndex)->DrawRangeDisplay();
     }
     for (auto itr : skills)
     {
@@ -229,7 +229,7 @@ void Player::ActivateSkill(const int number)
     FaceMouseDirection();//ƒ}ƒEƒX•ûŒü‚ðŒü‚­
     moveTime_ = 0;//ˆÚ“®‚µ‚Ä‚½‚çŽ~‚ß‚é
  
-    skills.at(number)->Activate(transform_);
+    skills.at(number)->Activate();
 }
 
 XMVECTOR Player::getMouseTargetPos()

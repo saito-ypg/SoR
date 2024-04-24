@@ -47,6 +47,6 @@ public:
 
     void TakeAttacked(DamageData &dmg,XMVECTOR &dir);//オーバーライドするか未定
     Transform* GetTransformRef();
-    void ForceMove(XMVECTOR move);
+    void ForceMove(XMVECTOR translateBy);//moveの分だけ移動させる
 };
 

@@ -4,8 +4,13 @@ class ActorInfo
 public:
 	float hp_;
 	float maxHp_;
-	float hitCircleRange_;
+	float hitCircleRange_;//”¼Œa
 	ActorInfo() :hp_(0), maxHp_(0), hitCircleRange_(0) {};
+	/// <summary>
+	/// ƒAƒNƒ^[‚ÌŠî‘bî•ñ
+	/// </summary>
+	/// <param name="maxHp">Å‘åHP</param>
+	/// <param name="range">“–‚½‚è”»’è‚Ì‰~‚Ì”¼Œa</param>
 	ActorInfo(float maxHp, float range):hp_(maxHp),maxHp_(maxHp),hitCircleRange_(range){}
 };
 
