@@ -53,7 +53,7 @@ public:
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
 	void Activate();//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
-	virtual void DrawRangeDisplay()=0;//攻撃前に範囲を表示する 引数→ワールド座標
+	virtual void DrawRangeDisplay(float deg)=0;//攻撃前に範囲を表示する 引数->角度
 	virtual void Release() = 0;
 	bool CanUse() const{ return coolDown_ <= 0; }
 	bool CanMove() const{ 

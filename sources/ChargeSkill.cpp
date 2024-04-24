@@ -1,5 +1,6 @@
 #include "ChargeSkill.h"
-
+#include"../Engine/Model.h"
+#include"Player.h"
 ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1.5f,4.0f,pPlayer)
 {
 	sequence={12,16,6};
@@ -21,8 +22,18 @@ void ChargeSkill::Draw()
 {
 }
 
-void ChargeSkill::DrawRangeDisplay()
+void ChargeSkill::DrawRangeDisplay(float deg)
 {
+	int handle = area(QUAD);
+	Transform DrawT = GetPlayerTransform();
+	DrawT.scale_ = { QuadArea.width_ ,1,QuadArea.length_ };
+	DrawT.rotate_.y = fmodf(deg, 360.0f);
+	XMVECTOR vpos = XMLoadFloat3(&DrawT.position_);
+	XMVECTOR OffsetCentor = XMVectorSet(0, 0,QuadArea.length_, 0);//‰ñ“]‘O
+	OffsetCentor = XMVector3TransformCoord(OffsetCentor,XMMatrixRotationY(XMConvertToRadians(DrawT.rotate_.y)));
+	XMStoreFloat3(&DrawT.position_, vpos+OffsetCentor);
+	Model::SetTransform(handle, DrawT);
+	Model::Draw(handle);
 }
 
 void ChargeSkill::Release()

@@ -9,6 +9,7 @@ class testSkill :
 {
 private:
     AttackRangeCircle circle;
+
     void invokedStep() override;
     void startStep() override;
     void endStep()override;
@@ -19,6 +20,6 @@ public:
     void action()override;
     void Draw() override;
     void Release() override;
-    void DrawRangeDisplay() override;
+    void DrawRangeDisplay(float deg) override;
 };
 

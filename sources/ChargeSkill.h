@@ -19,7 +19,7 @@ public:
     virtual ~ChargeSkill();
     void action()override;
     void Draw() override;
-    void DrawRangeDisplay() override;
+    void DrawRangeDisplay(float deg) override;
     void Release() override;
  
 };

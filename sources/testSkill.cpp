@@ -24,7 +24,7 @@ void testSkill::Release()
 {
 }
 
-void testSkill::DrawRangeDisplay()
+void testSkill::DrawRangeDisplay(float deg)
 {
 	int handle = area(CIRCLE);
 	Transform DrawT =GetPlayerTransform();

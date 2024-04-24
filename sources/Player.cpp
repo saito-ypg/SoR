@@ -13,7 +13,9 @@ namespace {
     int usingSkillIndex;//使用中スキル番号、なかったらUNUSED(=-1);
     const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
         {0,DIK_Q },
-        {1,DIK_W}
+        {1,DIK_W},
+        {2,DIK_E},
+        {3,DIK_R},
     };
     
 }
@@ -49,9 +51,10 @@ void Player::Initialize()
 
     AddCamp();
 
-
-    skills.at(0) = dynamic_cast<SkillBase*>(new testSkill(this));
-    skills.at(1) = dynamic_cast<SkillBase*>(new ChargeSkill(this));
+    AttachSkill<testSkill>(0);
+    AttachSkill<ChargeSkill>(1);
+    //  skills.at(0) = dynamic_cast<SkillBase*>(new testSkill(this));
+//  skills.at(1) = dynamic_cast<SkillBase*>(new ChargeSkill(this));
 }
 
 //更新
@@ -80,6 +83,10 @@ void Player::ActorUpdate(const float& dt)
     }
     else {//各種スキル
         for (int i = 0; i < skillsNum; i++) {
+            if(skills.at(i)==nullptr)//スキルアタッチできてなかったら市内
+            {
+                continue;
+            }
             if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
             {
                 if (canUseSkill(i)) {
@@ -124,8 +131,10 @@ void Player::MoveInput()
 void Player::FaceMouseDirection()
 {
     XMVECTOR target = getMouseTargetPos();
-    if (isIntersectGround(target))
-        FaceTargetDirection(target);
+    if (isIntersectGround(target)) {
+        float deg = GetTargetDirection(target);
+        transform_.rotate_.y = deg;
+    }
 }
 
 bool Player::isIntersectGround(const DirectX::XMVECTOR& target)
@@ -194,7 +203,7 @@ void Player::ActorDraw()
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
     if (usingSkillIndex != UNUSED) {
-        skills.at(usingSkillIndex)->DrawRangeDisplay();
+        skills.at(usingSkillIndex)->DrawRangeDisplay(GetTargetDirection(getMouseTargetPos()));
     }
     for (auto itr : skills)
     {
@@ -260,18 +269,21 @@ void Player::calculateForMove(const XMVECTOR target_)
     moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行で小刻みに荒ぶるの対策
      if (length < PLAYER_ROT_TH)return;
  
-    FaceTargetDirection(target_);
+    float deg= GetTargetDirection(target_);
+    transform_.rotate_.y = deg;
+    XMVECTOR forward = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+    moveDirection_= XMVector3TransformCoord(forward, XMMatrixRotationY(XMConvertToRadians(deg)));
 
     
 }
-void Player::FaceTargetDirection(const XMVECTOR& target_)
+float Player::GetTargetDirection(const XMVECTOR& target_)
 {
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     //移動方向を向く 
-    moveDirection_ = XMVector3Normalize(target_ - vPos);
+    XMVECTOR direction = XMVector3Normalize(target_ - vPos);
     XMFLOAT3 fdir;
-    XMStoreFloat3(&fdir, moveDirection_);
-    transform_.rotate_.y = XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
+    XMStoreFloat3(&fdir, direction);
+    return XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
     
 }
 bool Player::isDuringSkill()

@@ -14,7 +14,7 @@ class Player : public GameActor
     float moveTime_;
 
  //スキル登録
-    static constexpr int skillsNum = 2;
+    static constexpr int skillsNum = 4;
     std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};   
     bool canUseSkill(int number);
     void ActivateSkill(int number);
@@ -27,7 +27,7 @@ class Player : public GameActor
     //現在のマウス座標をワールド座標に変換して返す
     XMVECTOR getMouseTargetPos();
     //targetの方向に回転
-    void FaceTargetDirection(const XMVECTOR& target_);
+    float GetTargetDirection(const XMVECTOR& target_);
     //移動+回転
     void calculateForMove(const XMVECTOR target_);
     
