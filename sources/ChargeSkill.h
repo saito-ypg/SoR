@@ -11,7 +11,9 @@ class ChargeSkill :
 {
 private:
     AttackRangeQuad QuadArea;
-
+    void invokedStep()  override;
+    void startStep()    override;
+    void endStep()      override;
 public:
     ChargeSkill(Player*pPlayer);
     virtual ~ChargeSkill();

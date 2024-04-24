@@ -12,7 +12,8 @@ namespace {
     constexpr int UNUSED = -1;//スキル長押ししてないとき
     int usingSkillIndex;//使用中スキル番号、なかったらUNUSED(=-1);
     const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
-        {0,DIK_Q }
+        {0,DIK_Q },
+        {1,DIK_W}
     };
     
 }
@@ -28,6 +29,11 @@ Player::Player(GameObject* parent)
 
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
+    for (auto i : skills)
+    {
+        i = nullptr;
+    }
+
 }
 
 //デストラクタ
@@ -45,6 +51,7 @@ void Player::Initialize()
 
 
     skills.at(0) = dynamic_cast<SkillBase*>(new testSkill(this));
+    skills.at(1) = dynamic_cast<SkillBase*>(new ChargeSkill(this));
 }
 
 //更新

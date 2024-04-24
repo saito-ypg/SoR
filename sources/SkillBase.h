@@ -28,6 +28,11 @@ protected:
 	};
 	
 	virtual void action() = 0;//スキル発動中の動作と処理の実装
+	void SwitchActionByStep();//各ステップの処理を呼び分ける
+	virtual void invokedStep()=0;//攻撃前ステップの実装
+	virtual void startStep()=0;//攻撃開始ステップの実装
+	virtual void endStep()=0;//攻撃終了後ステップの実装
+
 	float defaultCastTime_;//スキル使用後動けない総時間
 	float castTime_;//動けるようになるまでの残り時間
 	float defaultCoolDown_;//スキルの再使用までの時間

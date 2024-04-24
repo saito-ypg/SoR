@@ -9,6 +9,9 @@ class testSkill :
 {
 private:
     AttackRangeCircle circle;
+    void invokedStep() override;
+    void startStep() override;
+    void endStep()override;
 public:
     testSkill(Player *pPlayer);
     virtual ~testSkill();

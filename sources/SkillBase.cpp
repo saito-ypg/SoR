@@ -51,6 +51,22 @@ void SkillBase::Activate()
 	isInOperation = true;
 }
 
+void SkillBase::SwitchActionByStep()
+{
+	switch (stepindex)
+	{
+	case INVOKED:
+		invokedStep();
+		break;
+	case START_ATTACK:
+		startStep();
+		break;
+	case END_ATTACK:
+		endStep();
+		break;
+	}
+}
+
 void SkillBase::RegisterHitRange(AttackRangeCircle c, DamageData &dmg)
 {
 	CollisionManager::RegisterHitRange(PLAYER, c,dmg);

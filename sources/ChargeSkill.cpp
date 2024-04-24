@@ -13,6 +13,8 @@ ChargeSkill::~ChargeSkill()
 
 void ChargeSkill::action()
 {
+	SwitchActionByStep();
+
 }
 
 void ChargeSkill::Draw()
@@ -25,4 +27,14 @@ void ChargeSkill::DrawRangeDisplay()
 
 void ChargeSkill::Release()
 {
+}
+
+void ChargeSkill::invokedStep(){
+
+}
+void ChargeSkill::startStep(){
+
+}
+void ChargeSkill::endStep(){
+
 }

@@ -14,11 +14,16 @@ class Player : public GameActor
     float moveTime_;
 
  //スキル登録
-    const int skillsNum = 1;
+    static constexpr int skillsNum = 2;
     std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};   
     bool canUseSkill(int number);
     void ActivateSkill(int number);
-    
+    template<class skill>
+    void AttachSkill(int index) {
+        assert(skills.at(index) == nullptr);//atで範囲外は捨てつつskillsに被りがないようにする
+        skills.at(index) = dynamic_cast<SkillBase*>(new skill(this));
+        
+    }
     //現在のマウス座標をワールド座標に変換して返す
     XMVECTOR getMouseTargetPos();
     //targetの方向に回転

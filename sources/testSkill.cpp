@@ -11,30 +11,9 @@ testSkill::~testSkill()
 {
 }
 
-
 void testSkill::action()
 {
-	switch (stepindex)
-	{
-	case INVOKED:
-		break;	
-	case START_ATTACK:
-		if (steptime == sequence.at(START_ATTACK))//‚±‚±•Ï‚¦‚éI
-		{
-
-			circle.position_ = this->transform_.position_;
-			DamageData dmg;
-			dmg.damage_ = 20;
-			dmg.knockback_ = 4;
-			dmg.duration_ = 1;
-			RegisterHitRange(circle, dmg);
-		}
-		break;
-	case END_ATTACK:
-		break;
-
-
-	}
+	SwitchActionByStep();
 }
 
 void testSkill::Draw()
@@ -53,4 +32,25 @@ void testSkill::DrawRangeDisplay()
 	DrawT.scale_ = {r ,r ,r };
 	Model::SetTransform(handle, DrawT);
 	Model::Draw(handle);
+}
+
+void testSkill::invokedStep() {
+
+
+}
+void testSkill::startStep() {
+
+	if (steptime == sequence.at(START_ATTACK))//‚±‚±•Ï‚¦‚éI
+	{
+		circle.position_ = this->transform_.position_;
+		DamageData dmg;
+		dmg.damage_ = 20;
+		dmg.knockback_ = 4;
+		dmg.duration_ = 1;
+		RegisterHitRange(circle, dmg);
+	}
+}
+void testSkill::endStep() {
+
+
 }
