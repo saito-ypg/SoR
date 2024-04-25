@@ -5,14 +5,17 @@
 namespace {
 	float INOUTEXPO(float t) {//ŽžŠÔ‚É‘Î‚µˆÊ’u‚ð•Ô‚·
 		return t == 0
-			? 0
-			: t == 1
-			? 1
-			: t < 0.5 ? std::pow(2, 20 * t - 10) / 2
-			: (2 - std::pow(2, -20 * t + 10)) / 2;
+			? 0 
+			: t >= 1
+				? 1
+				: t < 0.5 ? std::pow(2, 20 * t - 10) / 2
+				: (2 - std::pow(2, -20 * t + 10)) / 2;
 	}
+
+	XMVECTOR forward = { 0,0,0,0 };
+	XMVECTOR lastForceVec = { 0,0,0,0 };
 }
-ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1.5f,4.0f,pPlayer)
+ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(32,ConvToFrames(1.0f),pPlayer)
 {
 	sequence={12,16,6};
 	QuadArea.width_ =1.1f;
@@ -25,6 +28,7 @@ ChargeSkill::~ChargeSkill()
 
 void ChargeSkill::action()
 {
+	forward = XMVector3TransformCoord(XMVectorSet(0, 0, 1, 0), XMMatrixRotationY(XMConvertToRadians(beginTransform_.rotate_.y)));
 	SwitchActionByStep();
 
 }
@@ -55,8 +59,14 @@ void ChargeSkill::invokedStep(){
 
 }
 void ChargeSkill::startStep(){
-	
-
+	//ˆÚ“®—Ê‚ðo‚·
+	//16->0
+	//15->1
+	const float& flames = sequence.at(START_ATTACK);
+	float nowTime =(float)(steptime*-1+flames+1)/flames;
+	XMVECTOR forcevec = forward * INOUTEXPO(nowTime) * QuadArea.length_;
+	pPlayer_->ForceMove(forcevec-lastForceVec);
+	lastForceVec = forcevec;
 }
 void ChargeSkill::endStep(){
 

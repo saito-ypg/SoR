@@ -18,7 +18,7 @@ private:
 protected:
 	Transform beginTransform_;//スキル発動時のトランスフォームを格納しておく。発動時以外は基本いじらない。プレイヤーのものとは区別する
 	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
-	float steptime;//各ステップで現在どれだけの時間たったか
+	float steptime;//各ステップでの残り時間
 	int stepindex;//現在何ステップ目か。sequence
 
 	enum base_steps {//基本的なステップ
@@ -32,7 +32,7 @@ protected:
 	virtual void invokedStep()=0;//攻撃前ステップの実装
 	virtual void startStep()=0;//攻撃開始ステップの実装
 	virtual void endStep()=0;//攻撃終了後ステップの実装
-
+	virtual 
 	float defaultCastTime_;//スキル使用後動けない総時間
 	float castTime_;//動けるようになるまでの残り時間
 	float defaultCoolDown_;//スキルの再使用までの時間
@@ -47,7 +47,7 @@ public:
 	
 
 
-	SkillBase(float CT, float CD, Player* pPlayer);//秒数指定→フレームに変換してる。派生先からこれを呼ぶ
+	SkillBase(float CT, float CD, Player* pPlayer);//フレームで入力。派生先からこれを呼ぶ
 
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
@@ -60,7 +60,7 @@ public:
 		return castTime_ <= 0; 
 	}
 
-	static float Sec(float flames) {return flames / 60;}//フレームから秒に変換
-	static float frame(float seconds) { return seconds * 60; }//秒からフレームに変換
+	static float ConvToSeconds(float frames) {return frames / 60;}//フレームから秒に変換
+	static float ConvToFrames(float seconds) { return seconds * 60; }//秒からフレームに変換
 };
 
