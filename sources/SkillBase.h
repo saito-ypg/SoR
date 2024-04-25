@@ -16,7 +16,7 @@ class SkillBase
 private:
 	SkillBase();//派生先からは引数付きのものを呼ぶ。これは基礎的な初期化のみを行う
 protected:
-	Transform transform_;//スキル発動時のトランスフォームを格納しておく。発動時以外は基本いじらない。プレイヤーのものとは区別する
+	Transform beginTransform_;//スキル発動時のトランスフォームを格納しておく。発動時以外は基本いじらない。プレイヤーのものとは区別する
 	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
 	float steptime;//各ステップで現在どれだけの時間たったか
 	int stepindex;//現在何ステップ目か。sequence

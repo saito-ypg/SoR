@@ -42,7 +42,7 @@ void testSkill::startStep() {
 
 	if (steptime == sequence.at(START_ATTACK))//‚±‚±•Ï‚¦‚éI
 	{
-		circle.position_ = this->transform_.position_;
+		circle.position_ = this->beginTransform_.position_;
 		DamageData dmg;
 		dmg.damage_ = 20;
 		dmg.knockback_ = 4;

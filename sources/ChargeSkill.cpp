@@ -1,6 +1,17 @@
+#include<cmath>
 #include "ChargeSkill.h"
 #include"../Engine/Model.h"
 #include"Player.h"
+namespace {
+	float INOUTEXPO(float t) {//ŽžŠÔ‚É‘Î‚µˆÊ’u‚ð•Ô‚·
+		return t == 0
+			? 0
+			: t == 1
+			? 1
+			: t < 0.5 ? std::pow(2, 20 * t - 10) / 2
+			: (2 - std::pow(2, -20 * t + 10)) / 2;
+	}
+}
 ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1.5f,4.0f,pPlayer)
 {
 	sequence={12,16,6};
@@ -44,6 +55,7 @@ void ChargeSkill::invokedStep(){
 
 }
 void ChargeSkill::startStep(){
+	
 
 }
 void ChargeSkill::endStep(){

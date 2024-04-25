@@ -4,7 +4,9 @@
 #include"PlayerSkillsInclude.h"
 constexpr float MOVE_VELOCITY = 10.0f /60;
 class Player : public GameActor
-{//Pimplとかいう概念、よさそう
+{
+private:
+    //Pimplとかいう概念、よさそう
     int hModel_;
     //移動方向の単位ベクトルを格納
     XMVECTOR moveDirection_;
@@ -18,12 +20,13 @@ class Player : public GameActor
     std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};   
     bool canUseSkill(int number);
     void ActivateSkill(int number);
+    
     template<class skill>
-    void AttachSkill(int index) {
-        assert(skills.at(index) == nullptr);//atで範囲外は捨てつつskillsに被りがないようにする
+    void AttachSkill(int index) {//スキルをプレイヤーに紐づける
+        assert(!skills.at(index));//atで範囲外は捨てつつ登録の番号にかぶりがないようにする(被っている=インスタンス化されている)
         skills.at(index) = dynamic_cast<SkillBase*>(new skill(this));
-        
     }
+
     //現在のマウス座標をワールド座標に変換して返す
     XMVECTOR getMouseTargetPos();
     //targetの方向に回転

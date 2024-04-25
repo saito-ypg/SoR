@@ -53,8 +53,6 @@ void Player::Initialize()
 
     AttachSkill<testSkill>(0);
     AttachSkill<ChargeSkill>(1);
-    //  skills.at(0) = dynamic_cast<SkillBase*>(new testSkill(this));
-//  skills.at(1) = dynamic_cast<SkillBase*>(new ChargeSkill(this));
 }
 
 //XV

@@ -43,7 +43,7 @@ void SkillBase::Update()
 
 void SkillBase::Activate()
 {
-	transform_ = *pPlayer_->GetTransformRef();
+	beginTransform_ = *pPlayer_->GetTransformRef();
 	castTime_ = defaultCastTime_;
 	coolDown_ = defaultCoolDown_;
 	stepindex = 0;
