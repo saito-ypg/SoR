@@ -48,6 +48,7 @@ void SkillBase::Activate()
 	coolDown_ = defaultCoolDown_;
 	stepindex = 0;
 	steptime = sequence.front();
+	ResetInheritedSkillMembers();
 	isInOperation = true;
 }
 
@@ -85,5 +86,9 @@ void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg)
 Transform SkillBase::GetPlayerTransform()
 {
 	return *(pPlayer_->GetTransformRef());
+}
+
+void SkillBase::ResetInheritedSkillMembers()
+{
 }
 

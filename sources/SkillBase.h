@@ -14,7 +14,10 @@ class Player;
 class SkillBase
 {
 private:
-	SkillBase();//派生先からは引数付きのものを呼ぶ。これは基礎的な初期化のみを行う
+	/// <summary>
+	/// 派生先からは引数付きのものを呼ぶ。これは基礎的な初期化のみを行う
+	/// </summary>
+	SkillBase();
 protected:
 	Transform beginTransform_;//スキル発動時のトランスフォームを格納しておく。発動時以外は基本いじらない。プレイヤーのものとは区別する
 	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
@@ -26,28 +29,60 @@ protected:
 		START_ATTACK,//攻撃判定開始
 		END_ATTACK,//攻撃判定終了
 	};
+
+
+	/// <summary>
+	/// スキル発動中の動作と処理の実装
+	/// </summary>
+	virtual void action() = 0;
 	
-	virtual void action() = 0;//スキル発動中の動作と処理の実装
-	void SwitchActionByStep();//各ステップの処理を呼び分ける
-	virtual void invokedStep()=0;//攻撃前ステップの実装
-	virtual void startStep()=0;//攻撃開始ステップの実装
-	virtual void endStep()=0;//攻撃終了後ステップの実装
-	virtual 
+	/// <summary>
+	/// 各ステップの処理を呼び分ける
+	/// </summary>
+	void SwitchActionByStep();
+	
+	/// <summary>
+	/// 攻撃前ステップの実装
+	/// </summary>
+	virtual void invokedStep()=0;
+	
+	/// <summary>
+	/// 攻撃開始ステップの実装
+	/// </summary>
+	virtual void startStep()=0;
+	
+	/// <summary>
+	/// 攻撃終了後ステップの実装 
+	/// </summary>
+	virtual void endStep()=0;
+
+
 	float defaultCastTime_;//スキル使用後動けない総時間
 	float castTime_;//動けるようになるまでの残り時間
 	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
 	bool isInOperation;//スキル使用中か
 	Player* pPlayer_;//プレイヤーのステータス変えたりしたい時に使うポインタ
+
 	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
 	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg);
 	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg);
 	Transform GetPlayerTransform();
+
+	/// <summary>
+	/// 必要なら継承先でこれをオーバーライドし、固有のメンバなどを初期化する
+	/// </summary>
+	virtual void ResetInheritedSkillMembers();
 public:
 	
 
-
-	SkillBase(float CT, float CD, Player* pPlayer);//フレームで入力。派生先からこれを呼ぶ
+	/// <summary>
+	/// 引数はフレーム単位
+	/// </summary>
+	/// <param name="CT">使用にあたる時間</param>
+	/// <param name="CD">再使用時間</param>
+	/// <param name="pPlayer">プレイヤーのポインタ</param>
+	SkillBase(float CT, float CD, Player* pPlayer);
 
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?

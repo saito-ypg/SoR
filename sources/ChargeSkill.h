@@ -14,6 +14,7 @@ private:
     void invokedStep()  override;
     void startStep()    override;
     void endStep()      override;
+    void ResetInheritedSkillMembers() override;
 public:
     ChargeSkill(Player*pPlayer);
     virtual ~ChargeSkill();

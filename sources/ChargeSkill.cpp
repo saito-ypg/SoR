@@ -12,14 +12,14 @@ namespace {
 				: (2 - std::pow(2, -20 * t + 10)) / 2;
 	}
 
-	XMVECTOR forward = { 0,0,0,0 };
-	XMVECTOR lastForceVec = { 0,0,0,0 };
+	XMVECTOR forward = XMVectorZero();
+	XMVECTOR lastForceVec = XMVectorZero();
 }
 ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(32,ConvToFrames(1.0f),pPlayer)
 {
-	sequence={12,16,6};
+	sequence={12,28,6};
 	QuadArea.width_ =1.1f;
-	QuadArea.length_ =4.0f;
+	QuadArea.length_ =6.0f;
 }
 
 ChargeSkill::~ChargeSkill()
@@ -28,6 +28,7 @@ ChargeSkill::~ChargeSkill()
 
 void ChargeSkill::action()
 {
+
 	forward = XMVector3TransformCoord(XMVectorSet(0, 0, 1, 0), XMMatrixRotationY(XMConvertToRadians(beginTransform_.rotate_.y)));
 	SwitchActionByStep();
 
@@ -64,10 +65,15 @@ void ChargeSkill::startStep(){
 	//15->1
 	const float& flames = sequence.at(START_ATTACK);
 	float nowTime =(float)(steptime*-1+flames+1)/flames;
-	XMVECTOR forcevec = forward * INOUTEXPO(nowTime) * QuadArea.length_;
+	XMVECTOR forcevec = forward * INOUTEXPO(nowTime) * QuadArea.length_*2;
 	pPlayer_->ForceMove(forcevec-lastForceVec);
 	lastForceVec = forcevec;
 }
 void ChargeSkill::endStep(){
 
+}
+
+void ChargeSkill::ResetInheritedSkillMembers()
+{
+	lastForceVec = XMVectorZero();
 }
