@@ -40,7 +40,7 @@ void testSkill::invokedStep() {
 }
 void testSkill::startStep() {
 
-	if (steptime == sequence.at(START_ATTACK))//‚±‚±•Ï‚¦‚éI
+	if (isStepChanged)//‚±‚±•Ï‚¦‚éI
 	{
 		circle.position_ = this->beginTransform_.position_;
 		DamageData dmg;

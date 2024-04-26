@@ -46,6 +46,7 @@ void CollisionManager::Update()
 				}
 			}
 			itr->dmg_.duration_--;
+			itr->pRange_->AreaTransition();
 			if (itr->dmg_.duration_ <= 0)
 			{
 			

@@ -8,8 +8,9 @@ namespace {
 			? 0 
 			: t >= 1
 				? 1
-				: t < 0.5 ? std::pow(2, 20 * t - 10) / 2
-				: (2 - std::pow(2, -20 * t + 10)) / 2;
+				: t < 0.5
+					? std::pow(2, 20 * t - 10) / 2
+					: (2 - std::pow(2, -20 * t + 10)) / 2;
 	}
 
 	XMVECTOR forward = XMVectorZero();
@@ -61,12 +62,11 @@ void ChargeSkill::invokedStep(){
 }
 void ChargeSkill::startStep(){
 	//ˆÚ“®—Ê‚ðo‚·
-	//16->0
-	//15->1
 	const float& flames = sequence.at(START_ATTACK);
 	float nowTime =(float)(steptime*-1+flames+1)/flames;
 	XMVECTOR forcevec = forward * INOUTEXPO(nowTime) * QuadArea.length_*2;
 	pPlayer_->ForceMove(forcevec-lastForceVec);
+	
 	lastForceVec = forcevec;
 }
 void ChargeSkill::endStep(){

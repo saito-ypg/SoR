@@ -8,6 +8,7 @@ using namespace AreaModels;
 #undef max
 AttackRangeBase::AttackRangeBase() :areatype_(NONE),position_({ 0,0,0 })
 {
+	AreaTransition =nullptr ;
 }
 AttackRangeBase::AttackRangeBase(XMFLOAT3 pos) :AttackRangeBase()
 {

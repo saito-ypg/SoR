@@ -1,7 +1,7 @@
 #include "SkillBase.h"
 #include"CollisionManager.h"
 #include"Player.h"
-SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f), isInOperation(false),pPlayer_(nullptr)
+SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f),isStepChanged(false),isInOperation(false),pPlayer_(nullptr)
 {
 }
 SkillBase::SkillBase(float CT, float CD, Player* pPlayer) :SkillBase()
@@ -30,10 +30,12 @@ void SkillBase::Update()
 
 	action();
 	steptime--;//時間進める
-	if (steptime > 0)
+	if (steptime > 0) {
+		isStepChanged = false;
 		return;
-
-	stepindex++;//ステップ進める
+	}
+	stepindex++;//ステップ時間終わったら次のステップへ
+	isStepChanged = true;
 	if (stepindex >= sequence.size())//ステップ全部終わったら
 		isInOperation = false;//動作終わらせる
 	else

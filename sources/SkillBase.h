@@ -23,7 +23,7 @@ protected:
 	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
 	float steptime;//各ステップでの残り時間
 	int stepindex;//現在何ステップ目か。sequence
-
+	bool isStepChanged;
 	enum base_steps {//基本的なステップ
 		INVOKED = 0,//発動直後、予備動作とか
 		START_ATTACK,//攻撃判定開始
