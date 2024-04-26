@@ -47,7 +47,7 @@ void testSkill::invokedStep() {
 }
 void testSkill::startStep() {
 
-	if (isStepChanged)//‚±‚±•Ï‚¦‚éI
+	if (isStepChanged)
 	{
 		circle.position_ = this->beginTransform_.position_;
 		
