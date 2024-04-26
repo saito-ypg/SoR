@@ -1,10 +1,17 @@
 #include "testSkill.h"
 #include"../Engine/Model.h"
 #include"Player.h"
+namespace {
+	DamageData dmg;
+	AttackRangeCircle circle;
+}
 testSkill::testSkill(Player* pPlayer):SkillBase(ConvToFrames(0.5f),ConvToFrames(1.0f),pPlayer)
 {
 	sequence = { 1,5,1 };
 	circle.radius_ = 2;
+	dmg.damage_ = 20;
+	dmg.knockback_ = 4;
+	dmg.duration_ = 1;
 }
 
 testSkill::~testSkill()
@@ -43,10 +50,7 @@ void testSkill::startStep() {
 	if (isStepChanged)//‚±‚±•Ï‚¦‚éI
 	{
 		circle.position_ = this->beginTransform_.position_;
-		DamageData dmg;
-		dmg.damage_ = 20;
-		dmg.knockback_ = 4;
-		dmg.duration_ = 1;
+		
 		RegisterHitRange(circle, dmg);
 	}
 }

@@ -12,7 +12,7 @@ namespace {
 					? std::pow(2, 20 * t - 10) / 2
 					: (2 - std::pow(2, -20 * t + 10)) / 2;
 	}
-
+	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();
 	XMVECTOR lastForceVec = XMVectorZero();
 }
@@ -63,10 +63,16 @@ void ChargeSkill::invokedStep(){
 void ChargeSkill::startStep(){
 	//ˆÚ“®—Ê‚ðo‚·
 	const float& flames = sequence.at(START_ATTACK);
-	float nowTime =(float)(steptime*-1+flames+1)/flames;
+	float nowTime =(float)(-(steptime)+flames+1)/flames;
 	XMVECTOR forcevec = forward * INOUTEXPO(nowTime) * QuadArea.length_*2;
 	pPlayer_->ForceMove(forcevec-lastForceVec);
-	
+	if (isStepChanged)
+	{
+		DamageData dmg;
+		
+
+		RegisterHitRange(QuadArea,dmg);
+	}
 	lastForceVec = forcevec;
 }
 void ChargeSkill::endStep(){

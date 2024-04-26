@@ -8,7 +8,7 @@ class testSkill :
     public SkillBase
 {
 private:
-    AttackRangeCircle circle;
+
 
     void invokedStep() override;
     void startStep() override;
