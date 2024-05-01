@@ -1,6 +1,9 @@
 #include "Global.h"
 #include "Image.h"
-
+namespace {
+	
+}
+#define RET_IF_NON_EXIST(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
 //3D画像を管理する
 namespace Image
 {
@@ -75,7 +78,8 @@ namespace Image
 	//描画
 	void Draw(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		RET_IF_NON_EXIST(handle);
+		if (_datas[handle] == nullptr)
 		{
 			return;
 		}
@@ -88,10 +92,6 @@ namespace Image
 	//任意の画像を開放
 	void Release(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
 
 		//同じモデルを他でも使っていないか
 		bool isExist = false;
@@ -130,10 +130,7 @@ namespace Image
 	//切り抜き範囲の設定
 	void SetRect(int handle, int x, int y, int width, int height)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 
 		_datas[handle]->rect.left = x;
 		_datas[handle]->rect.top = y;
@@ -145,10 +142,7 @@ namespace Image
 	//切り抜き範囲をリセット（画像全体を表示する）
 	void ResetRect(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 
 		XMFLOAT3 size = _datas[handle]->pSprite->GetTextureSize();
 
@@ -162,10 +156,7 @@ namespace Image
 	//アルファ値設定
 	void SetAlpha(int handle, int alpha)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 		_datas[handle]->alpha = (float)alpha / 255.0f;
 	}
 
@@ -173,14 +164,28 @@ namespace Image
 	//ワールド行列を設定
 	void SetTransform(int handle, Transform& transform)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 
 		_datas[handle]->transform = transform;
 	}
 
+	float AlignImage(int handle, PLACEMENT placement)
+	{	
+		RET_IF_NON_EXIST(handle);
+		switch (placement)
+		{
+		case LEFT:
+
+		case RIGHT:
+
+		}
+	}	
+
+
+	float AlignImage(int handle, PLACEMENT placement, float specifiedPos)
+	{
+		return 0.0f;
+	}
 
 	//ワールド行列の取得
 	XMMATRIX GetMatrix(int handle)

@@ -1,12 +1,10 @@
 #pragma once
 
-#pragma once
-
 #include <vector>
 #include <string>
 #include "Sprite.h"
 #include "Transform.h"
-
+enum PLACEMENT { LEFT, RIGHT, UP, DOWN };
 //-----------------------------------------------------------
 //2D画像を管理する
 //-----------------------------------------------------------
@@ -84,6 +82,26 @@ namespace Image
 	//引数：matrix	ワールド行列
 	void SetTransform(int handle, Transform& transform);
 
+
+
+	/// <summary>
+	/// 画像を任意の方向の画面端に合わせた位置を返す
+	/// 画像サイズは現在のRectを参照する
+	/// </summary>
+	/// <param name="handle">画像の番号</param>
+	/// <param name="placement">合わせたい方向</param>
+	/// <returns>方向に応じ調整したX or Y</returns>
+	float AlignImage(int handle, PLACEMENT placement);
+
+	/// <summary>
+	/// 画像を任意位置に合わせた位置を返す
+	/// 画像サイズは現在のRectを参照する
+	/// </summary>
+	/// <param name="handle">画像の番号</param>
+	/// <param name="placement">合わせたい方向</param>
+	/// <param name="specifiedPos">合わせたいX or Y</param>
+	/// <returns>方向に応じ調整したX or Y</returns>
+	float AlignImage(int handle, PLACEMENT placement,float specifiedPos);
 	//ワールド行列の取得
 	//引数：handle	知りたい画像の番号
 	//戻値：ワールド行列

@@ -4,13 +4,13 @@
 #include"Player.h"
 namespace {
 	float INOUTEXPO(float t) {//ŽžŠÔ‚É‘Î‚µˆÊ’u‚ð•Ô‚·
-		return t == 0
-			? 0 
-			: t >= 1
-				? 1
-				: t < 0.5
-					? std::pow(2, 20 * t - 10) / 2
-					: (2 - std::pow(2, -20 * t + 10)) / 2;
+		return t == 0.0f
+			? 0.0f 
+			: t >= 1.0f
+				? 1.0f
+				: t < 0.5f
+					? (float)(std::pow(2, 20 * t - 10)) / 2
+					: (2 - (float)(std::pow(2, -20 * t + 10))) / 2;
 	}
 	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();

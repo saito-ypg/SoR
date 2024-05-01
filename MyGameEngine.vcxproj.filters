@@ -128,7 +128,6 @@
     <ClInclude Include="Engine\VFX.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInterface.h" />
     <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="sources\GameOverScene.h">
@@ -200,6 +199,9 @@
     <ClInclude Include="sources\ChargeSkill.h">
       <Filter>sourses\Scene\Play\Skills</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerInterface.h">
+      <Filter>sourses\Scene\Play\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -269,7 +271,6 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Main.cpp" />
-    <ClCompile Include="PlayerInterface.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="sources\GameOverScene.cpp">
       <Filter>sourses\Scene\Gameover</Filter>
@@ -333,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="sources\ChargeSkill.cpp">
       <Filter>sourses\Scene\Play\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInterface.cpp">
+      <Filter>sourses\Scene\Play\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
