@@ -82,7 +82,18 @@ namespace Image
 	//引数：matrix	ワールド行列
 	void SetTransform(int handle, Transform& transform);
 
-
+	/// <summary>
+	/// 画像のトランスフォームに使う値からピクセルに変換
+	/// </summary>
+	/// <param name="pos">Transformのpos</param>
+	/// <returns>pixelに変換した値</returns>
+	XMFLOAT3 toPixel(XMFLOAT3 pos);
+	/// <summary>
+	/// ピクセルからトランスフォームに使う値に変換
+	/// </summary>
+	/// <param name="pixel">左上原点ピクセル指定</param>
+	/// <returns>Transformに使うpos</returns>
+	XMFLOAT3 toPos(XMFLOAT3 pixel);
 
 	/// <summary>
 	/// 画像を任意の方向の画面端に合わせた位置を返す

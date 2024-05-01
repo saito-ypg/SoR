@@ -169,16 +169,28 @@ namespace Image
 		_datas[handle]->transform = transform;
 	}
 
+	XMFLOAT3 toPixel(XMFLOAT3 pos)
+	{
+		return XMFLOAT3((pos.x+1.0f)/2*Direct3D::screenWidth_, (pos.y + 1.0f) / -2 * Direct3D::screenHeight_,0);
+	}
+
+	XMFLOAT3 toPos(XMFLOAT3 pixel)
+	{
+		return XMFLOAT3(pixel.x/Direct3D::screenWidth_*2-1,pixel.y/Direct3D::screenHeight_*-2+1,0);
+	}
+
 	float AlignImage(int handle, PLACEMENT placement)
 	{	
-		RET_IF_NON_EXIST(handle);
+		/*RET_IF_NON_EXIST(handle);
+		RECT rect_ = _datas.at(handle)->rect;
 		switch (placement)
 		{
 		case LEFT:
-
+			return ((rect_.right/2)/ Direct3D::screenWidth_));
 		case RIGHT:
 
-		}
+		}*/
+		return 0;
 	}	
 
 
