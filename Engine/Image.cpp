@@ -181,22 +181,36 @@ namespace Image
 
 	float AlignImage(int handle, PLACEMENT placement)
 	{	
-		/*RET_IF_NON_EXIST(handle);
-		RECT rect_ = _datas.at(handle)->rect;
 		switch (placement)
 		{
 		case LEFT:
-			return ((rect_.right/2)/ Direct3D::screenWidth_));
 		case RIGHT:
-
-		}*/
-		return 0;
+			return AlignImage(handle, placement, Direct3D::screenWidth_);
+		case UP:
+		case DOWN:
+			return AlignImage(handle, placement, Direct3D::screenHeight_);
+		default:
+			return NAN;
+		}
 	}	
 
 
 	float AlignImage(int handle, PLACEMENT placement, float specifiedPos)
 	{
-		return 0.0f;
+		if ((handle) < 0 || (handle) >= Image::_datas.size()) return NAN;
+		RECT rect_ = _datas.at(handle)->rect;
+		switch (placement)
+		{
+		case LEFT:
+			return toPos(XMFLOAT3((rect_.right / 2), 0, 0)).x;
+		case RIGHT:
+			return toPos(XMFLOAT3(specifiedPos - (rect_.right / 2), 0, 0)).x;
+		case UP:
+			return toPos(XMFLOAT3(0, rect_.bottom / 2, 0)).y;
+		case DOWN:
+			return toPos(XMFLOAT3(0, specifiedPos - (rect_.bottom / 2), 0)).y;
+		}
+		return 0;
 	}
 
 	//ÉèÅ[ÉãÉhçsóÒÇÃéÊìæ
