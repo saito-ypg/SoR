@@ -4,6 +4,7 @@
 #include <string>
 #include "Sprite.h"
 #include "Transform.h"
+static std::string ASSET_PATH("../Assets/");//ソースファイルからのパス
 enum PLACEMENT { LEFT, RIGHT, UP, DOWN };
 //-----------------------------------------------------------
 //2D画像を管理する

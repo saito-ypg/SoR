@@ -199,7 +199,7 @@
     <ClInclude Include="sources\ChargeSkill.h">
       <Filter>sourses\Scene\Play\Skills</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInterface.h">
+    <ClInclude Include="sources\PlayerInterface.h">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -335,7 +335,7 @@
     <ClCompile Include="sources\ChargeSkill.cpp">
       <Filter>sourses\Scene\Play\Skills</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerInterface.cpp">
+    <ClCompile Include="sources\PlayerInterface.cpp">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClCompile>
   </ItemGroup>

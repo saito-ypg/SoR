@@ -190,7 +190,7 @@ namespace Image
 		case DOWN:
 			return AlignImage(handle, placement, Direct3D::screenHeight_);
 		default:
-			return NAN;
+			return -9999;
 		}
 	}	
 
@@ -198,19 +198,24 @@ namespace Image
 	float AlignImage(int handle, PLACEMENT placement, float specifiedPos)
 	{
 		if ((handle) < 0 || (handle) >= Image::_datas.size()) return NAN;
-		RECT rect_ = _datas.at(handle)->rect;
+		const RECT rect_ = _datas.at(handle)->rect;
+		const float halfWidth = rect_.right / 2.0f;
+		const float halfHeight = rect_.bottom / 2.0f;
+		float retPos;
 		switch (placement)
 		{
 		case LEFT:
-			return toPos(XMFLOAT3((rect_.right / 2), 0, 0)).x;
+			retPos= (XMFLOAT3(halfWidth, 0, 0)).x;	break;
 		case RIGHT:
-			return toPos(XMFLOAT3(specifiedPos - (rect_.right / 2), 0, 0)).x;
+			retPos= (XMFLOAT3(specifiedPos - (halfWidth), 0, 0)).x; break;
 		case UP:
-			return toPos(XMFLOAT3(0, rect_.bottom / 2, 0)).y;
+			retPos = (XMFLOAT3(0, halfHeight ,0)).y; break;
 		case DOWN:
-			return toPos(XMFLOAT3(0, specifiedPos - (rect_.bottom / 2), 0)).y;
+			retPos = (XMFLOAT3(0, specifiedPos - (halfHeight), 0)).y; break;
+		default:
+			return NAN;
 		}
-		return 0;
+		return retPos;
 	}
 
 	//ÉèÅ[ÉãÉhçsóÒÇÃéÊìæ

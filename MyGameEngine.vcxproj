@@ -43,7 +43,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\VFX.cpp" />
-    <ClCompile Include="PlayerInterface.cpp" />
+    <ClCompile Include="sources\PlayerInterface.cpp" />
     <ClCompile Include="sources\ActorCollider.cpp" />
     <ClCompile Include="sources\ActorInfo.cpp" />
     <ClCompile Include="sources\areamodels.cpp" />
@@ -91,7 +91,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\VFX.h" />
-    <ClInclude Include="PlayerInterface.h" />
+    <ClInclude Include="sources\PlayerInterface.h" />
     <ClInclude Include="sources\ActorCollider.h" />
     <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="sources\areamodels.h" />

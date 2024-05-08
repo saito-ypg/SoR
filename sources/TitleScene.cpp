@@ -42,8 +42,7 @@ void TitleScene::Draw()
 	Image::SetTransform(hImage, transform_);
 	Image::Draw(hImage);
 	Transform UI;
-	UI.position_.x=  Image::AlignImage(hTest,RIGHT,500) ;
-	UI.position_.y = Image::AlignImage(hTest, UP);
+	UI.position_=Image::toPos(XMFLOAT3(Image::AlignImage(hTest,RIGHT,500),Image::AlignImage(hTest, UP),0));
 	Image::SetTransform(hTest, UI);
 	Image::Draw(hTest);
 }
