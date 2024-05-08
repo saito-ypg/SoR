@@ -1,6 +1,11 @@
 #include "PlayerInterface.h"
 #include"../Engine/Image.h"
 constexpr float SKILL_ALIGN_UNDER=680;
+enum eImage{
+	BACK,
+	SKILL_SPIN,
+	SKILL_CHARGE
+};
 PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "PlayerInterface"), pPlayer(nullptr)
 {
 }
@@ -18,13 +23,19 @@ void PlayerInterface::SetPlayer(Player* p)
 
 void PlayerInterface::Initialize()
 {
-	hModels.emplace("uiback",Image::Load(ASSET_PATH + "Interface/UIBack.png"));
-	hModels.emplace("spinicon", Image::Load(ASSET_PATH + "Interface/spinicon.png"));
-	for (const auto& itr : hModels)
+	loadAndPush("UIBack.png");
+	loadAndPush("spinicon.png");
+	loadAndPush("charge.png");
+	for (const auto& itr : hImages)
 	{
-		assert(itr.second >= 0);
+		assert(itr >= 0);
 	}
 
+}
+
+void PlayerInterface::loadAndPush(std::string path)
+{
+	hImages.emplace_back(Image::Load(ASSET_PATH +"Interface/"+ path));
 }
 
 void PlayerInterface::Update(const float& dt)
@@ -39,16 +50,21 @@ void PlayerInterface::Draw()
 		return;
 
 	Transform BackTransform;
-	BackTransform.scale_.x = 3.5f;
-	const int& back = hModels.at("uiback");
-	BackTransform.position_.y = Image::AlignImage(back, DOWN);
+	BackTransform.scale_.x = 4.5f;
+	const int& back = hImages.at(BACK);
+	BackTransform.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(back, DOWN),0)).y;
 	Image::SetTransform(back, BackTransform);
 	
 	Transform spinT;
-	const int& spinskill = hModels.at("spinicon");
+	const int& spinskill = hImages.at(SKILL_SPIN);
 	spinT.position_ = Image::toPos(XMFLOAT3(400, Image::AlignImage(spinskill,DOWN,SKILL_ALIGN_UNDER), 0));
+	Image::SetTransform(spinskill, spinT);
 
-	for (const auto&[name,handle] : hModels)//àÍêƒï`âÊ
+	Transform chargeT;
+	const int& chargeskill = hImages.at(SKILL_CHARGE);
+	chargeT.position_ = Image::toPos(XMFLOAT3(480, Image::AlignImage(chargeskill, DOWN, SKILL_ALIGN_UNDER), 0));
+	Image::SetTransform(chargeskill, chargeT);
+	for (const auto& handle: hImages)//àÍêƒï`âÊ
 	{
 		Image::Draw(handle);
 	}
