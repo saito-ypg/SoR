@@ -2,10 +2,14 @@
 //#include "Engine/GameObject.h"
 #include"GameActor.h"
 #include"PlayerSkillsInclude.h"
-constexpr float MOVE_VELOCITY = 10.0f /60;
+
 class Player : public GameActor
-{
+{   
+public:
+    static constexpr int skillsNum = 4;
 private:
+    static constexpr float MOVE_VELOCITY = 10.0f /60;
+    
     //Pimpl‚Æ‚©‚¢‚¤ŠT”OA‚æ‚³‚»‚¤
     int hModel_;
     //ˆÚ“®•ûŒü‚Ì’PˆÊƒxƒNƒgƒ‹‚ğŠi”[
@@ -16,7 +20,7 @@ private:
     float moveTime_;
 
  //ƒXƒLƒ‹“o˜^
-    static constexpr int skillsNum = 4;
+ 
     std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum)};   
     bool canUseSkill(int number);
     void ActivateSkill(int number);
@@ -63,10 +67,6 @@ public:
 
     //ŒÂ•ÊXV
     void ActorUpdate(const float& dt) override;
-
-
-
-   
 
     bool isIntersectGround(const DirectX::XMVECTOR& target);
 
