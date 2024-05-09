@@ -222,11 +222,20 @@ void Player::Release()
     }
 }
 
+std::vector<float> Player::getSkillPercentageVec()
+{
+    std::vector<float> retVec;
+    for (auto& itr : skills) {
+        retVec.push_back(itr->getCdPercentage());
+    }
+    return retVec;
+}
+
 bool Player::canUseSkill(int number)
 {
     if (this->isDuringSkill())//すでにスキル動作中ならｘ
         return false;
-    if (number < 0 || number >= skills.size())//存在しないスキル番号×
+    if (number < 0 || number >= skills.size())//存在しないスキル番号ｘ
         return false;
     return skills.at(number)->CanUse();//対象のスキルは使用可能かを返す
     

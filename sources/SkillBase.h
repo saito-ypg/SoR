@@ -91,9 +91,8 @@ public:
 	virtual void DrawRangeDisplay(float deg)=0;//UŒ‚‘O‚É”ÍˆÍ‚ð•\Ž¦‚·‚é ˆø”->Šp“x
 	virtual void Release() = 0;
 	bool CanUse() const{ return coolDown_ <= 0; }
-	bool CanMove() const{ 
-		return castTime_ <= 0; 
-	}
+	bool CanMove() const{ return castTime_ <= 0; }
+	float getCdPercentage() const { return (defaultCoolDown_ - coolDown_) / defaultCoolDown_; }
 
 	static float ConvToSeconds(float frames) {return frames / 60;}//ƒtƒŒ[ƒ€‚©‚ç•b‚É•ÏŠ·
 	static float ConvToFrames(float seconds) { return seconds * 60; }//•b‚©‚çƒtƒŒ[ƒ€‚É•ÏŠ·

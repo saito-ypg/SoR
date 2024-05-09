@@ -26,9 +26,9 @@ namespace Image
 		for (int i = 0; i < _datas.size(); i++)
 		{
 			//すでに開いている場合
-			if (_datas[i] != nullptr && _datas[i]->fileName == fileName)
+			if (_datas.at(i) != nullptr && _datas.at(i)->fileName == fileName)
 			{
-				pData->pSprite = _datas[i]->pSprite;
+				pData->pSprite = _datas.at(i)->pSprite;
 				isExist = true;
 				break;
 			}
@@ -54,9 +54,9 @@ namespace Image
 		//使ってない番号が無いか探す
 		for (int i = 0; i < _datas.size(); i++)
 		{
-			if (_datas[i] == nullptr)
+			if (_datas.at(i) == nullptr)
 			{
-				_datas[i] = pData;
+				_datas.at(i) = pData;
 				return i;
 			}
 		}
@@ -79,12 +79,12 @@ namespace Image
 	void Draw(int handle)
 	{
 		RET_IF_NON_EXIST(handle);
-		if (_datas[handle] == nullptr)
+		if (_datas.at(handle) == nullptr)
 		{
 			return;
 		}
-		_datas[handle]->transform.Calclation();
-		_datas[handle]->pSprite->Draw(_datas[handle]->transform, _datas[handle]->rect, _datas[handle]->alpha);
+		_datas.at(handle)->transform.Calclation();
+		_datas.at(handle)->pSprite->Draw(_datas.at(handle)->transform, _datas.at(handle)->rect, _datas.at(handle)->alpha);
 	}
 
 
@@ -98,7 +98,7 @@ namespace Image
 		for (int i = 0; i < _datas.size(); i++)
 		{
 			//すでに開いている場合
-			if (_datas[i] != nullptr && i != handle && _datas[i]->pSprite == _datas[handle]->pSprite)
+			if (_datas.at(i) != nullptr && i != handle && _datas.at(i)->pSprite == _datas.at(handle)->pSprite)
 			{
 				isExist = true;
 				break;
@@ -108,10 +108,10 @@ namespace Image
 		//使ってなければモデル解放
 		if (isExist == false)
 		{
-			SAFE_DELETE(_datas[handle]->pSprite);
+			SAFE_DELETE(_datas.at(handle)->pSprite);
 		}
 
-		SAFE_DELETE(_datas[handle]);
+		SAFE_DELETE(_datas.at(handle));
 	}
 
 
@@ -132,10 +132,10 @@ namespace Image
 	{
 		RET_IF_NON_EXIST(handle);
 
-		_datas[handle]->rect.left = x;
-		_datas[handle]->rect.top = y;
-		_datas[handle]->rect.right = width;
-		_datas[handle]->rect.bottom = height;
+		_datas.at(handle)->rect.left = x;
+		_datas.at(handle)->rect.top = y;
+		_datas.at(handle)->rect.right = width;
+		_datas.at(handle)->rect.bottom = height;
 	}
 
 
@@ -144,12 +144,12 @@ namespace Image
 	{
 		RET_IF_NON_EXIST(handle);
 
-		XMFLOAT3 size = _datas[handle]->pSprite->GetTextureSize();
+		XMFLOAT3 size = _datas.at(handle)->pSprite->GetTextureSize();
 
-		_datas[handle]->rect.left = 0;
-		_datas[handle]->rect.top = 0;
-		_datas[handle]->rect.right = (long)size.x;
-		_datas[handle]->rect.bottom = (long)size.y;
+		_datas.at(handle)->rect.left = 0;
+		_datas.at(handle)->rect.top = 0;
+		_datas.at(handle)->rect.right = (long)size.x;
+		_datas.at(handle)->rect.bottom = (long)size.y;
 
 	}
 
@@ -157,7 +157,7 @@ namespace Image
 	void SetAlpha(int handle, int alpha)
 	{
 		RET_IF_NON_EXIST(handle);
-		_datas[handle]->alpha = (float)alpha / 255.0f;
+		_datas.at(handle)->alpha = (float)alpha / 255.0f;
 	}
 
 
@@ -166,7 +166,7 @@ namespace Image
 	{
 		RET_IF_NON_EXIST(handle);
 
-		_datas[handle]->transform = transform;
+		_datas.at(handle)->transform = transform;
 	}
 
 	XMFLOAT3 toPixel(XMFLOAT3 pos)
@@ -225,7 +225,7 @@ namespace Image
 		{
 			return XMMatrixIdentity();
 		}
-		return _datas[handle]->transform.GetWorldMatrix();
+		return _datas.at(handle)->transform.GetWorldMatrix();
 	}
 }
 
