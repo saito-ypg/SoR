@@ -2,7 +2,6 @@
 #include"../Engine/Image.h"
 #include"Player.h"
 enum eImage{
-	BACK,
 	SKILL_SPIN,
 	SKILL_CHARGE
 };
@@ -14,6 +13,7 @@ namespace {
 }
 PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "PlayerInterface")
 {
+	hImageBack = -1;
 }
 
 PlayerInterface::~PlayerInterface()
@@ -29,10 +29,14 @@ void PlayerInterface::SetPlayer(const Player* const p)
 
 void PlayerInterface::Initialize()
 {
-	loadAndPush("UIBack.png");
+	hImageBack = Image::Load(ASSET_PATH + "Interface/UIBack.png");
+	assert(hImageBack >= 0);
 	loadAndPush("spinicon.png");
 	loadAndPush("charge.png");
-	for (const auto& itr : hImages)
+
+
+	loadAndPush("iconCD.png");//これは最後尾
+	for (const auto& itr : hSkillIcons)
 	{
 		assert(itr >= 0);
 	}
@@ -41,7 +45,7 @@ void PlayerInterface::Initialize()
 
 void PlayerInterface::loadAndPush(std::string path)
 {
-	hImages.emplace_back(Image::Load(ASSET_PATH +"Interface/"+ path));
+	hSkillIcons.emplace_back(Image::Load(ASSET_PATH +"Interface/"+ path));
 }
 
 void PlayerInterface::Update(const float& dt)
@@ -52,39 +56,33 @@ void PlayerInterface::Update(const float& dt)
 
 void PlayerInterface::Draw()
 {
-
-
 	if (!pPlayer)
 		return;
 
 	Transform BackTransform;
 	BackTransform.scale_.x = 4.5f;
-	const int& back = hImages.at(BACK);
-	BackTransform.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(back, DOWN),0)).y;
-	Image::SetTransform(back, BackTransform);
+	BackTransform.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(hImageBack, DOWN),0)).y;
+	Image::SetTransform(hImageBack, BackTransform);
+	Image::Draw(hImageBack);
 	
-	DrawSkillIcon();
-
 }
 
 void PlayerInterface::DrawSkillIcon()
 {
 	std::vector<float>v = pPlayer->getSkillPercentageVec();
-	//以下はループで回せるように抽象化すべき？
-	Transform spinT;
-	const int& spinskill = hImages.at(SKILL_SPIN);
-	spinT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * 0, Image::AlignImage(spinskill, DOWN, SKILL_ALIGN_UNDER), 0));
-	spinT.scale_.y = v.at(0);
-	Image::SetTransform(spinskill, spinT);
+	const int& cdGrayQuad = v.size() - 1;//アイコンの上にかぶせる暗いやつ
 
-	Transform chargeT;
-	const int& chargeskill = hImages.at(SKILL_CHARGE);
-	chargeT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * 1, Image::AlignImage(chargeskill, DOWN, SKILL_ALIGN_UNDER), 0));
-	chargeT.scale_.y = v.at(1);
-	Image::SetTransform(chargeskill, chargeT);
-	for (const auto& handle : hImages)//一斉描画
+	for (int i = 0; i < cdGrayQuad; i++)
 	{
+		//以下はループで回せるように抽象化すべき？
+		Transform transform;
+		const int& handle = hSkillIcons.at(i);
+		transform.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * i, Image::AlignImage(handle, DOWN, SKILL_ALIGN_UNDER), 0));
+		transform.scale_.y = v.at(i);
+		Image::SetTransform(handle, transform);
 		Image::Draw(handle);
+
+		//ここからCDあればかぶせる
 	}
 }
 

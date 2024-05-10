@@ -10,7 +10,9 @@ class PlayerInterface :
     public GameObject
 {
     const Player* pPlayer;
-    std::vector<int>hImages;
+    int hImageBack;
+    std::vector<int>hSkillIcons;
+    
     void loadAndPush(std::string path);
 public:
     PlayerInterface(GameObject* parent);
