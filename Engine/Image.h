@@ -114,6 +114,7 @@ namespace Image
 	/// <param name="specifiedPos">合わせたいX or Yのピクセル</param>
 	/// <returns>方向に応じ調整したX or Y</returns>
 	float AlignImage(int handle, PLACEMENT placement,float specifiedPos);
+
 	//ワールド行列の取得
 	//引数：handle	知りたい画像の番号
 	//戻値：ワールド行列

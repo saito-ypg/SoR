@@ -185,10 +185,10 @@ namespace Image
 		{
 		case LEFT:
 		case RIGHT:
-			return AlignImage(handle, placement, Direct3D::screenWidth_);
+			return AlignImage(handle, placement, (float)Direct3D::screenWidth_);
 		case UP:
 		case DOWN:
-			return AlignImage(handle, placement, Direct3D::screenHeight_);
+			return AlignImage(handle, placement, (float)Direct3D::screenHeight_);
 		default:
 			return -9999;
 		}

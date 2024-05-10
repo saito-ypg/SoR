@@ -1,6 +1,6 @@
 #include "PlayerInterface.h"
 #include"../Engine/Image.h"
-
+#include"Player.h"
 enum eImage{
 	BACK,
 	SKILL_SPIN,
@@ -60,15 +60,18 @@ void PlayerInterface::Draw()
 	BackTransform.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(back, DOWN),0)).y;
 	Image::SetTransform(back, BackTransform);
 	
+	std::vector<float>v=pPlayer->getSkillPercentageVec();
 	//à»â∫ÇÕÉãÅ[ÉvÇ≈âÒÇπÇÈÇÊÇ§Ç…íäè€âªÇ∑Ç◊Ç´ÅH
 	Transform spinT;
 	const int& spinskill = hImages.at(SKILL_SPIN);
 	spinT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT+ICON_DIST*0, Image::AlignImage(spinskill,DOWN,SKILL_ALIGN_UNDER), 0));
+	spinT.scale_.y = v.at(0);
 	Image::SetTransform(spinskill, spinT);
 
 	Transform chargeT;
 	const int& chargeskill = hImages.at(SKILL_CHARGE);
 	chargeT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * 1, Image::AlignImage(chargeskill, DOWN, SKILL_ALIGN_UNDER), 0));
+	chargeT.scale_.y = v.at(1);
 	Image::SetTransform(chargeskill, chargeT);
 	for (const auto& handle: hImages)//àÍêƒï`âÊ
 	{

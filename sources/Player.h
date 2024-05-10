@@ -77,6 +77,6 @@ public:
     void Release() override;
 
     //interface—p
-    std::vector<float> getSkillPercentageVec();
+    std::vector<float> getSkillPercentageVec()const;
 
 };

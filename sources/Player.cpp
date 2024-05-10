@@ -222,10 +222,11 @@ void Player::Release()
     }
 }
 
-std::vector<float> Player::getSkillPercentageVec()
+std::vector<float> Player::getSkillPercentageVec() const
 {
     std::vector<float> retVec;
     for (auto& itr : skills) {
+        if(itr)
         retVec.push_back(itr->getCdPercentage());
     }
     return retVec;
