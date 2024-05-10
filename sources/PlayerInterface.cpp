@@ -6,6 +6,12 @@ enum eImage{
 	SKILL_SPIN,
 	SKILL_CHARGE
 };
+namespace {
+	//íËêî
+	constexpr float SKILL_ALIGN_UNDER = 680;
+	constexpr float ICON_DIST = 80;
+	constexpr float ICON_LEFT = 400;
+}
 PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "PlayerInterface")
 {
 }
@@ -46,10 +52,7 @@ void PlayerInterface::Update(const float& dt)
 
 void PlayerInterface::Draw()
 {
-	//íËêî
-	constexpr float SKILL_ALIGN_UNDER = 680;
-	constexpr float ICON_DIST = 80;
-	constexpr float ICON_LEFT = 400;
+
 
 	if (!pPlayer)
 		return;
@@ -60,11 +63,17 @@ void PlayerInterface::Draw()
 	BackTransform.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(back, DOWN),0)).y;
 	Image::SetTransform(back, BackTransform);
 	
-	std::vector<float>v=pPlayer->getSkillPercentageVec();
+	DrawSkillIcon();
+
+}
+
+void PlayerInterface::DrawSkillIcon()
+{
+	std::vector<float>v = pPlayer->getSkillPercentageVec();
 	//à»â∫ÇÕÉãÅ[ÉvÇ≈âÒÇπÇÈÇÊÇ§Ç…íäè€âªÇ∑Ç◊Ç´ÅH
 	Transform spinT;
 	const int& spinskill = hImages.at(SKILL_SPIN);
-	spinT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT+ICON_DIST*0, Image::AlignImage(spinskill,DOWN,SKILL_ALIGN_UNDER), 0));
+	spinT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * 0, Image::AlignImage(spinskill, DOWN, SKILL_ALIGN_UNDER), 0));
 	spinT.scale_.y = v.at(0);
 	Image::SetTransform(spinskill, spinT);
 
@@ -73,11 +82,10 @@ void PlayerInterface::Draw()
 	chargeT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * 1, Image::AlignImage(chargeskill, DOWN, SKILL_ALIGN_UNDER), 0));
 	chargeT.scale_.y = v.at(1);
 	Image::SetTransform(chargeskill, chargeT);
-	for (const auto& handle: hImages)//àÍêƒï`âÊ
+	for (const auto& handle : hImages)//àÍêƒï`âÊ
 	{
 		Image::Draw(handle);
 	}
-
 }
 
 void PlayerInterface::Release()

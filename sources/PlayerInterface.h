@@ -21,6 +21,7 @@ public:
   
     void Update(const float& dt)override;
     void Draw()override;
+    void DrawSkillIcon();
     void Release()override;
 };
 
