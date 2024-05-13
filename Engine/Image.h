@@ -6,6 +6,7 @@
 #include "Transform.h"
 static std::string ASSET_PATH("../Assets/");//ソースファイルからのパス
 enum PLACEMENT { LEFT, RIGHT, UP, DOWN };
+enum AXIS{X,Y};
 //-----------------------------------------------------------
 //2D画像を管理する
 //-----------------------------------------------------------
@@ -87,14 +88,28 @@ namespace Image
 	/// 画像のトランスフォームに使う値からピクセルに変換
 	/// </summary>
 	/// <param name="pos">Transformのpos</param>
-	/// <returns>pixelに変換した値</returns>
+	/// <returns>pixelに変換したXMFLOAT3</returns>
 	XMFLOAT3 toPixel(XMFLOAT3 pos);
+	/// <summary>
+	/// 画像のトランスフォームに使う値からピクセルに変換
+	/// </summary>
+	/// <param name="pos">画像座標のX or Y</param>
+	/// <param name="axis">XかYか</param>
+	/// <returns>pixelに変換したfloat</returns>
+	float toPixel(float pos, AXIS axis);
+	
 	/// <summary>
 	/// ピクセルからトランスフォームに使う値に変換
 	/// </summary>
 	/// <param name="pixel">左上原点ピクセル指定</param>
-	/// <returns>Transformに使うpos</returns>
+	/// <returns>Transformに使うposのXMFLOAT3</returns>
 	XMFLOAT3 toPos(XMFLOAT3 pixel);
+	/// <summary>
+	/// ピクセルからトランスフォームに使う値に変換
+	/// </summary>
+	/// <param name="pixel">左上原点ピクセル指定</param>
+	/// <returns>Transformに使うposのfloat</returns>
+	float toPos(float pixel, AXIS axis);
 
 	/// <summary>
 	/// 画像を任意の方向の画面端に合わせた位置を返す
@@ -107,13 +122,14 @@ namespace Image
 
 	/// <summary>
 	/// 画像を任意位置に合わせた位置を返す
-	/// 画像サイズは現在のRectを参照する
+	/// 画像サイズは現在のRectおよび引数のscaleを参照する
 	/// </summary>
 	/// <param name="handle">画像の番号</param>
 	/// <param name="placement">合わせたい方向</param>
 	/// <param name="specifiedPos">合わせたいX or Yのピクセル</param>
+	/// <param name="scale">考慮するX or Yのスケール</param>
 	/// <returns>方向に応じ調整したX or Y</returns>
-	float AlignImage(int handle, PLACEMENT placement,float specifiedPos);
+	float AlignImage(int handle, PLACEMENT placement, float specifiedPos,float scale=1.0f);
 
 	//ワールド行列の取得
 	//引数：handle	知りたい画像の番号

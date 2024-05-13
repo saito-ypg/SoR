@@ -69,20 +69,24 @@ void PlayerInterface::Draw()
 
 void PlayerInterface::DrawSkillIcon()
 {
-	std::vector<float>v = pPlayer->getSkillPercentageVec();
-	const int& cdGrayQuad = v.size() - 1;//アイコンの上にかぶせる暗いやつ
+	std::vector<float>vSkillCD = pPlayer->getSkillPercentageVec();
+	const int& cdGrayQuad = hSkillIcons.size() - 1;//アイコンの上にかぶせる暗いやつ
 
 	for (int i = 0; i < cdGrayQuad; i++)
 	{
-		//以下はループで回せるように抽象化すべき？
+	
 		Transform transform;
 		const int& handle = hSkillIcons.at(i);
 		transform.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * i, Image::AlignImage(handle, DOWN, SKILL_ALIGN_UNDER), 0));
-		transform.scale_.y = v.at(i);
 		Image::SetTransform(handle, transform);
 		Image::Draw(handle);
 
 		//ここからCDあればかぶせる
+		if (vSkillCD.at(i) < 1.0f) {
+			transform.scale_.y = vSkillCD.at(i);
+			transform_.position_.y = Image::AlignImage(handle, DOWN, SKILL_ALIGN_UNDER, transform.scale_.y);
+			Image::SetTransform()
+		}
 	}
 }
 
