@@ -111,14 +111,6 @@ namespace Image
 	/// <returns>Transformに使うposのfloat</returns>
 	float toPos(float pixel, AXIS axis);
 
-	/// <summary>
-	/// 画像を任意の方向の画面端に合わせた位置を返す
-	/// 画像サイズは現在のRectを参照する
-	/// </summary>
-	/// <param name="handle">画像の番号</param>
-	/// <param name="placement">合わせたい方向</param>
-	/// <returns>方向に応じ調整したX or Y</returns>
-	float AlignImage(int handle, PLACEMENT placement);
 
 	/// <summary>
 	/// 画像を任意位置に合わせた位置を返す
@@ -126,10 +118,10 @@ namespace Image
 	/// </summary>
 	/// <param name="handle">画像の番号</param>
 	/// <param name="placement">合わせたい方向</param>
-	/// <param name="specifiedPos">合わせたいX or Yのピクセル</param>
-	/// <param name="scale">考慮するX or Yのスケール</param>
+	/// <param name="specifiedPos">合わせたいX or Yのピクセル(デフォルトは画面端、省略不可の場合は-9999.0fを入れる)</param>
+	/// <param name="scale">考慮するX or Yのスケール(デフォルトは1)</param>
 	/// <returns>方向に応じ調整したX or Y</returns>
-	float AlignImage(int handle, PLACEMENT placement, float specifiedPos,float scale=1.0f);
+	float AlignImage(int handle, PLACEMENT placement, float specifiedPos=-9999.0f,float scale=1.0f);
 
 	//ワールド行列の取得
 	//引数：handle	知りたい画像の番号

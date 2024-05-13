@@ -11,6 +11,7 @@ class PlayerInterface :
 {
     const Player* pPlayer;
     int hImageBack;
+    int hImageCD;
     std::vector<int>hSkillIcons;
     
     void loadAndPush(std::string path);

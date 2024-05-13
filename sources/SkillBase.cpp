@@ -54,6 +54,13 @@ void SkillBase::Activate()
 	isInOperation = true;
 }
 
+float SkillBase::getCdPercentage() const
+{
+	if (castTime_ > 0)
+		return 1;
+	return coolDown_ / defaultCoolDown_; 
+}
+
 void SkillBase::SwitchActionByStep()
 {
 	switch (stepindex)

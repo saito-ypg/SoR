@@ -191,28 +191,14 @@ namespace Image
 	float toPos(float pixel, AXIS axis)
 	{
 		switch (axis) {
-		case X:return((pos + 1.0f) / 2 * Direct3D::screenWidth_);
-		case Y:return((pos + 1.0f) / -2 * Direct3D::screenHeight_);
+		case X:return(pixel / Direct3D::screenWidth_ * 2 - 1);
+		case Y:return(pixel / Direct3D::screenHeight_ * -2 + 1);
 		default:assert(false);
 		}
 	}
 
-	float AlignImage(int handle, PLACEMENT placement)
-	{	
-		switch (placement)
-		{
-		case LEFT:
-		case RIGHT:
-			return AlignImage(handle, placement, (float)Direct3D::screenWidth_);
-		case UP:
-		case DOWN:
-			return AlignImage(handle, placement, (float)Direct3D::screenHeight_);
-		default:
-			return -9999;
-		}
-	}	
 
-	float AlignImage(int handle, PLACEMENT placement, float specifiedPos, float scale=1.0f)
+	float AlignImage(int handle, PLACEMENT placement, float specifiedPos, float scale)
 	{
 		if ((handle) < 0 || (handle) >= Image::_datas.size()) return NAN;
 		const RECT rect_ = _datas.at(handle)->rect;
@@ -224,10 +210,12 @@ namespace Image
 		case LEFT:
 			retPos = (XMFLOAT3(halfWidth, 0, 0)).x;	break;
 		case RIGHT:
+			if (specifiedPos == -9999.0f)specifiedPos = Direct3D::screenWidth_;
 			retPos = (XMFLOAT3(specifiedPos - (halfWidth), 0, 0)).x; break;
 		case UP:
 			retPos = (XMFLOAT3(0, halfHeight, 0)).y; break;
 		case DOWN:
+			if (specifiedPos == -9999.0f)specifiedPos = Direct3D::screenHeight_;
 			retPos = (XMFLOAT3(0, specifiedPos - (halfHeight), 0)).y; break;
 		default:
 			return NAN;
