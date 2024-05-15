@@ -2,6 +2,7 @@
 #include"../Engine/Image.h"
 #include"Player.h"
 #include"../Engine/Debug.h"
+#include"../Engine/Input.h"
 enum eImage{
 	SKILL_SPIN,
 	SKILL_CHARGE
@@ -80,7 +81,7 @@ void PlayerInterface::DrawSkillIcon()
 	const std::vector<std::string>inputKey = { "Q","W"};
 	for (int i = 0; i < hSkillIcons.size(); i++)
 	{
-	
+
 		Transform PictT;
 		const int& handle = hSkillIcons.at(i);
 		PictT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * i, Image::AlignImage(handle, DOWN, SKILL_ALIGN_UNDER), 0));
@@ -90,13 +91,15 @@ void PlayerInterface::DrawSkillIcon()
 		//ここからCDあればかぶせる
 		if (vSkillCD.at(i) <= 1.0f) {
 			PictT.scale_.y = vSkillCD.at(i);
-			PictT.position_.y = Image::toPos(Image::AlignImage(hImageCD, DOWN, SKILL_ALIGN_UNDER, PictT.scale_.y),Y);
+			PictT.position_.y = Image::toPos(Image::AlignImage(hImageCD, DOWN, SKILL_ALIGN_UNDER, PictT.scale_.y), Y);
 			Image::SetTransform(hImageCD, PictT);
 			Image::SetAlpha(hImageCD, 0xB2);
 			Image::Draw(hImageCD);
 		}
-		if (Image::isMouseOver(handle))
-			__debugbreak;
+
+		if (Image::isMouseOver(handle)) {//フローティング
+
+		}
 		pText->Draw(ICON_LEFT + ICON_DIST * i, SKILL_ALIGN_UNDER+16,inputKey.at(i).c_str());
 	}
 	

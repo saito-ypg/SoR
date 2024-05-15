@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include<limits>
 #include "Sprite.h"
 #include "Transform.h"
 static std::string ASSET_PATH("../Assets/");//ソースファイルからのパス
@@ -84,48 +85,54 @@ namespace Image
 	//引数：matrix	ワールド行列
 	void SetTransform(int handle, Transform& transform);
 
-	/// <summary>
-	/// 画像のトランスフォームに使う値からピクセルに変換
-	/// </summary>
-	/// <param name="pos">Transformのpos</param>
-	/// <returns>pixelに変換したXMFLOAT3</returns>
-	XMFLOAT3 toPixel(XMFLOAT3 pos);
-	/// <summary>
-	/// 画像のトランスフォームに使う値からピクセルに変換
-	/// </summary>
-	/// <param name="pos">画像座標のX or Y</param>
-	/// <param name="axis">XかYか</param>
-	/// <returns>pixelに変換したfloat</returns>
-	float toPixel(float pos, AXIS axis);
+
+	//ワールド行列の取得
+	//引数：handle	知りたい画像の番号
+	//戻値：ワールド行列
+	XMMATRIX GetMatrix(int handle);
+	
+	
+	///~~~~~~~~~~~ここから拡張~~~~~~~~~~~///
 	
 	/// <summary>
-	/// ピクセルからトランスフォームに使う値に変換
+	/// 正規化デバイス座標系の値からスクリーン座標系の値に変換
 	/// </summary>
-	/// <param name="pixel">左上原点ピクセル指定</param>
-	/// <returns>Transformに使うposのXMFLOAT3</returns>
+	/// <param name="pos">NDCのXMFLOAT3</param>
+	/// <returns>Px単位に変換したXMFLOAT3</returns>
+	XMFLOAT3 toPixel(const XMFLOAT3& pos);
+	/// <summary>
+	/// 正規化デバイス座標系の値からスクリーン座標系の値に変換
+	/// </summary>
+	/// <param name="pos">NDCのXMFLOAT3のX or Y</param>
+	/// <param name="axis">XかYか</param>
+	/// <returns>Px単位に変換したに変換したfloat</returns>
+	float toPixel(const float& pos, const AXIS& axis);
+	
+	/// <summary>
+	/// スクリーン座標系の値から正規化デバイス座標系の値に変換
+	/// </summary>
+	/// <param name="pixel">ピクセル単位</param>
+	/// <returns>NDCに変換した座標</returns>
 	XMFLOAT3 toPos(XMFLOAT3 pixel);
 	/// <summary>
-	/// ピクセルからトランスフォームに使う値に変換
+	/// スクリーン座標系の値から正規化デバイス座標系の値に変換
 	/// </summary>
-	/// <param name="pixel">左上原点ピクセル指定</param>
-	/// <returns>Transformに使うposのfloat</returns>
+	/// <param name="pixel">ピクセル単位</param>
+	/// <returns>NDCに変換した座標</returns>
 	float toPos(float pixel, AXIS axis);
 
-
+	constexpr float UNSPECIFIED = std::numeric_limits<float>::quiet_NaN();
 	/// <summary>
 	/// 画像を任意位置に合わせた位置を返す
 	/// 画像サイズは現在のRectおよび引数のscaleを参照する
 	/// </summary>
 	/// <param name="handle">画像の番号</param>
 	/// <param name="placement">合わせたい方向</param>
-	/// <param name="specifiedPos">合わせたいX or Yのピクセル(デフォルトは画面端、省略不可の場合は-9999.0fを入れる)</param>
+	/// <param name="specifiedPos">合わせたいX or Yのピクセル(デフォルトは画面端、省略不可の場合はUNSPECIFIEDを入れる)</param>
 	/// <param name="scale">考慮するX or Yのスケール(デフォルトは1)</param>
 	/// <returns>方向に応じ調整したX or Y</returns>
-	float AlignImage(int handle, PLACEMENT placement, float specifiedPos=-9999.0f,float scale=1.0f);
+	float AlignImage(const int& handle, const PLACEMENT& placement, float specifiedPos= UNSPECIFIED,float scale=1.0f);
 
 	bool isMouseOver(int handle);
-	//ワールド行列の取得
-	//引数：handle	知りたい画像の番号
-	//戻値：ワールド行列
-	XMMATRIX GetMatrix(int handle);
+
 }

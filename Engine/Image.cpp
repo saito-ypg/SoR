@@ -171,17 +171,20 @@ namespace Image
 		_datas.at(handle)->transform = transform;
 	}
 
-	XMFLOAT3 toPixel(XMFLOAT3 pos)
+	XMFLOAT3 toPixel(const XMFLOAT3& pos)
 	{
-		return XMFLOAT3((pos.x+1.0f)/2*Direct3D::screenWidth_, (pos.y + 1.0f) / -2 * Direct3D::screenHeight_,0);
+		return XMFLOAT3((pos.x+1.0f)*0.5f*Direct3D::screenWidth_,
+						(1.0f-pos.y) *0.5f*Direct3D::screenHeight_,
+						0.0f);
 	}
 
-	float toPixel(float pos, AXIS axis)
+	float toPixel(const float& pos, const AXIS& axis)
 	{
 		switch (axis) {
-		case X:return((pos+1.0f)/2*Direct3D::screenWidth_);
-		case Y:return((pos+1.0f)/-2*Direct3D::screenHeight_);
+		case X:return((pos+1.0f)*0.5f*Direct3D::screenWidth_);
+		case Y:return((1.0f-pos) * 0.5f *Direct3D::screenHeight_);
 		default:assert(false);
+			return 0.0f;
 		}
 	}
 
@@ -200,9 +203,9 @@ namespace Image
 	}
 
 
-	float AlignImage(int handle, PLACEMENT placement, float specifiedPos, float scale)
+	float AlignImage(const int& handle, const PLACEMENT& placement, float specifiedPos, float scale)
 	{
-		if ((handle) < 0 || (handle) >= Image::_datas.size()) return NAN;
+		if ((handle) < 0 || (handle) >= Image::_datas.size()) return UNSPECIFIED;
 		const RECT rect_ = _datas.at(handle)->rect;
 		const float halfWidth = rect_.right / 2.0f*scale;
 		const float halfHeight = rect_.bottom / 2.0f*scale;
@@ -212,12 +215,12 @@ namespace Image
 		case LEFT:
 			retPos = (XMFLOAT3(halfWidth, 0, 0)).x;	break;
 		case RIGHT:
-			if (specifiedPos == -9999.0f)specifiedPos = Direct3D::screenWidth_;
+			if (isnan<float>(specifiedPos))specifiedPos = Direct3D::screenWidth_;
 			retPos = (XMFLOAT3(specifiedPos - (halfWidth), 0, 0)).x; break;
 		case UP:
 			retPos = (XMFLOAT3(0, halfHeight, 0)).y; break;
 		case DOWN:
-			if (specifiedPos == -9999.0f)specifiedPos = Direct3D::screenHeight_;
+			if (isnan<float>(specifiedPos))specifiedPos = Direct3D::screenHeight_;
 			retPos = (XMFLOAT3(0, specifiedPos - (halfHeight), 0)).y; break;
 		default:
 			return NAN;
@@ -228,18 +231,18 @@ namespace Image
 	bool isMouseOver(int handle)
 	{
 		assert(handle < _datas.size() && handle >= 0);
-		XMFLOAT3 mousePos =Input::GetMousePosition();
-		mousePos.x =toPos(mousePos.x,X);
-		mousePos.y = toPos(mousePos.y, Y);
-
-		// 画像の NDC 座標範囲を計算
-		const XMFLOAT3 imgPos = _datas.at(handle)->transform.position_;
+		XMFLOAT3 mousePos = Input::GetMousePosition();
+		// 画像のスクリーン座標範囲をもとめる
+		const XMFLOAT3 imgPos =toPixel( _datas.at(handle)->transform.position_);
 		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;
 		const RECT imgRect = _datas.at(handle)->rect;
-		float left = imgPos.x - (imgRect.left * imgScale.x / Direct3D::screenWidth_);
-		float right = imgPos.x + (imgRect.right * imgScale.x / Direct3D::screenWidth_);
-		float top = imgPos.y + (imgRect.top * imgScale.y / Direct3D::screenHeight_);
-		float bottom = imgPos.y - (imgRect.bottom * imgScale.y / Direct3D::screenHeight_);
+		
+		float halfWidth = imgRect.right * imgScale.x / 2.0f;
+		float halfHeight = imgRect.bottom * imgScale.y / 2.0f;
+		float left = imgPos.x - halfWidth;
+		float right = imgPos.x + halfWidth;
+		float top = imgPos.y+ halfHeight;
+		float bottom = imgPos.y - halfHeight;
 
 		// マウス座標が画像の NDC 座標範囲内にあるかを判定
 		return mousePos.x >= left && mousePos.x <= right &&
