@@ -1,6 +1,7 @@
 #include "PlayerInterface.h"
 #include"../Engine/Image.h"
 #include"Player.h"
+#include"../Engine/Debug.h"
 enum eImage{
 	SKILL_SPIN,
 	SKILL_CHARGE
@@ -70,7 +71,7 @@ void PlayerInterface::Draw()
 	Image::SetTransform(hImageBack, BackTransform);
 	Image::Draw(hImageBack);
 	DrawSkillIcon();
-	
+
 }
 
 void PlayerInterface::DrawSkillIcon()
@@ -94,6 +95,8 @@ void PlayerInterface::DrawSkillIcon()
 			Image::SetAlpha(hImageCD, 0xB2);
 			Image::Draw(hImageCD);
 		}
+		if (Image::isMouseOver(handle))
+			__debugbreak;
 		pText->Draw(ICON_LEFT + ICON_DIST * i, SKILL_ALIGN_UNDER+16,inputKey.at(i).c_str());
 	}
 	

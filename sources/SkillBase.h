@@ -92,7 +92,7 @@ public:
 	virtual void Release() = 0;
 	bool CanUse() const{ return coolDown_ <= 0; }
 	bool CanMove() const{ return castTime_ <= 0; }
-	float getCdPercentage() const;
+	float getCdPercentage() const;//playerInterface用。
 
 	static float ConvToSeconds(float frames) {return frames / 60;}//フレームから秒に変換
 	static float ConvToFrames(float seconds) { return seconds * 60; }//秒からフレームに変換

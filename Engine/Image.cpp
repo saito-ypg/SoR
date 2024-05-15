@@ -1,6 +1,7 @@
 #include "Global.h"
 #include "Image.h"
 #include "Input.h"
+
 namespace {
 	
 }
@@ -226,11 +227,23 @@ namespace Image
 
 	bool isMouseOver(int handle)
 	{
-		const RECT& imageRect = _datas.at(handle)->rect;
-		const XMFLOAT3& imagePos= _datas.at(handle)->transform.position_;
-		//const RECT Area=
-		const XMFLOAT3 mousePos=Input::GetMousePosition();
-		/*if ()*/
+		assert(handle < _datas.size() && handle >= 0);
+		XMFLOAT3 mousePos =Input::GetMousePosition();
+		mousePos.x =toPos(mousePos.x,X);
+		mousePos.y = toPos(mousePos.y, Y);
+
+		// 画像の NDC 座標範囲を計算
+		const XMFLOAT3 imgPos = _datas.at(handle)->transform.position_;
+		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;
+		const RECT imgRect = _datas.at(handle)->rect;
+		float left = imgPos.x - (imgRect.left * imgScale.x / Direct3D::screenWidth_);
+		float right = imgPos.x + (imgRect.right * imgScale.x / Direct3D::screenWidth_);
+		float top = imgPos.y + (imgRect.top * imgScale.y / Direct3D::screenHeight_);
+		float bottom = imgPos.y - (imgRect.bottom * imgScale.y / Direct3D::screenHeight_);
+
+		// マウス座標が画像の NDC 座標範囲内にあるかを判定
+		return mousePos.x >= left && mousePos.x <= right &&
+			mousePos.y >= bottom && mousePos.y <= top;
 	}
 
 	//ワールド行列の取得
