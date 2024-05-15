@@ -1,5 +1,6 @@
 #include "Global.h"
 #include "Image.h"
+#include "Input.h"
 namespace {
 	
 }
@@ -221,6 +222,15 @@ namespace Image
 			return NAN;
 		}
 		return retPos;
+	}
+
+	bool isMouseOver(int handle)
+	{
+		const RECT& imageRect = _datas.at(handle)->rect;
+		const XMFLOAT3& imagePos= _datas.at(handle)->transform.position_;
+		//const RECT Area=
+		const XMFLOAT3 mousePos=Input::GetMousePosition();
+		/*if ()*/
 	}
 
 	//ƒ[ƒ‹ƒhs—ñ‚Ìæ“¾
