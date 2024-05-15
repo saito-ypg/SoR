@@ -29,7 +29,10 @@ protected:
 		START_ATTACK,//攻撃判定開始
 		END_ATTACK,//攻撃判定終了
 	};
-
+	/// <summary>
+	/// UIクラス用、画像に使う名前
+	/// </summary>
+	const std::string IconImageName;
 
 	/// <summary>
 	/// スキル発動中の動作と処理の実装
@@ -96,5 +99,6 @@ public:
 
 	static float ConvToSeconds(float frames) {return frames / 60;}//フレームから秒に変換
 	static float ConvToFrames(float seconds) { return seconds * 60; }//秒からフレームに変換
+	std::string getIconName() const { return IconImageName; };
 };
 

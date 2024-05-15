@@ -15,7 +15,7 @@ class PlayerInterface :
     int hImageBack;
     int hImageCD;
     std::vector<int>hSkillIcons;
-    
+    std::vector<const SkillBase* const >skillList;//ÉvÉåÉCÉÑÅ[Ç©ÇÁÇ‡ÇÁÇ§
     void loadAndPush(std::string path);
 public:
     PlayerInterface(GameObject* parent);

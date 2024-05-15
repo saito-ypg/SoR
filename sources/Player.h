@@ -76,7 +76,18 @@ public:
     //開放
     void Release() override;
 
-    //interface用
-    std::vector<float> getSkillPercentageVec()const;
+   
+    //UI用。クールダウン割合とか個別でやり取りよりこっちのほうがいい？
+    const std::vector<const SkillBase* const>&getSkills() const ;
+
+ //UI用。スキルのクールダウン割合をまとめて返す
+    std::vector<float> getCoolDownPercentageVec()const;
+    struct SkillCTReturn
+    {
+        int SkillIndex = -1;
+        float CastTimePercentage = -1.0f;
+    };
+    //UI用。使用中のスキルがあれば、キャストタイム割合を返す。なければ
+    const SkillCTReturn getCastTimePercentage()const;
 
 };

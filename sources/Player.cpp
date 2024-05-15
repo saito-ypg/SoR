@@ -222,7 +222,12 @@ void Player::Release()
     }
 }
 
-std::vector<float> Player::getSkillPercentageVec() const
+const std::vector<const SkillBase* const>& Player::getSkills() const
+{
+    
+}
+
+std::vector<float> Player::getCoolDownPercentageVec() const
 {
     std::vector<float> retVec;
     for (auto& itr : skills) {

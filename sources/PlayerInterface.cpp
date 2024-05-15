@@ -37,6 +37,8 @@ void PlayerInterface::Initialize()
 	assert(hImageBack >= 0);
 	hImageCD = Image::Load(ASSET_PATH + "Interface/iconCD.png");
 	assert(hImageCD >= 0);
+	skillList=pPlayer->getSkills();
+
 	loadAndPush("spinicon.png");
 	loadAndPush("charge.png");
 	pText = new Text;
@@ -77,7 +79,7 @@ void PlayerInterface::Draw()
 
 void PlayerInterface::DrawSkillIcon()
 {
-	std::vector<float>vSkillCD = pPlayer->getSkillPercentageVec();
+	std::vector<float>vSkillCD = pPlayer->getCoolDownPercentageVec();
 	const std::vector<std::string>inputKey = { "Q","W"};
 	for (int i = 0; i < hSkillIcons.size(); i++)
 	{
