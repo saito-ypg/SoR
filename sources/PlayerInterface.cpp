@@ -15,6 +15,7 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 {
 	hImageBack = -1;
 	hImageCD = -1;
+	pText = nullptr;
 }
 
 PlayerInterface::~PlayerInterface()
@@ -36,7 +37,8 @@ void PlayerInterface::Initialize()
 	assert(hImageCD >= 0);
 	loadAndPush("spinicon.png");
 	loadAndPush("charge.png");
-
+	pText = new Text;
+	pText->Initialize();
 
 
 	for (const auto& itr : hSkillIcons)
@@ -74,7 +76,7 @@ void PlayerInterface::Draw()
 void PlayerInterface::DrawSkillIcon()
 {
 	std::vector<float>vSkillCD = pPlayer->getSkillPercentageVec();
-
+	const std::vector<std::string>inputKey = { "Q","W"};
 	for (int i = 0; i < hSkillIcons.size(); i++)
 	{
 	
@@ -92,7 +94,9 @@ void PlayerInterface::DrawSkillIcon()
 			Image::SetAlpha(hImageCD, 0xB2);
 			Image::Draw(hImageCD);
 		}
+		pText->Draw(ICON_LEFT + ICON_DIST * i, SKILL_ALIGN_UNDER+16,inputKey.at(i).c_str());
 	}
+	
 }
 
 void PlayerInterface::Release()

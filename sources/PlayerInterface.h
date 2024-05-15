@@ -1,6 +1,7 @@
 #pragma once
 #include<vector>
 #include "../Engine/GameObject.h"
+#include"../Engine/Text.h"
 class Player;
 /// <summary>
 /// プレイヤーの情報を画面に表示する。
@@ -9,6 +10,7 @@ class Player;
 class PlayerInterface :
     public GameObject
 {
+    Text *pText;
     const Player* pPlayer;
     int hImageBack;
     int hImageCD;

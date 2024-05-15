@@ -34,7 +34,7 @@ private:
     //現在のマウス座標をワールド座標に変換して返す
     XMVECTOR getMouseTargetPos();
     //targetの方向に回転
-    float GetTargetDirection(const XMVECTOR& target_);
+    float GetTargetDirection(const XMVECTOR& target_) const;
     //移動+回転
     void calculateForMove(const XMVECTOR target_);
     

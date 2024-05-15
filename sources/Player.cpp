@@ -17,11 +17,11 @@ namespace {
         {2,DIK_E},
         {3,DIK_R},
     };
-    
-}
-bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
+    bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
     return XMScalarNearEqual(f, 0.0f, 0.0001f);
 }
+}
+
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -284,7 +284,7 @@ void Player::calculateForMove(const XMVECTOR target_)
 
     
 }
-float Player::GetTargetDirection(const XMVECTOR& target_)
+float Player::GetTargetDirection(const XMVECTOR& target_) const
 {
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     //移動方向を向く 
