@@ -222,9 +222,11 @@ void Player::Release()
     }
 }
 
-const std::vector<const SkillBase* const>& Player::getSkills() const
+const std::vector<const SkillBase* const> Player::getSkills() const
 {
-    
+    //スキルポインタリストのコピー作ってそのまま返す
+    //スキルは途中で変えることないはずだから大丈夫なはず
+    return std::vector<const SkillBase* const>(skills.begin(), skills.end());
 }
 
 std::vector<float> Player::getCoolDownPercentageVec() const
