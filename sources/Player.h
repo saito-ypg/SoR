@@ -81,7 +81,7 @@ public:
 
    
     //UI用。クールダウン割合とか個別でやり取りよりこっちのほうがいい？
-    std::vector<SkillBase*>getSkills() const ;
+    std::vector<SkillBase*>getSkills() const;
     int getUsingSkill() const { return usingSkillIndex; }
 
 

@@ -90,10 +90,14 @@ void PlayerInterface::DrawSkillIcon()
 	std::vector<float>vSkillCD;
 	int index = Player::UNUSED;
 	float castTimePercentage = 0;
-	for (const auto& itr : skillList) {
-		if (itr) {
-			vSkillCD.push_back(itr->getCdPercentage());
-			if()
+	for (int i = 0,end = static_cast<int>(skillList.size()); i < end;i++) {
+		const auto& it = skillList.at(i);
+		if (!it)
+			continue;
+		vSkillCD.push_back(it->getCdPercentage());
+		if (it->IsInOperation()) {
+			castTimePercentage = it->getCtPercentage();
+			index = i;
 		}
 	}
 	const std::vector<std::string>inputKey = { "Q","W"};
@@ -121,8 +125,8 @@ void PlayerInterface::DrawSkillIcon()
 		}
 
 		if (Image::isMouseOver(handle)) {//フローティングメニューとか出してみたい
-			XMFLOAT3 textpos = Image::toPixel(PictT.position_);
-			pText->Draw(textpos.x, textpos.y, i);
+			auto[x, y,unused] = Image::toPixel(PictT.position_);
+			pText->Draw(x,y, i);
 		}
 		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}
