@@ -16,7 +16,7 @@ namespace {
 	XMVECTOR forward = XMVectorZero();
 	XMVECTOR lastForceVec = XMVectorZero();
 }
-ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(32,ConvToFrames(1.0f),pPlayer)
+ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(32,ConvToFrames(1.0f),pPlayer,"charge.png")
 {
 	sequence={12,28,6};
 	QuadArea.width_ =1.1f;

@@ -4,11 +4,12 @@
 SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f),isStepChanged(false),isInOperation(false),pPlayer_(nullptr)
 {
 }
-SkillBase::SkillBase(float CT, float CD, Player* pPlayer) :SkillBase()
+SkillBase::SkillBase(const float CT, const float CD, Player *const pPlayer, const std::string iconName) :SkillBase()
 {
 	defaultCastTime_ = CT;
 	defaultCoolDown_ = CD;
 	pPlayer_ = pPlayer;
+	IconImageName = iconName;
 	
 }
 

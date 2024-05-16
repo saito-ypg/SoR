@@ -78,7 +78,7 @@ public:
 
    
     //UI用。クールダウン割合とか個別でやり取りよりこっちのほうがいい？
-    const std::vector<const SkillBase* const>&getSkills() const ;
+    std::vector<SkillBase*>getSkills() const ;
 
  //UI用。スキルのクールダウン割合をまとめて返す
     std::vector<float> getCoolDownPercentageVec()const;

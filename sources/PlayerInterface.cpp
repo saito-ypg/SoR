@@ -1,8 +1,10 @@
 #include "PlayerInterface.h"
 #include"../Engine/Image.h"
-#include"Player.h"
 #include"../Engine/Debug.h"
 #include"../Engine/Input.h"
+#include"Player.h"
+#include"SkillBase.h"
+
 enum eImage{
 	SKILL_SPIN,
 	SKILL_CHARGE
@@ -18,6 +20,7 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 	hImageBack = -1;
 	hImageCD = -1;
 	pText = nullptr;
+	pPlayer = nullptr;
 }
 
 PlayerInterface::~PlayerInterface()
@@ -37,10 +40,14 @@ void PlayerInterface::Initialize()
 	assert(hImageBack >= 0);
 	hImageCD = Image::Load(ASSET_PATH + "Interface/iconCD.png");
 	assert(hImageCD >= 0);
-	skillList=pPlayer->getSkills();
+	pPlayer =dynamic_cast<const Player*>(FindObject("Player"));
+	assert(pPlayer);
 
-	loadAndPush("spinicon.png");
-	loadAndPush("charge.png");
+	skillList=pPlayer->getSkills();
+	for (const auto& skill : skillList) {
+		if (skill != nullptr)
+			loadAndPush(skill->getIconName());
+	}
 	pText = new Text;
 	pText->Initialize();
 
@@ -99,10 +106,10 @@ void PlayerInterface::DrawSkillIcon()
 			Image::Draw(hImageCD);
 		}
 
-		if (Image::isMouseOver(handle)) {//フローティング
+		if (Image::isMouseOver(handle)) {//フローティングメニューとか出してみたい
 
 		}
-		pText->Draw(ICON_LEFT + ICON_DIST * i, SKILL_ALIGN_UNDER+16,inputKey.at(i).c_str());
+		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}
 	
 }

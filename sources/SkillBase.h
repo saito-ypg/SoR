@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<string>
 #include"../Engine/Transform.h"
 #include"areamodels.h"
 #include"AttackRange.h"
@@ -32,7 +33,7 @@ protected:
 	/// <summary>
 	/// UIクラス用、画像に使う名前
 	/// </summary>
-	const std::string IconImageName;
+    std::string IconImageName;
 
 	/// <summary>
 	/// スキル発動中の動作と処理の実装
@@ -85,7 +86,7 @@ public:
 	/// <param name="CT">使用にあたる時間</param>
 	/// <param name="CD">再使用時間</param>
 	/// <param name="pPlayer">プレイヤーのポインタ</param>
-	SkillBase(float CT, float CD, Player* pPlayer);
+	SkillBase(const float CT, const float CD, Player *const pPlayer, const std::string iconName);
 
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
