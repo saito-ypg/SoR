@@ -9,8 +9,7 @@
 namespace {
     constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
     constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
-    constexpr int UNUSED = -1;//スキル長押ししてないとき
-    int usingSkillIndex=UNUSED;//使用中スキル番号、なかったらUNUSED(=-1);
+
     const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
         {0,DIK_Q },
         {1,DIK_W},
@@ -228,15 +227,6 @@ std::vector<SkillBase*> Player::getSkills() const
     return retVec;
 }
 
-std::vector<float> Player::getCoolDownPercentageVec() const
-{
-    std::vector<float> retVec;
-    for (auto& itr : skills) {
-        if(itr)
-        retVec.push_back(itr->getCdPercentage());
-    }
-    return retVec;
-}
 
 bool Player::canUseSkill(int number)
 {

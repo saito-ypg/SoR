@@ -15,6 +15,7 @@ class PlayerInterface :
     const Player* pPlayer;
     int hImageBack;
     int hImageCD;
+    int hImageActive;
     std::vector<int> hSkillIcons;
     std::vector<SkillBase*>skillList;//ÉvÉåÉCÉÑÅ[Ç©ÇÁÇ‡ÇÁÇ§
     void loadAndPush(std::string path);

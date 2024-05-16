@@ -1,7 +1,5 @@
 #include "PlayerInterface.h"
 #include"../Engine/Image.h"
-#include"../Engine/Debug.h"
-#include"../Engine/Input.h"
 #include"Player.h"
 #include"SkillBase.h"
 
@@ -19,6 +17,7 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 {
 	hImageBack = -1;
 	hImageCD = -1;
+	hImageActive = -1;
 	pText = nullptr;
 	pPlayer = nullptr;
 }
@@ -40,10 +39,11 @@ void PlayerInterface::Initialize()
 	assert(hImageBack >= 0);
 	hImageCD = Image::Load(ASSET_PATH + "Interface/iconCD.png");
 	assert(hImageCD >= 0);
+	hImageActive = Image::Load(ASSET_PATH + "Interface/skillActive.png");
 	pPlayer =dynamic_cast<const Player*>(FindObject("Player"));
 	assert(pPlayer);
 
-	skillList=pPlayer->getSkills();
+	skillList=std::move(pPlayer->getSkills());
 	for (const auto& skill : skillList) {
 		if (skill != nullptr)
 			loadAndPush(skill->getIconName());
@@ -82,11 +82,20 @@ void PlayerInterface::Draw()
 	Image::Draw(hImageBack);
 	DrawSkillIcon();
 
+
 }
 
 void PlayerInterface::DrawSkillIcon()
 {
-	std::vector<float>vSkillCD = pPlayer->getCoolDownPercentageVec();
+	std::vector<float>vSkillCD;
+	int index = Player::UNUSED;
+	float castTimePercentage = 0;
+	for (const auto& itr : skillList) {
+		if (itr) {
+			vSkillCD.push_back(itr->getCdPercentage());
+			if()
+		}
+	}
 	const std::vector<std::string>inputKey = { "Q","W"};
 	for (int i = 0; i < hSkillIcons.size(); i++)
 	{
@@ -94,20 +103,26 @@ void PlayerInterface::DrawSkillIcon()
 		Transform PictT;
 		const int& handle = hSkillIcons.at(i);
 		PictT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * i, Image::AlignImage(handle, DOWN, SKILL_ALIGN_UNDER), 0));
+		if (i == index) {//使用中スキルなら
+			Image::SetTransform(hImageActive, PictT);
+			Image::Draw(hImageActive);
+		}
 		Image::SetTransform(handle, PictT);
 		Image::Draw(handle);
 
-		//ここからCDあればかぶせる
+		//CDあれば暗いのかぶせる
 		if (vSkillCD.at(i) <= 1.0f) {
-			PictT.scale_.y = vSkillCD.at(i);
-			PictT.position_.y = Image::toPos(Image::AlignImage(hImageCD, DOWN, SKILL_ALIGN_UNDER, PictT.scale_.y), Y);
-			Image::SetTransform(hImageCD, PictT);
+			Transform grayT = PictT;
+			grayT.scale_.y = vSkillCD.at(i);
+			grayT.position_.y = Image::toPos(Image::AlignImage(hImageCD, DOWN, SKILL_ALIGN_UNDER, grayT.scale_.y), Y);
+			Image::SetTransform(hImageCD, grayT);
 			Image::SetAlpha(hImageCD, 0xB2);
 			Image::Draw(hImageCD);
 		}
 
 		if (Image::isMouseOver(handle)) {//フローティングメニューとか出してみたい
-
+			XMFLOAT3 textpos = Image::toPixel(PictT.position_);
+			pText->Draw(textpos.x, textpos.y, i);
 		}
 		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}

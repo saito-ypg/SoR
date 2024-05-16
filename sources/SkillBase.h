@@ -65,7 +65,7 @@ protected:
 	float castTime_;//動けるようになるまでの残り時間
 	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
-	bool isInOperation;//スキル使用中か
+	bool isInOperation_;//スキル使用中か
 	Player* pPlayer_;//プレイヤーのステータス変えたりしたい時に使うポインタ
 
 	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
@@ -97,7 +97,8 @@ public:
 	bool CanUse() const{ return coolDown_ <= 0; }
 	bool CanMove() const{ return castTime_ <= 0; }
 	float getCdPercentage() const;//playerInterface用。
-
+	float getCtPercentage() const;//playerInterface用。
+	bool IsInOperation()const { return isInOperation_; }
 	static float ConvToSeconds(float frames) {return frames / 60;}//フレームから秒に変換
 	static float ConvToFrames(float seconds) { return seconds * 60; }//秒からフレームに変換
 	std::string getIconName() const { return IconImageName; };
