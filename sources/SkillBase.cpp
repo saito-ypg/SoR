@@ -1,14 +1,15 @@
 #include "SkillBase.h"
 #include"CollisionManager.h"
 #include"Player.h"
-SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f),isStepChanged(false),isInOperation(false),pPlayer_(nullptr)
+SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f),isStepChanged(false),isInOperation_(false),pPlayer_(nullptr)
 {
 }
-SkillBase::SkillBase(float CT, float CD, Player* pPlayer) :SkillBase()
+SkillBase::SkillBase(const float CT, const float CD, Player *const pPlayer, const std::string iconName) :SkillBase()
 {
 	defaultCastTime_ = CT;
 	defaultCoolDown_ = CD;
 	pPlayer_ = pPlayer;
+	IconImageName = iconName;
 	
 }
 
@@ -19,7 +20,7 @@ SkillBase::~SkillBase()
 
 void SkillBase::Update()
 {
-	if (!isInOperation) {
+	if (!isInOperation_) {
 		if (castTime_ > 0)
 			castTime_--;
 		else
@@ -37,7 +38,7 @@ void SkillBase::Update()
 	stepindex++;//ステップ時間終わったら次のステップへ
 	isStepChanged = true;
 	if (stepindex >= sequence.size())//ステップ全部終わったら
-		isInOperation = false;//動作終わらせる
+		isInOperation_ = false;//動作終わらせる
 	else
 		steptime = sequence.at(stepindex);
 
@@ -51,7 +52,7 @@ void SkillBase::Activate()
 	stepindex = 0;
 	steptime = sequence.front();
 	ResetInheritedSkillMembers();
-	isInOperation = true;
+	isInOperation_ = true;
 }
 
 float SkillBase::getCdPercentage() const
@@ -59,6 +60,11 @@ float SkillBase::getCdPercentage() const
 	if (castTime_ > 0)
 		return 1;
 	return coolDown_ / defaultCoolDown_; 
+}
+
+float SkillBase::getCtPercentage() const
+{
+	return castTime_ / defaultCastTime_;	
 }
 
 void SkillBase::SwitchActionByStep()

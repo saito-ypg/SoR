@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<string>
 #include"../Engine/Transform.h"
 #include"areamodels.h"
 #include"AttackRange.h"
@@ -32,7 +33,7 @@ protected:
 	/// <summary>
 	/// UIクラス用、画像に使う名前
 	/// </summary>
-	const std::string IconImageName;
+    std::string IconImageName;
 
 	/// <summary>
 	/// スキル発動中の動作と処理の実装
@@ -64,7 +65,7 @@ protected:
 	float castTime_;//動けるようになるまでの残り時間
 	float defaultCoolDown_;//スキルの再使用までの時間
 	float coolDown_;//クールタイム残り時間
-	bool isInOperation;//スキル使用中か
+	bool isInOperation_;//スキル使用中か
 	Player* pPlayer_;//プレイヤーのステータス変えたりしたい時に使うポインタ
 
 	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
@@ -85,7 +86,7 @@ public:
 	/// <param name="CT">使用にあたる時間</param>
 	/// <param name="CD">再使用時間</param>
 	/// <param name="pPlayer">プレイヤーのポインタ</param>
-	SkillBase(float CT, float CD, Player* pPlayer);
+	SkillBase(const float CT, const float CD, Player *const pPlayer, const std::string iconName);
 
 	virtual ~SkillBase();
 	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
@@ -96,7 +97,8 @@ public:
 	bool CanUse() const{ return coolDown_ <= 0; }
 	bool CanMove() const{ return castTime_ <= 0; }
 	float getCdPercentage() const;//playerInterface用。
-
+	float getCtPercentage() const;//playerInterface用。
+	bool IsInOperation()const { return isInOperation_; }
 	static float ConvToSeconds(float frames) {return frames / 60;}//フレームから秒に変換
 	static float ConvToFrames(float seconds) { return seconds * 60; }//秒からフレームに変換
 	std::string getIconName() const { return IconImageName; };

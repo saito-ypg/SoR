@@ -1,7 +1,7 @@
 #include "Global.h"
 #include "Image.h"
 #include "Input.h"
-
+#include"Debug.h"
 namespace {
 	
 }
@@ -198,7 +198,7 @@ namespace Image
 		switch (axis) {
 		case X:return(pixel / Direct3D::screenWidth_ * 2 - 1);
 		case Y:return(pixel / Direct3D::screenHeight_ * -2 + 1);
-		default:assert(false);
+		default:assert(false); return UNSPECIFIED;
 		}
 	}
 
@@ -215,12 +215,14 @@ namespace Image
 		case LEFT:
 			retPos = (XMFLOAT3(halfWidth, 0, 0)).x;	break;
 		case RIGHT:
-			if (isnan<float>(specifiedPos))specifiedPos = Direct3D::screenWidth_;
+			if (isnan<float>(specifiedPos))
+				specifiedPos = static_cast<float>(Direct3D::screenWidth_);
 			retPos = (XMFLOAT3(specifiedPos - (halfWidth), 0, 0)).x; break;
 		case UP:
 			retPos = (XMFLOAT3(0, halfHeight, 0)).y; break;
 		case DOWN:
-			if (isnan<float>(specifiedPos))specifiedPos = Direct3D::screenHeight_;
+			if (isnan<float>(specifiedPos))
+				specifiedPos = static_cast<float>(Direct3D::screenHeight_);
 			retPos = (XMFLOAT3(0, specifiedPos - (halfHeight), 0)).y; break;
 		default:
 			return NAN;
@@ -232,6 +234,9 @@ namespace Image
 	{
 		assert(handle < _datas.size() && handle >= 0);
 		XMFLOAT3 mousePos = Input::GetMousePosition();
+		char debuglog[40];
+		sprintf_s(debuglog, sizeof(debuglog), "x:%f, y:%f", mousePos.x,mousePos.y);
+		Debug::Log(std::string(debuglog),true);
 		// 画像のスクリーン座標範囲をもとめる
 		const XMFLOAT3 imgPos =toPixel( _datas.at(handle)->transform.position_);
 		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;

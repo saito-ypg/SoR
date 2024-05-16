@@ -3,6 +3,7 @@
 #include "../Engine/GameObject.h"
 #include"../Engine/Text.h"
 class Player;
+class SkillBase;
 /// <summary>
 /// プレイヤーの情報を画面に表示する。
 /// シーン直下に置く
@@ -14,8 +15,9 @@ class PlayerInterface :
     const Player* pPlayer;
     int hImageBack;
     int hImageCD;
-    std::vector<int>hSkillIcons;
-    std::vector<const SkillBase* const >skillList;//プレイヤーからもらう
+    int hImageActive;
+    std::vector<int> hSkillIcons;
+    std::vector<SkillBase*>skillList;//プレイヤーからもらう
     void loadAndPush(std::string path);
 public:
     PlayerInterface(GameObject* parent);

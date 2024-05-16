@@ -27,13 +27,13 @@ void PlayScene::Initialize()
 {
 	Instantiate<Ground>(this);
 	AreaModels::Initialize();
-	auto p=Instantiate<Player>(this);
+	/*auto p=*/Instantiate<Player>(this);
 
 	mod = Instantiate<ModeratorSequence>(this);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
 	Camera::SetPosition(XMFLOAT3{ 0, 30.0f, -10.0f });
 	HPBar::Initialize();
-	Instantiate<PlayerInterface>(this)->SetPlayer(p);
+	Instantiate<PlayerInterface>(this);
 
 
 }

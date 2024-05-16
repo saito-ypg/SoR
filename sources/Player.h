@@ -7,9 +7,12 @@ class Player : public GameActor
 {   
 public:
     static constexpr int skillsNum = 4;
+    static constexpr int UNUSED = -1;//スキル長押ししてないとき
 private:
     static constexpr float MOVE_VELOCITY = 10.0f /60;
     
+
+    int usingSkillIndex = UNUSED;//使用中スキル番号、なかったらUNUSED(=-1);
     //Pimplとかいう概念、よさそう
     int hModel_;
     //移動方向の単位ベクトルを格納
@@ -78,16 +81,8 @@ public:
 
    
     //UI用。クールダウン割合とか個別でやり取りよりこっちのほうがいい？
-    const std::vector<const SkillBase* const>getSkills() const ;
+    std::vector<SkillBase*>getSkills() const ;
+    int getUsingSkill() const { return usingSkillIndex; }
 
- //UI用。スキルのクールダウン割合をまとめて返す
-    std::vector<float> getCoolDownPercentageVec()const;
-    struct SkillCTReturn
-    {
-        int SkillIndex = -1;
-        float CastTimePercentage = -1.0f;
-    };
-    //UI用。使用中のスキルがあれば、キャストタイム割合を返す。なければ
-    const SkillCTReturn getCastTimePercentage()const;
 
 };
