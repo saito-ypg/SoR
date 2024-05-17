@@ -20,10 +20,9 @@ SkillBase::~SkillBase()
 
 void SkillBase::Update()
 {
+	if (castTime_ > 0)
+		castTime_--;
 	if (!isInOperation_) {
-		if (castTime_ > 0)
-			castTime_--;
-		else
 			if(coolDown_>0)
 			coolDown_--;
 		return;

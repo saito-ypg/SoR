@@ -12,6 +12,9 @@ namespace {
 	constexpr float SKILL_ALIGN_UNDER = 680;
 	constexpr float ICON_DIST = 80;
 	constexpr float ICON_LEFT = 400;
+	
+	//
+	int index = Player::UNUSED;
 }
 PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "PlayerInterface")
 {
@@ -88,7 +91,7 @@ void PlayerInterface::Draw()
 void PlayerInterface::DrawSkillIcon()
 {
 	std::vector<float>vSkillCD;
-	int index = Player::UNUSED;
+	
 	float castTimePercentage = 0;
 	for (int i = 0,end = static_cast<int>(skillList.size()); i < end;i++) {
 		const auto& it = skillList.at(i);
@@ -96,20 +99,29 @@ void PlayerInterface::DrawSkillIcon()
 			continue;
 		vSkillCD.push_back(it->getCdPercentage());
 		if (it->IsInOperation()) {
-			castTimePercentage = it->getCtPercentage();
 			index = i;
 		}
 	}
 	const std::vector<std::string>inputKey = { "Q","W"};
 	for (int i = 0; i < hSkillIcons.size(); i++)
 	{
-
 		Transform PictT;
 		const int& handle = hSkillIcons.at(i);
 		PictT.position_ = Image::toPos(XMFLOAT3(ICON_LEFT + ICON_DIST * i, Image::AlignImage(handle, DOWN, SKILL_ALIGN_UNDER), 0));
 		if (i == index) {//使用中スキルなら
-			Image::SetTransform(hImageActive, PictT);
-			Image::Draw(hImageActive);
+
+			castTimePercentage =skillList.at(i)->getCtPercentage();
+			if (1-castTimePercentage < 1)
+			{
+				constexpr float testImagesize=64.0f/70.0f;//画像サイズ調整中
+				Transform activeT = PictT;
+				activeT.scale_.y = castTimePercentage * testImagesize;
+				activeT.position_.y =Image::toPos(Image::AlignImage(hImageActive, DOWN, SKILL_ALIGN_UNDER, activeT.scale_.y),Y);
+				Image::SetTransform(hImageActive, activeT);
+				Image::Draw(hImageActive);
+			}
+			else
+				index = pPlayer->UNUSED;
 		}
 		Image::SetTransform(handle, PictT);
 		Image::Draw(handle);
@@ -125,8 +137,8 @@ void PlayerInterface::DrawSkillIcon()
 		}
 
 		if (Image::isMouseOver(handle)) {//フローティングメニューとか出してみたい
-			auto[x, y,unused] = Image::toPixel(PictT.position_);
-			pText->Draw(x,y, i);
+			XMFLOAT3 pixelPos=Image::toPixel(PictT.position_);
+			pText->Draw((int)pixelPos.x,(int)pixelPos.y, i);
 		}
 		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}
