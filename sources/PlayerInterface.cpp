@@ -111,7 +111,7 @@ void PlayerInterface::DrawSkillIcon()
 		if (i == index) {//使用中スキルなら
 
 			castTimePercentage =skillList.at(i)->getCtPercentage();
-			if (1-castTimePercentage < 1)
+			if (castTimePercentage >0)//割合は時間に応じて1～0で帰ってくる。
 			{
 				constexpr float testImagesize=64.0f/70.0f;//画像サイズ調整中
 				Transform activeT = PictT;
