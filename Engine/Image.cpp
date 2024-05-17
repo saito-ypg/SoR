@@ -207,23 +207,28 @@ namespace Image
 	{
 		if ((handle) < 0 || (handle) >= Image::_datas.size()) return UNSPECIFIED;
 		const RECT rect_ = _datas.at(handle)->rect;
-		const float halfWidth = rect_.right / 2.0f*scale;
-		const float halfHeight = rect_.bottom / 2.0f*scale;
+		const float halfWidth = (rect_.right -rect_.left)*0.5f*scale;
+		const float halfHeight = (rect_.bottom-rect_.top )*0.5f*scale;
 		float retPos;
+		bool nan = isnan<float>(specifiedPos);
 		switch (placement)
 		{
 		case LEFT:
-			retPos = (XMFLOAT3(halfWidth, 0, 0)).x;	break;
+			if (nan)
+				specifiedPos = 0.0f;
+			retPos = halfWidth+specifiedPos;	break;
 		case RIGHT:
-			if (isnan<float>(specifiedPos))
+			if (nan)
 				specifiedPos = static_cast<float>(Direct3D::screenWidth_);
-			retPos = (XMFLOAT3(specifiedPos - (halfWidth), 0, 0)).x; break;
+			retPos = specifiedPos - halfWidth; break;
 		case UP:
-			retPos = (XMFLOAT3(0, halfHeight, 0)).y; break;
+			if (nan)
+				specifiedPos = 0.0f;
+			retPos = halfHeight+specifiedPos; break;
 		case DOWN:
-			if (isnan<float>(specifiedPos))
+			if (nan)
 				specifiedPos = static_cast<float>(Direct3D::screenHeight_);
-			retPos = (XMFLOAT3(0, specifiedPos - (halfHeight), 0)).y; break;
+			retPos = specifiedPos - halfHeight; break;
 		default:
 			return NAN;
 		}

@@ -130,7 +130,7 @@ namespace Image
 	/// <param name="placement">合わせたい方向</param>
 	/// <param name="specifiedPos">合わせたいX or Yのピクセル(デフォルトは画面端、省略不可の場合はUNSPECIFIEDを入れる)</param>
 	/// <param name="scale">考慮するX or Yのスケール(デフォルトは1)</param>
-	/// <returns>方向に応じ調整したX or Y</returns>
+	/// <returns>方向に応じ調整した画像中央のX or Y(スクリーン座標)</returns>
 	float AlignImage(const int& handle, const PLACEMENT& placement, float specifiedPos= UNSPECIFIED,float scale=1.0f);
 
 	bool isMouseOver(int handle);
