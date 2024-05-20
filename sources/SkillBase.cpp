@@ -22,7 +22,7 @@ void SkillBase::Update()
 {
 	if (castTime_ > 0)
 		castTime_--;
-	if (!isInOperation_) {
+	else if (!isInOperation_) {
 			if(coolDown_>0)
 			coolDown_--;
 		return;
@@ -56,8 +56,6 @@ void SkillBase::Activate()
 
 float SkillBase::getCdPercentage() const
 {
-	if (castTime_ > 0)
-		return 1;
 	return coolDown_ / defaultCoolDown_; 
 }
 
