@@ -34,7 +34,7 @@ HRESULT Text::Initialize(const char* fileName, const unsigned int charWidth, con
 
 
 //描画（文字列）
-void Text::Draw(int x, int y, const char* str)
+void Text::Draw(const int& x, const int& y, const char * str, const float scale)
 {
 	//表示位置（左上）を計算
 	//Spriteクラスは中心が(0,0)、右上が(1,1)という座標だが、ここの引数は左上を(0,0)、ドット単位で指定している
@@ -56,17 +56,18 @@ void Text::Draw(int x, int y, const char* str)
 		int id = str[i] - '!';		//表示したい文字のコードから「!」のコードを引くことで、!＝0、"=1、#＝2･･･という番号にする
 
 		//表示したい文字が、画像のどこにあるかを求める
-		int x = id % rowLength_;	//左から何番目
-		int y = id / rowLength_;	//上から何番目
+		int x_ = id % rowLength_;	//左から何番目
+		int y_ = id / rowLength_;	//上から何番目
 
 		//表示する位置
 		Transform transform;
 		transform.position_.x = px;
 		transform.position_.y = py;
+		transform.scale_=XMFLOAT3(scale,scale,scale);
 		Image::SetTransform(hPict_, transform);
 
 		//表示する範囲
-		Image::SetRect(hPict_, width_ * x, height_ * y, width_, height_);
+		Image::SetRect(hPict_, width_ * x_, height_ * y_, width_, height_);
 		
 		//表示
 		Image::Draw(hPict_);
@@ -77,13 +78,26 @@ void Text::Draw(int x, int y, const char* str)
 }
 
 //描画（整数値）
-void Text::Draw(int x, int y, int value)
+void Text::Draw(const int& x, const int& y, int value, float scale)
 {
 	//文字列に変換
 	char str[256];
 	sprintf_s(str, "%d", value);
 
-	Draw(x, y, str);
+	Draw(x, y, str,scale);
+}
+
+void Text::DrawCenter(const int& x, const int& y, const char* str, const float scale)
+{
+}
+
+void Text::DrawCenter(const int& x, const int& y, int value, const float scale)
+{
+	//文字列に変換
+	char str[256];
+	sprintf_s(str, "%d", value);
+
+	DrawCenter(x, y, str, scale);
 }
 
 //解放
