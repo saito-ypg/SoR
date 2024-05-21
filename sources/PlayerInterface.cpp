@@ -138,7 +138,7 @@ void PlayerInterface::DrawSkillIcon()
 
 		if (Image::isMouseOver(handle)) {//フローティングメニューとか出してみたい
 			XMFLOAT3 pixelPos=Image::toPixel(PictT.position_);
-			pText->Draw((int)pixelPos.x,(int)pixelPos.y, "tips");
+			pText->DrawCenter((int)pixelPos.x,(int)pixelPos.y, "tip");
 		}
 		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}

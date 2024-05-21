@@ -89,6 +89,9 @@ void Text::Draw(const int& x, const int& y, int value, float scale)
 
 void Text::DrawCenter(const int& x, const int& y, const char* str, const float scale)
 {
+	int adjustedx = x-(((int)strlen(str)-1)* width_ / 2);
+
+	Draw(adjustedx, y, str, scale);
 }
 
 void Text::DrawCenter(const int& x, const int& y, int value, const float scale)
