@@ -202,6 +202,9 @@
     <ClInclude Include="sources\PlayerInterface.h">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClInclude>
+    <ClInclude Include="sources\SoldierEnemy.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -337,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="sources\PlayerInterface.cpp">
       <Filter>sourses\Scene\Play\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\SoldierEnemy.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

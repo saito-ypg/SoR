@@ -2,6 +2,7 @@
 #include "EnemySpawner.h"
 #include"EnemyBase.h"
 #include"Decoy.h"
+#include"SoldierEnemy.h"
 constexpr float SPAWN_DISTANCE = 10.0f;
 constexpr int ANGLE360 = 360;
 EnemyBase* EnemySpawner::EnemyFactoty::createEnemy(GameObject* pParent, EnemyType type,bool isBoss)
@@ -12,11 +13,14 @@ EnemyBase* EnemySpawner::EnemyFactoty::createEnemy(GameObject* pParent, EnemyTyp
 	{
 	case DECOY:
 		 enemy=Instantiate<Decoy>(pParent);
-		
-
+		 break;
+	case SOLDIER:
+		enemy = Instantiate<SoldierEnemy>(pParent);
+		break;
 	}
 	assert(enemy != nullptr);
-	enemy->SetPlayer((GameActor*)enemy->FindObject(""));//
+	enemy->SetPlayer((GameActor*)enemy->FindObject("Player"));//
+	return enemy;
 }
 
 EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type)

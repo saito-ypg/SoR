@@ -2,6 +2,7 @@
 #include"EnemyType.h"
 class EnemyBase;
 class GameObject;
+class GameActor;
 class EnemySpawner
 {
 private:
