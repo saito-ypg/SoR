@@ -80,18 +80,18 @@ void Player::ActorUpdate(const float& dt)
     }
     else {//各種スキル
         for (int i = 0; i < skillsNum; i++) {
-            if(skills.at(i)==nullptr)//スキルアタッチできてなかったら市内
+            if(!skills.at(i))//スキルアタッチできてなかったら
             {
                 continue;
             }
-            if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
-            {
+            else if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
+            {//スキル範囲表示のためのindex指定
                 if (canUseSkill(i)) {
                     usingSkillIndex = i;
                 }
             }
-            if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
-            {
+            else if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
+            {//発動前キャンセルされてなければここで発動
                 ActivateSkill(i);
                 usingSkillIndex = UNUSED;
             }

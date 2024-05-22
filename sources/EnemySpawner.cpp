@@ -7,14 +7,16 @@ constexpr int ANGLE360 = 360;
 EnemyBase* EnemySpawner::EnemyFactoty::createEnemy(GameObject* pParent, EnemyType type,bool isBoss)
 {
 	using enum EnemyType;
+	EnemyBase* enemy = nullptr;
 	switch (type)
 	{
 	case DECOY:
-		return Instantiate<Decoy>(pParent);
+		 enemy=Instantiate<Decoy>(pParent);
 		
 
 	}
-	return nullptr;
+	assert(enemy != nullptr);
+	enemy->SetPlayer((GameActor*)enemy->FindObject(""));//
 }
 
 EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type)
