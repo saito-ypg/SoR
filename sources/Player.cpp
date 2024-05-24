@@ -1,3 +1,4 @@
+#include<algorithm>
 #include "Player.h"
 #include"Ground.h"
 #include"../Engine/Model.h"
@@ -5,20 +6,35 @@
 #include"../Engine/Camera.h"
 #include"../Engine/Global.h"
 #include"ModeratorSequence.h"
-constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
-constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
-bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
+namespace {
+    constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
+    constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
+
+    const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
+        {0,DIK_Q },
+        {1,DIK_W},
+        {2,DIK_E},
+        {3,DIK_R},
+    };
+    bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
     return XMScalarNearEqual(f, 0.0f, 0.0001f);
 }
+}
+
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0),isSkillBeingUsed(false)
+    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
 {
     status_ = ActorInfo(200, 1.1f);
 
     moveDirection_ = XMVectorZero();
     vMove_ = XMVectorZero();
+    for (auto i : skills)
+    {
+        i = nullptr;
+    }
+
 }
 
 //デストラクタ
@@ -34,8 +50,8 @@ void Player::Initialize()
 
     AddCamp();
 
-
-    skills.at(0) = dynamic_cast<SkillBase*>(new testSkill);
+    AttachSkill<testSkill>(0);
+    AttachSkill<ChargeSkill>(1);
 }
 
 //更新
@@ -52,61 +68,33 @@ void Player::ActorUpdate(const float& dt)
         if (nearlyZero(GetMyTimeScale()))//更新速度がほぼほぼ0ならあとの処理飛ばす
             return;
     }
-    int a=0;
-
-    //当たり判定テスト用
-    if (Input::IsKeyDown(DIK_Z))
-    {
-        FaceMouseDirection();
-        testQuad.position_ = transform_.position_;
-        testQuad.length_ = 2;
-        testQuad.width_ = 5;
-        testQuad.rotate_ =transform_.rotate_.y;
-        CollisionManager::HitTestBy(PLAYER, testQuad);
-    }
-    if (Input::IsKeyDown(DIK_X))
-    {
-        FaceMouseDirection();
-        testCircle.position_=transform_.position_;
-        testCircle.radius_ = 2.2f;
-        CollisionManager::HitTestBy(PLAYER, testCircle);
-    }
-    if (Input::IsKeyDown(DIK_C))
-    {
-        FaceMouseDirection();
-        testSector.position_=transform_.position_;
-        testSector.radius_ =3;
-        testSector.rotate_ = transform_.rotate_.y;
-        testSector.centerAngle_ = 30;
-        CollisionManager::HitTestBy(PLAYER, testSector);
-    }
-
-   
 #endif
- if (Input::IsKey(DIK_A))
+    if (Input::IsKey(DIK_A))
         status_.hp_--;
-    if (Input::IsMouseButton(1))//移動先指定
-    {
-        XMVECTOR target = getMouseTargetPos();
-        if (isHit(target)) {
-            calculateForMove(target);
-            isSkillBeingUsed = false;
-        }
-    }
+    
+    MoveInput();
     //各入力
     if(Input::IsMouseButton(0))//通常攻撃
     {
 
     }
-    else {
-        if (!isSkillBeingUsed && Input::IsKeyDown(DIK_Q))
-        {
-            isSkillBeingUsed = canUseSkill(0);
-        }
-        if (isSkillBeingUsed&&Input::IsKeyUp(DIK_Q))
-        {
-            isSkillBeingUsed = false;
-            ActivateSkill(0);
+    else {//各種スキル
+        for (int i = 0; i < skillsNum; i++) {
+            if(!skills.at(i))//スキルアタッチできてなかったら
+            {
+                continue;
+            }
+            else if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
+            {//スキル範囲表示のためのindex指定
+                if (canUseSkill(i)) {
+                    usingSkillIndex = i;
+                }
+            }
+            else if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
+            {//発動前キャンセルされてなければここで発動
+                ActivateSkill(i);
+                usingSkillIndex = UNUSED;
+            }
         }
     }
     if (moveTime_ > 0)
@@ -123,14 +111,30 @@ void Player::ActorUpdate(const float& dt)
     }
 }
 
+void Player::MoveInput()
+{
+    if (Input::IsMouseButton(1))//移動先指定
+    {
+        if (isDuringSkill())
+            return;
+        XMVECTOR target = getMouseTargetPos();
+        if (isIntersectGround(target)) {
+            calculateForMove(target);
+            if (Input::IsMouseButtonDown(1))usingSkillIndex = UNUSED;
+        }
+    }
+}
+
 void Player::FaceMouseDirection()
 {
     XMVECTOR target = getMouseTargetPos();
-    if (isHit(target))
-        FaceTargetDirection(target);
+    if (isIntersectGround(target)) {
+        float deg = GetTargetDirection(target);
+        transform_.rotate_.y = deg;
+    }
 }
 
-bool Player::isHit(const DirectX::XMVECTOR& target)
+bool Player::isIntersectGround(const DirectX::XMVECTOR& target)
 {
     return XMComparisonAnyFalse(XMVector3EqualR(target, NotHitV));
 }
@@ -195,10 +199,16 @@ void Player::ActorDraw()
 #endif
     Model::SetTransform(hModel_,transform_);
     Model::Draw(hModel_);
+    if (usingSkillIndex != UNUSED) {
+        skills.at(usingSkillIndex)->DrawRangeDisplay(GetTargetDirection(getMouseTargetPos()));
+    }
     for (auto itr : skills)
     {
         if (itr != nullptr)
+        {
             itr->Draw();
+            
+        }
     }
 }
 
@@ -211,13 +221,20 @@ void Player::Release()
     }
 }
 
+std::vector<SkillBase*> Player::getSkills() const
+{
+    std::vector<SkillBase*>retVec(skills.begin(), skills.end());
+    return retVec;
+}
+
+
 bool Player::canUseSkill(int number)
 {
-    if (!this->canMove())//自身が動けるか？
+    if (this->isDuringSkill())//すでにスキル動作中ならｘ
         return false;
-    if (number < 0 || number >= skills.size())//存在するスキル番号か？
+    if (number < 0 || number >= skills.size())//存在しないスキル番号ｘ
         return false;
-    return skills.at(number)->CanUse();//対象のスキルは使用可能か？
+    return skills.at(number)->CanUse();//対象のスキルは使用可能かを返す
     
 }
 
@@ -228,16 +245,7 @@ void Player::ActivateSkill(const int number)
     FaceMouseDirection();//マウス方向を向く
     moveTime_ = 0;//移動してたら止める
  
-    skills.at(number)->Activate(transform_);
-}
-
-void Player::previewSkill(int number)
-{
-    if(!canUseSkill(number))
-        return;//ここまでは発動と一緒
-
-
-
+    skills.at(number)->Activate();
 }
 
 XMVECTOR Player::getMouseTargetPos()
@@ -262,34 +270,37 @@ void Player::calculateForMove(const XMVECTOR target_)
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);//Face～にも同じ記述あるがこっちでも書くほうが楽
 
     float length =XMVectorGetX(XMVector3Length(target_ - vPos));
-    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行がないと動きが微妙になる
+    moveTime_ = length / MOVE_VELOCITY -1;//-1と次の行で小刻みに荒ぶるの対策
      if (length < PLAYER_ROT_TH)return;
  
-    FaceTargetDirection(target_);
+    float deg= GetTargetDirection(target_);
+    transform_.rotate_.y = deg;
+    XMVECTOR forward = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+    moveDirection_= XMVector3TransformCoord(forward, XMMatrixRotationY(XMConvertToRadians(deg)));
 
     
 }
-void Player::FaceTargetDirection(const XMVECTOR& target_)
+float Player::GetTargetDirection(const XMVECTOR& target_) const
 {
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     //移動方向を向く 
-    moveDirection_ = XMVector3Normalize(target_ - vPos);
+    XMVECTOR direction = XMVector3Normalize(target_ - vPos);
     XMFLOAT3 fdir;
-    XMStoreFloat3(&fdir, moveDirection_);
-    transform_.rotate_.y = XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
+    XMStoreFloat3(&fdir, direction);
+    return XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
     
 }
-bool Player::canMove()
+bool Player::isDuringSkill()
 {
     for (auto itr : skills)
     {
         if (itr != nullptr)
         {
-            if (itr->CanMove() == false)
-            return false;
+            if (!itr->CanMove())
+                return true;//動ける→スキルモーション中でない
         }
     }
-    return true;
+    return false;
 }
 
 void Player::dyingProcess()

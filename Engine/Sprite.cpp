@@ -133,11 +133,12 @@ void Sprite::Draw(Transform& transform, RECT rect, float alpha)
 	XMMATRIX world = cut * transform.matScale_ * transform.matRotate_ * view * transform.matTranslate_;
 	cb.world = XMMatrixTranspose(world);
 
+	auto texSize = pTexture_->GetExtendedSize();
 	// テクスチャ座標変換行列を渡す
-	XMMATRIX mTexTrans = XMMatrixTranslation((float)rect.left / (float)pTexture_->GetSize().x,
-		(float)rect.top / (float)pTexture_->GetSize().y, 0.0f);
-	XMMATRIX mTexScale = XMMatrixScaling((float)rect.right / (float)pTexture_->GetSize().x,
-		(float)rect.bottom / (float)pTexture_->GetSize().y, 1.0f);
+	XMMATRIX mTexTrans = XMMatrixTranslation((float)rect.left / (float)texSize.x,
+		(float)rect.top / (float)texSize.y, 0.0f);
+	XMMATRIX mTexScale = XMMatrixScaling((float)rect.right / (float)texSize.x,
+		(float)rect.bottom / (float)texSize.y, 1.0f);
 	XMMATRIX mTexel = mTexScale * mTexTrans;
 	cb.uvTrans = XMMatrixTranspose(mTexel);
 	

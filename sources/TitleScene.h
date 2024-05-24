@@ -5,6 +5,8 @@
 class TitleScene : public GameObject
 {
 	int hImage;
+	int hTest;
+
 public:
 
 	TitleScene(GameObject* parent);

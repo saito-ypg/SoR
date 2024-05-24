@@ -1,44 +1,26 @@
 #include "testSkill.h"
-
-testSkill::testSkill():SkillBase(0.5f,1.0f)
+#include"../Engine/Model.h"
+#include"Player.h"
+namespace {
+	DamageData dmg;
+	AttackRangeCircle circle;
+}
+testSkill::testSkill(Player* pPlayer):SkillBase(ConvToFrames(0.5f),3,pPlayer,"spinicon.png")
 {
-	sequence = {1,5,1};
-	
+	sequence = { 1,5,1 };
+	circle.radius_ = 2;
+	dmg.damage_ = 20;
+	dmg.knockback_ = 4;
+	dmg.duration_ = 1;
 }
 
 testSkill::~testSkill()
 {
 }
 
-
 void testSkill::action()
 {
-	switch (stepindex)
-	{
-	case INVOKED:
-//		__debugbreak();
-		break;
-	case START_ATTACK:
-		if (steptime == sequence.at(START_ATTACK))
-		{
-			AttackRangeCircle circle;
-			circle.Duration = 1;
-			circle.radius_ = 2;
-			circle.position_ = this->transform_.position_;
-			DamageData dmg;
-			dmg.damage_ = 20;
-			dmg.knockback_ = 4;
-			RegisterHitRange(circle, dmg);
-		}
-//		__debugbreak();
-		break;
-
-	case END_ATTACK:
-//		__debugbreak();
-		break;
-
-
-	}
+	SwitchActionByStep();
 }
 
 void testSkill::Draw()
@@ -47,4 +29,32 @@ void testSkill::Draw()
 
 void testSkill::Release()
 {
+}
+
+void testSkill::DrawRangeDisplay(float deg)
+{
+	int handle = area(CIRCLE);
+	Transform DrawT =GetPlayerTransform();
+	const float r = circle.radius_;
+	DrawT.scale_ = {r ,r ,r };
+	Model::SetTransform(handle, DrawT);
+	Model::Draw(handle);
+}
+
+void testSkill::invokedStep() {
+
+
+}
+void testSkill::startStep() {
+
+	if (isStepChanged)
+	{
+		circle.position_ = this->beginTransform_.position_;
+		
+		RegisterHitRange(circle, dmg);
+	}
+}
+void testSkill::endStep() {
+
+
 }

@@ -32,7 +32,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
 // エントリーポイント
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	//#if defined(DEBUG) | defined(_DEBUG)
 	//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -203,7 +203,7 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,					//ウィンドウクラス名
 		caption,						//タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW,			//スタイル（普通のウィンドウ）
+		WS_OVERLAPPEDWINDOW^WS_THICKFRAME^WS_MAXIMIZEBOX,			//スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,					//表示位置左（おまかせ）
 		CW_USEDEFAULT,					//表示位置上（おまかせ）
 		winRect.right - winRect.left,	//ウィンドウ幅

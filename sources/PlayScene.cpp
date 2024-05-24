@@ -10,6 +10,7 @@
 #include"Decoy.h"
 #include"HPBar.h"
 #include"areamodels.h"
+#include"PlayerInterface.h"
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
 	: GameObject(parent, "PlayScene")
@@ -26,16 +27,14 @@ void PlayScene::Initialize()
 {
 	Instantiate<Ground>(this);
 	AreaModels::Initialize();
-	Instantiate<Player>(this);
+	/*auto p=*/Instantiate<Player>(this);
 
 	mod = Instantiate<ModeratorSequence>(this);
-	//Instantiate<Decoy>(this);
-	//auto* d = Instantiate<Decoy>(this);
-	//d->SetPosition(XMFLOAT3(1, 0, 10));
-	//d->SetRotateY(45);
 	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
 	Camera::SetPosition(XMFLOAT3{ 0, 30.0f, -10.0f });
 	HPBar::Initialize();
+	Instantiate<PlayerInterface>(this);
+
 
 }
 

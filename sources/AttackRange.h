@@ -1,20 +1,20 @@
 #pragma once
 //攻撃範囲の構造体を記述
 #include<DirectXMath.h>
+#include<functional>
 #include "areamodels.h"
 using namespace DirectX;
 struct actorAddr;
 struct AttackRangeBase
 {
-
 	//中心位置。扇の場合は中心角の位置
 	XMFLOAT3 position_;//中心座標
-	float Duration;//判定持続フレーム
+	std::function<void()>AreaTransition;
 	AttackRangeBase();
 	AttackRangeBase(XMFLOAT3 pos);
-	AreaModels::AREATYPE getType() { return areatype_; }
+	AreaModels::AREATYPE getType() const { return areatype_; }
 	virtual bool IsHit(struct actorAddr& data)=0;
-	virtual XMVECTOR getDir(XMFLOAT3 pos) = 0;
+	virtual XMVECTOR getDir(XMFLOAT3 pos)const = 0;//当たり判定の中心と対象との距離をとる
 protected:
 	AreaModels::AREATYPE areatype_;//攻撃エリア。要初期化
 
@@ -27,7 +27,7 @@ struct AttackRangeCircle		:public AttackRangeBase//円形の攻撃範囲データ
 	AttackRangeCircle();
 	AttackRangeCircle(XMFLOAT3 pos);
 	bool IsHit(struct actorAddr &data)override;
-	XMVECTOR getDir(XMFLOAT3 pos) override;
+	XMVECTOR getDir(XMFLOAT3 pos)const override;
 };
 struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 {
@@ -37,7 +37,7 @@ struct AttackRangeQuad			:public AttackRangeBase//矩形の攻撃範囲データ
 	AttackRangeQuad();
 	AttackRangeQuad(XMFLOAT3 pos);
 	bool IsHit(struct actorAddr& data)override;
-	XMVECTOR getDir(XMFLOAT3 pos) override;
+	XMVECTOR getDir(XMFLOAT3 pos)const override;
 };
 struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 {
@@ -47,6 +47,6 @@ struct AttackRangeCirculerSector :public AttackRangeBase//扇型攻撃範囲データ
 	AttackRangeCirculerSector();
 	AttackRangeCirculerSector(XMFLOAT3 pos);
 	bool IsHit(struct actorAddr& data)override;
-	XMVECTOR getDir(XMFLOAT3 pos) override;
+	XMVECTOR getDir(XMFLOAT3 pos)const override;
 };
 

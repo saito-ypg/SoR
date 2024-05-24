@@ -30,26 +30,6 @@ namespace CollisionManager
 	/// <returns></returns>
 	void AddCamp(GameActor* newActor,CAMPS camp);
 
-	/// <summary>
-	/// ‰~Œ`‚ÌUŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è‚·‚é
-	/// </summary>
-	/// <param name="camp">UŒ‚Òw‰c</param>
-	/// <param name="circle">‰~Œ`UŒ‚ƒGƒŠƒA</param>
-	void HitTestBy(CAMPS camp,AttackRangeCircle& circle);
-
-	/// <summary>
-	/// ‹éŒ`‚ÌUŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è
-	/// </summary>
-	/// <param name="camp">UŒ‚Òw‰c</param>
-	/// <param name="quad">‹éŒ`UŒ‚ƒGƒŠƒA</param>
-	void HitTestBy(CAMPS camp, AttackRangeQuad& quad);
-
-	/// <summary>
-	/// îŒ`‚ÌUŒ‚‚É“–‚½‚Á‚Ä‚¢‚é‚©”»’è
-	/// </summary>
-	/// <param name="camp">UŒ‚Òw‰c</param>
-	/// <param name="quad">îŒ`UŒ‚ƒGƒŠƒA</param>
-	void HitTestBy(CAMPS camp, AttackRangeCirculerSector& sector);
 
 	void RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg);
 	void RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg);

@@ -300,6 +300,7 @@ void GameObject::UpdateSub(const float &dt)
 
 	for (auto it = childList_.begin(); it != childList_.end(); it++)
 	{
+		(*it)->parentalTimeScale = timeScale * parentalTimeScale;
 		(*it)->UpdateSub(dt);
 	}
 

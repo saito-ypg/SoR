@@ -136,7 +136,8 @@ public:
 
 	//各アクセス関数
 	float GetMyTimeScale() const { return timeScale; }//オブジェクト単体の更新速度
-	float GetTotalTimeScale()const { return parentalTimeScale * timeScale; }//
+	float GetTotalTimeScale()const { 
+		return parentalTimeScale * timeScale; }//
 	XMFLOAT3 GetPosition() { return transform_.position_; }
 	XMFLOAT3 GetRotate() { return transform_.rotate_; }
 	XMFLOAT3 GetScale() { return transform_.scale_; }

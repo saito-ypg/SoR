@@ -82,7 +82,8 @@ void GameActor::DrawHP()
 	XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
 	XMStoreFloat3(&DrawT.position_,XMVector3TransformCoord(vPos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix()*Camera::GetVPMatrix()));
 	DrawT.position_.z = 0;
-	DrawT.position_.x = ((DrawT.position_.x) / Direct3D::screenWidth_ -HPBarRatio/4.0f)* 2.0f - 1;
+	
+	DrawT.position_.x = (static_cast<int>((DrawT.position_.x / Direct3D::screenWidth_ - HPBarRatio / 4.0f) * Direct3D::screenWidth_) * 2.0f / Direct3D::screenWidth_) - 1.0f;
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::screenHeight_ * 2.0f + 1;
 	using namespace HPBar;
 
@@ -114,17 +115,16 @@ void GameActor::TakeAttacked(DamageData& dmg,XMVECTOR& dir)
 	}
 	status_.hp_ -= dmg.damage_;
 	{//ÉmÉNÉoèàóù
-		knockBack.Velocity = dmg.knockback_;
+		knockBack.Velocity = dmg.knockback_/2;
 		knockBack.Time = defTime;
 		knockBack.Dir = dir;
 	}
 	if (dmg.pEffect_) {
-		dmg.pEffect_;//ó]óTÇ†Ç¡ÇΩÇÁé¿ëïÇµÇÊ
+		//dmg.pEffect_;//ó]óTÇ†Ç¡ÇΩÇÁé¿ëïÇµÇÊ
 	}
 	XMFLOAT3 fdir;
 	XMStoreFloat3(&fdir, -dir);
 	transform_.rotate_.y= XMConvertToDegrees((float)atan2(fdir.x, fdir.z));
-	Debug::Log("Remain:" + std::to_string(status_.hp_), true);
 
 }
 void GameActor::AddColliderCamp(GameActor* act, CAMPS camp)
@@ -136,7 +136,7 @@ void GameActor::RemoveColliderCamp(GameActor* act, CAMPS camp)
 	CollisionManager::RemoveCamp(act, camp);
 }
 
-bool GameActor::CanMove()
+bool GameActor::CanMoveWithEffects()
 {
 	return false;
 }
@@ -164,10 +164,10 @@ Transform* GameActor::GetTransformRef()
 	return &transform_;
 }
 
-void GameActor::ForceMove(XMVECTOR move)
+void GameActor::ForceMove(XMVECTOR translateBy)
 {
 	XMVECTOR vpos = XMLoadFloat3(&transform_.position_);
-	vpos += move;
+	vpos += translateBy;
 	XMStoreFloat3(&transform_.position_, vpos);
 
 }
