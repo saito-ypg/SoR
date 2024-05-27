@@ -135,8 +135,10 @@ void Sprite::Draw(Transform& transform, RECT rect, float alpha)
 
 	auto texSize = pTexture_->GetExtendedSize();
 	// テクスチャ座標変換行列を渡す
-	XMMATRIX mTexTrans = XMMatrixTranslation(floor((float)rect.left / (float)texSize.x),floor((float)rect.top / (float)texSize.y), 0.0f);
-	XMMATRIX mTexScale = XMMatrixScaling(floor((float)rect.right / (float)texSize.x),floor((float)rect.bottom / (float)texSize.y), 1.0f);
+	XMMATRIX mTexTrans = XMMatrixTranslation((float)rect.left / (float)texSize.x,
+		(float)rect.top / (float)texSize.y, 0.0f);
+	XMMATRIX mTexScale = XMMatrixScaling((float)rect.right / (float)texSize.x,
+		(float)rect.bottom / (float)texSize.y, 1.0f);
 	XMMATRIX mTexel = mTexScale * mTexTrans;
 	cb.uvTrans = XMMatrixTranspose(mTexel);
 	
