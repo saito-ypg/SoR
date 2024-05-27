@@ -45,8 +45,9 @@ void CollisionManager::Update()
 					UnderAttack(itrActor.pActor, itr->dmg_,itr->pRange_ );
 				}
 			}
-			itr->pRange_->Duration--;
-			if (itr->pRange_->Duration <= 0)
+			itr->dmg_.duration_--;
+			itr->pRange_->AreaTransition();
+			if (itr->dmg_.duration_ <= 0)
 			{
 			
 				SAFE_DELETE(itr->pRange_);

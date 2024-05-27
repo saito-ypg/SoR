@@ -57,6 +57,7 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	state = CHANGED;
 	hImage[0] = -1;
 	hImage[1] = -1;
+	pText = nullptr;
 	transitionTime = TRANSITION_MS;
 
 	manager = nullptr;

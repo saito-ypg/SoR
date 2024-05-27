@@ -14,10 +14,10 @@ void HPBar::Initialize()
 	{
 		i =-1;
 	}
-	hImage.at(BASE) = Image::Load("Interface/gaugeBack.png");
-	hImage.at(DMG) = Image::Load("Interface/gaugeDamaged.png");
-	hImage.at(BAR) = Image::Load("Interface/gaugeBar.png");
-	hImage.at(FRAME) = Image::Load("Interface/gaugeFrame.png");
+	hImage.at(BASE)		= Image::Load("Interface/gaugeBack.png");
+	hImage.at(DMG)		= Image::Load("Interface/gaugeDamaged.png");
+	hImage.at(BAR)		= Image::Load("Interface/gaugeBar.png");
+	hImage.at(FRAME)	= Image::Load("Interface/gaugeFrame.png");
 	for (const auto& i : hImage) {
 		assert(i>=0);
 	}

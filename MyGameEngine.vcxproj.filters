@@ -128,7 +128,6 @@
     <ClInclude Include="Engine\VFX.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInterface.h" />
     <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="sources\GameOverScene.h">
@@ -196,6 +195,15 @@
     </ClInclude>
     <ClInclude Include="sources\Ground.h">
       <Filter>sourses\Scene\Play\Props</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ChargeSkill.h">
+      <Filter>sourses\Scene\Play\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\PlayerInterface.h">
+      <Filter>sourses\Scene\Play\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\SoldierEnemy.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,7 +274,6 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Main.cpp" />
-    <ClCompile Include="PlayerInterface.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="sources\GameOverScene.cpp">
       <Filter>sourses\Scene\Gameover</Filter>
@@ -328,6 +335,15 @@
     <ClCompile Include="sources\Ground.cpp">
       <Filter>sourses\Scene\Play\Props</Filter>
     </ClCompile>
+    <ClCompile Include="sources\ChargeSkill.cpp">
+      <Filter>sourses\Scene\Play\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\PlayerInterface.cpp">
+      <Filter>sourses\Scene\Play\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\SoldierEnemy.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -339,7 +355,6 @@
     </None>
     <None Include="README.md" />
     <None Include="todo.md" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">

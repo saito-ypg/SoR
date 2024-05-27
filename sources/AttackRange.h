@@ -1,15 +1,15 @@
 #pragma once
 //攻撃範囲の構造体を記述
 #include<DirectXMath.h>
+#include<functional>
 #include "areamodels.h"
 using namespace DirectX;
 struct actorAddr;
 struct AttackRangeBase
 {
-
 	//中心位置。扇の場合は中心角の位置
 	XMFLOAT3 position_;//中心座標
-	float Duration;//判定持続フレーム
+	std::function<void()>AreaTransition;
 	AttackRangeBase();
 	AttackRangeBase(XMFLOAT3 pos);
 	AreaModels::AREATYPE getType() const { return areatype_; }

@@ -6,8 +6,9 @@
 using namespace AreaModels;
 #undef min
 #undef max
-AttackRangeBase::AttackRangeBase() :areatype_(NONE),position_({ 0,0,0 }), Duration(1)
+AttackRangeBase::AttackRangeBase() :areatype_(NONE),position_({ 0,0,0 })
 {
+	AreaTransition = []{};
 }
 AttackRangeBase::AttackRangeBase(XMFLOAT3 pos) :AttackRangeBase()
 {

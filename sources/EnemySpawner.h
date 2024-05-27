@@ -2,6 +2,7 @@
 #include"EnemyType.h"
 class EnemyBase;
 class GameObject;
+class GameActor;
 class EnemySpawner
 {
 private:
@@ -10,7 +11,7 @@ private:
 		static EnemyBase* createEnemy(GameObject* pParent, EnemyType type,bool isBoss);
 		
 	};
-
+	GameActor *pPlayer;
 public:
 	static EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type);
 	static EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type,bool isBoss);

@@ -39,5 +39,11 @@ public:
 	{
 		return XMFLOAT3(a.x + b.x, a.y + b.y, a.z + b.z);
 	}
-};
+	static XMFLOAT3 makeFloat3(float value) {
+		return XMFLOAT3(value, value, value);
+	}
+	
 
+};
+static XMFLOAT3 operator+(const XMFLOAT3& left, const XMFLOAT3& right);
+static XMFLOAT3 operator-(const XMFLOAT3& left, const XMFLOAT3& right);

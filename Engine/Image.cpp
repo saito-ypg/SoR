@@ -1,6 +1,11 @@
 #include "Global.h"
 #include "Image.h"
-
+#include "Input.h"
+#include"Debug.h"
+namespace {
+	
+}
+#define RET_IF_NON_EXIST(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
 //3D画像を管理する
 namespace Image
 {
@@ -23,9 +28,9 @@ namespace Image
 		for (int i = 0; i < _datas.size(); i++)
 		{
 			//すでに開いている場合
-			if (_datas[i] != nullptr && _datas[i]->fileName == fileName)
+			if (_datas.at(i) != nullptr && _datas.at(i)->fileName == fileName)
 			{
-				pData->pSprite = _datas[i]->pSprite;
+				pData->pSprite = _datas.at(i)->pSprite;
 				isExist = true;
 				break;
 			}
@@ -51,9 +56,9 @@ namespace Image
 		//使ってない番号が無いか探す
 		for (int i = 0; i < _datas.size(); i++)
 		{
-			if (_datas[i] == nullptr)
+			if (_datas.at(i) == nullptr)
 			{
-				_datas[i] = pData;
+				_datas.at(i) = pData;
 				return i;
 			}
 		}
@@ -75,12 +80,13 @@ namespace Image
 	//描画
 	void Draw(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		RET_IF_NON_EXIST(handle);
+		if (_datas.at(handle) == nullptr)
 		{
 			return;
 		}
-		_datas[handle]->transform.Calclation();
-		_datas[handle]->pSprite->Draw(_datas[handle]->transform, _datas[handle]->rect, _datas[handle]->alpha);
+		_datas.at(handle)->transform.Calclation();
+		_datas.at(handle)->pSprite->Draw(_datas.at(handle)->transform, _datas.at(handle)->rect, _datas.at(handle)->alpha);
 	}
 
 
@@ -88,17 +94,13 @@ namespace Image
 	//任意の画像を開放
 	void Release(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
 
 		//同じモデルを他でも使っていないか
 		bool isExist = false;
 		for (int i = 0; i < _datas.size(); i++)
 		{
 			//すでに開いている場合
-			if (_datas[i] != nullptr && i != handle && _datas[i]->pSprite == _datas[handle]->pSprite)
+			if (_datas.at(i) != nullptr && i != handle && _datas.at(i)->pSprite == _datas.at(handle)->pSprite)
 			{
 				isExist = true;
 				break;
@@ -108,10 +110,10 @@ namespace Image
 		//使ってなければモデル解放
 		if (isExist == false)
 		{
-			SAFE_DELETE(_datas[handle]->pSprite);
+			SAFE_DELETE(_datas.at(handle)->pSprite);
 		}
 
-		SAFE_DELETE(_datas[handle]);
+		SAFE_DELETE(_datas.at(handle));
 	}
 
 
@@ -130,57 +132,132 @@ namespace Image
 	//切り抜き範囲の設定
 	void SetRect(int handle, int x, int y, int width, int height)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 
-		_datas[handle]->rect.left = x;
-		_datas[handle]->rect.top = y;
-		_datas[handle]->rect.right = width;
-		_datas[handle]->rect.bottom = height;
+		_datas.at(handle)->rect.left = x;
+		_datas.at(handle)->rect.top = y;
+		_datas.at(handle)->rect.right = width;
+		_datas.at(handle)->rect.bottom = height;
 	}
 
 
 	//切り抜き範囲をリセット（画像全体を表示する）
 	void ResetRect(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 
-		XMFLOAT3 size = _datas[handle]->pSprite->GetTextureSize();
+		XMFLOAT3 size = _datas.at(handle)->pSprite->GetTextureSize();
 
-		_datas[handle]->rect.left = 0;
-		_datas[handle]->rect.top = 0;
-		_datas[handle]->rect.right = (long)size.x;
-		_datas[handle]->rect.bottom = (long)size.y;
+		_datas.at(handle)->rect.left = 0;
+		_datas.at(handle)->rect.top = 0;
+		_datas.at(handle)->rect.right = (long)size.x;
+		_datas.at(handle)->rect.bottom = (long)size.y;
 
 	}
 
 	//アルファ値設定
 	void SetAlpha(int handle, int alpha)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
-		_datas[handle]->alpha = (float)alpha / 255.0f;
+		RET_IF_NON_EXIST(handle);
+		_datas.at(handle)->alpha = (float)alpha / 255.0f;
 	}
 
 
 	//ワールド行列を設定
 	void SetTransform(int handle, Transform& transform)
 	{
-		if (handle < 0 || handle >= _datas.size())
-		{
-			return;
-		}
+		RET_IF_NON_EXIST(handle);
 
-		_datas[handle]->transform = transform;
+		_datas.at(handle)->transform = transform;
 	}
 
+	XMFLOAT3 toPixel(const XMFLOAT3& pos)
+	{
+		return XMFLOAT3((pos.x+1.0f)*0.5f*Direct3D::screenWidth_,
+						(1.0f-pos.y) *0.5f*Direct3D::screenHeight_,
+						0.0f);
+	}
+
+	float toPixel(const float& pos, const AXIS& axis)
+	{
+		switch (axis) {
+		case X:return((pos+1.0f)*0.5f*Direct3D::screenWidth_);
+		case Y:return((1.0f-pos) * 0.5f *Direct3D::screenHeight_);
+		default:assert(false);
+			return 0.0f;
+		}
+	}
+
+	XMFLOAT3 toPos(XMFLOAT3 pixel)
+	{
+		return XMFLOAT3(pixel.x/Direct3D::screenWidth_*2-1,pixel.y/Direct3D::screenHeight_*-2+1,0);
+	}
+
+	float toPos(float pixel, AXIS axis)
+	{
+		switch (axis) {
+		case X:return(pixel / Direct3D::screenWidth_ * 2 - 1);
+		case Y:return(pixel / Direct3D::screenHeight_ * -2 + 1);
+		default:assert(false); return UNSPECIFIED;
+		}
+	}
+
+
+	float AlignImage(const int& handle, const PLACEMENT& placement, float specifiedPos, float scale)
+	{
+		if ((handle) < 0 || (handle) >= Image::_datas.size()) return UNSPECIFIED;
+		const RECT rect_ = _datas.at(handle)->rect;
+		const float halfWidth = (rect_.right -rect_.left)*0.5f*scale;
+		const float halfHeight = (rect_.bottom-rect_.top )*0.5f*scale;
+		float retPos;
+		bool nan = isnan<float>(specifiedPos);
+		switch (placement)
+		{
+		case LEFT:
+			if (nan)
+				specifiedPos = 0.0f;
+			retPos = halfWidth+specifiedPos;	break;
+		case RIGHT:
+			if (nan)
+				specifiedPos = static_cast<float>(Direct3D::screenWidth_);
+			retPos = specifiedPos - halfWidth; break;
+		case UP:
+			if (nan)
+				specifiedPos = 0.0f;
+			retPos = halfHeight+specifiedPos; break;
+		case DOWN:
+			if (nan)
+				specifiedPos = static_cast<float>(Direct3D::screenHeight_);
+			retPos = specifiedPos - halfHeight; break;
+		default:
+			return NAN;
+		}
+		return retPos;
+	}
+
+	bool isMouseOver(int handle)
+	{
+		assert(handle < _datas.size() && handle >= 0);
+		XMFLOAT3 mousePos = Input::GetMousePosition();
+		char debuglog[40];
+		sprintf_s(debuglog, sizeof(debuglog), "x:%f, y:%f", mousePos.x,mousePos.y);
+		Debug::Log(std::string(debuglog),true);
+		// 画像のスクリーン座標範囲をもとめる
+		const XMFLOAT3 imgPos =toPixel( _datas.at(handle)->transform.position_);
+		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;
+		const RECT imgRect = _datas.at(handle)->rect;
+		
+		float halfWidth = imgRect.right * imgScale.x / 2.0f;
+		float halfHeight = imgRect.bottom * imgScale.y / 2.0f;
+		float left = imgPos.x - halfWidth;
+		float right = imgPos.x + halfWidth;
+		float top = imgPos.y+ halfHeight;
+		float bottom = imgPos.y - halfHeight;
+
+		// マウス座標が画像の NDC 座標範囲内にあるかを判定
+		return mousePos.x >= left && mousePos.x <= right &&
+			mousePos.y >= bottom && mousePos.y <= top;
+	}
 
 	//ワールド行列の取得
 	XMMATRIX GetMatrix(int handle)
@@ -189,7 +266,7 @@ namespace Image
 		{
 			return XMMatrixIdentity();
 		}
-		return _datas[handle]->transform.GetWorldMatrix();
+		return _datas.at(handle)->transform.GetWorldMatrix();
 	}
 }
 
