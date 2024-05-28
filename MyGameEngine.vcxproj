@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BillBoard.cpp" />
@@ -43,7 +45,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\VFX.cpp" />
-    <ClCompile Include="PlayerInterface.cpp" />
+    <ClCompile Include="sources\PlayerInterface.cpp" />
     <ClCompile Include="sources\ActorCollider.cpp" />
     <ClCompile Include="sources\ActorInfo.cpp" />
     <ClCompile Include="sources\areamodels.cpp" />
@@ -67,6 +69,8 @@
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\SoldierEnemy.h" />
     <ClInclude Include="sources\ChargeSkill.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BillBoard.h" />
@@ -91,7 +95,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\VFX.h" />
-    <ClInclude Include="PlayerInterface.h" />
+    <ClInclude Include="sources\PlayerInterface.h" />
     <ClInclude Include="sources\ActorCollider.h" />
     <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="sources\areamodels.h" />

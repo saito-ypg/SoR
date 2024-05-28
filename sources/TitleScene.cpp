@@ -38,13 +38,13 @@ void TitleScene::Update(const float& dt)
 //•`‰æ
 void TitleScene::Draw()
 {
+	using namespace Image;
 	transform_.scale_ = { 0.6f,0.6f,0.6f };
 	Image::SetTransform(hImage, transform_);
 	Image::Draw(hImage);
-	Transform UI;
-	UI.position_.x=  Image::AlignImage(hTest,RIGHT,500) ;
-	UI.position_.y = Image::AlignImage(hTest, UP);
-	Image::SetTransform(hTest, UI);
+	Transform t;
+	t.position_ = toPos(XMFLOAT3(AlignImage(hTest, LEFT), AlignImage(hTest, UP), 0));
+	SetTransform(hTest, t);
 	Image::Draw(hTest);
 }
 

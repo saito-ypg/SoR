@@ -9,19 +9,18 @@
 namespace {
     constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
     constexpr float PLAYER_ROT_TH = 0.1f;//移動時に回転するかどうかの距離のしきい値
-    constexpr int UNUSED = -1;//スキル長押ししてないとき
-    int usingSkillIndex=UNUSED;//使用中スキル番号、なかったらUNUSED(=-1);
+
     const std::map<int, int> skillkeysmap{//スキル番号から入力キーに変換
         {0,DIK_Q },
         {1,DIK_W},
         {2,DIK_E},
         {3,DIK_R},
     };
-    
-}
-bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
+    bool nearlyZero(float f) {//ほぼ0であるといえるならtrue。
     return XMScalarNearEqual(f, 0.0f, 0.0001f);
 }
+}
+
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -81,18 +80,18 @@ void Player::ActorUpdate(const float& dt)
     }
     else {//各種スキル
         for (int i = 0; i < skillsNum; i++) {
-            if(skills.at(i)==nullptr)//スキルアタッチできてなかったら市内
+            if(!skills.at(i))//スキルアタッチできてなかったら
             {
                 continue;
             }
-            if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
-            {
+            else if (usingSkillIndex==UNUSED && Input::IsKeyDown(skillkeysmap.at(i)))
+            {//スキル範囲表示のためのindex指定
                 if (canUseSkill(i)) {
                     usingSkillIndex = i;
                 }
             }
-            if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
-            {
+            else if (usingSkillIndex==i && Input::IsKeyUp(skillkeysmap.at(i)))
+            {//発動前キャンセルされてなければここで発動
                 ActivateSkill(i);
                 usingSkillIndex = UNUSED;
             }
@@ -222,11 +221,18 @@ void Player::Release()
     }
 }
 
+std::vector<SkillBase*> Player::getSkills() const
+{
+    std::vector<SkillBase*>retVec(skills.begin(), skills.end());
+    return retVec;
+}
+
+
 bool Player::canUseSkill(int number)
 {
     if (this->isDuringSkill())//すでにスキル動作中ならｘ
         return false;
-    if (number < 0 || number >= skills.size())//存在しないスキル番号×
+    if (number < 0 || number >= skills.size())//存在しないスキル番号ｘ
         return false;
     return skills.at(number)->CanUse();//対象のスキルは使用可能かを返す
     
@@ -274,7 +280,7 @@ void Player::calculateForMove(const XMVECTOR target_)
 
     
 }
-float Player::GetTargetDirection(const XMVECTOR& target_)
+float Player::GetTargetDirection(const XMVECTOR& target_) const
 {
     XMVECTOR vPos = XMLoadFloat3(&transform_.position_);
     //移動方向を向く 

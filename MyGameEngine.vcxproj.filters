@@ -199,8 +199,11 @@
     <ClInclude Include="sources\ChargeSkill.h">
       <Filter>sourses\Scene\Play\Skills</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInterface.h">
+    <ClInclude Include="sources\PlayerInterface.h">
       <Filter>sourses\Scene\Play\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\SoldierEnemy.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,8 +338,11 @@
     <ClCompile Include="sources\ChargeSkill.cpp">
       <Filter>sourses\Scene\Play\Skills</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerInterface.cpp">
+    <ClCompile Include="sources\PlayerInterface.cpp">
       <Filter>sourses\Scene\Play\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\SoldierEnemy.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

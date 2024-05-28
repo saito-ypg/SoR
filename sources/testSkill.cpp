@@ -5,7 +5,7 @@ namespace {
 	DamageData dmg;
 	AttackRangeCircle circle;
 }
-testSkill::testSkill(Player* pPlayer):SkillBase(ConvToFrames(0.5f),ConvToFrames(1.0f),pPlayer)
+testSkill::testSkill(Player* pPlayer):SkillBase(ConvToFrames(0.5f),3,pPlayer,"spinicon.png")
 {
 	sequence = { 1,5,1 };
 	circle.radius_ = 2;

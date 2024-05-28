@@ -16,7 +16,7 @@ namespace {
 	XMVECTOR forward = XMVectorZero();
 	XMVECTOR lastForceVec = XMVectorZero();
 }
-ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(32,ConvToFrames(1.0f),pPlayer)
+ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(ConvToFrames(1.0f), ConvToFrames(2.8f), pPlayer, "charge.png")
 {
 	sequence={12,28,6};
 	QuadArea.width_ =1.1f;
@@ -29,10 +29,8 @@ ChargeSkill::~ChargeSkill()
 
 void ChargeSkill::action()
 {
-
 	forward = XMVector3TransformCoord(XMVectorSet(0, 0, 1, 0), XMMatrixRotationY(XMConvertToRadians(beginTransform_.rotate_.y)));
 	SwitchActionByStep();
-
 }
 
 void ChargeSkill::Draw()
