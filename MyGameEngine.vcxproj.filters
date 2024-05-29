@@ -205,6 +205,7 @@
     <ClInclude Include="sources\SoldierEnemy.h">
       <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Ease.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -344,6 +345,7 @@
     <ClCompile Include="sources\SoldierEnemy.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Ease.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
