@@ -2,16 +2,17 @@
 #include "ChargeSkill.h"
 #include"../Engine/Model.h"
 #include"Player.h"
+#include"../Engine/Ease.h"
 namespace {
-	float INOUTEXPO(float t) {//ŽžŠÔ‚É‘Î‚µˆÊ’u‚ð•Ô‚·
-		return t == 0.0f
-			? 0.0f 
-			: t >= 1.0f
-				? 1.0f
-				: t < 0.5f
-					? (float)(std::pow(2, 20 * t - 10)) / 2
-					: (2 - (float)(std::pow(2, -20 * t + 10))) / 2;
-	}
+	//float INOUTEXPO(float t) {//ŽžŠÔ‚É‘Î‚µˆÊ’u‚ð•Ô‚·
+	//	return t == 0.0f
+	//		? 0.0f 
+	//		: t >= 1.0f
+	//			? 1.0f
+	//			: t < 0.5f
+	//				? (float)(std::pow(2, 20 * t - 10)) / 2
+	//				: (2 - (float)(std::pow(2, -20 * t + 10))) / 2;
+	//}
 	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();
 	XMVECTOR lastForceVec = XMVectorZero();
@@ -62,7 +63,7 @@ void ChargeSkill::startStep(){
 	//ˆÚ“®—Ê‚ðo‚·
 	const float& flames = sequence.at(START_ATTACK);
 	float nowTime =(float)(-(steptime)+flames+1)/flames;
-	XMVECTOR forcevec = forward * INOUTEXPO(nowTime) * QuadArea.length_*2;
+	XMVECTOR forcevec = forward * (float)(ease::EaseFunc["InOutExpo"](nowTime)) * QuadArea.length_ * 2;
 	pPlayer_->ForceMove(forcevec-lastForceVec);
 	if (isStepChanged)
 	{

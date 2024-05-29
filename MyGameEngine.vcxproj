@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Ease.cpp" />
     <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
