@@ -5,8 +5,7 @@
       "enemy": [
         {
           "spawn_time": 5.0,
-          "enemy_type": "DECOY",
-          "is_boss": false
+          "enemy_type": "DECOY"
         },
         {
           "spawn_time": 8.0,
@@ -21,8 +20,7 @@
       "enemy": [
         {
           "spawn_time": 3.0,
-          "enemy_type": "DECOY",
-          "is_boss": false
+          "enemy_type": "DECOY"
         }
       ]
     }

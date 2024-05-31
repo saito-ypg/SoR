@@ -25,7 +25,7 @@
                   "type": "boolean"
                 }
               },
-              "required": [ "spawn_time", "enemy_type", "is_boss" ]
+              "required": [ "spawn_time", "enemy_type"]
             }
           }
         },
