@@ -20,30 +20,32 @@ void ModeratorSequence::LoadData()
 {
 	using namespace std;
 	//https://jsoneditoronline.org/#left=local.desuze&right=local.judamu jsonエディタ
-	string filename = DATA_PATH+"game_stage.json";
+	string filename = DATA_PATH + "game_stage.json";
 	ifstream ifs(filename.c_str());
-	if (ifs.good())
+	if (!ifs)
 	{
-		using json = nlohmann::json;
-		json stageData;
-		ifs >> stageData;
-		auto size = stageData["Waves"].size();
-		spawnDataList.resize(size);
-		for(auto i=0;i<size;i++)
-		{
-			auto& game = stageData["Waves"].at(i);
-			for (auto& stage : game["enemy"]) {
-				EnemySpawning temp;
-				if (stage.empty())	assert(false);//stageが空の場合
+		MessageBox(nullptr, "ステージファイルが読み込めませんでした。", "エラー", S_OK);
+		return;
+	}
+	using json = nlohmann::json;
+	json stageData;
+	ifs >> stageData;
+	auto size = stageData.at("Waves").size();
+	spawnDataList.resize(size);
+	for (auto i = 0; i < size; i++)
+	{
+		auto& game = stageData.at("Waves").at(i);
+		for (auto& stage : game.at("enemy")) {
+			EnemySpawning temp;
+			if (stage.empty())	assert(false);//stageが空の場合
 
-				temp.spawntime= stage["spawn_time"];
-				temp.type = TypeMap.at(stage["enemy_type"]);
-				temp.is_boss = stage["is_boss"];
-				spawnDataList.at(i).emplace_back(temp);
-				
-			}
-			std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
+			temp.spawntime = stage.at("spawn_time");
+			temp.type = TypeMap.at(stage.at("enemy_type"));
+			temp.is_boss = stage.contains("is_boss") && stage.at("is_boss").is_boolean();
+			spawnDataList.at(i).emplace_back(temp);
+
 		}
+		std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
 	}
 
 }
