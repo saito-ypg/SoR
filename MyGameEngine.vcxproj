@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="enemy_schema.json" />
     <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
+    <None Include="enemy_status.json" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />
@@ -270,7 +272,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" />
+      <UserProperties Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" enemy_3status_1json__JsonSchema="enemy_Schema.json" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
