@@ -7,7 +7,7 @@
 			"id": {
 				"type": "number"
 			},
-			"charactor": {
+			"character": {
 				"type": "object",
 				"properties": {
 					"name": {
@@ -29,6 +29,6 @@
 				"required": [ "name", "params" ]
 			}
 		},
-		"required": [ "id", "charactor" ]
+		"required": [ "id", "character" ]
 	}
 }

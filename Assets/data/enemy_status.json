@@ -1,16 +1,7 @@
 [
-  /*
   {
-    "name":,
-      "params":{
-        "maxHp":,
-        "radius":
-      }
-  }
-*/
-  {
-    "id": 1,
-    "charactor": {
+    "id": 0,
+    "character": {
       "name": "Decoy",
       "params": {
         "maxHp": 50,
@@ -19,9 +10,9 @@
     }
   },
   {
-    "id": 2,
-    "charactor": {
-    "name": "Soldier",
+    "id": 1,
+    "character": {
+      "name": "Soldier",
       "params": {
         "maxHp": 200,
         "radius": 1.4

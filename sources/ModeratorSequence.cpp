@@ -29,7 +29,7 @@ void ModeratorSequence::LoadData()
 	}
 	using json = nlohmann::json;
 	json stageData;
-	ifs >> stageData;
+	ifs >>stageData;
 	auto size = stageData.at("Waves").size();
 	spawnDataList.resize(size);
 	for (auto i = 0; i < size; i++)
@@ -52,7 +52,6 @@ void ModeratorSequence::LoadData()
 }
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
 {
-	//https://chat.openai.com/share/4c4ae57d-f51a-4ef8-895a-9d1c7068977d
 	curTime = milliseconds(0);
 	ttlTime = milliseconds(0);
 	waves = 0;
@@ -62,18 +61,20 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	hImage[1] = -1;
 	pText = nullptr;
 	transitionTime = TRANSITION_MS;
-
+	spawner = nullptr;
 	manager = nullptr;
 }
 
 ModeratorSequence::~ModeratorSequence()
 {
+
 	
 }
 
 void ModeratorSequence::Initialize()
 {
 	manager = new EnemyManager(this);
+	spawner = new EnemySpawner((GameActor*)this->FindObject("Player"));
 	LoadData();
 	pText = new Text();
 	pText->Initialize();
@@ -111,7 +112,7 @@ void ModeratorSequence::Update(const float& dt)
 				float time = static_cast<float>(duration_cast<seconds>(curTime).count());
 				if (waiting.spawntime <=time)
 				{
-						manager->add(EnemySpawner::spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));	
+						manager->add(spawner->spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));	
 						spawnindex++;
 				}
 				
