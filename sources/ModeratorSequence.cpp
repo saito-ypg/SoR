@@ -43,6 +43,7 @@ void ModeratorSequence::LoadData()
 			temp.type = TypeMap.at(stage.at("enemy_type"));
 			temp.is_boss = stage.contains("is_boss") && stage.at("is_boss").is_boolean();
 			spawnDataList.at(i).emplace_back(temp);
+			
 
 		}
 		std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());

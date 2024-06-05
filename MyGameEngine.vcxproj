@@ -274,7 +274,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" />
+      <UserProperties Assets_4data_4enemy_3status_1json__JsonSchema="enemy_schema.json" Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -1,26 +1,31 @@
 [
   /*
-  敵のステータスは以下の通りに定義すること
   {
-    "name":名前,
+    "name":,
       "params":{
-        "maxHp":最大値,
-        "radius":当たり判定半径
+        "maxHp":,
+        "radius":
       }
   }
 */
   {
-    "name": "Decoy",
-    "params": {
-      "maxHp": 50,
-      "radius": 1.1
+    "id": 1,
+    "charactor": {
+      "name": "Decoy",
+      "params": {
+        "maxHp": 50,
+        "radius": 1.1
+      }
     }
   },
   {
+    "id": 2,
+    "charactor": {
     "name": "Soldier",
-    "params": {
-      "maxHp": "200",
-      "radius": "1.4"
+      "params": {
+        "maxHp": 200,
+        "radius": 1.4
+      }
     }
   }
 ]
