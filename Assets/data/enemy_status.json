@@ -4,7 +4,7 @@
     "character": {
       "name": "Decoy",
       "params": {
-        "maxHp": 50,
+        "maxHp": 1,
         "radius": 1.1
       }
     }
@@ -14,7 +14,7 @@
     "character": {
       "name": "Soldier",
       "params": {
-        "maxHp": 200,
+        "maxHp": 211,
         "radius": 1.4
       }
     }

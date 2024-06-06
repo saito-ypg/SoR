@@ -1,7 +1,7 @@
 #include"../Engine/Model.h"
 #include "Decoy.h"
 
-Decoy::Decoy(GameObject* parent) :EnemyBase(parent)
+Decoy::Decoy(GameObject* parent) :EnemyBase(parent,EnemyType::DECOY)
 {
 	status_ = ActorInfo{ 50,1.1f };
 	transform_.position_ = { 0,0,0 };

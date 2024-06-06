@@ -1,6 +1,6 @@
 #include "SoldierEnemy.h"
 
-SoldierEnemy::SoldierEnemy(GameObject* parent):EnemyBase(parent)
+SoldierEnemy::SoldierEnemy(GameObject* parent):EnemyBase(parent,EnemyType::SOLDIER)
 {
 }
 
