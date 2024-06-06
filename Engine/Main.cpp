@@ -30,14 +30,16 @@ const DWORD DELTA_MAX = 333;
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-
+#define _CRTDBG_MAP_ALLOC //メモリリーク検出用
 // エントリーポイント
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	//#if defined(DEBUG) | defined(_DEBUG)
-	//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//#endif
-
+	#if false
+		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+		_CrtSetBreakAlloc(342);
+		_CrtSetBreakAlloc(356);
+	#endif
+		
 	srand((unsigned)time(NULL));
 	SetCurrentDirectory("Assets");
 
@@ -167,7 +169,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	pRootObject->ReleaseSub();
 	SAFE_DELETE(pRootObject);
 	Direct3D::Release();
-
 	return 0;
 }
 

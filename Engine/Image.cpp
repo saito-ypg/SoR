@@ -1,7 +1,6 @@
 #include "Global.h"
 #include "Image.h"
 #include "Input.h"
-#include"Debug.h"
 namespace {
 	
 }
@@ -239,9 +238,6 @@ namespace Image
 	{
 		assert(handle < _datas.size() && handle >= 0);
 		XMFLOAT3 mousePos = Input::GetMousePosition();
-		char debuglog[40];
-		sprintf_s(debuglog, sizeof(debuglog), "x:%f, y:%f", mousePos.x,mousePos.y);
-		Debug::Log(std::string(debuglog),true);
 		// 画像のスクリーン座標範囲をもとめる
 		const XMFLOAT3 imgPos =toPixel( _datas.at(handle)->transform.position_);
 		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;
