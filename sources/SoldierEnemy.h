@@ -1,5 +1,7 @@
 #pragma once
 #include "EnemyBase.h"
+
+//Œ»ó–¢À‘•
 class SoldierEnemy : public EnemyBase
 {
 private:

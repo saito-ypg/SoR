@@ -18,7 +18,7 @@ protected:
 	void RemoveCamp() override;
 	void dyingProcess()override;
 
-	//スキル等を知る必要ないためPlayerにはしない
+	//スキル等を知る必要ないためPlayer型にはしない
 	GameActor* pPlayer;
 	STATE eStat_;//管理用
 public:

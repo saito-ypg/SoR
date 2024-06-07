@@ -12,7 +12,7 @@ struct actorAddr {
 	actorAddr() :pActor(nullptr), pCollider(nullptr) {}
 	actorAddr(GameActor* pA, ActorCollider* pC) :pActor(pA), pCollider(pC) {}
 };
-//全てのアクタの当たり判定を管理・判定する名前空間。クラスのほうがいい？
+//全てのアクタの当たり判定を管理・判定する名前空間。
 //当たり判定の際、高さ(=y軸）は考慮しない
 namespace CollisionManager
 {

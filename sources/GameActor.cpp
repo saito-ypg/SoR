@@ -87,7 +87,6 @@ void GameActor::DrawHP()
 	DrawT.position_.y = DrawT.position_.y / -Direct3D::screenHeight_ * 2.0f + 1;
 	using namespace HPBar;
 
-	//HPBar::Draw(HPBar::BAR, DrawT);
 	for (auto i = 0; i < HPBar::NUM; i++)
 	{
 		switch (i)
