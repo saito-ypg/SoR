@@ -1,13 +1,9 @@
 #include "EnemyBase.h"
 
-EnemyBase::EnemyBase(GameObject* parent):GameActor(parent,"Enemy")
+EnemyBase::EnemyBase(GameObject* parent,EnemyType type, bool isboss):GameActor(parent, "Enemy")
 {
 	eStat_ = WAIT;
 	pPlayer = nullptr;
-}
-
-EnemyBase::EnemyBase(GameObject* parent, bool isboss):EnemyBase(parent)
-{
 	if (isboss)
 	{
 		transform_.scale_ = { 1.5,1.5,1.5 };
@@ -16,6 +12,13 @@ EnemyBase::EnemyBase(GameObject* parent, bool isboss):EnemyBase(parent)
 
 EnemyBase::~EnemyBase()
 {
+}
+
+void EnemyBase::setConfig(EnemyStatus status)
+{
+	status_.maxHp_ = status.hp;
+	status_.hp_ = status.hp;
+	status_.hitCircleRange_ = status.radius;
 }
 
 

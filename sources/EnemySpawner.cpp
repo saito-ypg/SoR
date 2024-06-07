@@ -8,10 +8,6 @@
 #include"../libraries/json.hpp"
 constexpr float SPAWN_DISTANCE = 10.0f;
 constexpr int ANGLE360 = 360;
-struct EnemyStatus{
-	int hp;
-	float radius;
-};
 
 namespace {
 	std::map<EnemyType, EnemyStatus> datas;
@@ -40,7 +36,8 @@ namespace {
 
 
 void EnemySpawner::loadEnemyParams()
-{//後でキー名定数にしよう
+{	//キー名typo対策の定数に
+	constexpr auto chr = "character", params = "params", id = "id", hp = "maxHp", r = "radius";
 	using json = nlohmann::json;
 	std::ifstream f("../Assets/data/enemy_status.json");
 	if (f.fail())
@@ -53,8 +50,8 @@ void EnemySpawner::loadEnemyParams()
 	f >> jsondata;
 	std::string s = jsondata.dump();
 	for (const auto& itr : jsondata) {
-		const auto &param = itr.at("character").at("params");
-		datas.emplace((EnemyType)(itr.at("id")), EnemyStatus{ param.at("maxHp"), param.at("radius") });
+		const auto &param = itr.at(chr).at(params);
+		datas.emplace((EnemyType)(itr.at(id)), EnemyStatus{ param.at(hp), param.at(r) });
 	}
 
 }
@@ -67,7 +64,7 @@ EnemySpawner::EnemySpawner(GameActor* pPlayer)
 		loadEnemyParams();
 }
 
-EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool isBoss)
+EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool isBoss) const
 {
 	auto enemy = ::createEnemy(pParent, type, isBoss);
 	if (!enemy)
@@ -75,6 +72,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 		assert(false);
 	}
 	enemy->SetPlayer(pPlayer_);//プレイヤーを認知させる
+	enemy->setConfig(datas.at(type));
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians((float)(rand() % ANGLE360)));
 	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0, SPAWN_DISTANCE,0), rotmat);
 	enemy->SetPosition(vpos);

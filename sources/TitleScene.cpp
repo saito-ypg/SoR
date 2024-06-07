@@ -42,5 +42,5 @@ void TitleScene::Draw()
 //ŠJ•ú
 void TitleScene::Release()
 {
-
+	Image::AllRelease();
 }

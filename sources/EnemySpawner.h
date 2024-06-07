@@ -1,6 +1,6 @@
 #pragma once
-#include"EnemyType.h"
 
+#include"EnemyType.h"
 class EnemyBase;
 class GameObject;
 class GameActor;
@@ -17,6 +17,6 @@ private:
 
 public:
 	EnemySpawner(GameActor *pPlayer);
-	EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type,bool isBoss=false);
+	EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type,bool isBoss=false) const;
 };
 
