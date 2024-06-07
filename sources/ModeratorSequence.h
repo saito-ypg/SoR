@@ -1,7 +1,7 @@
 #pragma once
 #include<chrono>
 #include<map>
-#include "../Engine\GameObject.h"
+#include "../Engine/GameObject.h"
 #include"../Engine/Text.h"
 #include"EnemyType.h"
 
@@ -35,6 +35,7 @@ private:
     Text* pText;
     int hImage[2];
     EnemyManager* manager;
+    EnemySpawner* spawner;
     enum s{
         CHANGED=0,//ƒV[ƒ“•Ï‚í‚Á‚½’¼Œã
         PREP,//€”õ

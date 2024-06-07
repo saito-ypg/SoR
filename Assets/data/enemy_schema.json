@@ -1,0 +1,34 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"id": {
+				"type": "number"
+			},
+			"character": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"params": {
+						"type": "object",
+						"properties": {
+							"maxHp": {
+								"type": "number"
+							},
+							"radius": {
+								"type": "number"
+							}
+						},
+						"required": [ "maxHp", "radius" ]
+					}
+				},
+				"required": [ "name", "params" ]
+			}
+		},
+		"required": [ "id", "character" ]
+	}
+}

@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\data\enemy_schema.json">
+      <FileType>Document</FileType>
+    </None>
     <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -123,6 +126,7 @@
   <ItemGroup>
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
+    <None Include="Assets\data\enemy_status.json" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />
@@ -194,7 +198,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\include;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\lib\x64\release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\release;$(LibraryPath)</LibraryPath>
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -249,7 +254,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -270,7 +275,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" />
+      <UserProperties Assets_4data_4enemy_3status_1json__JsonSchema="enemy_schema.json" Assets_4data_4game_3stage_1json__JsonSchema="stage_schema.json" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

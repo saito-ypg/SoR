@@ -20,36 +20,38 @@ void ModeratorSequence::LoadData()
 {
 	using namespace std;
 	//https://jsoneditoronline.org/#left=local.desuze&right=local.judamu jsonエディタ
-	string filename = DATA_PATH+"game_stage.json";
+	string filename = DATA_PATH + "game_stage.json";
 	ifstream ifs(filename.c_str());
-	if (ifs.good())
+	if (!ifs)
 	{
-		using json = nlohmann::json;
-		json stageData;
-		ifs >> stageData;
-		auto size = stageData["Waves"].size();
-		spawnDataList.resize(size);
-		for(auto i=0;i<size;i++)
-		{
-			auto& game = stageData["Waves"].at(i);
-			for (auto& stage : game["enemy"]) {
-				EnemySpawning temp;
-				if (stage.empty())	assert(false);//stageが空の場合
+		MessageBox(nullptr, "ステージファイルが読み込めませんでした。", "エラー", S_OK);
+		return;
+	}
+	using json = nlohmann::json;
+	json stageData;
+	ifs >>stageData;
+	auto size = stageData.at("Waves").size();
+	spawnDataList.resize(size);
+	for (auto i = 0; i < size; i++)
+	{
+		auto& game = stageData.at("Waves").at(i);
+		for (auto& stage : game.at("enemy")) {
+			EnemySpawning temp;
+			if (stage.empty())	assert(false);//stageが空の場合
 
-				temp.spawntime= stage["spawn_time"];
-				temp.type = TypeMap.at(stage["enemy_type"]);
-				temp.is_boss = stage["is_boss"];
-				spawnDataList.at(i).emplace_back(temp);
-				
-			}
-			std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
+			temp.spawntime = stage.at("spawn_time");
+			temp.type = TypeMap.at(stage.at("enemy_type"));
+			temp.is_boss = stage.contains("is_boss") && stage.at("is_boss").is_boolean();
+			spawnDataList.at(i).emplace_back(temp);
+			
+
 		}
+		std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
 	}
 
 }
 ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
 {
-	//https://chat.openai.com/share/4c4ae57d-f51a-4ef8-895a-9d1c7068977d
 	curTime = milliseconds(0);
 	ttlTime = milliseconds(0);
 	waves = 0;
@@ -59,18 +61,20 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 	hImage[1] = -1;
 	pText = nullptr;
 	transitionTime = TRANSITION_MS;
-
+	spawner = nullptr;
 	manager = nullptr;
 }
 
 ModeratorSequence::~ModeratorSequence()
 {
+
 	
 }
 
 void ModeratorSequence::Initialize()
 {
 	manager = new EnemyManager(this);
+	spawner = new EnemySpawner((GameActor*)this->FindObject("Player"));
 	LoadData();
 	pText = new Text();
 	pText->Initialize();
@@ -108,7 +112,7 @@ void ModeratorSequence::Update(const float& dt)
 				float time = static_cast<float>(duration_cast<seconds>(curTime).count());
 				if (waiting.spawntime <=time)
 				{
-						manager->add(EnemySpawner::spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));	
+						manager->add(spawner->spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));	
 						spawnindex++;
 				}
 				

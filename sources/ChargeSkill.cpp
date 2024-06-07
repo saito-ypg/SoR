@@ -68,8 +68,6 @@ void ChargeSkill::startStep(){
 	if (isStepChanged)
 	{
 		DamageData dmg;
-		
-
 		RegisterHitRange(QuadArea,dmg);
 	}
 	lastForceVec = forcevec;

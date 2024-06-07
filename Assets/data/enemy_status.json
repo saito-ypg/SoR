@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "character": {
+      "name": "Decoy",
+      "params": {
+        "maxHp": 50,
+        "radius": 1.1
+      }
+    }
+  },
+  {
+    "id": 1,
+    "character": {
+      "name": "Soldier",
+      "params": {
+        "maxHp": 200,
+        "radius": 1.4
+      }
+    }
+  }
+]

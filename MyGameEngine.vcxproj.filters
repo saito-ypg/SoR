@@ -357,6 +357,8 @@
     </None>
     <None Include="README.md" />
     <None Include="todo.md" />
+    <None Include="Assets\data\enemy_schema.json" />
+    <None Include="Assets\data\enemy_status.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">
