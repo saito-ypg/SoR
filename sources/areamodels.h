@@ -1,4 +1,6 @@
 #pragma once
+
+//汎用、範囲表示するモデル
 namespace AreaModels
 {
 	enum AREATYPE {

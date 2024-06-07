@@ -1,7 +1,6 @@
 #pragma once
 #include "../Engine/GameObject.h"
 
-//ŸŸŸ‚ğŠÇ—‚·‚éƒNƒ‰ƒX
 class Ground : public GameObject
 {
     int hModel_;

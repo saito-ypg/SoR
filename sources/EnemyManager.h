@@ -4,7 +4,6 @@
 #include<utility>
 class EnemyBase;
 //敵をまとめて管理するクラス
-//スポーンさせるクラスが別にいてほしいな～
 class EnemyManager {
 private:
 	std::vector<EnemyBase*> Enemylist_;

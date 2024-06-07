@@ -48,7 +48,8 @@ private:
     float transitionTime;//ミリ秒単位、進行に使う
     const std::map<std::string, EnemyType> TypeMap =
     {
-        {"DECOY",EnemyType::DECOY}
+        {"DECOY",EnemyType::DECOY},
+        {"SOLDIER",EnemyType::SOLDIER }
     };
    
     std::vector<std::vector<EnemySpawning>> spawnDataList;//ウェーブ数・敵の数

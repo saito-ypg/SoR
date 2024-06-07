@@ -12,7 +12,7 @@ private:
     struct {
         float Time;//“®‚­c‚èŠÔ
         float Velocity;//‹­‚³
-        XMVECTOR Dir;//•ûŒü³‹K‰»
+        XMVECTOR Dir;//•ûŒü
     } knockBack;
    
 protected:
