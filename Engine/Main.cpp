@@ -1,10 +1,7 @@
 
-//
-//　最終更新日：2023/04/06
-//
+#define _CRTDBG_MAP_ALLOC //メモリリーク検出用
 
-
-
+#define NOMINMAX
 #include <Windows.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -34,10 +31,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 // エントリーポイント
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	#if false
+	#if true
 		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-		_CrtSetBreakAlloc(342);
-		_CrtSetBreakAlloc(356);
 	#endif
 		
 	srand((unsigned)time(NULL));
