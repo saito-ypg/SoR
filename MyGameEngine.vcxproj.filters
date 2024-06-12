@@ -345,6 +345,7 @@
     <ClCompile Include="sources\SoldierEnemy.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Ease.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
