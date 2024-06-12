@@ -22,6 +22,7 @@
     <None Include="Assets\data\enemy_schema.json">
       <FileType>Document</FileType>
     </None>
+    <ClCompile Include="Engine\Ease.cpp" />
     <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
