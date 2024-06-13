@@ -1,11 +1,11 @@
 #include <DirectXMath.h>
 #include "Ease.h"
-namespace ease {
+namespace EASE {
 	using std::unordered_map;
 	using std::function;
 	using enum easeType;
 	using namespace DirectX;
-	unordered_map<easeType, function<double(double)>> EaseFunc
+	unordered_map<easeType, function<double(double)>> easeList
 	{
 		{InSine,      [](double t) { return (sin(XM_PIDIV2 * t));        }},
 		{OutSine,     [](double t) { return (1 + sin(XM_PIDIV2 * (--t))); }},
@@ -44,4 +44,8 @@ namespace ease {
 		{OutBounce,   [](double t) { return 1 - pow(2, -6 * t) * abs(cos(t * XM_PI * 3.5)); }},
 		{InOutBounce, [](double t) { if (t < 0.5) { return 8 * pow(2, 8 * (t - 1)) * abs(sin(t * XM_PI * 7)); } else { return 1 - 8 * pow(2, -8 * t) * abs(sin(t * XM_PI * 7)); }}}
 	};
+	double easeFunc(easeType type, double rate)
+	{//ðŒ
+		easeList.at(type)(rate);
+	}
 };

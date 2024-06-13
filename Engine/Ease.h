@@ -3,7 +3,7 @@
 #include <functional>
 #include <map>
 
-namespace ease
+namespace EASE
 {
     enum class easeType {
         InSine,
@@ -36,5 +36,5 @@ namespace ease
         OutBounce,
         InOutBounce,
     };
-    extern std::unordered_map<easeType, std::function<double(double)>> EaseFunc;
+    double easeFunc(easeType type, double rate);
 };
