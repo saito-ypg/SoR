@@ -23,6 +23,7 @@
       <FileType>Document</FileType>
     </None>
     <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\MovementStateBase.cpp" />
     <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\MovementStateBase.h" />
     <ClInclude Include="sources\SoldierEnemy.h" />
     <ClInclude Include="sources\ChargeSkill.h" />
     <ClInclude Include="Engine\Audio.h" />
