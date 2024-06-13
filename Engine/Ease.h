@@ -5,7 +5,7 @@
 
 namespace ease
 {
-    enum easeType {
+    enum class easeType {
         InSine,
         OutSine,
         InOutSine,
@@ -36,5 +36,5 @@ namespace ease
         OutBounce,
         InOutBounce,
     };
-    extern std::map<easeType, std::function<double(double)>> EaseFunc;
+    extern std::unordered_map<easeType, std::function<double(double)>> EaseFunc;
 };
