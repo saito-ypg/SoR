@@ -52,6 +52,6 @@ namespace EASE {
 		{
 			return std::numeric_limits<double>::quiet_NaN();
 		}
-		easeList.at(type)(rate);
+		return easeList.at(type)(rate);
 	}
 };
