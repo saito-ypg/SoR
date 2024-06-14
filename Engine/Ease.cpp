@@ -1,3 +1,4 @@
+#include <cmath>
 #include <DirectXMath.h>
 #include "Ease.h"
 namespace EASE {
@@ -44,8 +45,13 @@ namespace EASE {
 		{OutBounce,   [](double t) { return 1 - pow(2, -6 * t) * abs(cos(t * XM_PI * 3.5)); }},
 		{InOutBounce, [](double t) { if (t < 0.5) { return 8 * pow(2, 8 * (t - 1)) * abs(sin(t * XM_PI * 7)); } else { return 1 - 8 * pow(2, -8 * t) * abs(sin(t * XM_PI * 7)); }}}
 	};
-	double easeFunc(easeType type, double rate)
+
+	double easing(easeType type, double rate)
 	{//ðŒ
+		if (static_cast<int>(type) < 0 || type >= MAX)
+		{
+			return std::numeric_limits<double>::quiet_NaN();
+		}
 		easeList.at(type)(rate);
 	}
 };

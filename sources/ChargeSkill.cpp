@@ -55,7 +55,7 @@ void ChargeSkill::startStep(){
 	//ˆÚ“®—Ê‚ðo‚·
 	const float& flames = sequence.at(START_ATTACK);
 	float nowTime =(float)(-(steptime)+flames+1)/flames;
-	XMVECTOR forcevec = forward * (float)(EASE::EaseFunc[InOutExpo](nowTime)) * QuadArea.length_ * 2;
+	XMVECTOR forcevec = forward * (float)EASE::easing(InOutExpo,nowTime) * QuadArea.length_ * 2;
 	pPlayer_->ForceMove(forcevec-lastForceVec);
 	if (isStepChanged)
 	{
