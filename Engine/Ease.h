@@ -1,12 +1,11 @@
 #pragma once
-#include <cmath>
 #include <functional>
 #include <map>
 
 namespace EASE
 {
     enum class easeType {
-        InSine,
+        InSine=0,
         OutSine,
         InOutSine,
         InQuad,
@@ -35,6 +34,7 @@ namespace EASE
         InBounce,
         OutBounce,
         InOutBounce,
+        MAX
     };
-    double easeFunc(easeType type, double rate);
+    double easing(easeType type, double rate);
 };
