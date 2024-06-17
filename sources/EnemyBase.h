@@ -39,20 +39,10 @@ protected:
 	void RemoveCamp() override;
 	void dyingProcess()override;
 
-	template <class E, typename = std::enable_if_t<std::is_base_of_v<EnemyBase, E>>>
-	E* Instantiate(GameObject* pParent)
-	{
-		E* pNewObject = new E(pParent);
-		if (pParent != nullptr)
-		{
-			pParent->PushBackChild(pNewObject);
-		}
-		pNewObject->Initialize();
-		return pNewObject;
-	}
+	
 public:
 	//EnemyBase(GameObject* parent);
-	EnemyBase(GameObject* parent, EnemyType type, bool isboss = false);
+	EnemyBase(GameObject* parent, bool isboss = false);
 	virtual ~EnemyBase();
 
 	void SetPlayer(GameActor* p) { pPlayer = p; assert(pPlayer != nullptr); }
@@ -62,6 +52,18 @@ public:
 	SPAWINIG_STATE getStat() const { return eStat_; }
 	
 	
-	
 };
 
+//敵キャラ専用Instantiate ボス化情報を含む
+//基本的にはGameObjectのものに則ったもの
+template <class E, typename = std::enable_if_t<std::is_base_of_v<EnemyBase, E>>>
+E* InstantiateEnemy(GameObject* pParent, bool isBoss)
+{
+	E* pNewObject = new E(pParent, isBoss);
+	if (pParent != nullptr)
+	{
+		pParent->PushBackChild(pNewObject);
+	}
+	pNewObject->Initialize();
+	return pNewObject;
+}

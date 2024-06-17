@@ -21,10 +21,10 @@ namespace {
 		switch (type)
 		{
 		case DECOY:
-			enemy = Instantiate<Decoy>(pParent);
+			enemy =InstantiateEnemy<Decoy>(pParent,isBoss);
 			break;
 		case SOLDIER:
-			enemy = Instantiate<SoldierEnemy>(pParent);
+			enemy =InstantiateEnemy<SoldierEnemy>(pParent,isBoss);
 			break;
 		}
 		assert(enemy != nullptr);

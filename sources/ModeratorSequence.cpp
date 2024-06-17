@@ -169,6 +169,19 @@ void ModeratorSequence::Draw()
 		Image::Draw(hImage[1]);
 		break;
 	}
+	DrawTime();
+	DrawWaves();
+}
+
+void ModeratorSequence::DrawWaves()
+{
+	std::stringstream wavestr;
+	wavestr << "WAVES:" << waves + 1;
+	pText->Draw(10, 64, wavestr.str().c_str());
+}
+
+void ModeratorSequence::DrawTime()
+{
 	auto ms = ttlTime;
 	auto secs = std::chrono::duration_cast<std::chrono::seconds>(ms);
 	ms -= std::chrono::duration_cast<std::chrono::milliseconds>(secs);
@@ -179,9 +192,6 @@ void ModeratorSequence::Draw()
 		<< std::setw(2) << std::setfill('0') << secs.count() << ":"
 		<< std::setw(3) << std::setfill('0') << ms.count();
 	pText->Draw(10, 32, timestr.str().c_str());
-	std::stringstream wavestr;
-	wavestr << "WAVES:" << waves + 1;
-	pText->Draw(10, 64, wavestr.str().c_str());
 }
 
 void ModeratorSequence::Release()

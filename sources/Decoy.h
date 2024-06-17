@@ -6,7 +6,7 @@ class Decoy:
 private:
 
 public:
-    Decoy(GameObject* parent);
+    Decoy(GameObject* parent, bool isBoss=false);
     ~Decoy();
     void dyingDraw() override;
     void Initialize() override;
