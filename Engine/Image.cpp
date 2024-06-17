@@ -4,7 +4,7 @@
 namespace {
 	
 }
-#define RET_IF_NON_EXIST(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
+#define RETURN_IF_INVALID_HANDLE(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
 //3D画像を管理する
 namespace Image
 {
@@ -79,7 +79,7 @@ namespace Image
 	//描画
 	void Draw(int handle)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 		if (_datas.at(handle) == nullptr)
 		{
 			return;
@@ -131,7 +131,7 @@ namespace Image
 	//切り抜き範囲の設定
 	void SetRect(int handle, int x, int y, int width, int height)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 
 		_datas.at(handle)->rect.left = x;
 		_datas.at(handle)->rect.top = y;
@@ -143,7 +143,7 @@ namespace Image
 	//切り抜き範囲をリセット（画像全体を表示する）
 	void ResetRect(int handle)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 
 		XMFLOAT3 size = _datas.at(handle)->pSprite->GetTextureSize();
 
@@ -157,7 +157,7 @@ namespace Image
 	//アルファ値設定
 	void SetAlpha(int handle, int alpha)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 		_datas.at(handle)->alpha = (float)alpha / 255.0f;
 	}
 
@@ -165,7 +165,7 @@ namespace Image
 	//ワールド行列を設定
 	void SetTransform(int handle, Transform& transform)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 
 		_datas.at(handle)->transform = transform;
 	}

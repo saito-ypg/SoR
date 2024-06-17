@@ -8,6 +8,7 @@ EnemyBase::EnemyBase(GameObject* parent,EnemyType type, bool isboss):GameActor(p
 	{
 		transform_.scale_ = { 1.5,1.5,1.5 };
 	}
+	isBoss_ = isboss;
 }
 
 EnemyBase::~EnemyBase()
@@ -16,6 +17,11 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::setConfig(EnemyStatus status)
 {
+	if(isBoss_){
+		status_.maxHp_ = status.hp*2;
+		status_.hp_ = status.hp*2;
+		status_.hitCircleRange_ = status.radius*2;
+	}
 	status_.maxHp_ = status.hp;
 	status_.hp_ = status.hp;
 	status_.hitCircleRange_ = status.radius;
