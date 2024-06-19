@@ -21,32 +21,49 @@ protected:
     bool isInvincible_;//無敵状態か？
     bool isdying;//HP0以下になったらこれ変える、回復しても死んだまま
     bool  IsDying_()const { return isdying; }
-    std::vector<int> hModels_;//モデル番号をリストに
+    int hBody_;//基本となるモデルの描画
+    std::vector<int> hModels_;//Body以外の補助的なモデル番号を配列に
 
-    void AddColliderCamp(GameActor *act, CAMPS camp);//当たり判定を登録、継承先で陣営固定する
-    virtual void AddCamp()=0;//継承用
-    void RemoveColliderCamp(GameActor* act, CAMPS camp);;//当たり判定消去
-    virtual void RemoveCamp()= 0;//継承用
-    
-    bool CanMoveWithEffects();//妨害要素によって動けない状態にあるか
-    //void LoadModel(string filename);//モデルを読み込み、hModels_に追加。読み込めたらtrue
-    
-    void SimpleDraw();//簡易的にモデルを描画する。draw内で呼ぶ
-    void DrawCollision();//テスト用、当たり判定を描画。draw内で呼ぶ
-    void DrawHP();//HPを描画する。
-    virtual void dyingProcess();//死亡時処理。ないならないでよし
-    virtual void dyingDraw();//死亡時描画。倒れるアニメーションとか
+    //当たり判定を登録、継承先で陣営固定する
+    void AddColliderCamp(GameActor *act, CAMPS camp);
+    //継承用
+    virtual void AddCamp()=0;
+    //当たり判定消去
+    void RemoveColliderCamp(GameActor* act, CAMPS camp);
+    //継承用
+    virtual void RemoveCamp()= 0;
+
+    //妨害要素によって動けない状態にあるか?(未実装)
+    bool CanMoveWithEffects();
+
+    //モデル本体を描画する。ActorDraw内で呼ぶ
+    void DrawBody();
+    //テスト用、当たり判定を描画。draw内で呼ぶ
+    void DrawCollision();
+    //HPを描画する
+    void DrawHP() const;
+
+    //死亡時処理。ないならないでよし
+    virtual void dyingProcess();
+    //死亡時描画。倒れるアニメーションとか
+    virtual void dyingDraw();
 public:
     float GetRadius()const{return status_.hitCircleRange_;}
     GameActor(GameObject* parent, const std::string& name); 
     virtual ~GameActor();
-    void Update(const float& dt) override final;//info関連の更新はすべてのキャラでやるので、個別の更新はActorUpdateに分離すること
-    virtual void ActorUpdate(const float& dt)=0;//継承先で実装
-    void Draw() override final;//個別の描画はActorDrawに分離すること
-    virtual void ActorDraw() = 0;
 
-    void TakeAttacked(DamageData &dmg,XMVECTOR &dir);//オーバーライドするか未定
+    //actorで共通の描画を行うため、個別の更新はActorUpdateに分離すること
+    void Update(const float& dt) override final;
+    //継承先で実装。個別の更新
+    virtual void ActorUpdate(const float& dt)=0;
+    //actorで共通の描画を行うため、個別の描画はActorDrawに分離すること
+    void Draw() override final;
+    //継承先で実装。個別の共有
+    virtual void ActorDraw() = 0;
+    //オーバーライドするか未定
+    void TakeAttacked(DamageData &dmg,XMVECTOR &dir);
     Transform* GetTransformRef();
-    void ForceMove(XMVECTOR translateBy);//moveの分だけ移動させる
+    //moveの分だけ移動させる
+    void ForceMove(XMVECTOR translateBy);
 };
 

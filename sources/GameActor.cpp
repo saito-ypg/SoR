@@ -13,7 +13,7 @@ GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(p
 {
 	isInvincible_ = false;
 	isdying = false;
-
+	hBody_ = -1;
 
 	knockBack = { 0,0,XMVectorZero() };
 
@@ -74,7 +74,7 @@ void GameActor::dyingProcess()
 void GameActor::dyingDraw()
 {
 }
-void GameActor::DrawHP()
+void GameActor::DrawHP() const
 {
 	const float HPBarRatio = 128.0f / Direct3D::screenWidth_;
 	
@@ -140,13 +140,11 @@ bool GameActor::CanMoveWithEffects()
 	return false;
 }
 
-void GameActor::SimpleDraw()
+void GameActor::DrawBody()
 {
-	if (hModels_.empty())
-		return;
-	int front = hModels_.front();
-	Model::SetTransform(front, transform_);
-	Model::Draw(front);
+	assert(hBody_ >= 0);
+	Model::SetTransform(hBody_, transform_);
+	Model::Draw(hBody_);
 }
 void GameActor::DrawCollision()
 {

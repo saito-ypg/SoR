@@ -17,7 +17,8 @@ void Decoy::dyingDraw()
 
 void Decoy::Initialize()
 {
-	hModels_.push_back(Model::Load("Charactors/decoy.fbx"));
+	hBody_=Model::Load("Charactors/decoy.fbx");
+	assert(hBody_ >= 0);
 }
 
 void Decoy::ActorUpdate(const float& dt)
@@ -26,7 +27,7 @@ void Decoy::ActorUpdate(const float& dt)
 
 void Decoy::ActorDraw()
 {
-	SimpleDraw();
+	DrawBody();
 }
 
 void Decoy::Release()

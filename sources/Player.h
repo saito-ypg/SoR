@@ -13,8 +13,6 @@ private:
     
 
     int usingSkillIndex = UNUSED;//使用中スキル番号、なかったらUNUSED(=-1);
-    //Pimplとかいう概念、よさそう
-    int hModel_;
     //移動方向の単位ベクトルを格納
     XMVECTOR moveDirection_;
     //移動ベクトル
@@ -47,12 +45,6 @@ private:
     
     void AddCamp()override;
     void RemoveCamp()override;
-#ifdef _DEBUG
-    //test
-    AttackRangeQuad testQuad;
-    AttackRangeCircle testCircle;
-    AttackRangeCirculerSector testSector;
-#endif // _DEBUG
 
     bool isDuringSkill();
     void MoveInput();
@@ -71,6 +63,7 @@ public:
     //個別更新
     void ActorUpdate(const float& dt) override;
 
+    //要検討
     bool isIntersectGround(const DirectX::XMVECTOR& target);
 
     //描画
