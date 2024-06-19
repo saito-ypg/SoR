@@ -1,5 +1,5 @@
 #include "SoldierEnemy.h"
-
+#include"../Engine/Model.h"
 SoldierEnemy::SoldierEnemy(GameObject* parent,bool isBoss):EnemyBase(parent,isBoss)
 {
 }
