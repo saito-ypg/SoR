@@ -24,6 +24,7 @@ void SoldierEnemy::ActorUpdate(const float& dt)
 
 void SoldierEnemy::ActorDraw()
 {
+	DrawBody();
 }
 
 void SoldierEnemy::Release()
