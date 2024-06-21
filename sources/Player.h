@@ -26,7 +26,7 @@ private:
     bool canUseSkill(int number);
     void ActivateSkill(int number);
     
-    template<class skill>
+    template<class skill, typename = std::enable_if_t < std::is_base_of_v <SkillBase, skill>>>
     void AttachSkill(int index) {//スキルをプレイヤーに紐づける
         assert(!skills.at(index));//atで範囲外は捨てつつ登録の番号にかぶりがないようにする(被っている=インスタンス化されている)
         skills.at(index) = dynamic_cast<SkillBase*>(new skill(this));
@@ -65,7 +65,7 @@ public:
 
     //要検討
     bool isIntersectGround(const DirectX::XMVECTOR& target);
-
+    
     //描画
     void ActorDraw() override;
 

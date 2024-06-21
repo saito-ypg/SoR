@@ -54,9 +54,9 @@ void GameActor::ActorUpdate(const float& dt)
 void GameActor::Draw()
 {
 	//‚È‚ñ‚©‚â‚é
-
-	ActorDraw();
-
+	if (!IsVisibled()) {
+		return;
+	}
 	if (isdying)
 		dyingDraw();
 	else
@@ -84,7 +84,7 @@ void GameActor::DrawHP() const
 	DrawT.position_.z = 0;
 	
 	DrawT.position_.x = (static_cast<int>((DrawT.position_.x / Direct3D::screenWidth_ - HPBarRatio / 4.0f) * Direct3D::screenWidth_) * 2.0f / Direct3D::screenWidth_) - 1.0f;
-	DrawT.position_.y = DrawT.position_.y / -Direct3D::screenHeight_ * 2.0f + 1;
+	DrawT.position_.y = Image::toPos(DrawT.position_.y+30 ,Y);
 	using namespace HPBar;
 
 	for (auto i = 0; i < HPBar::NUM; i++)
