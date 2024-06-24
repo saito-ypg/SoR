@@ -1,8 +1,10 @@
 #include "PlayerInterface.h"
 #include"../Engine/Image.h"
+#include"../Engine/Camera.h"
 #include"Player.h"
 #include"SkillBase.h"
 
+#define RETURN_IF_PLAYER_ISNT_EXIST {if(!pPlayer){return;}}
 enum eImage{
 	SKILL_SPIN,
 	SKILL_CHARGE
@@ -69,14 +71,14 @@ void PlayerInterface::loadAndPush(std::string path)
 
 void PlayerInterface::Update(const float& dt)
 {
-	if (!pPlayer)
-		return;
+	RETURN_IF_PLAYER_ISNT_EXIST;
 }
 
 void PlayerInterface::Draw()
 {
-	if (!pPlayer)
-		return;
+	RETURN_IF_PLAYER_ISNT_EXIST;
+	bool isPlayerHiddenInUI=false;
+
 
 	Transform BackTransform;
 	BackTransform.scale_.x = 4.5f;
@@ -103,7 +105,7 @@ void PlayerInterface::DrawSkillIcon()
 		}
 	}
 	const std::vector<std::string>inputKey = { "Q","W"};
-	for (int i = 0; i < hSkillIcons.size(); i++)
+	for (int i = 0; i < hSkillIcons.size(); i++)//スキル画像１まいずつ
 	{
 		Transform PictT;
 		const int& handle = hSkillIcons.at(i);
@@ -136,7 +138,7 @@ void PlayerInterface::DrawSkillIcon()
 			Image::Draw(hImageCD);
 		}
 
-		if (Image::isMouseOver(handle)) {//フローティングメニューとか出してみたい
+		if (Image::isMouseOver(handle,PictT)) {//フローティングメニューとか出してみたい
 			XMFLOAT3 pixelPos=Image::toPixel(PictT.position_);
 			pText->DrawCenter((int)pixelPos.x,(int)pixelPos.y, "tip");
 		}

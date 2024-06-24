@@ -39,7 +39,7 @@ protected:
     //モデル本体を描画する。ActorDraw内で呼ぶ
     void DrawBody();
     //テスト用、当たり判定を描画。draw内で呼ぶ
-    void DrawCollision();
+    void DrawCollision() const;
     //HPを描画する
     void DrawHP() const;
 

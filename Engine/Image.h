@@ -132,7 +132,23 @@ namespace Image
 	/// <param name="scale">考慮するX or Yのスケール(デフォルトは1)</param>
 	/// <returns>方向に応じ調整した画像中央のX or Y(スクリーン座標)</returns>
 	float AlignImage(const int& handle, const PLACEMENT& placement, float specifiedPos= UNSPECIFIED,float scale=1.0f);
-
-	bool isMouseOver(int handle);
+	
+	/// <summary>
+	/// 引数に渡した画像とそのTransformを用いて、マウス座標が画像内にあるかを判断する
+	/// ベースのロジックはisPointInside
+	/// </summary>
+	/// <param name="handle">画像ハンドル</param>
+	/// <param name="t">画像に適用するTransform</param>
+	/// <returns>範囲内か</returns>
+	bool isMouseOver(const int& handle, const Transform & t);
+	
+	/// <summary>
+	/// 引数に渡した画像とそのTransformを用いて、第三引数のポジションが画像範囲内かを調べる
+	/// </summary>
+	/// <param name="handle">画像ハンドル</param>
+	/// <param name="ImageT">画像に適応するTransform</param>
+	/// <param name="point">スクリーン座標</param>
+	/// <returns></returns>
+	bool isPointInside(const int& handle, const Transform& ImageT, const XMFLOAT3& point);
 
 }

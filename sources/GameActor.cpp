@@ -57,6 +57,8 @@ void GameActor::Draw()
 	if (!IsVisibled()) {
 		return;
 	}
+	DrawBody();
+	ActorDraw();
 	if (isdying)
 		dyingDraw();
 	else
@@ -146,7 +148,7 @@ void GameActor::DrawBody()
 	Model::SetTransform(hBody_, transform_);
 	Model::Draw(hBody_);
 }
-void GameActor::DrawCollision()
+void GameActor::DrawCollision() const
 {
 	Transform circle;
 	circle.position_ = transform_.position_;

@@ -234,25 +234,32 @@ namespace Image
 		return retPos;
 	}
 
-	bool isMouseOver(int handle)
+	bool isMouseOver(const int& handle, const Transform &t)
 	{
 		assert(handle < _datas.size() && handle >= 0);
 		XMFLOAT3 mousePos = Input::GetMousePosition();
+		return isPointInside(handle, t, mousePos);
+	}
+
+	bool isPointInside(const int& handle, const Transform& ImageT, const XMFLOAT3& point)
+	{
+		assert(handle < _datas.size() && handle >= 0);
+
 		// 画像のスクリーン座標範囲をもとめる
-		const XMFLOAT3 imgPos =toPixel( _datas.at(handle)->transform.position_);
-		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;
+		const XMFLOAT3 imgPos = toPixel(ImageT.position_);
+		const XMFLOAT3 imgScale = ImageT.scale_;
 		const RECT imgRect = _datas.at(handle)->rect;
-		
+
 		float halfWidth = imgRect.right * imgScale.x / 2.0f;
 		float halfHeight = imgRect.bottom * imgScale.y / 2.0f;
 		float left = imgPos.x - halfWidth;
 		float right = imgPos.x + halfWidth;
-		float top = imgPos.y+ halfHeight;
+		float top = imgPos.y + halfHeight;
 		float bottom = imgPos.y - halfHeight;
 
-		// マウス座標が画像の NDC 座標範囲内にあるかを判定
-		return mousePos.x >= left && mousePos.x <= right &&
-			mousePos.y >= bottom && mousePos.y <= top;
+		// 座標が画像の NDC 座標範囲内にあるかを判定
+		return point.x >= left && point.x <= right &&
+			point.y >= bottom && point.y <= top;
 	}
 
 	//ワールド行列の取得
