@@ -20,6 +20,17 @@ class PlayerInterface :
     std::vector<int> hSkillIcons;
     std::vector<SkillBase*>skillList;//ƒvƒŒƒCƒ„[‚©‚ç‚à‚ç‚¤
     void loadAndPush(std::string path);
+
+    void TransparentizeIfPlayerBehind(int handle) const;
+
+    //Draw“à•ªŠ„
+    void DrawSkillIcons();
+    //DrawSkillIcons‚ğ‚³‚ç‚É•ªŠ„
+    void DrawCT(int i, const Transform& PictT);
+    void DrawIcon(const int& handle, Transform& PictT) const;
+    void DrawCD(const float& cd, const Transform& PictT);
+    void DrawSkillTips(const float& cd,Transform& PictT);
+    
 public:
     PlayerInterface(GameObject* parent);
     ~PlayerInterface();
@@ -29,8 +40,7 @@ public:
   
     void Update(const float& dt)override;
     void Draw()override;
-    void HideUIHandle(int handle) const;
-    void DrawSkillIcon();
+
     void Release()override;
 };
 
