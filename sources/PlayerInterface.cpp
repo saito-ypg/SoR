@@ -25,13 +25,14 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 	hImageActive = -1;
 	pText = nullptr;
 	pPlayer = nullptr;
+	isPlayerHiddenInUI = false;
 }
 
 PlayerInterface::~PlayerInterface()
 {
 }
 
-void PlayerInterface::SetPlayer(const Player* const p)
+void PlayerInterface::SetPlayer(Player* const p)
 {
 	assert(p != nullptr);
 	pPlayer = p;
@@ -45,7 +46,7 @@ void PlayerInterface::Initialize()
 	hImageCD = Image::Load(ASSET_PATH + "Interface/iconCD.png");
 	assert(hImageCD >= 0);
 	hImageActive = Image::Load(ASSET_PATH + "Interface/skillActive.png");
-	pPlayer =dynamic_cast<const Player*>(FindObject("Player"));
+	pPlayer =dynamic_cast<Player*>(FindObject("Player"));
 	assert(pPlayer);
 
 	skillList=std::move(pPlayer->getSkills());
@@ -77,17 +78,30 @@ void PlayerInterface::Update(const float& dt)
 void PlayerInterface::Draw()
 {
 	RETURN_IF_PLAYER_ISNT_EXIST;
-	bool isPlayerHiddenInUI=false;
+
 
 
 	Transform BackTransform;
 	BackTransform.scale_.x = 4.5f;
 	BackTransform.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(hImageBack, DOWN),0)).y;
 	Image::SetTransform(hImageBack, BackTransform);
+	isPlayerHiddenInUI =Image::isPointInside(hImageBack,BackTransform, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
+	HideUIHandle(hImageBack);
 	Image::Draw(hImageBack);
 	DrawSkillIcon();
 
 
+}
+
+void PlayerInterface::HideUIHandle(int handle) const
+{
+	if (isPlayerHiddenInUI) {
+		Image::SetAlpha(handle, 0x83);
+	}
+	else
+	{
+		Image::SetAlpha(handle, 0xff);
+	}
 }
 
 void PlayerInterface::DrawSkillIcon()
@@ -119,12 +133,14 @@ void PlayerInterface::DrawSkillIcon()
 				Transform activeT = PictT;
 				activeT.scale_.y = castTimePercentage * testImagesize;
 				activeT.position_.y =Image::toPos(Image::AlignImage(hImageActive, DOWN, SKILL_ALIGN_UNDER, activeT.scale_.y),Y);
+				HideUIHandle(hImageActive);
 				Image::SetTransform(hImageActive, activeT);
 				Image::Draw(hImageActive);
 			}
 			else
 				index = pPlayer->UNUSED;
 		}
+		HideUIHandle(handle);
 		Image::SetTransform(handle, PictT);
 		Image::Draw(handle);
 

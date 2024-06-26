@@ -36,6 +36,10 @@ namespace Camera
 	//ビューポート行列を取得
 	XMMATRIX GetVPMatrix();
 
+	//~~~~~~~~~~~~~~以下拡張~~~~~~~~~~~~~~~
+	
 	//view,proj,vp3つの逆行列を合わせたものを取得
 	XMMATRIX GetInverseMatrix();
+
+	XMFLOAT3 convertWorldToNDC(Transform& t);
 };
