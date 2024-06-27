@@ -15,9 +15,30 @@ namespace {
 	constexpr float SKILL_ALIGN_UNDER = 680;
 	constexpr float ICON_DIST = 80;
 	constexpr float ICON_LEFT = 400;
-	
+	int clock = 0;
 	//
 	int index = Player::UNUSED;
+	bool isPlayerHiddenInUI;
+	Transform BackT;
+
+	static constexpr int calcAlphaMax255(float percentage) {
+		if (percentage < 0 || percentage>100) {
+			return 255;
+		}
+		return static_cast<int>(255 * percentage * 0.01);
+	}
+
+	void TransparentizeIfPlayerBehind(int handle)
+	{
+		constexpr int	OPAQUE_ALPHA = calcAlphaMax255(100),//不透明な値
+			TRANSLUCENT_ALPHA = calcAlphaMax255(40);
+		if (isPlayerHiddenInUI) {
+			Image::SetAlpha(handle, TRANSLUCENT_ALPHA);
+		}
+		else {
+			Image::SetAlpha(handle, OPAQUE_ALPHA);
+		}
+	}
 }
 PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "PlayerInterface")
 {
@@ -27,6 +48,11 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 	pText = nullptr;
 	pPlayer = nullptr;
 	isPlayerHiddenInUI = false;
+
+
+
+
+
 }
 
 PlayerInterface::~PlayerInterface()
@@ -63,7 +89,9 @@ void PlayerInterface::Initialize()
 	{
 		assert(itr >= 0);
 	}
-
+	BackT.scale_.x = 4.5f;
+	BackT.position_.y = Image::toPos(XMFLOAT3(0, Image::AlignImage(hImageBack, DOWN), 0)).y;
+	Image::SetTransform(hImageBack, BackT);
 }
 
 void PlayerInterface::loadAndPush(std::string path)
@@ -82,34 +110,20 @@ void PlayerInterface::Draw()
 
 
 
-	Transform BackT;
-	BackT.scale_.x = 4.5f;
-	BackT.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(hImageBack, DOWN),0)).y;
-	Image::SetTransform(hImageBack, BackT);
-	isPlayerHiddenInUI =Image::isPointInside(hImageBack,BackT, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
+	//毎フレームこの判断をするのではなく、簡易的な矩形判断をして中だったら～でもいいかも
+	clock++;
+	if (clock >= 5) {
+		isPlayerHiddenInUI = Image::isPointInside(hImageBack, BackT, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
+		clock = 0;
+	}
 	TransparentizeIfPlayerBehind(hImageBack);
 	Image::Draw(hImageBack);
 	DrawSkillIcons();
 
 
 }
-static constexpr int calcAlphaMax255(float percentage) {
-	if (percentage < 0 || percentage>100) {
-		return 255;
-	}
-	return static_cast<int>(255 * percentage*0.01);
-}
-void PlayerInterface::TransparentizeIfPlayerBehind(int handle) const
-{
-	constexpr int	OPAQUE_ALPHA = calcAlphaMax255(100),//不透明な値
-					TRANSLUCENT_ALPHA = calcAlphaMax255(40);
-	if (isPlayerHiddenInUI) {
-		Image::SetAlpha(handle, TRANSLUCENT_ALPHA);
-	}
-	else{
-		Image::SetAlpha(handle, OPAQUE_ALPHA);
-	}
-}
+
+
 
 void PlayerInterface::DrawSkillIcons()
 {

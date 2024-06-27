@@ -16,12 +16,14 @@ class PlayerInterface :
     int hImageBack;
     int hImageCD;
     int hImageActive;
-    bool isPlayerHiddenInUI;
+
     std::vector<int> hSkillIcons;
     std::vector<SkillBase*>skillList;//ƒvƒŒƒCƒ„[‚©‚ç‚à‚ç‚¤
+
+
     void loadAndPush(std::string path);
 
-    void TransparentizeIfPlayerBehind(int handle) const;
+    //void TransparentizeIfPlayerBehind(int handle) const;
 
     //Draw“à•ªŠ„
     void DrawSkillIcons();
