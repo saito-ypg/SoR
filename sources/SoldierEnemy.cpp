@@ -1,6 +1,6 @@
 #include "SoldierEnemy.h"
-
-SoldierEnemy::SoldierEnemy(GameObject* parent):EnemyBase(parent,EnemyType::SOLDIER)
+#include"../Engine/Model.h"
+SoldierEnemy::SoldierEnemy(GameObject* parent,bool isBoss):EnemyBase(parent,isBoss)
 {
 }
 
@@ -14,6 +14,8 @@ void SoldierEnemy::dyingDraw()
 
 void SoldierEnemy::Initialize()
 {
+	hBody_ = Model::Load("Charactors/soldier.fbx");
+	assert(hBody_ >= 0);
 }
 
 void SoldierEnemy::ActorUpdate(const float& dt)
@@ -22,6 +24,7 @@ void SoldierEnemy::ActorUpdate(const float& dt)
 
 void SoldierEnemy::ActorDraw()
 {
+	DrawBody();
 }
 
 void SoldierEnemy::Release()

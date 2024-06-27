@@ -60,6 +60,8 @@ public:
     void Initialize()override;
     void Update(const float& dt)override;
     void Draw()override;
+    void DrawWaves();
+    void DrawTime();
     void Release()override;
 
     void SetGameOver() { state = GAMEOVER; }

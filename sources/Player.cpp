@@ -24,7 +24,7 @@ namespace {
 
 //コンストラクタ
 Player::Player(GameObject* parent)
-    :GameActor(parent, "Player"), hModel_(-1), moveTime_(0)
+    :GameActor(parent, "Player"), moveTime_(0)
 {
     status_ = ActorInfo(200, 1.1f);
 
@@ -45,8 +45,8 @@ Player::~Player()
 //初期化
 void Player::Initialize()
 {
-    hModel_ = Model::Load("Charactors/psample.fbx");
-    assert(hModel_ >= 0);
+    hBody_ = Model::Load("Charactors/psample.fbx");
+    assert(hBody_ >= 0);
 
     AddCamp();
 
@@ -164,41 +164,8 @@ void Player::RemoveCamp()
 
 //描画
 void Player::ActorDraw()
-{
-#ifdef _DEBUG
-    if (Input::IsKey(DIK_Z))
-    {
-       
-        Transform q;
-        q.position_ = testQuad.position_;
-        q.scale_.x = testQuad.width_;
-        q.scale_.z = testQuad.length_;
-        q.rotate_.y = testQuad.rotate_;
-        Model::SetTransform(area(QUAD), q);
-        Model::Draw(area(QUAD));
-    }
-    if (Input::IsKey(DIK_X))
-    {
-        Transform c;
-        c.position_ = testCircle.position_;
-        c.scale_.x = testCircle.radius_;
-        c.scale_.z = testCircle.radius_;
-        Model::SetTransform(area(CIRCLE), c);
-        Model::Draw(area(CIRCLE));
-    }
-    if (Input::IsKey(DIK_C))
-    {
-        Transform s;
-        s.position_ = testSector.position_;
-        s.scale_.x = testSector.radius_;
-        s.scale_.z = testSector.radius_;
-        s.rotate_.y =180+ testSector.rotate_;
-        Model::SetTransform(area(SECTOR), s);
-        Model::Draw(area(SECTOR));
-    }
-#endif
-    Model::SetTransform(hModel_,transform_);
-    Model::Draw(hModel_);
+{   
+    DrawBody();
     if (usingSkillIndex != UNUSED) {
         skills.at(usingSkillIndex)->DrawRangeDisplay(GetTargetDirection(getMouseTargetPos()));
     }

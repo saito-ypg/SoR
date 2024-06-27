@@ -19,7 +19,7 @@
                   "type": "number"
                 },
                 "enemy_type": {
-                  "type": "string"
+                  "enum": [ "DECOY", "SOLDIER" ]
                 },
                 "is_boss": {
                   "type": "boolean"

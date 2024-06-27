@@ -206,6 +206,7 @@
       <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\MovementStateBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -346,6 +347,7 @@
       <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\MovementStateBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -357,8 +359,12 @@
     </None>
     <None Include="README.md" />
     <None Include="todo.md" />
-    <None Include="Assets\data\enemy_schema.json" />
-    <None Include="Assets\data\enemy_status.json" />
+    <None Include="Assets\data\enemy_schema.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Assets\data\enemy_status.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">

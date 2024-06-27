@@ -73,3 +73,13 @@ XMMATRIX Camera::GetInverseMatrix()
 
 	return XMMatrixInverse(nullptr, GetVPMatrix()) * XMMatrixInverse(nullptr, _proj) * XMMatrixInverse(nullptr, _view);
 }
+
+XMFLOAT3 Camera::convertWorldToNDC(Transform& t)
+{
+	XMVECTOR pos = XMLoadFloat3(&t.position_);
+	XMVECTOR culcPos = XMVector3TransformCoord(pos, Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	XMFLOAT3 ret;
+	XMStoreFloat3(&ret, culcPos);
+	ret.z = 0;
+	return ret;
+}

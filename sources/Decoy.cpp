@@ -1,11 +1,9 @@
 #include"../Engine/Model.h"
 #include "Decoy.h"
 
-Decoy::Decoy(GameObject* parent) :EnemyBase(parent,EnemyType::DECOY)
+Decoy::Decoy(GameObject* parent, bool isBoss) :EnemyBase(parent,isBoss)
 {
-	status_ = ActorInfo{ 50,1.1f };
-	transform_.position_ = { 0,0,0 };
-	AddCamp();
+
 }
 
 Decoy::~Decoy()
@@ -19,7 +17,8 @@ void Decoy::dyingDraw()
 
 void Decoy::Initialize()
 {
-	hModels_.push_back(Model::Load("Charactors/decoy.fbx"));
+	hBody_=Model::Load("Charactors/decoy.fbx");
+	assert(hBody_ >= 0);
 }
 
 void Decoy::ActorUpdate(const float& dt)
@@ -28,7 +27,7 @@ void Decoy::ActorUpdate(const float& dt)
 
 void Decoy::ActorDraw()
 {
-	SimpleDraw();
+	DrawBody();
 }
 
 void Decoy::Release()

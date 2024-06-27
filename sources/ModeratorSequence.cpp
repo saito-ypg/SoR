@@ -11,7 +11,7 @@
 #include"../libraries/json.hpp"
 
 using std::string;
-const string DATA_PATH="data/";
+const string DATA_PATH = "data/";
 using std::vector;
 using namespace std::chrono;
 constexpr float TRANSITION_MS = 3000;
@@ -29,7 +29,7 @@ void ModeratorSequence::LoadData()
 	}
 	using json = nlohmann::json;
 	json stageData;
-	ifs >>stageData;
+	ifs >> stageData;
 	auto size = stageData.at("Waves").size();
 	spawnDataList.resize(size);
 	for (auto i = 0; i < size; i++)
@@ -43,14 +43,14 @@ void ModeratorSequence::LoadData()
 			temp.type = TypeMap.at(stage.at("enemy_type"));
 			temp.is_boss = stage.contains("is_boss") && stage.at("is_boss").is_boolean();
 			spawnDataList.at(i).emplace_back(temp);
-			
+
 
 		}
 		std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
 	}
 
 }
-ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"ModeratorSequence")
+ModeratorSequence::ModeratorSequence(GameObject* parent) :GameObject(parent, "ModeratorSequence")
 {
 	curTime = milliseconds(0);
 	ttlTime = milliseconds(0);
@@ -68,7 +68,7 @@ ModeratorSequence::ModeratorSequence(GameObject* parent):GameObject(parent,"Mode
 ModeratorSequence::~ModeratorSequence()
 {
 
-	
+
 }
 
 void ModeratorSequence::Initialize()
@@ -87,35 +87,35 @@ void ModeratorSequence::Initialize()
 void ModeratorSequence::Update(const float& dt)
 {
 	auto Transition = [&](ModeratorSequence::s nextState) {
-		transitionTime -= dt; 
+		transitionTime -= dt;
 		if (transitionTime < 0)
 			state = nextState;
 		return (transitionTime < 0);
-	};
+		};
 	switch (state)
 	{
 	case CHANGED:
-	
+
 		if (Transition(PREP)) {
 			transitionTime = TRANSITION_MS;
-			
+
 		}break;
 	case PREP:
 		Transition(BEGIN);
-		
+
 		break;
 	case BEGIN:
 		if (true) {//時間条件、ポーズとかしてたら入らない
 			auto size = spawnDataList.at(waves).size();
-			if (spawnindex <size ) {
+			if (spawnindex < size) {
 				auto& waiting = spawnDataList.at(waves).at(spawnindex);
 				float time = static_cast<float>(duration_cast<seconds>(curTime).count());
-				if (waiting.spawntime <=time)
+				if (waiting.spawntime <= time)
 				{
-						manager->add(spawner->spawnEnemy(this, spawnDataList.at(waves).at(spawnindex).type));	
-						spawnindex++;
+					manager->add(spawner->spawnEnemy(this, waiting.type,waiting.is_boss));
+					spawnindex++;
 				}
-				
+
 			}
 			else if (manager->Eliminated())
 			{
@@ -124,9 +124,9 @@ void ModeratorSequence::Update(const float& dt)
 			}
 			curTime += milliseconds(static_cast<long long>(dt));
 			ttlTime += milliseconds(static_cast<long long>(dt));
-			
+
 		}
-	
+
 		break;
 	case END:
 		Transition(NEXT);
@@ -160,28 +160,38 @@ void ModeratorSequence::Draw()
 	{
 
 	case ModeratorSequence::PREP:
-		
+
 		Image::SetTransform(hImage[0], pictT);
 		Image::Draw(hImage[0]);
 		break;
-	case ModeratorSequence::END	:
+	case ModeratorSequence::END:
 		Image::SetTransform(hImage[1], pictT);
 		Image::Draw(hImage[1]);
 		break;
 	}
+	DrawTime();
+	DrawWaves();
+}
+
+void ModeratorSequence::DrawWaves()
+{
+	std::stringstream wavestr;
+	wavestr << "WAVES:" << waves + 1;
+	pText->Draw(10, 64, wavestr.str().c_str());
+}
+
+void ModeratorSequence::DrawTime()
+{
 	auto ms = ttlTime;
 	auto secs = std::chrono::duration_cast<std::chrono::seconds>(ms);
 	ms -= std::chrono::duration_cast<std::chrono::milliseconds>(secs);
 	auto mins = std::chrono::duration_cast<std::chrono::minutes>(secs);
 	secs -= std::chrono::duration_cast<std::chrono::seconds>(mins);
 	std::stringstream timestr;
-	timestr <<"TIME:" << std::setw(2) << std::setfill('0') << mins.count() << ":"
+	timestr << "TIME:" << std::setw(2) << std::setfill('0') << mins.count() << ":"
 		<< std::setw(2) << std::setfill('0') << secs.count() << ":"
 		<< std::setw(3) << std::setfill('0') << ms.count();
 	pText->Draw(10, 32, timestr.str().c_str());
-	std::stringstream wavestr;
-	wavestr << "WAVES:" << waves+1;
-	pText->Draw(10, 64,wavestr.str().c_str());
 }
 
 void ModeratorSequence::Release()

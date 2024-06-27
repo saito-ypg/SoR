@@ -13,7 +13,7 @@ GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(p
 {
 	isInvincible_ = false;
 	isdying = false;
-
+	hBody_ = -1;
 
 	knockBack = { 0,0,XMVectorZero() };
 
@@ -54,9 +54,11 @@ void GameActor::ActorUpdate(const float& dt)
 void GameActor::Draw()
 {
 	//‚È‚ñ‚©‚â‚é
-
+	if (!IsVisibled()) {
+		return;
+	}
+	DrawBody();
 	ActorDraw();
-
 	if (isdying)
 		dyingDraw();
 	else
@@ -74,7 +76,7 @@ void GameActor::dyingProcess()
 void GameActor::dyingDraw()
 {
 }
-void GameActor::DrawHP()
+void GameActor::DrawHP() const
 {
 	const float HPBarRatio = 128.0f / Direct3D::screenWidth_;
 	
@@ -84,7 +86,7 @@ void GameActor::DrawHP()
 	DrawT.position_.z = 0;
 	
 	DrawT.position_.x = (static_cast<int>((DrawT.position_.x / Direct3D::screenWidth_ - HPBarRatio / 4.0f) * Direct3D::screenWidth_) * 2.0f / Direct3D::screenWidth_) - 1.0f;
-	DrawT.position_.y = DrawT.position_.y / -Direct3D::screenHeight_ * 2.0f + 1;
+	DrawT.position_.y = Image::toPos(DrawT.position_.y+30 ,Y);
 	using namespace HPBar;
 
 	for (auto i = 0; i < HPBar::NUM; i++)
@@ -140,15 +142,13 @@ bool GameActor::CanMoveWithEffects()
 	return false;
 }
 
-void GameActor::SimpleDraw()
+void GameActor::DrawBody()
 {
-	if (hModels_.empty())
-		return;
-	int front = hModels_.front();
-	Model::SetTransform(front, transform_);
-	Model::Draw(front);
+	assert(hBody_ >= 0);
+	Model::SetTransform(hBody_, transform_);
+	Model::Draw(hBody_);
 }
-void GameActor::DrawCollision()
+void GameActor::DrawCollision() const
 {
 	Transform circle;
 	circle.position_ = transform_.position_;

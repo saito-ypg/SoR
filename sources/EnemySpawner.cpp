@@ -21,10 +21,10 @@ namespace {
 		switch (type)
 		{
 		case DECOY:
-			enemy = Instantiate<Decoy>(pParent);
+			enemy =InstantiateEnemy<Decoy>(pParent,isBoss);
 			break;
 		case SOLDIER:
-			enemy = Instantiate<SoldierEnemy>(pParent);
+			enemy =InstantiateEnemy<SoldierEnemy>(pParent,isBoss);
 			break;
 		}
 		assert(enemy != nullptr);
@@ -66,15 +66,16 @@ EnemySpawner::EnemySpawner(GameActor* pPlayer)
 
 EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool isBoss) const
 {
-	auto enemy = ::createEnemy(pParent, type, isBoss);
-	if (!enemy)
+	auto newEnemy = ::createEnemy(pParent, type, isBoss);
+	if (!newEnemy)
 	{
 		assert(false);
 	}
-	enemy->SetPlayer(pPlayer_);//プレイヤーを認知させる
-	enemy->setConfig(datas.at(type));
+	newEnemy->SetPlayer(pPlayer_);//プレイヤーを認知させる
+	newEnemy->setConfig(datas.at(type));
+	CollisionManager::AddCamp(newEnemy, ENEMY);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians((float)(rand() % ANGLE360)));
 	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0, SPAWN_DISTANCE,0), rotmat);
-	enemy->SetPosition(vpos);
-	return enemy;
+	newEnemy->SetPosition(vpos);
+	return newEnemy;
 }

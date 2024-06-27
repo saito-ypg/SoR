@@ -4,6 +4,10 @@
       "wave_id": 1,
       "enemy": [
         {
+          "spawn_time": 0.2,
+          "enemy_type": "SOLDIER"
+        },
+        {
           "spawn_time": 5.0,
           "enemy_type": "DECOY"
         },

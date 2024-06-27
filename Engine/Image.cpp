@@ -4,7 +4,7 @@
 namespace {
 	
 }
-#define RET_IF_NON_EXIST(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
+#define RETURN_IF_INVALID_HANDLE(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
 //3D画像を管理する
 namespace Image
 {
@@ -79,7 +79,7 @@ namespace Image
 	//描画
 	void Draw(int handle)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 		if (_datas.at(handle) == nullptr)
 		{
 			return;
@@ -131,7 +131,7 @@ namespace Image
 	//切り抜き範囲の設定
 	void SetRect(int handle, int x, int y, int width, int height)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 
 		_datas.at(handle)->rect.left = x;
 		_datas.at(handle)->rect.top = y;
@@ -143,7 +143,7 @@ namespace Image
 	//切り抜き範囲をリセット（画像全体を表示する）
 	void ResetRect(int handle)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 
 		XMFLOAT3 size = _datas.at(handle)->pSprite->GetTextureSize();
 
@@ -157,7 +157,7 @@ namespace Image
 	//アルファ値設定
 	void SetAlpha(int handle, int alpha)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 		_datas.at(handle)->alpha = (float)alpha / 255.0f;
 	}
 
@@ -165,7 +165,7 @@ namespace Image
 	//ワールド行列を設定
 	void SetTransform(int handle, Transform& transform)
 	{
-		RET_IF_NON_EXIST(handle);
+		RETURN_IF_INVALID_HANDLE(handle);
 
 		_datas.at(handle)->transform = transform;
 	}
@@ -234,25 +234,32 @@ namespace Image
 		return retPos;
 	}
 
-	bool isMouseOver(int handle)
+	bool isMouseOver(const int& handle, const Transform &t)
 	{
 		assert(handle < _datas.size() && handle >= 0);
 		XMFLOAT3 mousePos = Input::GetMousePosition();
+		return isPointInside(handle, t, mousePos);
+	}
+
+	bool isPointInside(const int& handle, const Transform& ImageT, const XMFLOAT3& point)
+	{
+		assert(handle < _datas.size() && handle >= 0);
+
 		// 画像のスクリーン座標範囲をもとめる
-		const XMFLOAT3 imgPos =toPixel( _datas.at(handle)->transform.position_);
-		const XMFLOAT3 imgScale = _datas.at(handle)->transform.scale_;
+		const XMFLOAT3 imgPos = toPixel(ImageT.position_);
+		const XMFLOAT3 imgScale = ImageT.scale_;
 		const RECT imgRect = _datas.at(handle)->rect;
-		
+
 		float halfWidth = imgRect.right * imgScale.x / 2.0f;
 		float halfHeight = imgRect.bottom * imgScale.y / 2.0f;
 		float left = imgPos.x - halfWidth;
 		float right = imgPos.x + halfWidth;
-		float top = imgPos.y+ halfHeight;
+		float top = imgPos.y + halfHeight;
 		float bottom = imgPos.y - halfHeight;
 
-		// マウス座標が画像の NDC 座標範囲内にあるかを判定
-		return mousePos.x >= left && mousePos.x <= right &&
-			mousePos.y >= bottom && mousePos.y <= top;
+		// 座標が画像の NDC 座標範囲内にあるかを判定
+		return point.x >= left && point.x <= right &&
+			point.y >= bottom && point.y <= top;
 	}
 
 	//ワールド行列の取得
