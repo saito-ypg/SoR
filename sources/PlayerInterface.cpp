@@ -97,12 +97,12 @@ static constexpr int calcAlphaMax255(float percentage) {
 	if (percentage < 0 || percentage>100) {
 		return 255;
 	}
-	return static_cast<int>(255 * percentage);
+	return static_cast<int>(255 * percentage*0.01);
 }
 void PlayerInterface::TransparentizeIfPlayerBehind(int handle) const
 {
 	constexpr int	OPAQUE_ALPHA = calcAlphaMax255(100),//•s“§–¾‚È’l
-					TRANSLUCENT_ALPHA = calcAlphaMax255(70);
+					TRANSLUCENT_ALPHA = calcAlphaMax255(40);
 	if (isPlayerHiddenInUI) {
 		Image::SetAlpha(handle, TRANSLUCENT_ALPHA);
 	}
