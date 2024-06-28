@@ -9,7 +9,7 @@ namespace {
 namespace Image
 {
 	//ロード済みの画像データ一覧
-	std::vector<ImageData*>	_datas;
+	std::vector<std::shared_ptr<ImageData>>	_datas;
 
 	//初期化
 	void Initialize()
@@ -20,7 +20,7 @@ namespace Image
 	//画像をロード
 	int Load(std::string fileName)
 	{
-		ImageData* pData = new ImageData;
+		auto pData = std::make_shared<ImageData>();
 
 		//開いたファイル一覧から同じファイル名のものが無いか探す
 		bool isExist = false;
@@ -38,12 +38,9 @@ namespace Image
 		//新たにファイルを開く
 		if (isExist == false)
 		{
-			pData->pSprite = new Sprite;
+			pData->pSprite = std::make_shared<Sprite>();
 			if (FAILED(pData->pSprite->Load(fileName)))
 			{
-				//開けなかった
-				SAFE_DELETE(pData->pSprite);
-				SAFE_DELETE(pData);
 				return -1;
 			}
 
@@ -63,7 +60,7 @@ namespace Image
 		}
 
 		//新たに追加
-		_datas.push_back(pData);
+		_datas.push_back(std::move(pData));
 
 		//画像番号割り振り
 		int handle = (int)_datas.size() - 1;
@@ -90,40 +87,12 @@ namespace Image
 
 
 
-	//任意の画像を開放
-	void Release(int handle)
-	{
-
-		//同じモデルを他でも使っていないか
-		bool isExist = false;
-		for (int i = 0; i < _datas.size(); i++)
-		{
-			//すでに開いている場合
-			if (_datas.at(i) != nullptr && i != handle && _datas.at(i)->pSprite == _datas.at(handle)->pSprite)
-			{
-				isExist = true;
-				break;
-			}
-		}
-
-		//使ってなければモデル解放
-		if (isExist == false)
-		{
-			SAFE_DELETE(_datas.at(handle)->pSprite);
-		}
-
-		SAFE_DELETE(_datas.at(handle));
-	}
 
 
 
 	//全ての画像を解放
 	void AllRelease()
 	{
-		for (int i = 0; i < _datas.size(); i++)
-		{
-			Release(i);
-		}
 		_datas.clear();
 	}
 

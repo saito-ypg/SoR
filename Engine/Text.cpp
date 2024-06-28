@@ -106,5 +106,4 @@ void Text::DrawCenter(const int& x, const int& y, int value, const float scale)
 //‰ð•ú
 void Text::Release()
 {
-	Image::Release(hPict_);
 }

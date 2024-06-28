@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include<limits>
 #include "Sprite.h"
 #include "Transform.h"
@@ -20,7 +21,7 @@ namespace Image
 		std::string fileName;
 
 		//ロードした画像データのアドレス
-		Sprite*		pSprite;
+		std::shared_ptr<Sprite> pSprite;
 
 		//切り抜き範囲
 		RECT		rect;
@@ -55,9 +56,6 @@ namespace Image
 	//引数：matrix	ワールド行列
 	void Draw(int handle);
 
-	//任意の画像を開放
-	//引数：handle	開放したいモデルの番号
-	void Release(int handle);
 
 	//全ての画像を解放
 	//（シーンが切り替わるときは必ず実行）
