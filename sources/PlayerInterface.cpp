@@ -1,5 +1,6 @@
 #include "PlayerInterface.h"
 #include<array>
+#include"../Engine/global.h"
 #include"../Engine/Image.h"
 #include"../Engine/Camera.h"
 #include"Player.h"
@@ -15,7 +16,7 @@ namespace {
 	constexpr float SKILL_ALIGN_UNDER = 680;
 	constexpr float ICON_DIST = 80;
 	constexpr float ICON_LEFT = 400;
-	int clock = 0;
+	int drawClock= 0;
 	//
 	int index = Player::UNUSED;
 	bool isPlayerHiddenInUI;
@@ -48,10 +49,6 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 	pText = nullptr;
 	pPlayer = nullptr;
 	isPlayerHiddenInUI = false;
-
-
-
-
 
 }
 
@@ -107,14 +104,11 @@ void PlayerInterface::Update(const float& dt)
 void PlayerInterface::Draw()
 {
 	RETURN_IF_PLAYER_ISNT_EXIST;
-
-
-
 	//毎フレームこの判断をするのではなく、簡易的な矩形判断をして中だったら～でもいいかも
-	clock++;
-	if (clock >= 5) {
+	drawClock++;
+	if (drawClock >= 5) {
 		isPlayerHiddenInUI = Image::isPointInside(hImageBack, BackT, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
-		clock = 0;
+		drawClock = 0;
 	}
 	TransparentizeIfPlayerBehind(hImageBack);
 	Image::Draw(hImageBack);
@@ -190,7 +184,7 @@ void PlayerInterface::DrawCT(int i, const Transform& PictT)
 	const float castTimePercentage = skillList.at(i)->getCtPercentage();
 	if (castTimePercentage > 0)//割合は時間に応じて1～0で帰ってくる。
 	{
-		constexpr float testImagesize = 64.0f / 70.0f;//画像サイズ調整中
+		constexpr float testImagesize = 64.0f / 70.0f;//画像サイズに対してCTのゲージサイズ
 		Transform activeT = PictT;
 		activeT.scale_.y = castTimePercentage * testImagesize;
 		activeT.position_.y = Image::toPos(Image::AlignImage(hImageActive, DOWN, SKILL_ALIGN_UNDER, activeT.scale_.y), Y);
@@ -205,4 +199,6 @@ void PlayerInterface::DrawCT(int i, const Transform& PictT)
 
 void PlayerInterface::Release()
 {
+	pText->Release();
+	SAFE_DELETE(pText);
 }

@@ -70,7 +70,7 @@ public:
     void ActorDraw() override;
 
     //開放
-    void Release() override;
+    void ActorRelease() override;
 
    
     //UI用。クールダウン割合とか個別でやり取りよりこっちのほうがいい？

@@ -180,7 +180,7 @@ void Player::ActorDraw()
 }
 
 //ŠJ•ú
-void Player::Release()
+void Player::ActorRelease()
 {
     for (auto itr : skills)
     {

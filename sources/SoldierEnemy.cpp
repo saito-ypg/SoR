@@ -27,6 +27,6 @@ void SoldierEnemy::ActorDraw()
 	DrawBody();
 }
 
-void SoldierEnemy::Release()
+void SoldierEnemy::ActorRelease()
 {
 }

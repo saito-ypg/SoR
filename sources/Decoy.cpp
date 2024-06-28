@@ -30,7 +30,7 @@ void Decoy::ActorDraw()
 	DrawBody();
 }
 
-void Decoy::Release()
+void Decoy::ActorRelease()
 {
 	RemoveCamp();
 }

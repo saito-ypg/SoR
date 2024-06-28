@@ -70,6 +70,11 @@ void GameActor::Draw()
 void GameActor::ActorDraw()
 {
 }
+void GameActor::Release()
+{
+	ActorRelease();
+	Model::Release(hBody_);
+}
 void GameActor::dyingProcess()
 {
 }
