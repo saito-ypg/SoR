@@ -14,7 +14,7 @@ void SoldierEnemy::dyingDraw()
 
 void SoldierEnemy::Initialize()
 {
-	hBody_ = Model::Load("Charactors/soldier.fbx");
+	hBody_ = Model::Load("Characters/soldier.fbx");
 	assert(hBody_ >= 0);
 }
 

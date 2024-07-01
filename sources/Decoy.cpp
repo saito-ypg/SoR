@@ -17,7 +17,7 @@ void Decoy::dyingDraw()
 
 void Decoy::Initialize()
 {
-	hBody_=Model::Load("Charactors/decoy.fbx");
+	hBody_=Model::Load("Characters/decoy.fbx");
 	assert(hBody_ >= 0);
 }
 
