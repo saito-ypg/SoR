@@ -13,10 +13,11 @@ enum eImage{
 };
 namespace {
 	//定数
-	constexpr float SKILL_ALIGN_UNDER = 680;
-	constexpr float ICON_DIST = 80;
+	constexpr float SKILL_ALIGN_UNDER = 680;//スキルアイコン下端揃え
+	constexpr float ICON_DIST = 80;//左端基準のスキルアイコン間隔
 	constexpr float ICON_LEFT = 400;
-	int drawClock= 0;
+	constexpr int REFRESH_TRANSPARENT_INTERVAL_FRAME = 5;//このフレーム数ごとにUI透過判断を行う
+	int refreshCnt = 0;
 	//
 	int index = Player::UNUSED;
 	bool isPlayerHiddenInUI;
@@ -105,10 +106,10 @@ void PlayerInterface::Draw()
 {
 	RETURN_IF_PLAYER_ISNT_EXIST;
 	//毎フレームこの判断をするのではなく、簡易的な矩形判断をして中だったら～でもいいかも
-	drawClock++;
-	if (drawClock >= 5) {
+	refreshCnt++;
+	if (refreshCnt >= REFRESH_TRANSPARENT_INTERVAL_FRAME) {//リアルタイム性はそんなに重視しなくていいので
 		isPlayerHiddenInUI = Image::isPointInside(hImageBack, BackT, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
-		drawClock = 0;
+		refreshCnt = 0;
 	}
 	TransparentizeIfPlayerBehind(hImageBack);
 	Image::Draw(hImageBack);
