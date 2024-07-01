@@ -10,7 +10,7 @@ constexpr float SPAWN_DISTANCE = 10.0f;
 constexpr int ANGLE360 = 360;
 
 namespace {
-	std::map<EnemyType, EnemyStatus> datas;
+	std::map<EnemyType, EnemyStatus> data;
 	/// <summary>
 	/// 生成のみを行うファクトリー関数
 	/// </summary>
@@ -46,12 +46,11 @@ void EnemySpawner::loadEnemyParams()
 		return;
 	}
 
-	json jsondata;
-	f >> jsondata;
-	std::string s = jsondata.dump();
-	for (const auto& itr : jsondata) {
+	json jsonData;
+	f >> jsonData;
+	for (const auto& itr : jsonData) {
 		const auto &param = itr.at(chr).at(params);
-		datas.emplace((EnemyType)(itr.at(id)), EnemyStatus{ param.at(hp), param.at(r) });
+		data.emplace(static_cast <EnemyType> (itr.at(id)), EnemyStatus{ param.at(hp), param.at(r) });
 	}
 
 }
@@ -60,7 +59,7 @@ EnemySpawner::EnemySpawner(GameActor* pPlayer)
 {
 	pPlayer_ = pPlayer;
 	assert(pPlayer);
-	if(datas.empty())
+	if(data.empty())
 		loadEnemyParams();
 }
 
@@ -72,7 +71,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 		assert(false);
 	}
 	newEnemy->SetPlayer(pPlayer_);//プレイヤーを認知させる
-	newEnemy->setConfig(datas.at(type));
+	newEnemy->setConfig(data.at(type));
 	CollisionManager::AddCamp(newEnemy, ENEMY);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians((float)(rand() % ANGLE360)));
 	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0, SPAWN_DISTANCE,0), rotmat);

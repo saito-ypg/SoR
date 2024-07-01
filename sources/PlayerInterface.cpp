@@ -148,14 +148,14 @@ void PlayerInterface::DrawSkillIcons()
 		DrawCD(vSkillCD.at(i), PictT);
 
 		if (Image::isMouseOver(handle,PictT)) {//フローティングメニューとか出してみたい
-			DrawSkillTips(i,PictT );
+			DrawSkillTips(PictT);
 		}
 		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}
 	
 }
 
-void PlayerInterface::DrawSkillTips(const float& cd,Transform& PictT)
+void PlayerInterface::DrawSkillTips(Transform& PictT)
 {
 	XMFLOAT3 pixelPos = Image::toPixel(PictT.position_);
 	pText->DrawCenter((int)pixelPos.x, (int)pixelPos.y, "tipToDo");

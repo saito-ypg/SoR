@@ -4,7 +4,7 @@ EnemyBase::EnemyBase(GameObject* parent, bool isboss):GameActor(parent, "Enemy")
 {
 	eStat_ = WAIT;
 	pPlayer = nullptr;
-	curMovement = nullptr;
+	//curMovement = nullptr;
 	if (isboss)
 	{
 		transform_.scale_ = { 1.5,1.5,1.5 };
