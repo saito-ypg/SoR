@@ -1,11 +1,13 @@
 #pragma once
+
+#include<memory>
 #include "GameActor.h"
 #include"EnemyType.h"
+#include"MediatorBase.h"
 struct EnemyStatus {
 	float hp;
 	float radius;
 };
-class MediatorBase;
 class EnemyBase : public GameActor 
 {
 public:
@@ -19,7 +21,7 @@ protected:
 	SPAWINIG_STATE eStat_;//管理用
 
 
-	MediatorBase* pMediator_; //このクラスを通し各行動ステートの管理
+	std::unique_ptr<MediatorBase> pMediator_; //このクラスを通し各行動ステートの管理
 
 	void AddCamp() override;
 	void RemoveCamp() override;
@@ -33,7 +35,7 @@ public:
 
 
 	void SetPlayer(GameActor* p) { pPlayer_ = p; assert(pPlayer_ != nullptr); }
-	void SetMediator(MediatorBase* mediator) { pMediator_ =mediator; }
+	void SetMediator(std::unique_ptr<MediatorBase>mediator) { pMediator_ =std::move(mediator); }//ステートを管理するメディエーターを設定
 	//敵のデータを設定する
 	void setConfig(EnemyStatus status);
 	SPAWINIG_STATE getStat() const { return eStat_; }

@@ -1,6 +1,5 @@
 #include "EnemyBase.h"
 #include"MovementStateBase.h"
-#include"MediatorBase.h"
 EnemyBase::EnemyBase(GameObject* parent, bool isboss):GameActor(parent, "Enemy")
 {
 	eStat_ = WAIT;

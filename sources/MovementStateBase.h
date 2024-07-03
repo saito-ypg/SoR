@@ -1,6 +1,7 @@
 #pragma once
 #include"../Engine/Transform.h"
 class GameActor;
+//敵キャラクターの一行動を定義する
 class MovementStateBase
 {
 protected:
