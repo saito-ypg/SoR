@@ -23,6 +23,8 @@
       <FileType>Document</FileType>
     </None>
     <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\MediatorFactory.cpp" />
+    <ClCompile Include="sources\MediatorFactoryRegistry.cpp" />
     <ClCompile Include="sources\MediatorBase.cpp" />
     <ClCompile Include="sources\MovementStateBase.cpp" />
     <ClCompile Include="sources\SoldierEnemy.cpp" />
@@ -75,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\MediatorFactory.h" />
+    <ClInclude Include="sources\MediatorFactoryRegistry.h" />
     <ClInclude Include="sources\MediatorBase.h" />
     <ClInclude Include="sources\MovementStateBase.h" />
     <ClInclude Include="sources\SoldierEnemy.h" />

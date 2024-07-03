@@ -227,6 +227,12 @@
     <ClInclude Include="sources\MovementStateBase.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
     </ClInclude>
+    <ClInclude Include="sources\MediatorFactory.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\MediatorFactoryRegistry.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -372,6 +378,12 @@
     </ClCompile>
     <ClCompile Include="sources\MovementStateBase.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\MediatorFactory.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\MediatorFactoryRegistry.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,8 @@
 #include "MovementStateBase.h"
 
-MovementStateBase::MovementStateBase()
+MovementStateBase::MovementStateBase(GameActor* pActor)
 {
+
 }
 
 void MovementStateBase::SetTransform(Transform* t)

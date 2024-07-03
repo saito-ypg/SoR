@@ -4,7 +4,8 @@
 EnemyBase::EnemyBase(GameObject* parent, bool isboss):GameActor(parent, "Enemy")
 {
 	eStat_ = WAIT;
-	pPlayer = nullptr;
+	pPlayer_ = nullptr;
+	pMediator_ = nullptr;
 	//curMovement = nullptr;
 	if (isboss)
 	{

@@ -15,9 +15,11 @@ private:
 protected:
 //スキル等を知る必要ないためPlayer型にはしない
 	bool isBoss_;
-	GameActor* pPlayer;
+	GameActor* pPlayer_;
 	SPAWINIG_STATE eStat_;//管理用
-	MediatorBase* pMediator_;//このクラスを通し各行動ステートの管理
+
+
+	MediatorBase* pMediator_; //このクラスを通し各行動ステートの管理
 
 	void AddCamp() override;
 	void RemoveCamp() override;
@@ -29,8 +31,9 @@ public:
 	EnemyBase(GameObject* parent, bool isboss = false);
 	virtual ~EnemyBase();
 
-	void SetPlayer(GameActor* p) { pPlayer = p; assert(pPlayer != nullptr); }
 
+	void SetPlayer(GameActor* p) { pPlayer_ = p; assert(pPlayer_ != nullptr); }
+	void SetMediator(MediatorBase* mediator) { pMediator_ =mediator; }
 	//敵のデータを設定する
 	void setConfig(EnemyStatus status);
 	SPAWINIG_STATE getStat() const { return eStat_; }

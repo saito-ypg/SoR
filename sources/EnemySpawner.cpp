@@ -62,7 +62,6 @@ EnemySpawner::EnemySpawner(GameActor* pPlayer)
 	if(data.empty())
 		loadEnemyParams();
 }
-
 EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool isBoss) const
 {
 	auto newEnemy = ::createEnemy(pParent, type, isBoss);
@@ -72,6 +71,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 	}
 	newEnemy->SetPlayer(pPlayer_);//プレイヤーを認知させる
 	newEnemy->setConfig(data.at(type));
+	newEnemy->SetMediator();
 	CollisionManager::AddCamp(newEnemy, ENEMY);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians((float)(rand() % ANGLE360)));
 	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0, SPAWN_DISTANCE,0), rotmat);
