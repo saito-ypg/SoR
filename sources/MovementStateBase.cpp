@@ -15,7 +15,7 @@ MovementStateBase::~MovementStateBase()
 	Release();
 }
 
-void MovementStateBase::Update(XMFLOAT3 pos)
+void MovementStateBase::Update(const float& dt)
 {
 }
 

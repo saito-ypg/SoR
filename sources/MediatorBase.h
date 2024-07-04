@@ -15,6 +15,8 @@ protected:
 public:
 	MediatorBase(EnemyBase* enemy);
 	virtual ~MediatorBase();
+	void Update(const float& dt);
+
 	virtual void changeState() = 0;
 };
 

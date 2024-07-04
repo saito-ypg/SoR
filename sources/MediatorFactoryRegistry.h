@@ -6,7 +6,7 @@ class MediatorFactory;
 enum class EnemyType;
 
 /// <summary>
-/// spawnerでmediatorを簡単に注入できるように、ファクトリを登録/呼び出しできるクラス
+/// spawnerでMediatorを簡単に注入できるように、ファクトリを登録/呼び出しできるクラス
 /// 
 /// </summary>
 class MediatorFactoryRegistry {

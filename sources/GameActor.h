@@ -19,8 +19,8 @@ protected:
     
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
-    bool isdying;//HP0以下になったらこれ変える、回復しても死んだまま
-    bool  IsDying_()const { return isdying; }
+    bool isDying_;//HP0以下になったらこれ変える、回復しても死んだまま
+    bool  IsDying()const { return isDying_; }
     int hBody_;//基本となるモデルの描画。終了時解放は不要
     std::vector<int> hModels_;//Body以外の補助的なモデル番号を配列に
 
