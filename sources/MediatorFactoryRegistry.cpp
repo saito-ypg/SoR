@@ -3,10 +3,11 @@
 #include"EnemyType.h"
 std::unordered_map<EnemyType, std::unique_ptr<MediatorFactory>> MediatorFactoryRegistry::factories;
 
-void MediatorFactoryRegistry::RegisterFactory(const EnemyType type, std::unique_ptr<MediatorFactory> factory)
+void MediatorFactoryRegistry::RegisterFactory(const EnemyType type, std::unique_ptr<MediatorFactory> &&factory)
 {
-	factories[type] = std::move(factory);
+	factories.try_emplace(type,std::move(factory));
 }
+
 
 MediatorFactory* MediatorFactoryRegistry::getFactory(const EnemyType type)
 {

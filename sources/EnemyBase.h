@@ -35,7 +35,7 @@ public:
 
 
 	void SetPlayer(GameActor* p) { pPlayer_ = p; assert(pPlayer_ != nullptr); }
-	void SetMediator(std::unique_ptr<MediatorBase>mediator) { pMediator_ =std::move(mediator); }//ステートを管理するメディエーターを設定
+	void SetMediator(std::unique_ptr<MediatorBase>mediator);//ステートを管理するメディエーターを設定
 	//敵のデータを設定する
 	void setConfig(EnemyStatus status);
 	SPAWINIG_STATE getStat() const { return eStat_; }

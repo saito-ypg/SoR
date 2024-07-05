@@ -17,6 +17,12 @@ EnemyBase::~EnemyBase()
 {
 }
 
+void EnemyBase::SetMediator(std::unique_ptr<MediatorBase> mediator)
+{
+	pMediator_ =std::move(mediator); 
+	pMediator_->setEnemy(this);
+}
+
 void EnemyBase::setConfig(EnemyStatus status)
 {
 	if (isBoss_) {

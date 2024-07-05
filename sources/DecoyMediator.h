@@ -3,6 +3,12 @@
 #include"MediatorFactory.h"
 class DecoyMediator :public MediatorBase
 {
+private:
+	void changeState()override;
+	void DetermineNextState() override;
+public:
+	DecoyMediator();
+	virtual ~DecoyMediator();
 };
 
 class DecoyMediatorFactory :public MediatorFactory {

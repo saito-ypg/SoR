@@ -15,7 +15,7 @@ private:
     static bool isInitialized;
 
 public:
-    static void RegisterFactory(const EnemyType type, std::unique_ptr<MediatorFactory> factory);
+    static void RegisterFactory(const EnemyType type, std::unique_ptr<MediatorFactory> &&factory);
     static MediatorFactory* getFactory(const EnemyType type);
     static bool IsInitialized();
 };
