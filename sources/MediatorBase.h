@@ -21,7 +21,7 @@ public:
 	MediatorBase();
 	virtual ~MediatorBase();
 	void Update(const float& dt);
-	void setEnemy(EnemyBase*enemy);
+	//void setEnemy(EnemyBase*enemy);
 
 };
 

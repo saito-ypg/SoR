@@ -22,3 +22,11 @@ void MovementStateBase::Update(const float& dt)
 void MovementStateBase::Release()
 {
 }
+
+IdleState::IdleState(GameActor* pActor) :MovementStateBase(pActor)
+{
+}
+
+IdleState::~IdleState()
+{
+}

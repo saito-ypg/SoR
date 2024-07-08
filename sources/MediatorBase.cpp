@@ -1,8 +1,9 @@
 #include "MediatorBase.h"
 #include"EnemyBase.h"
 
-MediatorBase::MediatorBase() :base_(nullptr),curState_(nullptr),isTransition_(false)
+MediatorBase::MediatorBase() :base_(nullptr),isTransition_(false)
 {
+	curState_ = std::make_unique<IdleState>();
 }
 
 MediatorBase::~MediatorBase()

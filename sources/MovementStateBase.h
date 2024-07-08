@@ -15,3 +15,8 @@ public:
 	virtual void Release();
 };
 
+class IdleState :public MovementStateBase{
+public:
+	IdleState(GameActor *pActor);
+	~IdleState();
+};

@@ -16,6 +16,40 @@ using std::vector;
 using namespace std::chrono;
 constexpr float TRANSITION_MS = 3000;
 constexpr int MAX_WAVE = 2;
+
+ModeratorSequence::ModeratorSequence(GameObject* parent) :GameObject(parent, "ModeratorSequence")
+{
+	curTime = milliseconds(0);
+	ttlTime = milliseconds(0);
+	waves = 0;
+	spawnindex = 0;
+	state = CHANGED;
+	hImage[0] = -1;
+	hImage[1] = -1;
+	pText = nullptr;
+	transitionTime = TRANSITION_MS;
+	spawner = nullptr;
+	manager = nullptr;
+}
+
+ModeratorSequence::~ModeratorSequence()
+{
+
+
+}
+
+void ModeratorSequence::Initialize()
+{
+	manager = new EnemyManager(this);
+	spawner = new EnemySpawner((GameActor*)this->FindObject("Player"));
+	LoadData();
+	pText = new Text();
+	pText->Initialize();
+	hImage[0] = Image::Load("Images/inc.png");
+	hImage[1] = Image::Load("Images/waveclear.png");
+	assert(hImage[0] >= 0);
+	assert(hImage[1] >= 0);
+}
 void ModeratorSequence::LoadData()
 {
 	using namespace std;
@@ -50,40 +84,6 @@ void ModeratorSequence::LoadData()
 	}
 
 }
-ModeratorSequence::ModeratorSequence(GameObject* parent) :GameObject(parent, "ModeratorSequence")
-{
-	curTime = milliseconds(0);
-	ttlTime = milliseconds(0);
-	waves = 0;
-	spawnindex = 0;
-	state = CHANGED;
-	hImage[0] = -1;
-	hImage[1] = -1;
-	pText = nullptr;
-	transitionTime = TRANSITION_MS;
-	spawner = nullptr;
-	manager = nullptr;
-}
-
-ModeratorSequence::~ModeratorSequence()
-{
-
-
-}
-
-void ModeratorSequence::Initialize()
-{
-	manager = new EnemyManager(this);
-	spawner = new EnemySpawner((GameActor*)this->FindObject("Player"));
-	LoadData();
-	pText = new Text();
-	pText->Initialize();
-	hImage[0] = Image::Load("Images/inc.png");
-	hImage[1] = Image::Load("Images/waveclear.png");
-	assert(hImage[0] >= 0);
-	assert(hImage[1] >= 0);
-}
-
 void ModeratorSequence::Update(const float& dt)
 {
 	auto Transition = [&](ModeratorSequence::s nextState) {

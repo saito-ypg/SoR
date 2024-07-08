@@ -143,7 +143,6 @@
     <ClInclude Include="Engine\VFX.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="sources\GameOverScene.h">
       <Filter>sourses\Scene\Gameover</Filter>
@@ -232,6 +231,11 @@
     </ClInclude>
     <ClInclude Include="sources\MediatorFactoryRegistry.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\DecoyMediator.h" />
+    <ClInclude Include="sources\RegistrationFactory.h" />
+    <ClInclude Include="sources\ActorInfo.h">
+      <Filter>sourses\Scene\Play\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +389,8 @@
     <ClCompile Include="sources\MediatorFactoryRegistry.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="sources\DecoyMediator.cpp" />
+    <ClCompile Include="sources\RegistrationFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
