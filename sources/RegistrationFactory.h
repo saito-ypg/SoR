@@ -6,6 +6,6 @@
 class RegistrationFactory
 {
 public:
-	void RegisterAllFactory();//‘S•”“o˜^‚·‚é
+	static void RegisterAllFactory();//‘S•”“o˜^‚·‚é
 };
 

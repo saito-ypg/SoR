@@ -5,9 +5,12 @@
 using std::make_unique;
 void RegistrationFactory::RegisterAllFactory()
 {
-	if (!MediatorFactoryRegistry::IsInitialized) {
+	if (!MediatorFactoryRegistry::IsInitialized()) {
 		//ˆÈ‰º‚É“G‚²‚Æ‚Ìmediator‚ğ‘‚â‚µ‚Ä‚¢‚­
 		MediatorFactoryRegistry::RegisterFactory(EnemyType::DECOY, make_unique<DecoyMediatorFactory>());
 
+	
+	
+		
 	}
 }

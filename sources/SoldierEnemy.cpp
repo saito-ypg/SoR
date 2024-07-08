@@ -20,6 +20,7 @@ void SoldierEnemy::Initialize()
 
 void SoldierEnemy::ActorUpdate(const float& dt)
 {
+	mediatorUpdate(dt);
 }
 
 void SoldierEnemy::ActorDraw()

@@ -5,8 +5,10 @@
 #include"EnemyBase.h"
 #include"MediatorFactoryRegistry.h"
 #include"MediatorFactory.h"
+#include"RegistrationFactory.h"
 #include"Decoy.h"
 #include"SoldierEnemy.h"
+
 #include"../libraries/json.hpp"
 constexpr float SPAWN_DISTANCE = 10.0f;
 constexpr int ANGLE360 = 360;
@@ -62,8 +64,10 @@ EnemySpawner::EnemySpawner(GameActor* pPlayer)
 	pPlayer_ = pPlayer;
 	assert(pPlayer);
 	if(data.empty())
+	{
 		loadEnemyParams();
-	
+	}
+	RegistrationFactory::RegisterAllFactory();	
 }
 EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool isBoss) const
 {
@@ -76,8 +80,9 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 	newEnemy->setConfig(data.at(type));
 
 	auto factory = MediatorFactoryRegistry::getFactory(type);
-	assert(factory);
-	newEnemy->SetMediator(factory->createMediator());
+	if (factory) {
+		newEnemy->SetMediator(factory->createMediator());
+	}
 	CollisionManager::AddCamp(newEnemy, ENEMY);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians((float)(rand() % ANGLE360)));
 	XMVECTOR vpos = XMVector3TransformCoord(XMVectorSet(0,0, SPAWN_DISTANCE,0), rotmat);

@@ -23,6 +23,7 @@ void Decoy::Initialize()
 
 void Decoy::ActorUpdate(const float& dt)
 {
+	mediatorUpdate(dt);
 }
 
 void Decoy::ActorDraw()

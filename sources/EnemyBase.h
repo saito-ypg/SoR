@@ -23,6 +23,9 @@ protected:
 
 	std::unique_ptr<MediatorBase> pMediator_; //このクラスを通し各行動ステートの管理
 
+	///ステートと情報をやり取りし敵に行動させる
+	///もしmediatorがnullなら行動しないキャラとなる
+	void mediatorUpdate(const float&dt);
 	void AddCamp() override;
 	void RemoveCamp() override;
 	void dyingProcess()override;
@@ -37,7 +40,7 @@ public:
 	void SetPlayer(GameActor* p) { pPlayer_ = p; assert(pPlayer_ != nullptr); }
 	void SetMediator(std::unique_ptr<MediatorBase>mediator);//ステートを管理するメディエーターを設定
 	//敵のデータを設定する
-	void setConfig(EnemyStatus status);
+	void setConfig(const EnemyStatus & status);
 	SPAWINIG_STATE getStat() const { return eStat_; }
 	
 	

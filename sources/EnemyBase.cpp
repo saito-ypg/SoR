@@ -23,7 +23,7 @@ void EnemyBase::SetMediator(std::unique_ptr<MediatorBase> mediator)
 	pMediator_->setEnemy(this);
 }
 
-void EnemyBase::setConfig(EnemyStatus status)
+void EnemyBase::setConfig(const EnemyStatus & status)
 {
 	if (isBoss_) {
 		status_.maxHp_ = status.hp * 2;
@@ -37,6 +37,14 @@ void EnemyBase::setConfig(EnemyStatus status)
 	}
 }
 
+
+void EnemyBase::mediatorUpdate(const float& dt)
+{
+	if (pMediator_)
+	{
+		pMediator_->Update(dt);
+	}
+}
 
 void EnemyBase::AddCamp()
 {
