@@ -8,6 +8,7 @@ Text::Text() : hPict_(-1), width_(16), height_(32), fileName_("char.png"), rowLe
 
 Text::~Text()
 {
+	Image::Release(hPict_);
 }
 
 //初期化（デフォルト）
@@ -106,5 +107,4 @@ void Text::DrawCenter(const int& x, const int& y, int value, const float scale)
 //解放
 void Text::Release()
 {
-	Image::Release(hPict_);
 }

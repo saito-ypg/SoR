@@ -109,7 +109,9 @@ namespace Image
 		//Žg‚Á‚Ä‚È‚¯‚ê‚Îƒ‚ƒfƒ‹‰ð•ú
 		if (isExist == false)
 		{
-			SAFE_DELETE(_datas.at(handle)->pSprite);
+			if (_datas.at(handle) != nullptr) {
+				SAFE_DELETE(_datas.at(handle)->pSprite);
+			}
 		}
 
 		SAFE_DELETE(_datas.at(handle));

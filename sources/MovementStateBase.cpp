@@ -5,11 +5,6 @@ MovementStateBase::MovementStateBase(EnemyBase& enemy) :enemy_(enemy)
 
 }
 
-void MovementStateBase::SetTransform(Transform* t)
-{
-	enemyTransform_ = t;
-}
-
 MovementStateBase::~MovementStateBase()
 {
 	Release();

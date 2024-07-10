@@ -35,6 +35,7 @@ EnemyManager::EnemyManager(GameObject* parent)
 
 EnemyManager::~EnemyManager()
 {
+	Release();
 }
 
 void EnemyManager::Initialize()

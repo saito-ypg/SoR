@@ -69,6 +69,9 @@ EnemySpawner::EnemySpawner(GameActor* pPlayer)
 	}
 	RegistrationFactory::RegisterAllFactory();	
 }
+EnemySpawner::~EnemySpawner()
+{
+}
 EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool isBoss) const
 {
 	auto newEnemy = ::createEnemy(pParent, type, isBoss);

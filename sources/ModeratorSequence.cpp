@@ -8,6 +8,7 @@
 #include"EnemySpawner.h"
 #include"../Engine/SceneManager.h"
 #include"../Engine/Image.h"	
+#include"../Engine/global.h"
 #include"../libraries/json.hpp"
 
 using std::string;
@@ -196,7 +197,7 @@ void ModeratorSequence::DrawTime()
 
 void ModeratorSequence::Release()
 {
-	manager->Release();
-	delete manager;
+	SAFE_DELETE(manager);
+	SAFE_DELETE(spawner);
 }
 

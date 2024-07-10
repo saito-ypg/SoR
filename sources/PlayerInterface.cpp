@@ -200,6 +200,12 @@ void PlayerInterface::DrawCT(int i, const Transform& PictT)
 
 void PlayerInterface::Release()
 {
-	pText->Release();
+	for (auto const& i : hSkillIcons) {
+		Image::Release(i);
+	}
+	Image::Release(hImageCD);
+	Image::Release(hImageActive);
+	Image::Release(hImageBack);
 	SAFE_DELETE(pText);
 }
+
