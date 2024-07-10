@@ -8,7 +8,7 @@ Text::Text() : hPict_(-1), width_(16), height_(32), fileName_("char.png"), rowLe
 
 Text::~Text()
 {
-	Image::Release(hPict_);
+	//Image::Release(hPict_);
 }
 
 //初期化（デフォルト）
