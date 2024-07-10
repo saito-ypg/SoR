@@ -17,6 +17,7 @@ private:
 
 public:
 	EnemySpawner(GameActor *pPlayer);
+	~EnemySpawner();
 	EnemyBase* spawnEnemy(GameObject* pParent, EnemyType type,bool isBoss=false) const;
 };
 

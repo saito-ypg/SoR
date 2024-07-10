@@ -12,7 +12,7 @@
 GameActor::GameActor(GameObject* parent, const std::string& name) : GameObject(parent, name)
 {
 	isInvincible_ = false;
-	isdying = false;
+	isDying_ = false;
 	hBody_ = -1;
 
 	knockBack = { 0,0,XMVectorZero() };
@@ -40,8 +40,8 @@ void GameActor::Update(const float& dt)
 	}
 
 	if (status_.hp_ <= 0)
-		isdying = true;
-	if (isdying)
+		isDying_ = true;
+	if (isDying_)
 	{
 		dyingProcess();
 	}
@@ -59,7 +59,7 @@ void GameActor::Draw()
 	}
 	DrawBody();
 	ActorDraw();
-	if (isdying)
+	if (isDying_)
 		dyingDraw();
 	else
 	{
@@ -69,6 +69,11 @@ void GameActor::Draw()
 }
 void GameActor::ActorDraw()
 {
+}
+void GameActor::Release()
+{
+	ActorRelease();
+	Model::Release(hBody_);
 }
 void GameActor::dyingProcess()
 {

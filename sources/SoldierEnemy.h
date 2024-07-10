@@ -13,7 +13,7 @@ public:
     void Initialize() override;
     void ActorUpdate(const float& dt) override;
     void ActorDraw() override;
-    void Release() override;
+    void ActorRelease() override;
 
 };
 

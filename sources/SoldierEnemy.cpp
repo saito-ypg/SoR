@@ -14,12 +14,13 @@ void SoldierEnemy::dyingDraw()
 
 void SoldierEnemy::Initialize()
 {
-	hBody_ = Model::Load("Charactors/soldier.fbx");
+	hBody_ = Model::Load("Characters/soldier.fbx");
 	assert(hBody_ >= 0);
 }
 
 void SoldierEnemy::ActorUpdate(const float& dt)
 {
+	mediatorUpdate(dt);
 }
 
 void SoldierEnemy::ActorDraw()
@@ -27,6 +28,6 @@ void SoldierEnemy::ActorDraw()
 	DrawBody();
 }
 
-void SoldierEnemy::Release()
+void SoldierEnemy::ActorRelease()
 {
 }

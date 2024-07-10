@@ -57,6 +57,21 @@
     <Filter Include="sourses\Scene\Play\Props">
       <UniqueIdentifier>{95166c62-0892-4f8e-8bad-907df3ba82ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sourses\Scene\Play\Actor\Enemy\Systems">
+      <UniqueIdentifier>{21a798a6-d193-4e89-bb2f-75c93fc5b9b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sourses\Scene\Play\Actor\Enemy\Categories">
+      <UniqueIdentifier>{5f064862-144a-4b53-bddb-c99c831c5bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sourses\Scene\Play\Actor\Enemy\Categories\Base">
+      <UniqueIdentifier>{cb769ac9-c547-42f5-9d54-3b51d63a751b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sourses\Scene\Play\Actor\Enemy\Categories\Decoy">
+      <UniqueIdentifier>{ddb6724b-6f7b-4688-9cf1-0ecd069c2193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sourses\Scene\Play\Actor\Enemy\Categories\Soldier">
+      <UniqueIdentifier>{637edd50-e4fd-4e3f-9abe-53a68599b7f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Audio.h">
@@ -148,21 +163,6 @@
     <ClInclude Include="sources\CollisionManager.h">
       <Filter>sourses\Scene\Play\System</Filter>
     </ClInclude>
-    <ClInclude Include="sources\EnemyBase.h">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\EnemyManager.h">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\EnemySpawner.h">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\EnemyType.h">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\Decoy.h">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="sources\GameActor.h">
       <Filter>sourses\Scene\Play\Actor</Filter>
     </ClInclude>
@@ -202,11 +202,46 @@
     <ClInclude Include="sources\PlayerInterface.h">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClInclude>
+    <ClInclude Include="sources\EnemyManager.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\EnemyType.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\EnemySpawner.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\EnemyBase.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\Decoy.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
+    </ClInclude>
     <ClInclude Include="sources\SoldierEnemy.h">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\MediatorBase.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\MovementStateBase.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\MediatorFactory.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\MediatorFactoryRegistry.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\RegistrationFactory.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\IdleState.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\DecoyMediator.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Ease.h" />
-    <ClInclude Include="sources\MovementStateBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -292,15 +327,6 @@
     <ClCompile Include="sources\CollisionManager.cpp">
       <Filter>sourses\Scene\Play\System</Filter>
     </ClCompile>
-    <ClCompile Include="sources\EnemyBase.cpp">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\EnemyManager.cpp">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\Decoy.cpp">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="sources\GameActor.cpp">
       <Filter>sourses\Scene\Play\Actor</Filter>
     </ClCompile>
@@ -315,9 +341,6 @@
     </ClCompile>
     <ClCompile Include="sources\PlayScene.cpp">
       <Filter>sourses\Scene\Play</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\EnemySpawner.cpp">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="sources\testSkill.cpp">
       <Filter>sourses\Scene\Play\Skills</Filter>
@@ -343,11 +366,43 @@
     <ClCompile Include="sources\PlayerInterface.cpp">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClCompile>
+    <ClCompile Include="sources\EnemyManager.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\EnemySpawner.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\EnemyBase.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\Decoy.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
+    </ClCompile>
     <ClCompile Include="sources\SoldierEnemy.cpp">
-      <Filter>sourses\Scene\Play\Actor\Enemy</Filter>
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\MediatorBase.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\MovementStateBase.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\MediatorFactory.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\MediatorFactoryRegistry.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\RegistrationFactory.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\IdleState.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\DecoyMediator.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Ease.cpp" />
-    <ClCompile Include="sources\MovementStateBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -365,6 +420,7 @@
     <None Include="Assets\data\enemy_status.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">

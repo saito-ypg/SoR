@@ -45,7 +45,7 @@ Player::~Player()
 //‰Šú‰»
 void Player::Initialize()
 {
-    hBody_ = Model::Load("Charactors/psample.fbx");
+    hBody_ = Model::Load("Characters/psample.fbx");
     assert(hBody_ >= 0);
 
     AddCamp();
@@ -180,7 +180,7 @@ void Player::ActorDraw()
 }
 
 //ŠJ•ú
-void Player::Release()
+void Player::ActorRelease()
 {
     for (auto itr : skills)
     {

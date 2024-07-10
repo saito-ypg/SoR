@@ -17,12 +17,13 @@ void Decoy::dyingDraw()
 
 void Decoy::Initialize()
 {
-	hBody_=Model::Load("Charactors/decoy.fbx");
+	hBody_=Model::Load("Characters/decoy.fbx");
 	assert(hBody_ >= 0);
 }
 
 void Decoy::ActorUpdate(const float& dt)
 {
+	mediatorUpdate(dt);
 }
 
 void Decoy::ActorDraw()
@@ -30,7 +31,7 @@ void Decoy::ActorDraw()
 	DrawBody();
 }
 
-void Decoy::Release()
+void Decoy::ActorRelease()
 {
 	RemoveCamp();
 }

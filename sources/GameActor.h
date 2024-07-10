@@ -19,9 +19,9 @@ protected:
     
     ActorInfo status_;
     bool isInvincible_;//無敵状態か？
-    bool isdying;//HP0以下になったらこれ変える、回復しても死んだまま
-    bool  IsDying_()const { return isdying; }
-    int hBody_;//基本となるモデルの描画
+    bool isDying_;//HP0以下になったらこれ変える、回復しても死んだまま
+    bool  IsDying()const { return isDying_; }
+    int hBody_;//基本となるモデルの描画。終了時解放は不要
     std::vector<int> hModels_;//Body以外の補助的なモデル番号を配列に
 
     //当たり判定を登録、継承先で陣営固定する
@@ -48,6 +48,10 @@ protected:
     //死亡時描画。倒れるアニメーションとか
     virtual void dyingDraw();
 public:
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     float GetRadius()const{return status_.hitCircleRange_;}
     GameActor(GameObject* parent, const std::string& name); 
     virtual ~GameActor();
@@ -60,6 +64,9 @@ public:
     void Draw() override final;
     //継承先で実装。個別の共有
     virtual void ActorDraw() = 0;
+
+    void Release() override final;
+    virtual void ActorRelease() = 0;
     //オーバーライドするか未定
     void TakeAttacked(DamageData &dmg,XMVECTOR &dir);
     Transform* GetTransformRef();

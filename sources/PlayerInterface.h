@@ -31,7 +31,7 @@ class PlayerInterface :
     void DrawCT(int i, const Transform& PictT);
     void DrawIcon(const int& handle, Transform& PictT) const;
     void DrawCD(const float& cd, const Transform& PictT);
-    void DrawSkillTips(const float& cd,Transform& PictT);
+    void DrawSkillTips(Transform& PictT);
     
 public:
     PlayerInterface(GameObject* parent);

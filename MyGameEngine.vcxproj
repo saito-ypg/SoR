@@ -23,6 +23,12 @@
       <FileType>Document</FileType>
     </None>
     <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\DecoyMediator.cpp" />
+    <ClCompile Include="sources\IdleState.cpp" />
+    <ClCompile Include="sources\RegistrationFactory.cpp" />
+    <ClCompile Include="sources\MediatorFactory.cpp" />
+    <ClCompile Include="sources\MediatorFactoryRegistry.cpp" />
+    <ClCompile Include="sources\MediatorBase.cpp" />
     <ClCompile Include="sources\MovementStateBase.cpp" />
     <ClCompile Include="sources\SoldierEnemy.cpp" />
     <ClCompile Include="sources\ChargeSkill.cpp" />
@@ -74,6 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\DecoyMediator.h" />
+    <ClInclude Include="sources\IdleState.h" />
+    <ClInclude Include="sources\RegistrationFactory.h" />
+    <ClInclude Include="sources\MediatorFactory.h" />
+    <ClInclude Include="sources\MediatorFactoryRegistry.h" />
+    <ClInclude Include="sources\MediatorBase.h" />
     <ClInclude Include="sources\MovementStateBase.h" />
     <ClInclude Include="sources\SoldierEnemy.h" />
     <ClInclude Include="sources\ChargeSkill.h" />
@@ -130,6 +142,7 @@
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
     <None Include="Assets\data\enemy_status.json" />
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />
@@ -258,7 +271,9 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <DisableSpecificWarnings>C26455,</DisableSpecificWarnings>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

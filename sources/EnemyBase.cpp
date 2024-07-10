@@ -3,8 +3,9 @@
 EnemyBase::EnemyBase(GameObject* parent, bool isboss):GameActor(parent, "Enemy")
 {
 	eStat_ = WAIT;
-	pPlayer = nullptr;
-	curMovement = nullptr;
+	pPlayer_ = nullptr;
+	pMediator_ = nullptr;
+	//curMovement = nullptr;
 	if (isboss)
 	{
 		transform_.scale_ = { 1.5,1.5,1.5 };
@@ -16,7 +17,12 @@ EnemyBase::~EnemyBase()
 {
 }
 
-void EnemyBase::setConfig(EnemyStatus status)
+void EnemyBase::SetMediator(std::unique_ptr<MediatorBase> mediator)
+{
+	pMediator_ =std::move(mediator);
+}
+
+void EnemyBase::setConfig(const EnemyStatus & status)
 {
 	if (isBoss_) {
 		status_.maxHp_ = status.hp * 2;
@@ -30,6 +36,14 @@ void EnemyBase::setConfig(EnemyStatus status)
 	}
 }
 
+
+void EnemyBase::mediatorUpdate(const float& dt)
+{
+	if (pMediator_)
+	{
+		pMediator_->Update(dt);
+	}
+}
 
 void EnemyBase::AddCamp()
 {

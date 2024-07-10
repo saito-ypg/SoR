@@ -81,7 +81,7 @@ namespace Image
 		{
 			return;
 		}
-		_datas.at(handle)->transform.Calclation();
+		_datas.at(handle)->transform.Calculation();
 		_datas.at(handle)->pSprite->Draw(_datas.at(handle)->transform, _datas.at(handle)->rect, _datas.at(handle)->alpha);
 	}
 
