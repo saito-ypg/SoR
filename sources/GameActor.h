@@ -48,6 +48,10 @@ protected:
     //死亡時描画。倒れるアニメーションとか
     virtual void dyingDraw();
 public:
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     float GetRadius()const{return status_.hitCircleRange_;}
     GameActor(GameObject* parent, const std::string& name); 
     virtual ~GameActor();

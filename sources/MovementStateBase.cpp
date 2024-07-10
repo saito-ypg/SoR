@@ -1,6 +1,6 @@
 #include "MovementStateBase.h"
-
-MovementStateBase::MovementStateBase(GameActor* pActor)
+#include"EnemyBase.h"
+MovementStateBase::MovementStateBase(EnemyBase& enemy) :enemy_(enemy)
 {
 
 }
@@ -23,10 +23,3 @@ void MovementStateBase::Release()
 {
 }
 
-IdleState::IdleState(GameActor* pActor) :MovementStateBase(pActor)
-{
-}
-
-IdleState::~IdleState()
-{
-}

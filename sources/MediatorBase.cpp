@@ -1,9 +1,9 @@
 #include "MediatorBase.h"
 #include"EnemyBase.h"
-
-MediatorBase::MediatorBase() :base_(nullptr),isTransition_(false)
+#include"IdleState.h"
+MediatorBase::MediatorBase(EnemyBase& enemy) :base_(enemy),isTransition_(false)
 {
-	curState_ = std::make_unique<IdleState>();
+	curState_ = std::make_unique<IdleState>(enemy);
 }
 
 MediatorBase::~MediatorBase()
@@ -17,9 +17,4 @@ void MediatorBase::Update(const float& dt)
 		DetermineNextState();
 		isTransition_ = false;
 	}
-}
-
-void MediatorBase::setEnemy(EnemyBase* enemy)
-{
-	base_ = enemy;
 }

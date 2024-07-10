@@ -143,6 +143,7 @@
     <ClInclude Include="Engine\VFX.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="sources\ActorInfo.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="sources\GameOverScene.h">
       <Filter>sourses\Scene\Gameover</Filter>
@@ -201,7 +202,6 @@
     <ClInclude Include="sources\PlayerInterface.h">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Ease.h" />
     <ClInclude Include="sources\EnemyManager.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClInclude>
@@ -232,11 +232,16 @@
     <ClInclude Include="sources\MediatorFactoryRegistry.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="sources\DecoyMediator.h" />
-    <ClInclude Include="sources\RegistrationFactory.h" />
-    <ClInclude Include="sources\ActorInfo.h">
-      <Filter>sourses\Scene\Play\Actor</Filter>
+    <ClInclude Include="sources\RegistrationFactory.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="sources\IdleState.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\DecoyMediator.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Ease.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -361,7 +366,6 @@
     <ClCompile Include="sources\PlayerInterface.cpp">
       <Filter>sourses\Scene\Play\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Ease.cpp" />
     <ClCompile Include="sources\EnemyManager.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClCompile>
@@ -389,8 +393,16 @@
     <ClCompile Include="sources\MediatorFactoryRegistry.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="sources\DecoyMediator.cpp" />
-    <ClCompile Include="sources\RegistrationFactory.cpp" />
+    <ClCompile Include="sources\RegistrationFactory.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\IdleState.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\DecoyMediator.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Ease.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -408,6 +420,7 @@
     <None Include="Assets\data\enemy_status.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Interface\gaugeBack.png">

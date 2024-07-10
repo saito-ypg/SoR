@@ -81,7 +81,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 
 	auto factory = MediatorFactoryRegistry::getFactory(type);
 	if (factory) {
-		newEnemy->SetMediator(factory->createMediator());
+		newEnemy->SetMediator(factory->createMediator(*newEnemy));
 	}
 	CollisionManager::AddCamp(newEnemy, ENEMY);
 	XMMATRIX rotmat = XMMatrixRotationY(XMConvertToRadians((float)(rand() % ANGLE360)));

@@ -19,8 +19,7 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::SetMediator(std::unique_ptr<MediatorBase> mediator)
 {
-	pMediator_ =std::move(mediator); 
-	pMediator_->setEnemy(this);
+	pMediator_ =std::move(mediator);
 }
 
 void EnemyBase::setConfig(const EnemyStatus & status)

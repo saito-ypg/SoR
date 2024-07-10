@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 class MediatorBase;
-
+class EnemyBase;
 /// <summary>
 /// Mediator生成をSpawner側で簡単にできるように、各キャラごとの生成メソッドを分離する形に…
 /// </summary>
@@ -15,6 +15,6 @@ public:
     /// {   return std::make_unique<○○Mediator>();   }
     /// </summary>
     /// <returns></returns>
-    virtual std::unique_ptr<MediatorBase> createMediator() = 0;
+    virtual std::unique_ptr<MediatorBase> createMediator(EnemyBase&enemy) = 0;
 };
 

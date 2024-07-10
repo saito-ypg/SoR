@@ -1,5 +1,5 @@
 #include "DecoyMediator.h"
-DecoyMediator::DecoyMediator():MediatorBase()
+DecoyMediator::DecoyMediator(EnemyBase& enemy):MediatorBase(enemy)
 {
 }
 

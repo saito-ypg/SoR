@@ -7,14 +7,14 @@ private:
 	void changeState()override;
 	void DetermineNextState() override;
 public:
-	DecoyMediator();
+	DecoyMediator(EnemyBase& enemy);
 	virtual ~DecoyMediator();
 };
 
 class DecoyMediatorFactory :public MediatorFactory {
-	std::unique_ptr<MediatorBase> createMediator() override
+	std::unique_ptr<MediatorBase> createMediator(EnemyBase& enemy) override
 	{
-		return std::make_unique<DecoyMediator>();
+		return std::make_unique<DecoyMediator>(enemy);
 	}
 };
 
