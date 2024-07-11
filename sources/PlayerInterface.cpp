@@ -79,7 +79,7 @@ void PlayerInterface::Initialize()
 		if (skill != nullptr)
 			loadAndPush(skill->getIconName());
 	}
-	pText = new Text;
+	pText = std::make_unique<Text>();
 	pText->Initialize();
 
 
@@ -206,6 +206,6 @@ void PlayerInterface::Release()
 	Image::Release(hImageCD);
 	Image::Release(hImageActive);
 	Image::Release(hImageBack);*/
-	SAFE_DELETE(pText);
+	
 }
 

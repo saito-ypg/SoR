@@ -4,12 +4,12 @@
 namespace {
 	
 }
-#define RETURN_IF_INVALID_HANDLE(handle) if((handle) < 0 || (handle) >= Image::_datas.size()) return
+#define RETURN_IF_INVALID_HANDLE(handle) if((handle) < 0 || (handle) >= Image::_data.size()) return
 //3D画像を管理する
 namespace Image
 {
 	//ロード済みの画像データ一覧
-	std::vector<std::shared_ptr<ImageData>>	_datas;
+	std::vector<std::shared_ptr<ImageData>>	_data;
 
 	//初期化
 	void Initialize()
@@ -24,12 +24,12 @@ namespace Image
 
 		//開いたファイル一覧から同じファイル名のものが無いか探す
 		bool isExist = false;
-		for (int i = 0; i < _datas.size(); i++)
+		for (int i = 0; i < _data.size(); i++)
 		{
 			//すでに開いている場合
-			if (_datas.at(i) != nullptr && _datas.at(i)->fileName == fileName)
+			if (_data.at(i) != nullptr && _data.at(i)->fileName == fileName)
 			{
-				pData->pSprite = _datas.at(i)->pSprite;
+				pData->pSprite = _data.at(i)->pSprite;
 				isExist = true;
 				break;
 			}
@@ -50,20 +50,20 @@ namespace Image
 
 
 		//使ってない番号が無いか探す
-		for (int i = 0; i < _datas.size(); i++)
+		for (int i = 0; i < _data.size(); i++)
 		{
-			if (_datas.at(i) == nullptr)
+			if (_data.at(i) == nullptr)
 			{
-				_datas.at(i) = pData;
+				_data.at(i) = pData;
 				return i;
 			}
 		}
 
 		//新たに追加
-		_datas.push_back(std::move(pData));
+		_data.push_back(std::move(pData));
 
 		//画像番号割り振り
-		int handle = (int)_datas.size() - 1;
+		int handle = (int)_data.size() - 1;
 
 		//切り抜き範囲をリセット
 		ResetRect(handle);
@@ -77,12 +77,12 @@ namespace Image
 	void Draw(int handle)
 	{
 		RETURN_IF_INVALID_HANDLE(handle);
-		if (_datas.at(handle) == nullptr)
+		if (_data.at(handle) == nullptr)
 		{
 			return;
 		}
-		_datas.at(handle)->transform.Calculation();
-		_datas.at(handle)->pSprite->Draw(_datas.at(handle)->transform, _datas.at(handle)->rect, _datas.at(handle)->alpha);
+		_data.at(handle)->transform.Calculation();
+		_data.at(handle)->pSprite->Draw(_data.at(handle)->transform, _data.at(handle)->rect, _data.at(handle)->alpha);
 	}
 
 
@@ -93,7 +93,7 @@ namespace Image
 	//全ての画像を解放
 	void AllRelease()
 	{
-		_datas.clear();
+		_data.clear();
 	}
 
 
@@ -102,10 +102,10 @@ namespace Image
 	{
 		RETURN_IF_INVALID_HANDLE(handle);
 
-		_datas.at(handle)->rect.left = x;
-		_datas.at(handle)->rect.top = y;
-		_datas.at(handle)->rect.right = width;
-		_datas.at(handle)->rect.bottom = height;
+		_data.at(handle)->rect.left = x;
+		_data.at(handle)->rect.top = y;
+		_data.at(handle)->rect.right = width;
+		_data.at(handle)->rect.bottom = height;
 	}
 
 
@@ -114,12 +114,12 @@ namespace Image
 	{
 		RETURN_IF_INVALID_HANDLE(handle);
 
-		XMFLOAT3 size = _datas.at(handle)->pSprite->GetTextureSize();
+		XMFLOAT3 size = _data.at(handle)->pSprite->GetTextureSize();
 
-		_datas.at(handle)->rect.left = 0;
-		_datas.at(handle)->rect.top = 0;
-		_datas.at(handle)->rect.right = (long)size.x;
-		_datas.at(handle)->rect.bottom = (long)size.y;
+		_data.at(handle)->rect.left = 0;
+		_data.at(handle)->rect.top = 0;
+		_data.at(handle)->rect.right = (long)size.x;
+		_data.at(handle)->rect.bottom = (long)size.y;
 
 	}
 
@@ -127,7 +127,7 @@ namespace Image
 	void SetAlpha(int handle, int alpha)
 	{
 		RETURN_IF_INVALID_HANDLE(handle);
-		_datas.at(handle)->alpha = (float)alpha / 255.0f;
+		_data.at(handle)->alpha = (float)alpha / 255.0f;
 	}
 
 
@@ -136,7 +136,7 @@ namespace Image
 	{
 		RETURN_IF_INVALID_HANDLE(handle);
 
-		_datas.at(handle)->transform = transform;
+		_data.at(handle)->transform = transform;
 	}
 
 	XMFLOAT3 toPixel(const XMFLOAT3& pos)
@@ -173,8 +173,8 @@ namespace Image
 
 	float AlignImage(const int& handle, const PLACEMENT& placement, float specifiedPos, float scale)
 	{
-		if ((handle) < 0 || (handle) >= Image::_datas.size()) return UNSPECIFIED;
-		const RECT rect_ = _datas.at(handle)->rect;
+		if ((handle) < 0 || (handle) >= Image::_data.size()) return UNSPECIFIED;
+		const RECT rect_ = _data.at(handle)->rect;
 		const float halfWidth = (rect_.right -rect_.left)*0.5f*scale;
 		const float halfHeight = (rect_.bottom-rect_.top )*0.5f*scale;
 		float retPos;
@@ -205,19 +205,19 @@ namespace Image
 
 	bool isMouseOver(const int& handle, const Transform &t)
 	{
-		assert(handle < _datas.size() && handle >= 0);
+		assert(handle < _data.size() && handle >= 0);
 		XMFLOAT3 mousePos = Input::GetMousePosition();
 		return isPointInside(handle, t, mousePos);
 	}
 
 	bool isPointInside(const int& handle, const Transform& ImageT, const XMFLOAT3& point)
 	{
-		assert(handle < _datas.size() && handle >= 0);
+		assert(handle < _data.size() && handle >= 0);
 
 		// 画像のスクリーン座標範囲をもとめる
 		const XMFLOAT3 imgPos = toPixel(ImageT.position_);
 		const XMFLOAT3 imgScale = ImageT.scale_;
-		const RECT imgRect = _datas.at(handle)->rect;
+		const RECT imgRect = _data.at(handle)->rect;
 
 		float halfWidth = imgRect.right * imgScale.x / 2.0f;
 		float halfHeight = imgRect.bottom * imgScale.y / 2.0f;
@@ -234,11 +234,11 @@ namespace Image
 	//ワールド行列の取得
 	XMMATRIX GetMatrix(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size())
+		if (handle < 0 || handle >= _data.size())
 		{
 			return XMMatrixIdentity();
 		}
-		return _datas.at(handle)->transform.GetWorldMatrix();
+		return _data.at(handle)->transform.GetWorldMatrix();
 	}
 }
 

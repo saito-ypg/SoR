@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<memory>
 #include "../Engine/GameObject.h"
 #include"../Engine/Text.h"
 class Player;
@@ -11,7 +12,7 @@ class SkillBase;
 class PlayerInterface :
     public GameObject
 {
-    Text *pText;
+    std::unique_ptr<Text> pText;
     Player* pPlayer;
     int hImageBack;
     int hImageCD;

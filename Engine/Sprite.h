@@ -2,7 +2,7 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include <d3dcompiler.h>
-
+#include<memory>
 #include "string"
 #include "Texture.h"
 #include "Transform.h"
@@ -45,7 +45,7 @@ protected:
 	ID3D11Buffer *pIndexBuffer_;
 
 	//【テクスチャ】
-	Texture*	pTexture_;
+	std::unique_ptr<Texture>pTexture_;
 
 	//【定数バッファ】
 	//シェーダー（Simple2D.hlsl）のグローバル変数に値を渡すためのもの

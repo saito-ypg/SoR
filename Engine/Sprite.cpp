@@ -20,7 +20,7 @@ Sprite::~Sprite()
 HRESULT Sprite::Load(std::string fileName)
 {
 	//テクスチャ準備
-	pTexture_ = new Texture();
+	pTexture_ = std::make_unique<Texture>();
 	if(FAILED(pTexture_->Load(fileName)))
 	{
 		return E_FAIL;

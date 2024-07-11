@@ -16,8 +16,8 @@ const string DATA_PATH = "data/";
 using std::vector;
 using namespace std::chrono;
 constexpr float TRANSITION_MS = 3000;
-constexpr int MAX_WAVE = 2;
-
+static int MAX_WAVE;
+static SceneManager* pSceneManager=nullptr;
 ModeratorSequence::ModeratorSequence(GameObject* parent) :GameObject(parent, "ModeratorSequence")
 {
 	curTime = milliseconds(0);
@@ -44,12 +44,15 @@ void ModeratorSequence::Initialize()
 	manager = new EnemyManager(this);
 	spawner = new EnemySpawner((GameActor*)this->FindObject("Player"));
 	LoadData();
-	pText = new Text();
+	pText = std::make_unique<Text>();
 	pText->Initialize();
 	hImage[0] = Image::Load("Images/inc.png");
 	hImage[1] = Image::Load("Images/waveclear.png");
 	assert(hImage[0] >= 0);
 	assert(hImage[1] >= 0);
+	if (!pSceneManager) {
+		pSceneManager = (SceneManager*)FindObject("SceneManager");
+	}
 }
 void ModeratorSequence::LoadData()
 {
@@ -65,18 +68,20 @@ void ModeratorSequence::LoadData()
 	using json = nlohmann::json;
 	json stageData;
 	ifs >> stageData;
-	auto size = stageData.at("Waves").size();
+	constexpr auto WAVES = "Waves", ENEMY = "enemy", TIME = "spawn_time", TYPE = "enemy_type", IS_BOSS = "is_boss";
+	auto size = stageData.at(WAVES).size();
 	spawnDataList.resize(size);
 	for (auto i = 0; i < size; i++)
 	{
-		auto& game = stageData.at("Waves").at(i);
-		for (auto& stage : game.at("enemy")) {
+		MAX_WAVE = stageData.at(WAVES).size();
+		auto& game = stageData.at(WAVES).at(i);
+		for (auto& stage : game.at(ENEMY)) {
 			EnemySpawning temp;
 			if (stage.empty())	assert(false);//stage‚ª‹ó‚Ìê‡
 
-			temp.spawntime = stage.at("spawn_time");
-			temp.type = TypeMap.at(stage.at("enemy_type"));
-			temp.is_boss = stage.contains("is_boss") && stage.at("is_boss").is_boolean();
+			temp.spawntime = stage.at(TIME);
+			temp.type = TypeMap.at(stage.at(TYPE));
+			temp.is_boss = stage.contains(IS_BOSS) && stage.at(IS_BOSS).is_boolean();
 			spawnDataList.at(i).emplace_back(temp);
 
 
@@ -130,24 +135,29 @@ void ModeratorSequence::Update(const float& dt)
 
 		break;
 	case END:
-		Transition(NEXT);
-
+		
+		if (waves+1 >= MAX_WAVE)
+		{
+			Transition(CLEAR);
+		}
+		else
+		{
+			Transition(NEXT);
+		}
 		break;
 	case NEXT:
 		spawnindex = 0;
 		waves++;
 		manager->clearEnemy();
-		if (waves >= MAX_WAVE)
-		{
-			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-			pSceneManager->ChangeScene(SCENE_ID_CLEAR);
-		}
+	
 		state = PREP;
 		transitionTime = TRANSITION_MS;
 		break;
 	case GAMEOVER:
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+		break;
+	case CLEAR:
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 		break;
 	}
 	manager->Update(dt);
