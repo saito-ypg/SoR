@@ -1,5 +1,7 @@
 ﻿# 実装すること
 
+↓Doxygenで生成したドキュメント(ドキュメント用コメントに書き換えていないため、あまり役に立たない？)
+https://saito-ypg.github.io/SoR-Document/
 
 ### コマンド等備忘録
 ` #include[\t\s]*"hogehoge"` 

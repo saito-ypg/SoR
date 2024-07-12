@@ -18,3 +18,8 @@ void MovementStateBase::Release()
 {
 }
 
+bool MovementStateBase::CanTransitionOut() const
+{
+	return canTransition_;
+}
+

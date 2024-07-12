@@ -7,10 +7,6 @@ DecoyMediator::~DecoyMediator()
 {
 }
 
-void DecoyMediator::changeState()
-{
-}
-
 void DecoyMediator::DetermineNextState()
 {
 }

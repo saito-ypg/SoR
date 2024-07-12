@@ -4,11 +4,10 @@
 class DecoyMediator :public MediatorBase
 {
 private:
-	void changeState()override;
 	void DetermineNextState() override;
 public:
 	DecoyMediator(EnemyBase& enemy);
-	virtual ~DecoyMediator();
+	~DecoyMediator();
 };
 
 class DecoyMediatorFactory :public MediatorFactory {

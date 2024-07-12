@@ -242,6 +242,12 @@
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\SoldierMediator.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\SoldierStates.h">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -403,6 +409,12 @@
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\SoldierMediator.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\SoldierStates.cpp">
+      <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

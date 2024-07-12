@@ -23,6 +23,7 @@
       <FileType>Document</FileType>
     </None>
     <ClCompile Include="Engine\Ease.cpp" />
+    <ClCompile Include="sources\SoldierMediator.cpp" />
     <ClCompile Include="sources\DecoyMediator.cpp" />
     <ClCompile Include="sources\IdleState.cpp" />
     <ClCompile Include="sources\RegistrationFactory.cpp" />
@@ -74,12 +75,14 @@
     <ClCompile Include="sources\Player.cpp" />
     <ClCompile Include="sources\PlayScene.cpp" />
     <ClCompile Include="sources\SkillBase.cpp" />
+    <ClCompile Include="sources\SoldierStates.cpp" />
     <ClCompile Include="sources\testSkill.cpp" />
     <ClCompile Include="sources\TitleScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Ease.h" />
+    <ClInclude Include="sources\SoldierMediator.h" />
     <ClInclude Include="sources\DecoyMediator.h" />
     <ClInclude Include="sources\IdleState.h" />
     <ClInclude Include="sources\RegistrationFactory.h" />
@@ -134,6 +137,7 @@
     <ClInclude Include="sources\PlayerSkillsInclude.h" />
     <ClInclude Include="sources\PlayScene.h" />
     <ClInclude Include="sources\SkillBase.h" />
+    <ClInclude Include="sources\SoldierStates.h" />
     <ClInclude Include="sources\testSkill.h" />
     <ClInclude Include="sources\TitleScene.h" />
     <ClInclude Include="TestScene.h" />
