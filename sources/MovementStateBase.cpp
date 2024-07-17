@@ -2,7 +2,7 @@
 #include"EnemyBase.h"
 MovementStateBase::MovementStateBase(EnemyBase& enemy) :enemy_(enemy)
 {
-
+	canTransition_ = false;
 }
 
 MovementStateBase::~MovementStateBase()

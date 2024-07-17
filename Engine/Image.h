@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-#include <memory>
 #include<limits>
 #include "Sprite.h"
 #include "Transform.h"

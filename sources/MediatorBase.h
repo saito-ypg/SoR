@@ -12,7 +12,7 @@ class MediatorBase
 protected:
 	std::unique_ptr<MovementStateBase> curState_;//現在のステート
 	EnemyBase& base_ ;
-	
+	int SkipDeterminingMs;//もし判断後に遷移しなかったらこのカウントが0以下になるまで次の判断をおこなわない
 	/// <summary>
 	/// 次のステートの遷移先を判断する。
 	/// もし同じステートならそのまま、変わっているならChangeStateを呼ぶ

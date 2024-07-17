@@ -13,8 +13,11 @@ MediatorBase::~MediatorBase()
 void MediatorBase::Update(const float& dt)
 {
 	curState_->Update(dt);
-	if (curState_->CanTransitionOut()) {//ここの条件、trueなら毎回判断入っちゃうから一定時間空けたほうがいいかも？
+	SkipDeterminingMs -= dt;
+	if (SkipDeterminingMs<=0&& curState_->CanTransitionOut()) {//ここの条件、trueなら毎回判断入っちゃうから一定時間空けたほうがいいかも？
 		DetermineNextState();
+		SkipDeterminingMs = rand() % 4000 + 1000;//ミリ秒単位,適当
+
 	}
 }
 

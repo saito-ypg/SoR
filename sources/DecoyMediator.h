@@ -10,7 +10,9 @@ public:
 	~DecoyMediator();
 };
 
-class DecoyMediatorFactory :public MediatorFactory {
+class DecoyMediatorFactory :public MediatorFactory 
+{
+public:
 	std::unique_ptr<MediatorBase> createMediator(EnemyBase& enemy) override
 	{
 		return std::make_unique<DecoyMediator>(enemy);

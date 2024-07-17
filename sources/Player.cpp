@@ -196,7 +196,7 @@ std::vector<SkillBase*> Player::getSkills() const
 
 XMVECTOR Player::GetVelocity() const
 {
-    return ;vMove_
+    return vMove_;
 }
 
 
