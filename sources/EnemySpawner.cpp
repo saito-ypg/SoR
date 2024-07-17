@@ -80,7 +80,7 @@ EnemyBase* EnemySpawner::spawnEnemy(GameObject* pParent, EnemyType type, bool is
 		assert(false);
 	}
 	newEnemy->SetPlayer(pPlayer_);//プレイヤーを認知させる
-	newEnemy->setConfig(data.at(type));
+	newEnemy->SetConfig(data.at(type));
 
 	auto factory = MediatorFactoryRegistry::getFactory(type);
 	if (factory) {

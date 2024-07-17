@@ -194,6 +194,11 @@ std::vector<SkillBase*> Player::getSkills() const
     return retVec;
 }
 
+XMVECTOR Player::GetVelocity() const
+{
+    return ;vMove_
+}
+
 
 bool Player::canUseSkill(int number)
 {

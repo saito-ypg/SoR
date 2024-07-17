@@ -2,8 +2,8 @@
 //#include "Engine/GameObject.h"
 #include"GameActor.h"
 #include"PlayerSkillsInclude.h"
-
-class Player : public GameActor
+#include"IMovable.h"
+class Player : public GameActor,public IMovable
 {   
 public:
     static constexpr int skillsNum = 4;
@@ -77,5 +77,9 @@ public:
     std::vector<SkillBase*>getSkills() const;
     int getUsingSkill() const { return usingSkillIndex; }
 
+
+
+    // IMovable ÇâÓÇµÇƒåpè≥Ç≥ÇÍÇ‹ÇµÇΩ
+    XMVECTOR GetVelocity() const override;
 
 };

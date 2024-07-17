@@ -22,7 +22,7 @@ void EnemyBase::SetMediator(std::unique_ptr<MediatorBase> mediator)
 	pMediator_ =std::move(mediator);
 }
 
-void EnemyBase::setConfig(const EnemyStatus & status)
+void EnemyBase::SetConfig(const EnemyStatus & status)
 {
 	if (isBoss_) {
 		status_.maxHp_ = status.hp * 2;

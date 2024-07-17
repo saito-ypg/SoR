@@ -40,9 +40,10 @@ public:
 	void SetPlayer(GameActor* p) { pPlayer_ = p; assert(pPlayer_ != nullptr); }
 	void SetMediator(std::unique_ptr<MediatorBase>mediator);//ステートを管理するメディエーターを設定
 	//敵のデータを設定する
-	void setConfig(const EnemyStatus & status);
-	SPAWINIG_STATE getStat() const { return eStat_; }
+	void SetConfig(const EnemyStatus & status);
+	SPAWINIG_STATE GetStat() const { return eStat_; }
 	
+	XMFLOAT3 GetTarget()const { return pPlayer_->GetPosition(); }
 	
 };
 
