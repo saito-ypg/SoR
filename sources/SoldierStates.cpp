@@ -3,7 +3,7 @@
 #include"../Engine/Input.h"
 #include<string>
 namespace {
-	constexpr float END_MOVE_THRESHOULD=1.0f;
+	constexpr float END_MOVE_THRESHOULD=4.0f;
 	constexpr float MOVING_VELOCITY = 3.0f;
 }
 SoldierStateMove::SoldierStateMove(EnemyBase& base) :MovementStateBase(base)

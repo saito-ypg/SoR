@@ -1,6 +1,5 @@
 #pragma once
 
-#include<memory>
 #include "GameActor.h"
 #include"EnemyType.h"
 #include"MediatorBase.h"

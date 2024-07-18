@@ -1,6 +1,5 @@
 #pragma once
 #include "../Engine/GameObject.h"
-#include<memory>
 class ModeratorSequence;
 
 class PlayScene : public GameObject
