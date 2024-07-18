@@ -14,7 +14,6 @@ namespace {
 		{typeid(IdleState),IDLE },
 		{typeid(SoldierStateMove),MOVE}
 	};
-	static int clocks = 0;
 }
 SoldierMediator::SoldierMediator(EnemyBase& enemy):MediatorBase(enemy)
 {
@@ -27,7 +26,6 @@ SoldierMediator::~SoldierMediator()
 
 void SoldierMediator::DetermineNextState()
 {
-	clocks++;
 	auto curType = stateMap.at(getCurStateType());
 	states nextType;
 	switch (curType) {
