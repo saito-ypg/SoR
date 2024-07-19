@@ -1,5 +1,7 @@
 ﻿# 実装すること
 
+↓Doxygenで生成したドキュメント(ドキュメント用コメントに書き換えていないため、あまり役に立たない？)
+https://saito-ypg.github.io/SoR-Document/
 
 ### コマンド等備忘録
 ` #include[\t\s]*"hogehoge"` 
@@ -51,3 +53,5 @@ std::functionかラムダ式使って攻撃範囲変えられるように出来�
 
 ###### 余裕あれば
 - 動的確保はスマートポインターで
+これを参考に→ https://programdoria.com/programming/cpp/composite-shared_ptr/　
+ 

@@ -32,7 +32,7 @@ private:
     std::chrono::milliseconds ttlTime;//ゲーム全体
     int waves;//ウェーブ数
     int spawnindex;
-    Text* pText;
+    std::unique_ptr<Text>pText;
     int hImage[2];
     EnemyManager* manager;
     EnemySpawner* spawner;
@@ -44,6 +44,7 @@ private:
         NEXT,
 
         GAMEOVER,//ゲームオーバーになったら
+        CLEAR,
     } state;//
     float transitionTime;//ミリ秒単位、進行に使う
     const std::map<std::string, EnemyType> TypeMap =

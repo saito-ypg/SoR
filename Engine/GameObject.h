@@ -2,6 +2,7 @@
 #include <DirectXMath.h>
 #include <list>
 #include <string>
+#include<memory>
 #include <assert.h>
 #include "SphereCollider.h"
 #include "BoxCollider.h"

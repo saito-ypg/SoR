@@ -8,6 +8,7 @@
 #include"EnemySpawner.h"
 #include"../Engine/SceneManager.h"
 #include"../Engine/Image.h"	
+#include"../Engine/global.h"
 #include"../libraries/json.hpp"
 
 using std::string;
@@ -15,41 +16,8 @@ const string DATA_PATH = "data/";
 using std::vector;
 using namespace std::chrono;
 constexpr float TRANSITION_MS = 3000;
-constexpr int MAX_WAVE = 2;
-void ModeratorSequence::LoadData()
-{
-	using namespace std;
-	//https://jsoneditoronline.org/#left=local.desuze&right=local.judamu jsonエディタ
-	string filename = DATA_PATH + "game_stage.json";
-	ifstream ifs(filename.c_str());
-	if (!ifs)
-	{
-		MessageBox(nullptr, "ステージファイルが読み込めませんでした。", "エラー", S_OK);
-		return;
-	}
-	using json = nlohmann::json;
-	json stageData;
-	ifs >> stageData;
-	auto size = stageData.at("Waves").size();
-	spawnDataList.resize(size);
-	for (auto i = 0; i < size; i++)
-	{
-		auto& game = stageData.at("Waves").at(i);
-		for (auto& stage : game.at("enemy")) {
-			EnemySpawning temp;
-			if (stage.empty())	assert(false);//stageが空の場合
-
-			temp.spawntime = stage.at("spawn_time");
-			temp.type = TypeMap.at(stage.at("enemy_type"));
-			temp.is_boss = stage.contains("is_boss") && stage.at("is_boss").is_boolean();
-			spawnDataList.at(i).emplace_back(temp);
-
-
-		}
-		std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
-	}
-
-}
+static int MAX_WAVE;
+static SceneManager* pSceneManager=nullptr;
 ModeratorSequence::ModeratorSequence(GameObject* parent) :GameObject(parent, "ModeratorSequence")
 {
 	curTime = milliseconds(0);
@@ -76,14 +44,52 @@ void ModeratorSequence::Initialize()
 	manager = new EnemyManager(this);
 	spawner = new EnemySpawner((GameActor*)this->FindObject("Player"));
 	LoadData();
-	pText = new Text();
+	pText = std::make_unique<Text>();
 	pText->Initialize();
 	hImage[0] = Image::Load("Images/inc.png");
 	hImage[1] = Image::Load("Images/waveclear.png");
 	assert(hImage[0] >= 0);
 	assert(hImage[1] >= 0);
+	if (!pSceneManager) {
+		pSceneManager = (SceneManager*)FindObject("SceneManager");
+	}
 }
+void ModeratorSequence::LoadData()
+{
+	using namespace std;
+	//https://jsoneditoronline.org/#left=local.desuze&right=local.judamu jsonエディタ
+	string filename = DATA_PATH + "game_stage.json";
+	ifstream ifs(filename.c_str());
+	if (!ifs)
+	{
+		MessageBox(nullptr, "ステージファイルが読み込めませんでした。", "エラー", S_OK);
+		return;
+	}
+	using json = nlohmann::json;
+	json stageData;
+	ifs >> stageData;
+	constexpr auto WAVES = "Waves", ENEMY = "enemy", TIME = "spawn_time", TYPE = "enemy_type", IS_BOSS = "is_boss";
+	auto size = stageData.at(WAVES).size();
+	spawnDataList.resize(size);
+	for (auto i = 0; i < size; i++)
+	{
+		MAX_WAVE = stageData.at(WAVES).size();
+		auto& game = stageData.at(WAVES).at(i);
+		for (auto& stage : game.at(ENEMY)) {
+			EnemySpawning temp;
+			if (stage.empty())	assert(false);//stageが空の場合
 
+			temp.spawntime = stage.at(TIME);
+			temp.type = TypeMap.at(stage.at(TYPE));
+			temp.is_boss = stage.contains(IS_BOSS) && stage.at(IS_BOSS).is_boolean();
+			spawnDataList.at(i).emplace_back(temp);
+
+
+		}
+		std::sort(spawnDataList.at(i).begin(), spawnDataList.at(i).end());
+	}
+
+}
 void ModeratorSequence::Update(const float& dt)
 {
 	auto Transition = [&](ModeratorSequence::s nextState) {
@@ -129,24 +135,29 @@ void ModeratorSequence::Update(const float& dt)
 
 		break;
 	case END:
-		Transition(NEXT);
-
+		
+		if (waves+1 >= MAX_WAVE)
+		{
+			Transition(CLEAR);
+		}
+		else
+		{
+			Transition(NEXT);
+		}
 		break;
 	case NEXT:
 		spawnindex = 0;
 		waves++;
 		manager->clearEnemy();
-		if (waves >= MAX_WAVE)
-		{
-			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-			pSceneManager->ChangeScene(SCENE_ID_CLEAR);
-		}
+	
 		state = PREP;
 		transitionTime = TRANSITION_MS;
 		break;
 	case GAMEOVER:
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_GAMEOVER);
+		break;
+	case CLEAR:
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 		break;
 	}
 	manager->Update(dt);
@@ -196,7 +207,7 @@ void ModeratorSequence::DrawTime()
 
 void ModeratorSequence::Release()
 {
-	manager->Release();
-	delete manager;
+	SAFE_DELETE(manager);
+	SAFE_DELETE(spawner);
 }
 

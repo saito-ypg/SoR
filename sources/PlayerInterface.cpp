@@ -1,5 +1,6 @@
 #include "PlayerInterface.h"
 #include<array>
+#include"../Engine/global.h"
 #include"../Engine/Image.h"
 #include"../Engine/Camera.h"
 #include"Player.h"
@@ -12,12 +13,34 @@ enum eImage{
 };
 namespace {
 	//定数
-	constexpr float SKILL_ALIGN_UNDER = 680;
-	constexpr float ICON_DIST = 80;
+	constexpr float SKILL_ALIGN_UNDER = 680;//スキルアイコン下端揃え
+	constexpr float ICON_DIST = 80;//左端基準のスキルアイコン間隔
 	constexpr float ICON_LEFT = 400;
-	
+	constexpr int REFRESH_TRANSPARENT_INTERVAL_FRAME = 5;//このフレーム数ごとにUI透過判断を行う
+	int refreshCnt = 0;
 	//
 	int index = Player::UNUSED;
+	bool isPlayerHiddenInUI;
+	Transform BackT;
+
+	static constexpr int calcAlphaMax255(float percentage) {
+		if (percentage < 0 || percentage>100) {
+			return 255;
+		}
+		return static_cast<int>(255 * percentage * 0.01);
+	}
+
+	void TransparentizeIfPlayerBehind(int handle)
+	{
+		constexpr int	OPAQUE_ALPHA = calcAlphaMax255(100),//不透明な値
+			TRANSLUCENT_ALPHA = calcAlphaMax255(40);
+		if (isPlayerHiddenInUI) {
+			Image::SetAlpha(handle, TRANSLUCENT_ALPHA);
+		}
+		else {
+			Image::SetAlpha(handle, OPAQUE_ALPHA);
+		}
+	}
 }
 PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "PlayerInterface")
 {
@@ -27,6 +50,7 @@ PlayerInterface::PlayerInterface(GameObject* parent) :GameObject(parent, "Player
 	pText = nullptr;
 	pPlayer = nullptr;
 	isPlayerHiddenInUI = false;
+
 }
 
 PlayerInterface::~PlayerInterface()
@@ -55,7 +79,7 @@ void PlayerInterface::Initialize()
 		if (skill != nullptr)
 			loadAndPush(skill->getIconName());
 	}
-	pText = new Text;
+	pText = std::make_unique<Text>();
 	pText->Initialize();
 
 
@@ -63,7 +87,9 @@ void PlayerInterface::Initialize()
 	{
 		assert(itr >= 0);
 	}
-
+	BackT.scale_.x = 4.5f;
+	BackT.position_.y = Image::toPos(XMFLOAT3(0, Image::AlignImage(hImageBack, DOWN), 0)).y;
+	Image::SetTransform(hImageBack, BackT);
 }
 
 void PlayerInterface::loadAndPush(std::string path)
@@ -79,37 +105,20 @@ void PlayerInterface::Update(const float& dt)
 void PlayerInterface::Draw()
 {
 	RETURN_IF_PLAYER_ISNT_EXIST;
-
-
-
-	Transform BackT;
-	BackT.scale_.x = 4.5f;
-	BackT.position_.y=Image::toPos(XMFLOAT3(0,Image::AlignImage(hImageBack, DOWN),0)).y;
-	Image::SetTransform(hImageBack, BackT);
-	isPlayerHiddenInUI =Image::isPointInside(hImageBack,BackT, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
+	//毎フレームこの判断をするのではなく、簡易的な矩形判断をして中だったら～でもいいかも
+	refreshCnt++;
+	if (refreshCnt >= REFRESH_TRANSPARENT_INTERVAL_FRAME) {//リアルタイム性はそんなに重視しなくていいので
+		isPlayerHiddenInUI = Image::isPointInside(hImageBack, BackT, Image::toPixel(Camera::convertWorldToNDC(*pPlayer->GetTransformRef())));
+		refreshCnt = 0;
+	}
 	TransparentizeIfPlayerBehind(hImageBack);
 	Image::Draw(hImageBack);
 	DrawSkillIcons();
 
 
 }
-static constexpr int calcAlphaMax255(float percentage) {
-	if (percentage < 0 || percentage>100) {
-		return 255;
-	}
-	return static_cast<int>(255 * percentage*0.01);
-}
-void PlayerInterface::TransparentizeIfPlayerBehind(int handle) const
-{
-	constexpr int	OPAQUE_ALPHA = calcAlphaMax255(100),//不透明な値
-					TRANSLUCENT_ALPHA = calcAlphaMax255(40);
-	if (isPlayerHiddenInUI) {
-		Image::SetAlpha(handle, TRANSLUCENT_ALPHA);
-	}
-	else{
-		Image::SetAlpha(handle, OPAQUE_ALPHA);
-	}
-}
+
+
 
 void PlayerInterface::DrawSkillIcons()
 {
@@ -139,14 +148,14 @@ void PlayerInterface::DrawSkillIcons()
 		DrawCD(vSkillCD.at(i), PictT);
 
 		if (Image::isMouseOver(handle,PictT)) {//フローティングメニューとか出してみたい
-			DrawSkillTips(i,PictT );
+			DrawSkillTips(PictT);
 		}
 		pText->Draw(static_cast<int>(ICON_LEFT + ICON_DIST * i), static_cast<int>(SKILL_ALIGN_UNDER)+16,inputKey.at(i).c_str());
 	}
 	
 }
 
-void PlayerInterface::DrawSkillTips(const float& cd,Transform& PictT)
+void PlayerInterface::DrawSkillTips(Transform& PictT)
 {
 	XMFLOAT3 pixelPos = Image::toPixel(PictT.position_);
 	pText->DrawCenter((int)pixelPos.x, (int)pixelPos.y, "tipToDo");
@@ -176,7 +185,7 @@ void PlayerInterface::DrawCT(int i, const Transform& PictT)
 	const float castTimePercentage = skillList.at(i)->getCtPercentage();
 	if (castTimePercentage > 0)//割合は時間に応じて1～0で帰ってくる。
 	{
-		constexpr float testImagesize = 64.0f / 70.0f;//画像サイズ調整中
+		constexpr float testImagesize = 64.0f / 70.0f;//画像サイズに対してCTのゲージサイズ
 		Transform activeT = PictT;
 		activeT.scale_.y = castTimePercentage * testImagesize;
 		activeT.position_.y = Image::toPos(Image::AlignImage(hImageActive, DOWN, SKILL_ALIGN_UNDER, activeT.scale_.y), Y);
@@ -191,4 +200,12 @@ void PlayerInterface::DrawCT(int i, const Transform& PictT)
 
 void PlayerInterface::Release()
 {
+	/*for (auto const& i : hSkillIcons) {
+		Image::Release(i);
+	}
+	Image::Release(hImageCD);
+	Image::Release(hImageActive);
+	Image::Release(hImageBack);*/
+	
 }
+

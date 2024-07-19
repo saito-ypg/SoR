@@ -3,7 +3,7 @@
 #include "Direct3D.h"
 #include "Global.h"
 
-UINT NextPowerOfTwo(UINT n) {
+static UINT NextPowerOfTwo(UINT n) {
 	n--;
 	n |= n >> 1;
 	n |= n >> 2;
@@ -125,5 +125,5 @@ HRESULT Texture::Load(std::string fileName)
 
 XMFLOAT3 Texture::GetExtendedSize() const
 {
-	return XMFLOAT3(NextPowerOfTwo(size_.x), NextPowerOfTwo(size_.y),0);
+	return XMFLOAT3((float)(NextPowerOfTwo((UINT)(size_.x))), (float)(NextPowerOfTwo((UINT)(size_.y))),0);
 }

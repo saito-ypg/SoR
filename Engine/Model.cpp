@@ -1,11 +1,10 @@
 #include "Global.h"
 #include "Model.h"
-
 //3Dモデル（FBXファイル）を管理する
 namespace Model
 {
 	//ロード済みのモデルデータ一覧
-	std::vector<ModelData*>	_datas;
+	std::vector < std::shared_ptr<ModelData>>	_data;
 
 	//初期化
 	void Initialize()
@@ -16,17 +15,17 @@ namespace Model
 	//モデルをロード
 	int Load(std::string fileName)
 	{
-			ModelData* pData = new ModelData;
+			auto pData = std::make_shared<ModelData>();
 
 
 			//開いたファイル一覧から同じファイル名のものが無いか探す
 			bool isExist = false;
-			for (int i = 0; i < _datas.size(); i++)
+			for (int i = 0; i < _data.size(); i++)
 			{
 				//すでに開いている場合
-				if (_datas[i] != nullptr && _datas[i]->fileName == fileName)
+				if (_data[i] != nullptr && _data[i]->fileName == fileName)
 				{
-					pData->pFbx = _datas[i]->pFbx;
+					pData->pFbx = _data[i]->pFbx;
 					isExist = true;
 					break;
 				}
@@ -35,12 +34,10 @@ namespace Model
 			//新たにファイルを開く
 			if (isExist == false)
 			{
-				pData->pFbx = new Fbx;
+				pData->pFbx = std::make_shared<Fbx>();
 				if (FAILED(pData->pFbx->Load(fileName)))
 				{
 					//開けなかった
-					SAFE_DELETE(pData->pFbx);
-					SAFE_DELETE(pData);
 					return -1;
 				}
 
@@ -50,18 +47,18 @@ namespace Model
 
 
 			//使ってない番号が無いか探す
-			for (int i = 0; i < _datas.size(); i++)
+			for (int i = 0; i < _data.size(); i++)
 			{
-				if (_datas[i] == nullptr)
+				if (_data[i] == nullptr)
 				{
-					_datas[i] = pData;
+					_data[i] = pData;
 					return i;
 				}
 			}
 
 			//新たに追加
-			_datas.push_back(pData);
-			return (int)_datas.size() - 1;
+			_data.push_back(pData);
+			return (int)_data.size() - 1;
 	}
 
 
@@ -69,91 +66,54 @@ namespace Model
 	//描画
 	void Draw(int handle)
 	{
-		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
+		if (handle < 0 || handle >= _data.size() || _data[handle] == nullptr)
 		{
 			return;
 		}
 
 		//アニメーションを進める
-		_datas[handle]->nowFrame += _datas[handle]->animSpeed;
+		_data[handle]->nowFrame += _data[handle]->animSpeed;
 
 		//最後までアニメーションしたら戻す
-		if (_datas[handle]->nowFrame > (float)_datas[handle]->endFrame)
-			_datas[handle]->nowFrame = (float)_datas[handle]->startFrame;
+		if (_data[handle]->nowFrame > (float)_data[handle]->endFrame)
+			_data[handle]->nowFrame = (float)_data[handle]->startFrame;
 
 
 
-		if (_datas[handle]->pFbx)
+		if (_data[handle]->pFbx)
 		{
-			_datas[handle]->pFbx->Draw(_datas[handle]->transform, (int)_datas[handle]->nowFrame);
+			_data[handle]->pFbx->Draw(_data[handle]->transform, (int)_data[handle]->nowFrame);
 		}
 	}
 
-
-	//任意のモデルを開放
-	void Release(int handle)
-	{
-		if (handle < 0 || handle >= _datas.size() || _datas[handle] == nullptr)
-		{
-			return;
-		}
-
-		//同じモデルを他でも使っていないか
-		bool isExist = false;
-		for (int i = 0; i < _datas.size(); i++)
-		{
-			//すでに開いている場合
-			if (_datas[i] != nullptr && i != handle && _datas[i]->pFbx == _datas[handle]->pFbx)
-			{
-				isExist = true;
-				break;
-			}
-		}
-
-		//使ってなければモデル解放
-		if (isExist == false )
-		{
-			SAFE_DELETE(_datas[handle]->pFbx);
-		}
-
-
-		SAFE_DELETE(_datas[handle]);
-	}
 
 
 	//全てのモデルを解放
 	void AllRelease()
 	{
-		for (int i = 0; i < _datas.size(); i++)
-		{
-			if (_datas[i] != nullptr)
-			{
-				Release(i);
-			}
-		}
-		_datas.clear();
+		_data.clear();
 	}
 
 
 	//アニメーションのフレーム数をセット
 	void SetAnimFrame(int handle, int startFrame, int endFrame, float animSpeed)
 	{
-		_datas[handle]->SetAnimFrame(startFrame, endFrame, animSpeed);
+		_data[handle]->SetAnimFrame(startFrame, endFrame, animSpeed);
 	}
 
 
 	//現在のアニメーションのフレームを取得
 	int GetAnimFrame(int handle)
 	{
-		return (int)_datas[handle]->nowFrame;
+		return (int)_data[handle]->nowFrame;
 	}
 
 
 	//任意のボーンの位置を取得
 	XMFLOAT3 GetBonePosition(int handle, std::string boneName)
 	{
-		XMFLOAT3 pos = _datas[handle]->pFbx->GetBonePosition(boneName);
-		XMVECTOR vec = XMVector3TransformCoord(XMLoadFloat3(&pos), _datas[handle]->transform.GetWorldMatrix());
+		XMFLOAT3 pos = _data[handle]->pFbx->GetBonePosition(boneName);
+		XMVECTOR vec = XMVector3TransformCoord(XMLoadFloat3(&pos), _data[handle]->transform.GetWorldMatrix());
 		XMStoreFloat3(&pos, vec);
 		return pos;
 	}
@@ -162,19 +122,19 @@ namespace Model
 	//ワールド行列を設定
 	void SetTransform(int handle, Transform & transform)
 	{
-		if (handle < 0 || handle >= _datas.size())
+		if (handle < 0 || handle >= _data.size())
 		{
 			return;
 		}
 
-		_datas[handle]->transform = transform;
+		_data[handle]->transform = transform;
 	}
 
 
 	//ワールド行列の取得
 	XMMATRIX GetMatrix(int handle)
 	{
-		return _datas[handle]->transform.GetWorldMatrix();
+		return _data[handle]->transform.GetWorldMatrix();
 	}
 
 
@@ -182,7 +142,7 @@ namespace Model
 	void RayCast(int handle, RayCastData *data)
 	{
 			XMFLOAT3 target = Transform::Float3Add(data->start, data->dir);
-			XMMATRIX matInv = XMMatrixInverse(nullptr, _datas[handle]->transform.GetWorldMatrix());
+			XMMATRIX matInv = XMMatrixInverse(nullptr, _data[handle]->transform.GetWorldMatrix());
 			XMVECTOR vecStart = XMVector3TransformCoord(XMLoadFloat3(&data->start), matInv);
 			XMVECTOR vecTarget = XMVector3TransformCoord(XMLoadFloat3(&target), matInv);
 			XMVECTOR vecDir = vecTarget - vecStart;
@@ -190,6 +150,6 @@ namespace Model
 			XMStoreFloat3(&data->start, vecStart);
 			XMStoreFloat3(&data->dir, vecDir);
 
-			_datas[handle]->pFbx->RayCast(data); 
+			_data[handle]->pFbx->RayCast(data); 
 	}
 }

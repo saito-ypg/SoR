@@ -13,7 +13,7 @@ bool EnemyManager::Eliminated()
 		
 	for (const auto& itr : Enemylist_)
 	{
-		if (itr->getStat() != EnemyBase::DEAD)
+		if (itr->GetStat() != EnemyBase::DEAD)
 			return false;
 	}
 	return true;//全員倒してたらtrue返してクリアってする？
@@ -35,6 +35,7 @@ EnemyManager::EnemyManager(GameObject* parent)
 
 EnemyManager::~EnemyManager()
 {
+	Release();
 }
 
 void EnemyManager::Initialize()

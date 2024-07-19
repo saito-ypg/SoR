@@ -11,17 +11,19 @@ class SkillBase;
 class PlayerInterface :
     public GameObject
 {
-    Text *pText;
+    std::unique_ptr<Text> pText;
     Player* pPlayer;
     int hImageBack;
     int hImageCD;
     int hImageActive;
-    bool isPlayerHiddenInUI;
+
     std::vector<int> hSkillIcons;
     std::vector<SkillBase*>skillList;//ÉvÉåÉCÉÑÅ[Ç©ÇÁÇ‡ÇÁÇ§
+
+
     void loadAndPush(std::string path);
 
-    void TransparentizeIfPlayerBehind(int handle) const;
+    //void TransparentizeIfPlayerBehind(int handle) const;
 
     //Drawì‡ï™äÑ
     void DrawSkillIcons();
@@ -29,7 +31,7 @@ class PlayerInterface :
     void DrawCT(int i, const Transform& PictT);
     void DrawIcon(const int& handle, Transform& PictT) const;
     void DrawCD(const float& cd, const Transform& PictT);
-    void DrawSkillTips(const float& cd,Transform& PictT);
+    void DrawSkillTips(Transform& PictT);
     
 public:
     PlayerInterface(GameObject* parent);

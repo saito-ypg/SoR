@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <vector>
 #include <string>
+#include<memory>
+
 #include "Fbx.h"
 #include "Transform.h"
 
@@ -18,7 +20,7 @@ namespace Model
 		std::string fileName;
 
 		//ロードしたモデルデータのアドレス
-		Fbx*		pFbx;
+		std::shared_ptr<Fbx>pFbx;
 
 		//行列
 		Transform 	transform;
@@ -60,9 +62,6 @@ namespace Model
 	//引数：matrix	ワールド行列
 	void Draw(int handle);
 
-	//任意のモデルを開放
-	//引数：handle	開放したいモデルの番号
-	void Release(int handle);
 
 	//全てのモデルを解放
 	//（シーンが切り替わるときは必ず実行）

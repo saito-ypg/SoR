@@ -155,13 +155,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	}
 
 
-
+	pRootObject->ReleaseSub();
 	//‚¢‚ë‚¢‚ë‰ð•ú
 	VFX::Release();
 	Audio::AllRelease();
 	Model::AllRelease();
 	Image::AllRelease();
-	pRootObject->ReleaseSub();
+	
 	SAFE_DELETE(pRootObject);
 	Direct3D::Release();
 	return 0;
