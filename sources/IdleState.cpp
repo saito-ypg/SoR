@@ -11,7 +11,5 @@ IdleState::~IdleState()
 
 void IdleState::Update(const float& dt)
 {
-	if (Input::IsKeyDown(DIK_V)) {
-		canTransition_ = true;
-	}
+	canTransition_ = true;
 }

@@ -3,7 +3,6 @@
 #include"../Engine/Input.h"
 #include<string>
 namespace {
-	constexpr float END_MOVE_THRESHOULD=4.0f;
 	constexpr float MOVING_VELOCITY = 3.0f;
 	const XMVECTOR FORWARD_VECTOR = XMVECTOR{ 0,0,1,0 };
 }
@@ -24,11 +23,9 @@ void SoldierStateMove::Update(const float& dt)
 	XMVECTOR diffV = vTargetPos - vMyPos;
 	XMVECTOR nDiff = XMVector3Normalize(diffV);
 	enemy_.ForceMove( nDiff* (MOVING_VELOCITY/60));
-	float dot = XMVectorGetX( XMVector3Dot(FORWARD_VECTOR, nDiff));
-	float rot =XMConvertToDegrees( acos(dot));
-	if (XMVectorGetX(XMVector3Cross(FORWARD_VECTOR,nDiff)) < 0) {
-		rot -=180;
-	}
+	XMFLOAT3 fdir;
+	XMStoreFloat3(&fdir, nDiff);
+	float rot = XMConvertToDegrees(static_cast<float>(atan2(fdir.x, fdir.z)));
 	enemy_.SetRotateY(rot);
 	if (Input::IsKeyDown(DIK_LALT)||XMVectorGetX(XMVector3Length(diffV))<=END_MOVE_THRESHOULD) {
 		canTransition_ = true;

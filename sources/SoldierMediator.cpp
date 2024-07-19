@@ -1,6 +1,7 @@
 #include "SoldierMediator.h"
 #include<map>
 #include<typeindex>
+#include"EnemyBase.h"
 #include"IdleState.h"
 #include"SoldierStates.h"
 namespace {
@@ -27,10 +28,16 @@ SoldierMediator::~SoldierMediator()
 void SoldierMediator::DetermineNextState()
 {
 	auto curType = stateMap.at(getCurStateType());
-	states nextType;
+	states nextType=curType;
 	switch (curType) {
 	case IDLE:
-		nextType = MOVE;
+		auto basePos = base_.GetPosition();
+		auto targetPos = base_.GetTarget();
+
+		XMVECTOR diff= XMLoadFloat3(&basePos) - XMLoadFloat3(&targetPos);
+		if (XMVectorGetX(XMVector3Length(diff)) > END_MOVE_THRESHOULD) {//現在の距離が移動ステートの移動終了距離よりも離れていたら
+			nextType = MOVE;
+		}
 		break;
 	case MOVE:
 		nextType = IDLE;
