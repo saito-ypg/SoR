@@ -23,8 +23,10 @@ Wキー         ：突進スキル(攻撃判定未実装)
 
 ## 開発環境など
 - 規格:**C++20**
-- ツール:VisualStudio 2022
+- ツール:VisualStudio 2022,Git,GitHub
 - 制作開始 2023/09～
+- 動作環境 Windows10/Windows11
+- 使用API: DirectX11
 ## プロジェクトファイルリスト および 作業箇所(順不同)
 ```
 SoR　ルートフォルダ　
