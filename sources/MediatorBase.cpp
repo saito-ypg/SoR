@@ -19,7 +19,7 @@ void MediatorBase::Update(const float& dt)
 		SkipDeterminingMs = rand() % 4000 + 1000;//ƒ~ƒŠ•b’PˆÊ,“K“–
 	}
 	else {
-		SkipDeterminingMs -= dt;
+		SkipDeterminingMs -= static_cast<int>(dt);
 	}
 }
 

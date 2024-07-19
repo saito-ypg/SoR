@@ -73,7 +73,7 @@ void ModeratorSequence::LoadData()
 	spawnDataList.resize(size);
 	for (auto i = 0; i < size; i++)
 	{
-		MAX_WAVE = stageData.at(WAVES).size();
+		MAX_WAVE = static_cast<int>(stageData.at(WAVES).size());
 		auto& game = stageData.at(WAVES).at(i);
 		for (auto& stage : game.at(ENEMY)) {
 			EnemySpawning temp;

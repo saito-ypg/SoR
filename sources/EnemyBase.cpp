@@ -57,6 +57,7 @@ void EnemyBase::RemoveCamp()
 
 void EnemyBase::dyingProcess()
 {
+	pMediator_.reset();
 	RemoveCamp();
 	eStat_ = DEAD;
 }
