@@ -36,6 +36,10 @@ HRESULT Fbx::Load(std::string fileName)
 	fbxImporter->Import(pFbxScene_);
 	fbxImporter->Destroy();
 
+	FbxGeometryConverter geometryConverter(pFbxManager_);
+	geometryConverter.Triangulate(pFbxScene_, true, true);
+	geometryConverter.RemoveBadPolygonsFromMeshes(pFbxScene_);
+
 	// アニメーションのタイムモードの取得
 	_frameRate = pFbxScene_->GetGlobalSettings().GetTimeMode();
 
