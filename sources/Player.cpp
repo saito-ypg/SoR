@@ -30,6 +30,7 @@ Player::Player(GameObject* parent)
 
 	moveDirection_ = XMVectorZero();
 	vMove_ = XMVectorZero();
+	inputBuffer = nullptr;
 	for (auto i : skills)
 	{
 		i = nullptr;

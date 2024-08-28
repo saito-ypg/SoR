@@ -3,6 +3,7 @@
 #include"GameActor.h"
 #include"PlayerSkillsInclude.h"
 #include"IMovable.h"
+class InputBuffer;
 class Player : public GameActor, public IMovable
 {
 public:
@@ -21,7 +22,6 @@ private:
 	float moveTime_;
 
 	//スキル登録
-
 	std::vector<SkillBase*>skills{ static_cast<size_t>(skillsNum) };
 	bool canUseSkill(int number);
 	void ActivateSkill(int number);
@@ -33,6 +33,7 @@ private:
 		skills.at(index) = static_cast<SkillBase*>(new skill(this));
 	}
 
+	std::unique_ptr<InputBuffer>inputBuffer;
 	//現在のマウス座標をワールド座標に変換して返す
 	XMVECTOR getMouseTargetPos();
 	//targetの方向に回転
