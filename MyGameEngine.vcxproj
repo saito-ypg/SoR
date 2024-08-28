@@ -23,7 +23,7 @@
       <FileType>Document</FileType>
     </None>
     <ClCompile Include="Engine\Ease.cpp" />
-    <ClCompile Include="InputBuffer.cpp" />
+    <ClCompile Include="sources\PlayerInputHandler.cpp" />
     <ClCompile Include="sources\IMovable.cpp" />
     <ClCompile Include="sources\SoldierMediator.cpp" />
     <ClCompile Include="sources\DecoyMediator.cpp" />
@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Ease.h" />
-    <ClInclude Include="InputBuffer.h" />
+    <ClInclude Include="sources\PlayerInputHandler.h" />
     <ClInclude Include="sources\IMovable.h" />
     <ClInclude Include="sources\SoldierMediator.h" />
     <ClInclude Include="sources\DecoyMediator.h" />

@@ -6,8 +6,12 @@
 /// </summary>
 
 
-class InputBuffer
+class PlayerInputHandler
 {
-	
+	PlayerInputHandler();
+	~PlayerInputHandler();
+	void Update(const float& dt);
+	void Release();
+
 };
 

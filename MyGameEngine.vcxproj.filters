@@ -249,7 +249,7 @@
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
     </ClInclude>
     <ClInclude Include="sources\IMovable.h" />
-    <ClInclude Include="InputBuffer.h" />
+    <ClInclude Include="sources\PlayerInputHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -418,7 +418,7 @@
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
     </ClCompile>
     <ClCompile Include="sources\IMovable.cpp" />
-    <ClCompile Include="InputBuffer.cpp" />
+    <ClCompile Include="sources\PlayerInputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -6,6 +6,7 @@
 #include"../Engine/Camera.h"
 #include"../Engine/Global.h"
 #include"ModeratorSequence.h"
+#include"PlayerInputHandler.h"
 namespace {
 	constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
 	constexpr float PLAYER_ROT_TH = 0.1f;//ˆÚ“®Žž‚É‰ñ“]‚·‚é‚©‚Ç‚¤‚©‚Ì‹——£‚Ì‚µ‚«‚¢’l

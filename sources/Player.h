@@ -3,7 +3,7 @@
 #include"GameActor.h"
 #include"PlayerSkillsInclude.h"
 #include"IMovable.h"
-class InputBuffer;
+class PlayerInputHandler;
 class Player : public GameActor, public IMovable
 {
 public:
@@ -33,7 +33,7 @@ private:
 		skills.at(index) = static_cast<SkillBase*>(new skill(this));
 	}
 
-	std::unique_ptr<InputBuffer>inputBuffer;
+	std::unique_ptr<PlayerInputHandler>inputBuffer;
 	//現在のマウス座標をワールド座標に変換して返す
 	XMVECTOR getMouseTargetPos();
 	//targetの方向に回転
