@@ -8,6 +8,7 @@
 
 class PlayerInputHandler
 {
+public:
 	PlayerInputHandler();
 	~PlayerInputHandler();
 	void Update(const float& dt);
