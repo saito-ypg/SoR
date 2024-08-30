@@ -50,6 +50,11 @@ private:
 
 	bool isDuringSkill();
 	void MoveInput();
+	/// <summary>
+	/// 入力に対しての動作をさせる
+	/// PlayerInputHandlerの情報を受け取る形
+	/// </summary>
+	void ApplyInputCommands();
 protected:
 	void dyingProcess()override;
 public:
@@ -64,6 +69,8 @@ public:
 
 	//個別更新
 	void ActorUpdate(const float& dt) override;
+
+	
 
 	//要検討
 	bool isIntersectGround(const DirectX::XMVECTOR& target);

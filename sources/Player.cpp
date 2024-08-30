@@ -71,6 +71,23 @@ void Player::ActorUpdate(const float& dt)
 			return;
 	}
 #endif
+	ApplyInputCommands();
+	if (moveTime_ > 0)
+	{
+		move();
+	}
+
+
+
+	for (auto &itr : skills)//skillアップデート
+	{
+		if (itr != nullptr)
+			itr->Update();
+	}
+}
+
+void Player::ApplyInputCommands()
+{
 	if (Input::IsKey(DIK_A))
 		status_.hp_--;
 
@@ -98,18 +115,6 @@ void Player::ActorUpdate(const float& dt)
 				usingSkillIndex = UNUSED;
 			}
 		}
-	}
-	if (moveTime_ > 0)
-	{
-		move();
-	}
-
-
-
-	for (auto itr : skills)//skillアップデート
-	{
-		if (itr != nullptr)
-			itr->Update();
 	}
 }
 
