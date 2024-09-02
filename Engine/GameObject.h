@@ -31,8 +31,8 @@ protected:
 	//衝突判定リスト
 	std::list<Collider*>	colliderList_;	
 
-	float timeScale;//このゲームオブジェクトとその子供の更新速度
-	float parentalTimeScale;//親のゲームオブジェクトの更新速度
+	float timeScale;//このゲームオブジェクトとその子供の更新速度。初期値は1.0f
+	float parentalTimeScale;//親のゲームオブジェクトの更新速度。初期値は1.0f
 
 public:
 	//コンストラクタ
