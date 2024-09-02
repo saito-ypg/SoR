@@ -78,6 +78,7 @@
     <ClCompile Include="sources\SkillBase.cpp" />
     <ClCompile Include="sources\SoldierStates.cpp" />
     <ClCompile Include="sources\testSkill.cpp" />
+    <ClCompile Include="sources\TimeScaleManager.cpp" />
     <ClCompile Include="sources\TitleScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="sources\SkillBase.h" />
     <ClInclude Include="sources\SoldierStates.h" />
     <ClInclude Include="sources\testSkill.h" />
+    <ClInclude Include="sources\TimeScaleManager.h" />
     <ClInclude Include="sources\TitleScene.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>
@@ -148,7 +150,6 @@
     <None Include="Assets\data\game_stage.json" />
     <None Include="Assets\data\stage_schema.json" />
     <None Include="Assets\data\enemy_status.json" />
-    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="todo.md" />
