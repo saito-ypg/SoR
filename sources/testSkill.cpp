@@ -5,9 +5,9 @@ namespace {
 	DamageData dmg;
 	AttackRangeCircle circle;
 }
-testSkill::testSkill(Player* pPlayer):SkillBase(ConvToFrames(0.5f),3,pPlayer,"spinicon.png")
+testSkill::testSkill(Player* pPlayer):SkillBase(500,ConvFrameToMs(10), pPlayer, "spinicon.png")
 {
-	sequence = { 1,5,1 };
+	sequence = {ConvFrameToMs(1),ConvFrameToMs(5),ConvFrameToMs(1)};
 	circle.radius_ = 2;
 	dmg.damage_ = 20;
 	dmg.knockback_ = 4;
@@ -36,7 +36,7 @@ void testSkill::DrawRangeDisplay(float deg)
 	int handle = area(CIRCLE);
 	Transform DrawT =GetPlayerTransform();
 	const float r = circle.radius_;
-	DrawT.scale_ = {r ,r ,r };
+	DrawT.scale_ = {r ,r ,1 };
 	Model::SetTransform(handle, DrawT);
 	Model::Draw(handle);
 }

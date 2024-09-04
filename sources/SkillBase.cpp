@@ -18,18 +18,18 @@ SkillBase::~SkillBase()
 	
 }
 
-void SkillBase::Update()
+void SkillBase::Update(const float & playerDt)
 {
 	if (castTime_ > 0)
-		castTime_--;
+		castTime_-= playerDt;
 	else if (!isInOperation_) {
 			if(coolDown_>0)
-			coolDown_--;
+			coolDown_-= playerDt;
 		return;
 	}
 
 	action();
-	steptime--;//ŠÔi‚ß‚é
+	steptime-= playerDt;//ŠÔi‚ß‚é
 	if (steptime > 0) {
 		isStepChanged = false;
 		return;

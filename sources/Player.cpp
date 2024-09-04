@@ -78,7 +78,7 @@ void Player::ActorUpdate(const float& dt)
 	if (Input::IsMouseButtonDown(0))//通常攻撃
 	{
 		//テストとしてPlaySceneの速度を1秒間0.5倍に
-		TimeScaleManager::getInstance().SetSpeedModifier(GetParent(), 0.5f, 2000);
+		TimeScaleManager::getInstance().SetTemporarySpeedModifier(GetParent(), 0.5f, 2000);
 	}
 	else {//各種スキル
 		for (int i = 0; i < skillsNum; i++) {
@@ -109,7 +109,7 @@ void Player::ActorUpdate(const float& dt)
 	for (auto itr : skills)//skillアップデート
 	{
 		if (itr != nullptr)
-			itr->Update();
+			itr->Update(GetTotalTimeScale()*dt);
 	}
 }
 

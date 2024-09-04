@@ -21,7 +21,7 @@ private:
 	SkillBase();
 protected:
 	Transform beginTransform_;//スキル発動時のトランスフォームを格納しておく。発動時以外は基本いじらない。プレイヤーのものとは区別する
-	std::vector<float>sequence{0};//攻撃における各ステップフレーム数
+	std::vector<float>sequence{0};//攻撃における各ステップ時間、ミリ秒
 	float steptime;//各ステップでの残り時間
 	int stepindex;//現在何ステップ目か。sequence
 	bool isStepChanged;
@@ -89,7 +89,7 @@ public:
 	SkillBase(const float CT, const float CD, Player *const pPlayer, const std::string iconName);
 
 	virtual ~SkillBase();
-	virtual void Update();//スキル時間、CD時間等の更新。持続的な判定?
+	virtual void Update(const float&playerDt);//スキル時間、CD時間等の更新。プレイヤーから更新秒数を受け取る（プレイヤーの時間に対応させて)
 	void Activate();//スキル発動（ボタン押したとき）
 	virtual void Draw()=0;//スキルエフェクトなど描画
 	virtual void DrawRangeDisplay(float deg)=0;//攻撃前に範囲を表示する 引数->角度
@@ -99,8 +99,8 @@ public:
 	float getCdPercentage() const;//playerInterface用。
 	float getCtPercentage() const;//playerInterface用。
 	bool IsInOperation()const { return isInOperation_; }
-	static float ConvToSeconds(float frames) {return frames / 60;}//フレームから秒に変換
-	static float ConvToFrames(float seconds) { return seconds * 60; }//秒からフレームに変換
+	static float ConvFrameToMs(float frames) {return frames*1000 / 60;}//60fps基準でフレームからミリ秒に変換
+
 	std::string getIconName() const { return IconImageName; };
 };
 

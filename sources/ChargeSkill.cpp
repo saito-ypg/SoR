@@ -8,9 +8,9 @@ namespace {
 	XMVECTOR forward = XMVectorZero();
 	XMVECTOR lastForceVec = XMVectorZero();
 }
-ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(ConvToFrames(1.0f), ConvToFrames(2.8f), pPlayer, "charge.png")
+ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1000, 2800, pPlayer, "charge.png")
 {
-	sequence={12,28,6};
+	sequence={ConvFrameToMs(12),ConvFrameToMs(28),ConvFrameToMs(6)};
 	QuadArea.width_ =1.1f;
 	QuadArea.length_ =6.0f;
 }
