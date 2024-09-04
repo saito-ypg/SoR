@@ -20,6 +20,8 @@ using namespace DirectX;
 //-----------------------------------------------------------
 class GameObject
 {
+private:
+	float parentalTimeScale;//親のゲームオブジェクトの更新速度。初期値は1.0f
 protected:
 	
 	//位置や向きなどを管理するオブジェクト
@@ -32,7 +34,7 @@ protected:
 	std::list<Collider*>	colliderList_;	
 
 	float timeScale;//このゲームオブジェクトとその子供の更新速度。初期値は1.0f
-	float parentalTimeScale;//親のゲームオブジェクトの更新速度。初期値は1.0f
+
 
 public:
 	//コンストラクタ

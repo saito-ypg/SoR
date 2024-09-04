@@ -92,8 +92,9 @@ void ModeratorSequence::LoadData()
 }
 void ModeratorSequence::Update(const float& dt)
 {
+	const float adjustedDt = dt * GetTotalTimeScale();
 	auto Transition = [&](ModeratorSequence::s nextState) {
-		transitionTime -= dt;
+		transitionTime -= adjustedDt;
 		if (transitionTime < 0)
 			state = nextState;
 		return (transitionTime < 0);
@@ -128,8 +129,8 @@ void ModeratorSequence::Update(const float& dt)
 				state = END;
 				transitionTime = TRANSITION_MS;
 			}
-			curTime += milliseconds(static_cast<long long>(dt));
-			ttlTime += milliseconds(static_cast<long long>(dt));
+			curTime += milliseconds(static_cast<long long>(adjustedDt));
+			ttlTime += milliseconds(static_cast<long long>(adjustedDt));
 
 		}
 

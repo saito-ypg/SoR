@@ -8,9 +8,6 @@ namespace {
 	vector<SpeedModifier>  modifiers;
 }
 
-TimeScaleManager::TimeScaleManager()
-{
-}
 
 void TimeScaleManager::Update(const float& dt)
 {

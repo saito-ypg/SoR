@@ -26,7 +26,7 @@ void TitleScene::Update(const float& dt)
 {
 	if (Input::IsKeyDown(DIK_RETURN))
 	{
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		SceneManager* pSceneManager = static_cast<SceneManager*>( FindObject("SceneManager"));
 		pSceneManager->ChangeScene(SCENE_ID_PLAY);
 	}
 }

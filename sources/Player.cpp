@@ -5,6 +5,7 @@
 #include"../Engine/Input.h"
 #include"../Engine/Camera.h"
 #include"../Engine/Global.h"
+#include"../Engine/TimeScaleManager.h"
 #include"ModeratorSequence.h"
 namespace {
 	constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
@@ -74,9 +75,10 @@ void Player::ActorUpdate(const float& dt)
 
 	MoveInput();
 	//各入力
-	if (Input::IsMouseButton(0))//通常攻撃
+	if (Input::IsMouseButtonDown(0))//通常攻撃
 	{
-
+		//テストとしてPlaySceneの速度を1秒間0.5倍に
+		TimeScaleManager::getInstance().SetSpeedModifier(GetParent(), 0.5f, 2000);
 	}
 	else {//各種スキル
 		for (int i = 0; i < skillsNum; i++) {

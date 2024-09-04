@@ -28,7 +28,7 @@ class ModeratorSequence :
 {
 
 private:
-    std::chrono::milliseconds curTime;//今は処理時間依存じゃなくフレーム数依存だから、時間増やすのも固定でいいか
+    std::chrono::milliseconds curTime;
     std::chrono::milliseconds ttlTime;//ゲーム全体
     int waves;//ウェーブ数
     int spawnindex;

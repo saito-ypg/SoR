@@ -15,6 +15,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "VFX.h"
+#include"TimeScaleManager.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -68,6 +69,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	RootObject* pRootObject = new RootObject(nullptr);
 	pRootObject->Initialize();
 
+	//update用に予め確保
+	//シングルトン(コピー・代入不可)のため参照
+	TimeScaleManager &timeScaleManager = TimeScaleManager::getInstance();
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -120,9 +124,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 				//入力（キーボード、マウス、コントローラー）情報を更新
 				Input::Update();
 
+				float deltaTime = float(diff < DELTA_MAX ? diff : DELTA_MAX);
+				
+				//オブジェクトの時間変化の管理
+				timeScaleManager.Update(deltaTime);
 				//全オブジェクトの更新処理
 				//ルートオブジェクトのUpdateを呼んだあと、自動的に子、孫のUpdateが呼ばれる
-				pRootObject->UpdateSub(float(diff < DELTA_MAX ? diff : DELTA_MAX));
+				pRootObject->UpdateSub(deltaTime);
 
 				//カメラを更新
 				Camera::Update();

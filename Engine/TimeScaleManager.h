@@ -6,14 +6,23 @@
 
 class GameObject;
 struct SpeedModifier {
-	GameObject* const object;//適応対象のポインタ
+	GameObject*  object;//適応対象のポインタ
 	float speedMultiplier;//速度倍率
 	float duration;//継続時間、ミリ秒
 };
 class TimeScaleManager
 {
+	TimeScaleManager() = default;
+	~TimeScaleManager() = default;
+	TimeScaleManager(const TimeScaleManager&) = delete;
+	TimeScaleManager& operator=(const TimeScaleManager&) = delete;
 public:
-	TimeScaleManager();
+
+	static TimeScaleManager& getInstance()
+	{
+		static TimeScaleManager instance;
+		return instance;
+	}
 	/// <summary>
 	/// 一時的な速度の変化のものの時間を更新、過ぎたら戻して削除する
 	/// </summary>
