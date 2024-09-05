@@ -58,7 +58,7 @@ void Player::Initialize()
 //更新
 void Player::ActorUpdate(const float& dt)
 {
-#ifdef _DEBUG
+#ifdef false
 	{//速度テスト用   
 		if (Input::IsKeyDown(DIK_1))
 			GetParent()->SetTimeScale(1.0f);
@@ -75,7 +75,7 @@ void Player::ActorUpdate(const float& dt)
 
 	MoveInput();
 	//各入力
-	if (Input::IsMouseButtonDown(0))//通常攻撃
+	if (Input::IsMouseButtonDown(0))
 	{
 		//テストとしてPlaySceneの速度を1秒間0.5倍に
 		TimeScaleManager::getInstance().SetTemporarySpeedModifier(GetParent(), 0.5f, 2000);
