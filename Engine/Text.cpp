@@ -100,7 +100,6 @@ void Text::DrawCenter(const int& x, const int& y, int value, const float scale)
 	//•¶Žš—ñ‚É•ÏŠ·
 	char str[256];
 	sprintf_s(str, "%d", value);
-
 	DrawCenter(x, y, str, scale);
 }
 

@@ -1,10 +1,11 @@
 #pragma once
 #include "../Engine/GameObject.h"
 
-
+class Text;
 class TitleScene : public GameObject
 {
 	int hImage;
+	Text* pText;
 public:
 
 	TitleScene(GameObject* parent);

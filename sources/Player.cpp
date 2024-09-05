@@ -111,6 +111,11 @@ void Player::ActorUpdate(const float& dt)
 		if (itr != nullptr)
 			itr->Update(GetTotalTimeScale()*dt);
 	}
+
+	//プレイヤーの位置をクランプ（視界外へ出ないように)
+	auto& [x,yUnused, z] = transform_.position_;
+	x = std::clamp(x, -20.0f, +20.0f);
+	z = std::clamp(z, -15.0f, +15.0f);
 }
 
 void Player::MoveInput()
