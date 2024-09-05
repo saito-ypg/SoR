@@ -24,7 +24,7 @@ void TimeScaleManager::Update(const float& dt)
 				obj->SetTimeScale(curObjSpeed / mul);
 			}
 			else {
-				obj->SetTimeScale(1.0f);
+				obj->SetTimeScale(1.0f);//МыН╖НlЧ╢В┼1В╔Р▌Тш
 			}
 
 		}

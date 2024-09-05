@@ -22,7 +22,7 @@ void SoldierStateMove::Update(const float& dt)
 	XMVECTOR vMyPos = XMLoadFloat3(&myPos);
 	XMVECTOR diffV = vTargetPos - vMyPos;
 	XMVECTOR nDiff = XMVector3Normalize(diffV);
-	enemy_.ForceMove( nDiff* (MOVING_VELOCITY/60));
+	enemy_.ForceMove( nDiff* (MOVING_VELOCITY/60)*enemy_.GetTotalTimeScale());
 	XMFLOAT3 fdir;
 	XMStoreFloat3(&fdir, nDiff);
 	float rot = XMConvertToDegrees(static_cast<float>(atan2(fdir.x, fdir.z)));

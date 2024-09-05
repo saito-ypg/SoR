@@ -241,15 +241,21 @@
     <ClInclude Include="sources\DecoyMediator.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Ease.h" />
     <ClInclude Include="sources\SoldierMediator.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
     </ClInclude>
     <ClInclude Include="sources\SoldierStates.h">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
     </ClInclude>
-    <ClInclude Include="sources\IMovable.h" />
-    <ClInclude Include="Engine\TimeScaleManager.h" />
+    <ClInclude Include="Engine\Ease.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\IMovable.h">
+      <Filter>sourses\Scene\Play\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TimeScaleManager.h">
+      <Filter>sourses\Scene\Play\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Audio.cpp">
@@ -410,15 +416,21 @@
     <ClCompile Include="sources\DecoyMediator.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Decoy</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Ease.cpp" />
     <ClCompile Include="sources\SoldierMediator.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
     </ClCompile>
     <ClCompile Include="sources\SoldierStates.cpp">
       <Filter>sourses\Scene\Play\Actor\Enemy\Categories\Soldier</Filter>
     </ClCompile>
-    <ClCompile Include="sources\IMovable.cpp" />
-    <ClCompile Include="Engine\TimeScaleManager.cpp" />
+    <ClCompile Include="Engine\Ease.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\IMovable.cpp">
+      <Filter>sourses\Scene\Play\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TimeScaleManager.cpp">
+      <Filter>sourses\Scene\Play\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

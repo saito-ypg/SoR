@@ -1,4 +1,4 @@
-#include<map>
+
 #include<vector>
 #include<unordered_map>
 #include"../Engine/global.h"
@@ -13,7 +13,7 @@ namespace {
 	using namespace CollisionManager;
 	struct RangeData {
 		AttackRangeBase* pRange_;
-		std::vector<GameActor*>ExclutionList_{0};//すでにヒットしたものなど入れておく、判定からは除外
+		std::vector<GameActor*>ExclusionsList_{0};//すでにヒットしたものなど入れておく、判定からは除外
 		DamageData dmg_;
 		RangeData(AttackRangeBase* pR, DamageData dmg) :pRange_(pR),dmg_(dmg){}
 	};
@@ -38,7 +38,7 @@ void CollisionManager::Update()
 		{
 			for (auto& itrActor : CollisionList.at(((camp)+1) % NUM))//相手の陣営の敵と判定取る
 			{
-				if (std::find(itr->ExclutionList_.begin(), itr->ExclutionList_.end(), itrActor.pActor) != itr->ExclutionList_.end())
+				if (std::find(itr->ExclusionsList_.begin(), itr->ExclusionsList_.end(), itrActor.pActor) != itr->ExclusionsList_.end())
 					continue;
 				if (itr->pRange_->IsHit(itrActor))
 				{

@@ -36,7 +36,7 @@ void Ground::Release()
 {
 }
 
-int Ground::GetGloundHandle()
+int Ground::GetGroundHandle()
 {
     return hModel_;
 }

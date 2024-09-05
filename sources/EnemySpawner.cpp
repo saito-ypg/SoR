@@ -1,4 +1,4 @@
-#include<map>
+#include<unordered_map>
 #include<fstream>
 #include"../Engine/GameObject.h"
 #include "EnemySpawner.h"
@@ -14,7 +14,7 @@ constexpr float SPAWN_DISTANCE = 10.0f;
 constexpr int ANGLE360 = 360;
 
 namespace {
-	std::map<EnemyType, EnemyStatus> data;
+	std::unordered_map<EnemyType, EnemyStatus> data;
 	/// <summary>
 	/// 生成のみを行うファクトリー関数
 	/// </summary>

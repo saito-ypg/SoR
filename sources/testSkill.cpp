@@ -36,7 +36,7 @@ void testSkill::DrawRangeDisplay(float deg)
 	int handle = area(CIRCLE);
 	Transform DrawT =GetPlayerTransform();
 	const float r = circle.radius_;
-	DrawT.scale_ = {r ,r ,1 };
+	DrawT.scale_ = {r ,1,r };
 	Model::SetTransform(handle, DrawT);
 	Model::Draw(handle);
 }
