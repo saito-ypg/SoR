@@ -1,5 +1,5 @@
 #include "testSkill.h"
-#include"../Engine/Model.h"
+#include"Engine/Model.h"
 #include"Player.h"
 namespace {
 	DamageData dmg;

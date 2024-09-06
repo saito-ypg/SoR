@@ -1,6 +1,6 @@
 #include<unordered_map>
 #include<fstream>
-#include"../Engine/GameObject.h"
+#include"Engine/GameObject.h"
 #include "EnemySpawner.h"
 #include"EnemyBase.h"
 #include"MediatorFactoryRegistry.h"

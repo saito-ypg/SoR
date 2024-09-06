@@ -1,6 +1,6 @@
 #include<vector>
-#include"../Engine/Image.h"
-#include"../Engine/Camera.h"
+#include"Engine/Image.h"
+#include"Engine/Camera.h"
 #include "HPBar.h"
 namespace {
 	

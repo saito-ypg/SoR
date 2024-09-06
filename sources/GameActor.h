@@ -1,6 +1,6 @@
 #pragma once
 #include<vector>
-#include "../Engine/GameObject.h"
+#include "Engine/GameObject.h"
 #include "ActorInfo.h"
 #include"CollisionManager.h"
 #include"DamageData.h"

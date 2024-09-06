@@ -1,8 +1,8 @@
 #include<cmath>
 #include "ChargeSkill.h"
-#include"../Engine/Model.h"
+#include"Engine/Model.h"
 #include"Player.h"
-#include"../Engine/Ease.h"
+#include"Engine/Ease.h"
 namespace {
 	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();

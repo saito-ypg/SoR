@@ -1,8 +1,8 @@
 
 #include<vector>
 #include<unordered_map>
-#include"../Engine/global.h"
-#include"../Engine/Debug.h"
+#include"Engine/global.h"
+#include"Engine/Debug.h"
 #include "CollisionManager.h"
 #include"GameActor.h"
 #include"areamodels.h"

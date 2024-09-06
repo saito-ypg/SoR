@@ -1,7 +1,7 @@
-#include"../Engine/Camera.h"
-#include"../Engine/Input.h"
-#include"../Engine/SceneManager.h"
-#include"../Engine/Image.h"
+#include"Engine/Camera.h"
+#include"Engine/Input.h"
+#include"Engine/SceneManager.h"
+#include"Engine/Image.h"
 #include"ClearScene.h"
 //コンストラクタ
 ClearScene::ClearScene(GameObject* parent)

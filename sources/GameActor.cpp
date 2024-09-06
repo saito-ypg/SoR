@@ -1,10 +1,10 @@
 #include<cmath>
 #include "GameActor.h"
-#include"../Engine/Model.h"
-#include"../Engine/Camera.h"
-#include"../Engine/Image.h"
-#include"../Engine/Debug.h"
-#include"../Engine/Direct3D.h"
+#include"Engine/Model.h"
+#include"Engine/Camera.h"
+#include"Engine/Image.h"
+#include"Engine/Debug.h"
+#include"Engine/Direct3D.h"
 #include"HPBar.h"
 
 #include"areamodels.h"

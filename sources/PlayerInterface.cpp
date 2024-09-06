@@ -1,8 +1,8 @@
 #include "PlayerInterface.h"
 #include<array>
-#include"../Engine/global.h"
-#include"../Engine/Image.h"
-#include"../Engine/Camera.h"
+#include"Engine/global.h"
+#include"Engine/Image.h"
+#include"Engine/Camera.h"
 #include"Player.h"
 #include"SkillBase.h"
 

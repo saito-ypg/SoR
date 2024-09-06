@@ -6,9 +6,9 @@
 #include "ModeratorSequence.h"
 #include"EnemyManager.h"
 #include"EnemySpawner.h"
-#include"../Engine/SceneManager.h"
-#include"../Engine/Image.h"	
-#include"../Engine/global.h"
+#include"Engine/SceneManager.h"
+#include"Engine/Image.h"	
+#include"Engine/global.h"
 #include"../libraries/json.hpp"
 
 using std::string;

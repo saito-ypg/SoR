@@ -1,11 +1,11 @@
 #include<algorithm>
 #include "Player.h"
 #include"Ground.h"
-#include"../Engine/Model.h"
-#include"../Engine/Input.h"
-#include"../Engine/Camera.h"
-#include"../Engine/Global.h"
-#include"../Engine/TimeScaleManager.h"
+#include"Engine/Model.h"
+#include"Engine/Input.h"
+#include"Engine/Camera.h"
+#include"Engine/Global.h"
+#include"Engine/TimeScaleManager.h"
 #include"ModeratorSequence.h"
 namespace {
 	constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
