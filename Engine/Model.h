@@ -13,6 +13,7 @@
 //-----------------------------------------------------------
 namespace Model
 {
+	constexpr int FAIL_READ = -1;
 	//ƒ‚ƒfƒ‹î•ñ
 	struct ModelData
 	{

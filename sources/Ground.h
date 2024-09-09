@@ -1,9 +1,16 @@
 #pragma once
 #include "Engine/GameObject.h"
-
+#include<vector>
 class Ground : public GameObject
 {
-    int hModel_;
+    struct StaticObject {
+        int handle;
+        Transform transform;
+        StaticObject() = delete;
+        StaticObject(int h, Transform t) :handle(h), transform(t) {};
+    };
+
+    std::vector<StaticObject>staticObjects;
 public:
     //コンストラクタ
     Ground(GameObject* parent);
@@ -23,5 +30,4 @@ public:
     //開放
     void Release() override;
     
-    int GetGroundHandle();
 };

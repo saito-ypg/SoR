@@ -38,7 +38,7 @@ namespace Model
 				if (FAILED(pData->pFbx->Load(fileName)))
 				{
 					//ŠJ‚¯‚È‚©‚Á‚½
-					return -1;
+					return FAIL_READ;
 				}
 
 				//–³Ž–ŠJ‚¯‚½
