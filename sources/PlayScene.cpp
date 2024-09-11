@@ -30,8 +30,8 @@ void PlayScene::Initialize()
 	/*auto p=*/Instantiate<Player>(this);
 
 	mod = Instantiate<ModeratorSequence>(this);
-	Camera::SetTarget(XMFLOAT3{ 0,0,0 });
-	Camera::SetPosition(XMFLOAT3{ 0, 30.0f, -10.0f });
+	Camera::SetTarget(XMFLOAT3{ 0,0,-3 });
+	Camera::SetPosition(XMFLOAT3{ 0, 23.0f, -20.0f });
 	HPBar::Initialize();
 	Instantiate<PlayerInterface>(this);
 

@@ -9,7 +9,7 @@ class ChargeSkill :
     public SkillBase
 {
 private:
-
+    XMVECTOR lastForceVec;
     void invokedStep()  override;
     void startStep()    override;
     void endStep()      override;

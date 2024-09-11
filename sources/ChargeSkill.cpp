@@ -6,13 +6,14 @@
 namespace {
 	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();
-	XMVECTOR lastForceVec = XMVectorZero();
+
 }
 ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1000, 2800, pPlayer, "charge.png")
 {
 	sequence={ConvFrameToMs(12),ConvFrameToMs(28),ConvFrameToMs(6)};
 	QuadArea.width_ =1.1f;
 	QuadArea.length_ =6.0f;
+	lastForceVec = XMVectorZero();
 }
 
 ChargeSkill::~ChargeSkill()
@@ -31,11 +32,11 @@ void ChargeSkill::Draw()
 
 void ChargeSkill::DrawRangeDisplay(float deg)
 {
-	int handle = area(QUAD);
+	const int handle = area(QUAD);
 	Transform DrawT = GetPlayerTransform();
 	DrawT.scale_ = { QuadArea.width_ ,1,QuadArea.length_ };
 	DrawT.rotate_.y = fmodf(deg, 360.0f);
-	XMVECTOR vpos = XMLoadFloat3(&DrawT.position_);
+	const XMVECTOR vpos = XMLoadFloat3(&DrawT.position_);
 	XMVECTOR OffsetCentor = XMVectorSet(0, 0,QuadArea.length_, 0);//‰ñ“]‘O
 	OffsetCentor = XMVector3TransformCoord(OffsetCentor,XMMatrixRotationY(XMConvertToRadians(DrawT.rotate_.y)));
 	XMStoreFloat3(&DrawT.position_, vpos+OffsetCentor);
@@ -54,15 +55,15 @@ void ChargeSkill::startStep(){
 	using enum EASE::easeType;
 	//ˆÚ“®—Ê‚ðo‚·
 	const float& flames = sequence.at(START_ATTACK);
-	float nowTime =(float)(-(steptime)+flames+1)/flames;
-	XMVECTOR forcevec = forward * (float)EASE::easing(InOutExpo,nowTime) * QuadArea.length_ * 2;
-	pPlayer_->ForceMove(forcevec-lastForceVec);
+	const float nowTime =static_cast<float>(-(steptime)+flames+1)/flames;
+	const XMVECTOR forceVec = forward * static_cast<float>(EASE::easing(InOutExpo,nowTime) )* QuadArea.length_ * 2;
+	pPlayer_->ForceMove(forceVec-lastForceVec);
 	if (isStepChanged)
 	{
 		DamageData dmg;
 		RegisterHitRange(QuadArea,dmg);
 	}
-	lastForceVec = forcevec;
+	lastForceVec = forceVec;
 }
 void ChargeSkill::endStep(){
 
