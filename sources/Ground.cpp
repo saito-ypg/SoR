@@ -23,7 +23,8 @@ void Ground::Initialize()
     const int hModel1 = Model::Load("Props/House1.fbx");
     assert(hModel1 != FAIL_READ);
     Transform t1 = Transform();
-    t1.position_ = { 23,0,18 };
+//    t1.position_ = { 23,0,18 };
+    t1.scale_ = { 0.01f,0.01f,0.01f };
     staticObjects.push_back(StaticObject(hModel1, t1));
 }
 
