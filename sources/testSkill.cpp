@@ -11,7 +11,7 @@ testSkill::testSkill(Player* pPlayer):SkillBase(500,ConvFrameToMs(10), pPlayer, 
 	circle.radius_ = 2;
 	dmg.damage_ = 20;
 	dmg.knockback_ = 4;
-	dmg.duration_ = 1;
+	dmg.duration_ = ConvFrameToMs(1);
 }
 
 testSkill::~testSkill()
@@ -51,7 +51,7 @@ void testSkill::startStep() {
 	{
 		circle.position_ = this->beginTransform_.position_;
 		
-		RegisterHitRange(circle, dmg);
+		RegisterHitRange(circle, dmg,nullptr);
 	}
 }
 void testSkill::endStep() {

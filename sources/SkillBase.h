@@ -68,9 +68,9 @@ protected:
 	bool isInOperation_;//スキル使用中か
 	Player* pPlayer_;//プレイヤーのステータス変えたりしたい時に使うポインタ
 
-	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg);
-	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg);
-	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg);
+	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg, std::function<void(float)>func);
+	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg, std::function<void(float)>func);
+	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg, std::function<void(float)>func);
 	Transform GetPlayerTransform();
 
 	/// <summary>

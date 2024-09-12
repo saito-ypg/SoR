@@ -61,7 +61,10 @@ void ChargeSkill::startStep(){
 	if (isStepChanged)
 	{
 		DamageData dmg;
-		RegisterHitRange(QuadArea,dmg);
+		dmg.damage_ = 123;
+		dmg.duration_ = ConvFrameToMs(28);
+		dmg.knockback_ = 6;
+		RegisterHitRange(QuadArea, dmg, [](const float&dt){});
 	}
 	lastForceVec = forceVec;
 }

@@ -80,19 +80,19 @@ void SkillBase::SwitchActionByStep()
 	}
 }
 
-void SkillBase::RegisterHitRange(AttackRangeCircle c, DamageData &dmg)
+void SkillBase::RegisterHitRange(AttackRangeCircle c, DamageData &dmg, std::function<void(float)>func)
 {
-	CollisionManager::RegisterHitRange(PLAYER, c,dmg);
+	CollisionManager::RegisterHitRange(PLAYER, c,dmg, func);
 }
 
-void SkillBase::RegisterHitRange(AttackRangeQuad q, DamageData &dmg)
+void SkillBase::RegisterHitRange(AttackRangeQuad q, DamageData &dmg, std::function<void(float)>func)
 {
-	CollisionManager::RegisterHitRange(PLAYER, q, dmg);
+	CollisionManager::RegisterHitRange(PLAYER, q, dmg, func);
 }
 
-void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg)
+void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg, std::function<void(float)>func)
 {
-	CollisionManager::RegisterHitRange(PLAYER, s, dmg);
+	CollisionManager::RegisterHitRange(PLAYER, s, dmg, func);
 }
 
 Transform SkillBase::GetPlayerTransform()

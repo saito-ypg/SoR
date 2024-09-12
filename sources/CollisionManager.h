@@ -20,7 +20,7 @@ namespace CollisionManager
 	/// シーンのアップデートでこれも呼ぶ
 	/// 当たり判定が持続する間判定し続けるとか
 	/// </summary>
-	void Update();
+	void Update(const float&dt);
 	
 	/// <summary>
 	/// 当たり判定リストに追加
@@ -31,9 +31,9 @@ namespace CollisionManager
 	void AddCamp(GameActor* newActor,CAMPS camp);
 
 
-	void RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg);
-	void RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg);
-	void RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg);
+	void RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg, std::function<void(float)> func);
+	void RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg, std::function<void(float)>func);
+	void RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg, std::function<void(float)>func);
 	/// <summary>
 	///陣営リストから削除する。倒された際に呼ぶ 
 	/// </summary>

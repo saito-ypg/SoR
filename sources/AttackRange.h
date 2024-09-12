@@ -9,7 +9,6 @@ struct AttackRangeBase
 {
 	//中心位置。扇の場合は中心角の位置
 	XMFLOAT3 position_;//中心座標
-	std::function<void()>AreaTransition;
 	AttackRangeBase();
 	AttackRangeBase(XMFLOAT3 pos);
 	AreaModels::AREATYPE getType() const { return areatype_; }
