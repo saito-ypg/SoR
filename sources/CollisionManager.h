@@ -31,9 +31,9 @@ namespace CollisionManager
 	void AddCamp(GameActor* newActor,CAMPS camp);
 
 
-	void RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg, std::function<void(float)> func);
-	void RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg, std::function<void(float)>func);
-	void RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg, std::function<void(float)>func);
+	void RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg, std::function<void(AttackRangeBase&, float)> func);
+	void RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg, std::function<void(AttackRangeBase&, float)>func);
+	void RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg, std::function<void(AttackRangeBase&, float)>func);
 	/// <summary>
 	///êwâcÉäÉXÉgÇ©ÇÁçÌèúÇ∑ÇÈÅBì|Ç≥ÇÍÇΩç€Ç…åƒÇ‘ 
 	/// </summary>
