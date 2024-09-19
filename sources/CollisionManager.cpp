@@ -6,19 +6,12 @@
 #include "CollisionManager.h"
 #include"GameActor.h"
 #include"areamodels.h"
-#include"DamageData.h"
+
 
 //各陣営の当たり判定
 namespace {
 	using namespace CollisionManager;
-	struct RangeData {
-		AttackRangeBase* pRange_;
-		std::vector<GameActor*>ExclusionsList_{0};//すでにヒットしたものなど入れておく、判定からは除外
-		DamageData dmg_;
-		std::function<void(float)>updateFunc;//アップデート内で特殊な内容が必要ならここに入れる
-		RangeData(AttackRangeBase* pR, DamageData dmg) :RangeData(pR,dmg,nullptr){}
-		RangeData(AttackRangeBase* pR, DamageData dmg,std::function<void(float)>func) :pRange_(pR), dmg_(dmg),updateFunc(func){}
-	};
+
 	std::vector<std::vector<actorAddr>>CollisionList(CAMPS::NUM);
 	std::vector<std::vector<RangeData>>RangeTest(CAMPS::NUM);
 	/// <summary>
@@ -46,6 +39,7 @@ void CollisionManager::Update(const float &dt)
 				if (itr->pRange_->IsHit(itrActor))
 				{
 					UnderAttack(itrActor.pActor, itr->dmg_, itr->pRange_);
+					itr->ExclusionsList_.emplace_back(itrActor.pActor);
 				}
 			}
 
@@ -58,7 +52,6 @@ void CollisionManager::Update(const float &dt)
 			}
 			else {
 				if (auto& f = itr->updateFunc) {//関数オブジェクトが代入されていたら更新
-					f(dt);
 				}
 				itr++;
 			}
@@ -77,22 +70,20 @@ void CollisionManager::AddCamp(::GameActor* newActor, CAMPS camp)
 	CollisionList.at(camp).emplace_back(newActor, ac);
 
 }
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg, std::function<void(float)>func)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg, std::function<void(RangeData&,float)>func)
 {
 	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCircle(c),dmg,func));
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg, std::function<void(float)>func)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg, std::function<void(RangeData& ,float)>func)
 {
 	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeQuad(q), dmg,func ));
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg, std::function<void(float)>func)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg, std::function<void(RangeData&, float)>func)
 {
 	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCirculerSector(s), dmg,func));
 }
-
-
 
 void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 {
@@ -109,7 +100,6 @@ void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 	}
 
 }
-
 
 void CollisionManager::Release()
 {

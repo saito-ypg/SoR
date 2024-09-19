@@ -60,13 +60,47 @@ void ChargeSkill::startStep(){
 	pPlayer_->ForceMove(forceVec-lastForceVec);
 	if (isStepChanged)
 	{
+		AttackRangeQuad registration(QuadArea);//コピー
+		registration.length_ = 1.0f;
 		DamageData dmg;
 		dmg.damage_ = 123;
 		dmg.duration_ = ConvFrameToMs(28);
 		dmg.knockback_ = 6;
-		RegisterHitRange(QuadArea, dmg, [](AttackRangeBase* range,float dt){
+		RegisterHitRange(AttackRangeQuad(registration), dmg, [&](RangeData& range, float dt) {
+			const auto& maxDur = range.dmg_.maxDuration;
+			const auto& dur = range.dmg_.duration_;
+			const float easeVal = static_cast<float>(EASE::easing(InOutExpo, static_cast<float>((maxDur - dur) / maxDur)));
+			auto quad=dynamic_cast<AttackRangeQuad*>(range.pRange_);
+			// 初期位置
+			XMFLOAT3 beginPosition = beginTransform_.position_ ;
+			// 回転角度をラジアンに変換
+			float rotationRad = XMConvertToRadians(quad->rotate_);
+			// 移動距離
+			float distance = QuadArea.length_ * easeVal;
+
+			// 新しい位置を計算
+			XMVECTOR direction = XMVectorSet(cos(rotationRad), sin(rotationRad), 0.0f, 0.0f);
+			XMVECTOR beginPosVec = XMLoadFloat3(&beginPosition);
+			XMVECTOR newPosVec = XMVectorAdd(beginPosVec, XMVectorScale(direction, distance));
+
+			// 新しい位置を XMFLOAT3 に保存
+			XMStoreFloat3(&quad->position_, newPosVec);
+			// 初期位置
+			XMFLOAT3 beginPosition = beginTransform_.position_;
+			// 回転角度をラジアンに変換
+			float rotationRad = XMConvertToRadians(quad->rotate_);
+			// 移動距離
+			float distance = QuadArea.length_ * easeVal;
+
+			// 新しい位置を計算
+			XMVECTOR direction = XMVectorSet(cos(rotationRad), sin(rotationRad), 0.0f, 0.0f);
+			XMVECTOR beginPosVec = XMLoadFloat3(&beginPosition);
+			XMVECTOR newPosVec = XMVectorAdd(beginPosVec, XMVectorScale(direction, distance));
+
+			// 新しい位置を XMFLOAT3 に保存
+			XMStoreFloat3(&quad->position_, newPosVec);
 			
-			});
+		});
 	}
 	lastForceVec = forceVec;
 }

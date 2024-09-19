@@ -1,5 +1,4 @@
 #include "SkillBase.h"
-#include"CollisionManager.h"
 #include"Player.h"
 SkillBase::SkillBase() :defaultCastTime_(-1), defaultCoolDown_(-1), castTime_(0.0f), coolDown_(0.0f), stepindex(0), steptime(0.0f),isStepChanged(false),isInOperation_(false),pPlayer_(nullptr)
 {
@@ -45,7 +44,7 @@ void SkillBase::Update(const float & playerDt)
 
 void SkillBase::Activate()
 {
-	beginTransform_ = *pPlayer_->GetTransformRef();
+	beginTransform_ = *pPlayer_->GetTransformRef();//デリファレンスしてコピー
 	castTime_ = defaultCastTime_;
 	coolDown_ = defaultCoolDown_;
 	stepindex = 0;
@@ -80,17 +79,17 @@ void SkillBase::SwitchActionByStep()
 	}
 }
 
-void SkillBase::RegisterHitRange(AttackRangeCircle c, DamageData &dmg, std::function<void(AttackRangeBase*, float)>func)
+void SkillBase::RegisterHitRange(AttackRangeCircle c, DamageData &dmg, std::function<void(RangeData&, float)>func)
 {
 	CollisionManager::RegisterHitRange(PLAYER, c,dmg, func);
 }
 
-void SkillBase::RegisterHitRange(AttackRangeQuad q, DamageData &dmg, std::function<void(AttackRangeBase*, float)>func)
+void SkillBase::RegisterHitRange(AttackRangeQuad q, DamageData &dmg, std::function<void(RangeData&, float)>func)
 {
 	CollisionManager::RegisterHitRange(PLAYER, q, dmg, func);
 }
 
-void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg, std::function<void(AttackRangeBase*, float)>func)
+void SkillBase::RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg, std::function<void(RangeData&, float)>func)
 {
 	CollisionManager::RegisterHitRange(PLAYER, s, dmg, func);
 }

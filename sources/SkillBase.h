@@ -3,8 +3,8 @@
 #include<string>
 #include"Engine/Transform.h"
 #include"areamodels.h"
-#include"AttackRange.h"
-#include"DamageData.h"
+#include"CollisionManager.h"
+
 
 using namespace AreaModels;
 class Player;
@@ -68,9 +68,9 @@ protected:
 	bool isInOperation_;//スキル使用中か
 	Player* pPlayer_;//プレイヤーのステータス変えたりしたい時に使うポインタ
 
-	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg, std::function<void(AttackRangeBase*, float)>func);
-	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg, std::function<void(AttackRangeBase*, float)>func);
-	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg, std::function<void(AttackRangeBase*, float)>func);
+	void RegisterHitRange(AttackRangeCircle c,DamageData &dmg, std::function<void(RangeData&, float)>func);
+	void RegisterHitRange(AttackRangeQuad q, DamageData &dmg, std::function<void(RangeData&, float)>func);
+	void RegisterHitRange(AttackRangeCirculerSector s, DamageData &dmg, std::function<void(RangeData&, float)>func);
 	Transform GetPlayerTransform();
 
 	/// <summary>
