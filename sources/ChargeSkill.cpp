@@ -1,8 +1,9 @@
-#include<cmath>
+
 #include "ChargeSkill.h"
+#include<cmath>
 #include"Engine/Model.h"
-#include"Player.h"
 #include"Engine/Ease.h"
+#include"Player.h"
 namespace {
 	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();
@@ -85,21 +86,6 @@ void ChargeSkill::startStep(){
 
 			// 新しい位置を XMFLOAT3 に保存
 			XMStoreFloat3(&quad->position_, newPosVec);
-			// 初期位置
-			XMFLOAT3 beginPosition = beginTransform_.position_;
-			// 回転角度をラジアンに変換
-			float rotationRad = XMConvertToRadians(quad->rotate_);
-			// 移動距離
-			float distance = QuadArea.length_ * easeVal;
-
-			// 新しい位置を計算
-			XMVECTOR direction = XMVectorSet(cos(rotationRad), sin(rotationRad), 0.0f, 0.0f);
-			XMVECTOR beginPosVec = XMLoadFloat3(&beginPosition);
-			XMVECTOR newPosVec = XMVectorAdd(beginPosVec, XMVectorScale(direction, distance));
-
-			// 新しい位置を XMFLOAT3 に保存
-			XMStoreFloat3(&quad->position_, newPosVec);
-			
 		});
 	}
 	lastForceVec = forceVec;
