@@ -52,6 +52,7 @@ void CollisionManager::Update(const float &dt)
 			}
 			else {
 				if (auto& f = itr->updateFunc) {//関数オブジェクトが代入されていたら更新
+					f(*itr,dt);
 				}
 				itr++;
 			}
