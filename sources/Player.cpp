@@ -72,7 +72,8 @@ void Player::ActorUpdate(const float& dt)
 #endif
 	if (Input::IsKey(DIK_A))
 		status_.hp_--;
-
+	if (Input::IsKey(DIK_RIGHT))
+		transform_.rotate_.y++;
 	MoveInput();
 	//Še“ü—Í
 	if (Input::IsMouseButtonDown(0))

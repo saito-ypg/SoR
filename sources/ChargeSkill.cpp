@@ -1,6 +1,7 @@
 
 #include "ChargeSkill.h"
 #include<cmath>
+#include<sstream>
 #include"Engine/Model.h"
 #include"Engine/Ease.h"
 #include"Engine/Debug.h"
@@ -8,7 +9,12 @@
 namespace {
 	AttackRangeQuad QuadArea;
 	XMVECTOR forward = XMVectorZero();
-
+	std::string vecToString(XMVECTOR vector) {
+		XMFLOAT3 f3;
+		XMStoreFloat3(&f3, vector);
+		std::string ret = (std::stringstream() << "(" << f3.x << "," << f3.y << "," << f3.z << ")").str();
+		return ret;
+	}
 }
 ChargeSkill::ChargeSkill(Player* pPlayer):SkillBase(1000, 1, pPlayer, "charge.png")
 {
@@ -66,29 +72,37 @@ void ChargeSkill::startStep(){
 		registration.position_ = this->beginTransform_.position_;
 		registration.length_ = 1.0f;
 		registration.rotate_ = this->beginTransform_.rotate_.y;
-		DamageData dmg(1, ConvFrameToMs(28), 6);
+		DamageData dmg(1, ConvFrameToMs(28), ConvFrameToMs(6));
+		Debug::Log("Activated", true);
+		RegisterHitRange(AttackRangeQuad(registration), dmg, [&](RangeData& range, float dt) {
+			const auto& maxDur = range.dmg_.maxDuration_;
+			const auto& dur = range.dmg_.duration_;
+			const float easeVal = static_cast<float>(EASE::easing(InOutExpo, static_cast<float>((maxDur - dur) / maxDur)));
+			auto quad=dynamic_cast<AttackRangeQuad*>(range.pRange_);
+			// 初期位置
+			XMFLOAT3 beginPosition = beginTransform_.position_ ;
+			// 回転角度をラジアンに変換
+			float rotationRad = XMConvertToRadians(quad->rotate_);
+			// 移動距離
+			float distance = QuadArea.length_ * easeVal;
 
-		//RegisterHitRange(AttackRangeQuad(registration), dmg, [&](RangeData& range, float dt) {
-		//	const auto& maxDur = range.dmg_.maxDuration_;
-		//	const auto& dur = range.dmg_.duration_;
-		//	const float easeVal = static_cast<float>(EASE::easing(InOutExpo, static_cast<float>((maxDur - dur) / maxDur)));
-		//	auto quad=dynamic_cast<AttackRangeQuad*>(range.pRange_);
-		//	// 初期位置
-		//	XMFLOAT3 beginPosition = beginTransform_.position_ ;
-		//	// 回転角度をラジアンに変換
-		//	float rotationRad = XMConvertToRadians(registration.rotate_);
-		//	// 移動距離
-		//	float distance = QuadArea.length_ * easeVal;
+			// 新しい位置を計算
+			XMVECTOR direction = XMVectorSet(sin(rotationRad),0.0f, cos(rotationRad),  0.0f);
+			XMVECTOR beginPosVec = XMLoadFloat3(&beginPosition);
+			XMVECTOR newPosVec = XMVectorAdd(beginPosVec, XMVectorScale(direction, distance));
 
-		//	// 新しい位置を計算
-		//	XMVECTOR direction = XMVectorSet(cos(rotationRad),0.0f, sin(rotationRad),  0.0f);
-		//	XMVECTOR beginPosVec = XMLoadFloat3(&beginPosition);
-		//	XMVECTOR newPosVec = XMVectorAdd(beginPosVec, XMVectorScale(direction, distance));
+			// 新しい位置を XMFLOAT3 に保存
+			XMStoreFloat3(&quad->position_, newPosVec);
 
-		//	// 新しい位置を XMFLOAT3 に保存
-		//	XMStoreFloat3(&quad->position_, newPosVec);
-		//	//Debug::Log("X="+)
-		//});
+			//debug用
+			std::stringstream outputss;
+			outputss << "quad:(" << (*quad).position_.x << ", " << (*quad).position_.z<<")";
+			std::string out = outputss.str();
+			Debug::Log(out,true);
+			/*Debug::Log("rot=" + std::to_string(quad->rotate_), true);
+			Debug::Log("direction = "+vecToString(direction), true);*/
+
+		});
 	}
 	lastForceVec = forceVec;
 }
