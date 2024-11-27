@@ -1,6 +1,6 @@
 #include "SoldierStates.h"
 #include"EnemyBase.h"
-#include"../Engine/Input.h"
+#include"Engine/Input.h"
 #include<string>
 namespace {
 	constexpr float MOVING_VELOCITY = 3.0f;
@@ -32,7 +32,6 @@ void SoldierStateMove::Update(const float& dt)
 	}else {
 		canTransition_ = false;
 	}
-	OutputDebugString(std::string("Target X:" + std::to_string(targetPos.x) + ", Z:" + std::to_string(targetPos.z) + "\n").c_str());
 
 }
 

@@ -1,8 +1,8 @@
 #pragma once
 #include<chrono>
 #include<map>
-#include "../Engine/GameObject.h"
-#include"../Engine/Text.h"
+#include "Engine/GameObject.h"
+#include"Engine/Text.h"
 #include"EnemyType.h"
 
 /// <summary>

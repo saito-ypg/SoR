@@ -1,6 +1,6 @@
 #include "TimeScaleManager.h"
 #include<vector>
-#include"../Engine/GameObject.h"
+#include"Engine/GameObject.h"
 using std::vector;
 namespace {
 	constexpr float PERMANENT_DURATION = -1;

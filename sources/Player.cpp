@@ -1,11 +1,11 @@
 #include<algorithm>
 #include "Player.h"
 #include"Ground.h"
-#include"../Engine/Model.h"
-#include"../Engine/Input.h"
-#include"../Engine/Camera.h"
-#include"../Engine/Global.h"
-#include"../Engine/TimeScaleManager.h"
+#include"Engine/Model.h"
+#include"Engine/Input.h"
+#include"Engine/Camera.h"
+#include"Engine/Global.h"
+#include"Engine/TimeScaleManager.h"
 #include"ModeratorSequence.h"
 namespace {
 	constexpr XMVECTOR NotHitV{ 9999,9999,9999,9999 };
@@ -72,7 +72,8 @@ void Player::ActorUpdate(const float& dt)
 #endif
 	if (Input::IsKey(DIK_A))
 		status_.hp_--;
-
+	if (Input::IsKey(DIK_RIGHT))
+		transform_.rotate_.y++;
 	MoveInput();
 	//Še“ü—Í
 	if (Input::IsMouseButtonDown(0))

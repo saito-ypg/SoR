@@ -1,22 +1,17 @@
 
 #include<vector>
 #include<unordered_map>
-#include"../Engine/global.h"
-#include"../Engine/Debug.h"
+#include"Engine/global.h"
+#include"Engine/Debug.h"
 #include "CollisionManager.h"
 #include"GameActor.h"
 #include"areamodels.h"
-#include"DamageData.h"
+
 
 //各陣営の当たり判定
 namespace {
 	using namespace CollisionManager;
-	struct RangeData {
-		AttackRangeBase* pRange_;
-		std::vector<GameActor*>ExclusionsList_{0};//すでにヒットしたものなど入れておく、判定からは除外
-		DamageData dmg_;
-		RangeData(AttackRangeBase* pR, DamageData dmg) :pRange_(pR),dmg_(dmg){}
-	};
+
 	std::vector<std::vector<actorAddr>>CollisionList(CAMPS::NUM);
 	std::vector<std::vector<RangeData>>RangeTest(CAMPS::NUM);
 	/// <summary>
@@ -30,31 +25,37 @@ namespace {
 	}
 }
 
-void CollisionManager::Update()
+void CollisionManager::Update(const float &dt)
 {
-	for (int camp=0;camp<CAMPS::NUM;camp++)
+	for (int camp=0;camp<CAMPS::NUM;camp++)//陣営2つのループ
 	{
-		for (auto itr = RangeTest.at(camp).begin(); itr != RangeTest.at(camp).end();)//出ている当たり判定全てに判定
+		for (auto itr = RangeTest.at(camp).begin(); itr != RangeTest.at(camp).end();)//それぞれの陣営すべてのループ、
 		{
+
 			for (auto& itrActor : CollisionList.at(((camp)+1) % NUM))//相手の陣営の敵と判定取る
 			{
 				if (std::find(itr->ExclusionsList_.begin(), itr->ExclusionsList_.end(), itrActor.pActor) != itr->ExclusionsList_.end())
-					continue;
+					continue;//除外リスト済みならスルー
 				if (itr->pRange_->IsHit(itrActor))
 				{
-					UnderAttack(itrActor.pActor, itr->dmg_,itr->pRange_ );
+					UnderAttack(itrActor.pActor, itr->dmg_, itr->pRange_);
+					itr->ExclusionsList_.emplace_back(itrActor.pActor);
 				}
 			}
-			itr->dmg_.duration_--;
-			itr->pRange_->AreaTransition();
+
+			itr->dmg_.duration_ -= dt;
+			
 			if (itr->dmg_.duration_ <= 0)
 			{
-			
 				SAFE_DELETE(itr->pRange_);
 				itr = RangeTest.at(camp).erase(itr);
 			}
-			else
+			else {
+				if (auto& f = itr->updateFunc) {//関数オブジェクトが代入されていたら更新
+					f(*itr,dt);
+				}
 				itr++;
+			}
 		}
 	}
 }
@@ -70,22 +71,20 @@ void CollisionManager::AddCamp(::GameActor* newActor, CAMPS camp)
 	CollisionList.at(camp).emplace_back(newActor, ac);
 
 }
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCircle c, DamageData dmg, std::function<void(RangeData&,float)>func)
 {
-	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCircle(c),dmg));
+	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCircle(c),dmg,func));
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeQuad q, DamageData dmg, std::function<void(RangeData& ,float)>func)
 {
-	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeQuad(q), dmg));
+	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeQuad(q), dmg,func ));
 }
 
-void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg)
+void CollisionManager::RegisterHitRange(CAMPS camp, AttackRangeCirculerSector s, DamageData dmg, std::function<void(RangeData&, float)>func)
 {
-	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCirculerSector(s), dmg));
+	RangeTest.at(camp).emplace_back(RangeData(new AttackRangeCirculerSector(s), dmg,func));
 }
-
-
 
 void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 {
@@ -102,7 +101,6 @@ void CollisionManager::RemoveCamp(GameActor*actor,CAMPS camp)
 	}
 
 }
-
 
 void CollisionManager::Release()
 {

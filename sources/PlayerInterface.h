@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
-#include "../Engine/GameObject.h"
-#include"../Engine/Text.h"
+#include "Engine/GameObject.h"
+#include"Engine/Text.h"
 class Player;
 class SkillBase;
 /// <summary>

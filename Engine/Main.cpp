@@ -3,6 +3,7 @@
 
 #define NOMINMAX
 #include <Windows.h>
+#include<windowsx.h>
 #include <stdlib.h>
 #include <assert.h>
 //#include <time.h>
@@ -237,7 +238,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 		//ƒ}ƒEƒX‚ª“®‚¢‚½
 	case WM_MOUSEMOVE:
-		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
+		Input::SetMousePosition(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		return 0;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);

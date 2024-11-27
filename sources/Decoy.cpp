@@ -1,4 +1,4 @@
-#include"../Engine/Model.h"
+#include"Engine/Model.h"
 #include "Decoy.h"
 
 Decoy::Decoy(GameObject* parent, bool isBoss) :EnemyBase(parent,isBoss)
